@@ -1,0 +1,141 @@
+# import the necessary packages
+from skimage.metrics import structural_similarity as compare_images
+import matplotlib.pyplot as plt
+from cv2 import imread, cvtColor, COLOR_BGR2GRAY
+import os
+from sys import exit
+from app_data import legit_extensions # internal lib
+
+
+def find_most_similar_image(source_full_path, target_folder_full_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
+
+    # Init variables
+    source = imread(source_full_path)
+    source = cvtColor(source, COLOR_BGR2GRAY)
+
+    s_height, s_width = source.shape
+
+    most_similar_image = {"file_path": "", "similarity": 0}
+    source_extension = os.path.splitext(source_full_path)
+
+    # Check each file in choosed folder to find this most similar
+    for f in os.listdir(target_folder_full_path):
+
+        # Source extension and file extension should be "png"
+        if f.endswith(source_extension):
+
+            target_path = os.path.join(target_folder_full_path, f)
+            target = imread(target_path)  # load image into memory
+            t_height, t_width, _ = target.shape
+
+            # NOTE: the two images must have the same dimension
+            if s_height == t_height and s_width == t_width:
+
+                target = cvtColor(target, COLOR_BGR2GRAY)  # You have to change target image to gray to calculate similarity
+                similitarity = compare_images(source, target)  # compute the structural similarity SSMI
+
+                # filtering most similar image
+                if most_similar_image["similarity"] < similitarity:
+                    most_similar_image["similarity"] = similitarity
+                    most_similar_image["file_path"] = target_path
+
+    return most_similar_image
+
+
+def files_full_paths(directory):
+
+    # Init variables
+    paths = list()
+
+    # add all images paths to list
+    for file_ in os.listdir(directory):  # check all instances in this directory, but not sub-directories
+
+        full_path = os.path.join(directory, file_)
+
+        if os.path.isfile(full_path) and file_.endswith(tuple(legit_extensions)):  # file_.endswith(tuple(legit_extensions) -> https://stackoverflow.com/questions/22812785/use-endswith-with-multiple-extensions
+            paths.append(full_path)
+
+    return paths
+
+
+def similar_images_list_generator(source_folder, target_folder):
+
+    # Init variables
+    sources_paths = files_full_paths(source_folder)
+    reference_pairs = list()
+
+    # add all similar images pairs to list
+    for source_path in sources_paths:
+
+        source_name = os.path.basename(source_path.replace("\\", "/"))  # .replace("\\", "/") to solve "\\"" Directory path Windows Error
+
+        similar_image = find_most_similar_image(source_path, target_folder)
+
+        reference_pair = {
+            "original_reference_name": source_name,
+            "original_reference_path": source_path,
+            "app_reference_path": similar_image["file_path"],
+            "similarity": similar_image["similarity"]
+        }
+
+        print("Found reference : {}, similarity: {}".format(source_name, similar_image["similarity"]))  # Notice User with searching progress
+        reference_pairs.append(reference_pair)
+
+    return reference_pairs
+
+
+def count_legit_images(directory):
+
+    # count all legit images
+    return len([name for name in os.listdir(directory) if os.path.isfile(os.path.join(directory, name)) and name.endswith(tuple(legit_extensions))])
+
+
+def is_empty(directory):
+
+    # Init variables
+    there_are_files = False
+
+    # check if there is any legit image in directory
+    for file_name in os.listdir(directory):
+
+        full_path = os.path.join(directory, file_name)
+
+        if os.path.isfile(full_path) and file_name.endswith(tuple(legit_extensions)):
+            there_are_files = True
+            break
+
+    return not there_are_files
+
+
+def directories_validation(original_reference_directory_full_path, app_reference_directory_full_path):
+
+    if not os.path.exists(original_reference_directory_full_path):
+        return exit("Directory with original references does not exist")
+
+    if is_empty(original_reference_directory_full_path):
+        return exit("There is no files in Directory with original references")
+
+    if not os.path.exists(app_reference_directory_full_path):
+        return exit("Directory with app references does not exist")
+
+    if is_empty(app_reference_directory_full_path):
+        return exit("There is no files in Directory with app references")
+
+    if count_legit_images(app_reference_directory_full_path) < count_legit_images(original_reference_directory_full_path):
+        return exit('There are more images in "original references" dir than in "app references" dir')
+
+
+def create_similar_images_list(original_reference_directory_full_path, app_reference_directory_full_path):
+
+    directories_validation(original_reference_directory_full_path, app_reference_directory_full_path)
+
+    return similar_images_list_generator(original_reference_directory_full_path, app_reference_directory_full_path)
+
+
+r"""
+app_folder = r'D:\UserData karol\Documents\Tutorials\Image_processing\skimage Compare two images\images\referance'
+
+original_sources = r'D:\UserData karol\Documents\Tutorials\Image_processing\skimage Compare two images\images\original'
+
+print(create_similar_images_list(original_sources, app_folder))
+"""
