@@ -107,29 +107,86 @@ def is_empty(directory):
     return not there_are_files
 
 
+
+def is_file_validation(original_reference_file_path, app_reference_file_path):
+
+    if not os.path.isfile(original_reference_file_path):
+        print("This file is invalid")
+    return
+
+
 def directories_validation(original_reference_directory_full_path, app_reference_directory_full_path):
 
     if not os.path.exists(original_reference_directory_full_path):
         return exit("Directory with original references does not exist")
 
     if is_empty(original_reference_directory_full_path):
-        return exit("There is no files in Directory with original references")
+        return exit("There is no images in Directory with original references")
 
     if not os.path.exists(app_reference_directory_full_path):
         return exit("Directory with app references does not exist")
 
     if is_empty(app_reference_directory_full_path):
-        return exit("There is no files in Directory with app references")
+        return exit("There is no images in Directory with app references")
 
     if count_legit_images(app_reference_directory_full_path) < count_legit_images(original_reference_directory_full_path):
         return exit('There are more images in "original references" dir than in "app references" dir')
 
 
-def create_similar_images_list(original_reference_directory_full_path, app_reference_directory_full_path):
+def create_similar_images_list(original_reference_full_path, app_reference_full_path):
 
-    directories_validation(original_reference_directory_full_path, app_reference_directory_full_path)
+    root_original, ext_original = os.path.splitext(original_reference_full_path)
+    if ext_original:
 
-    return similar_images_list_generator(original_reference_directory_full_path, app_reference_directory_full_path)
+        similar_list = list()
+        original_name = os.path.basename(original_reference_full_path)
+
+        if not os.path.isfile(original_reference_full_path):
+            exit("Original reference image does not exist")
+
+        root_app, ext_app = os.path.splitext(app_reference_full_path)
+        if ext_app:
+            
+            if not os.path.isfile(app_reference_full_path):
+                exit("App image does not exist")
+
+            source = imread(original_reference_full_path)
+            source = cvtColor(source, COLOR_BGR2GRAY)
+
+            target = imread(app_reference_full_path)
+            target = cvtColor(target, COLOR_BGR2GRAY)
+
+            similitarity = compare_images(source, target)  # compute the structural similarity SSMI
+
+            reference_pair = {
+                "original_reference_name": original_name,
+                "original_reference_path": original_reference_full_path,
+                "app_reference_path": app_reference_full_path,
+                "similarity": similitarity
+            }
+            
+
+        else:
+
+            # Give results when it's only one original image and match reference image from many app references
+            similar_image = find_most_similar_image(original_reference_full_path, app_reference_full_path)
+            
+
+            reference_pair = {
+                "original_reference_name": original_name,
+                "original_reference_path": original_reference_full_path,
+                "app_reference_path": similar_image["file_path"],
+                "similarity": similar_image["similarity"]
+            }
+        
+        similar_list.append(reference_pair)
+        return similar_list
+
+    else:
+
+        directories_validation(original_reference_full_path, app_reference_full_path)
+
+    return similar_images_list_generator(original_reference_full_path, app_reference_full_path)
 
 
 r"""

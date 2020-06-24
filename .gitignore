@@ -1,3 +1,7 @@
 # untracked repositories
 images_test/
 .vscode/
+# untracked code
+test.py
+# testing commands
+command_example.txt

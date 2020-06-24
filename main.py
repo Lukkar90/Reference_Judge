@@ -6,6 +6,7 @@ import numpy as np
 import cv2
 import os
 
+
 def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
@@ -86,8 +87,14 @@ def save_images_as_one(images, output_directory, width):
     # User notfication where to search saved image
     print("Saved reference : {} in {}".format(original_name, output_directory))
 
+    # Check if choosed loaction is directory or file like
+    root_dir, ext_dir = os.path.splitext(output_directory)
+    if ext_dir:
+        output_path = output_directory
+    else:
+        output_path = os.path.join(output_directory, original_name)
+
     # Save image into choosed loaction
-    output_path = os.path.join(output_directory, original_name)
     cv2.imwrite(output_path, numpy_horizontal_concat)
 
 
@@ -111,14 +118,17 @@ def main():
             output_directory = None
 
         if len(argv) == 6:
-            width = int(argv[5])
+            width = int(argv[5])  # Input user is width of reference image size
         else:
-            width = 360*6
+            width = 360  # Default
 
-        # Process all images, save each in choosed director
+        
+
+        # Process all images, save each sequence in choosed director
         for similar_pair in similar_list:
 
             images = compute_image_diffrences(similar_pair)
+
             save_images_as_one(images, output_directory, width)
 
     elif mode == "show":
@@ -127,7 +137,7 @@ def main():
         if len(argv) == 5:
             width = int(argv[4])
         else:
-            width = 360
+            width = 360  # Default
 
         # Process all images, show user each sequence one by one
         for similar_pair in similar_list:
