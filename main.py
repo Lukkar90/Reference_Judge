@@ -63,8 +63,47 @@ def show_images(images, width):
     cv2.imshow("Diffrence_Structure", diff)
     cv2.imshow("Thresh", thresh)
 
+def format_path(temp_dir, temp_name, index, temp_ext):
 
-def save_images_as_one(images, output_directory, width):
+    return "{0}/{1}-{2}.{3}".format(temp_dir, temp_name, str(index).zfill(5), temp_ext)  # example_dir_path/file-0000%.ext
+
+
+def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
+    """
+    Finds the next free path in an sequentially named list of files
+
+    e.g. path_pattern = 'file-%s.txt':
+
+    file-1.txt
+    file-2.txt
+    file-3.txt
+
+    Runs in log(n) time where n is the number of existing files in sequence
+    """
+
+    temp_dir = os.path.dirname(path_pattern)
+    temp_full_name = os.path.basename(path_pattern)
+    temp_name, temp_ext = temp_full_name.split('.', 1)  # https://stackoverflow.com/a/6670331/12490791
+
+    i = 1
+
+    # print("{0}{1}-{2}.{3}".format(temp_dir, temp_name, i, temp_ext))
+
+    # First do an exponential search
+    while os.path.exists(format_path(temp_dir, temp_name, i, temp_ext)):
+        i = i * 2
+
+    # Result lies somewhere in the interval (i/2..i]
+    # We call this interval (a..b] and narrow it down until a + 1 = b
+    a, b = (i // 2, i)
+    while a + 1 < b:
+        c = (a + b) // 2 # interval midpoint
+        a, b = (c, b) if os.path.exists(format_path(temp_dir, temp_name, c, temp_ext)) else (a, c)
+
+    return format_path(temp_dir, temp_name, b, temp_ext).replace("\\", "/")  # .replace("\\", "/") to make path string more consistent
+
+
+def save_images_as_one(images, output_path, width):
 
     # Resize to default value or custom
     images = resize_all(images, width)
@@ -84,15 +123,17 @@ def save_images_as_one(images, output_directory, width):
     # Combining all images into one
     numpy_horizontal_concat = np.concatenate([original, modified, diff_BGR, diff, thresh], axis=1)
 
-    # User notfication where to search saved image
-    print("Saved reference : {} in {}".format(original_name, output_directory))
-
-    # Check if choosed loaction is directory or file like
-    root_dir, ext_dir = os.path.splitext(output_directory)
-    if ext_dir:
-        output_path = output_directory
+    # Check if choosed loaction is file like
+    root_dir, ext_file = os.path.splitext(output_path)
+    # If it is dir path
+    if not ext_file:
+        output_path = os.path.join(output_path, original_name)
     else:
-        output_path = os.path.join(output_directory, original_name)
+        if os.path.exists(output_path):
+            output_path = next_path(output_path)
+
+    # User notfication where to search saved image
+    print("Saved reference : {} in {}".format(original_name, output_path))
 
     # Save image into choosed loaction
     cv2.imwrite(output_path, numpy_horizontal_concat)
@@ -113,9 +154,9 @@ def main():
 
         # Optional args
         if len(argv) >= 5:
-            output_directory = argv[4]
+            output_path = argv[4]
         else:
-            output_directory = None
+            output_path = None
 
         if len(argv) == 6:
             width = int(argv[5])  # Input user is width of reference image size
@@ -129,7 +170,7 @@ def main():
 
             images = compute_image_diffrences(similar_pair)
 
-            save_images_as_one(images, output_directory, width)
+            save_images_as_one(images, output_path, width)
 
     elif mode == "show":
 
