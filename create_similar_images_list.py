@@ -113,7 +113,7 @@ def is_empty(directory):
 def is_file_validation(original_reference_file_path, app_reference_file_path):
 
     if not os.path.isfile(original_reference_file_path):
-        print("This file is invalid")
+        print(" This file is invalid")
     return
 
 
@@ -139,6 +139,10 @@ def directories_validation(original_reference_directory_full_path, app_reference
 
 
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
+
+    # Checking if paths/url are not the same
+    if original_reference_full_path == app_reference_full_path:
+        exit("Both files have the same path")
 
     root_original, ext_original = os.path.splitext(original_reference_full_path)
     # if orginal image is file, not dir
@@ -187,6 +191,7 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
 
                 target = imread(app_reference_full_path)
                 target = cvtColor(target, COLOR_BGR2GRAY)
+
 
             similitarity = compare_images(source, target)  # compute the structural similarity SSMI
 
