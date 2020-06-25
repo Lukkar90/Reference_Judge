@@ -136,7 +136,7 @@ def directories_validation(original_reference_directory_full_path, app_reference
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
 
     root_original, ext_original = os.path.splitext(original_reference_full_path)
-    if ext_original:
+    if ext_original:  # if orginal image is file, not dir
 
         similar_list = list()
         original_name = os.path.basename(original_reference_full_path)
@@ -145,7 +145,7 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
             exit("Original reference image does not exist")
 
         root_app, ext_app = os.path.splitext(app_reference_full_path)
-        if ext_app:
+        if ext_app:  # if app image is file, not dir
             
             if not os.path.isfile(app_reference_full_path):
                 exit("App image does not exist")
