@@ -4,11 +4,9 @@ import matplotlib.pyplot as plt
 from cv2 import imread, cvtColor, COLOR_BGR2GRAY
 import os
 from sys import exit
+
 from app_data import legit_extensions # internal lib
-from urllib.parse import urlparse
-import urllib.request
-import numpy as np
-import cv2
+from utlis import url_to_image, uri_validator  # internal lib
 
 
 def find_most_similar_image(source_full_path, target_folder_full_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
@@ -135,24 +133,6 @@ def directories_validation(original_reference_directory_full_path, app_reference
 
     if count_legit_images(app_reference_directory_full_path) < count_legit_images(original_reference_directory_full_path):
         return exit('There are more images in "original references" dir than in "app references" dir')
-
-
-def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/
-	# download the image, convert it to a NumPy array, and then read
-	# it into OpenCV format
-	resp = urllib.request.urlopen(url)
-	image = np.asarray(bytearray(resp.read()), dtype="uint8")
-	image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-	# return the image
-	return image
-
-
-def uri_validator(x):  # https://stackoverflow.com/a/38020041/12490791
-    try:
-        result = urlparse(x)
-        return all([result.scheme, result.netloc, result.path])
-    except:
-        return False
 
 
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
