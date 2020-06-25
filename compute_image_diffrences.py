@@ -20,13 +20,13 @@ def compute_image_diffrences(similar_pair):  # https://www.pyimagesearch.com/201
 
 	# load the two input images
 	if uri_validator(paths["first"]):
-		print("A")
+		
 		imageA = url_to_image(paths["first"])
 	else:
 		imageA = cv2.imread(paths["first"])
 
 	if uri_validator(paths["second"]):
-		print("B")
+
 		imageB = url_to_image(paths["second"])
 	else:
 		imageB = cv2.imread(paths["second"])

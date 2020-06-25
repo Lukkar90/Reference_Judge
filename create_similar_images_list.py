@@ -119,20 +119,23 @@ def is_file_validation(original_reference_file_path, app_reference_file_path):
 
 def directories_validation(original_reference_directory_full_path, app_reference_directory_full_path):
 
+    if app_reference_directory_full_path == original_reference_directory_full_path:
+        exit('"original references" and "app references" directories are the same')
+
     if not os.path.exists(original_reference_directory_full_path):
-        return exit("Directory with original references does not exist")
+        exit("Directory with original references does not exist")
 
     if is_empty(original_reference_directory_full_path):
-        return exit("There is no images in Directory with original references")
+        exit("There is no images in Directory with original references")
 
     if not os.path.exists(app_reference_directory_full_path):
-        return exit("Directory with app references does not exist")
+        exit("Directory with app references does not exist")
 
     if is_empty(app_reference_directory_full_path):
-        return exit("There is no images in Directory with app references")
+        exit("There is no images in Directory with app references")
 
     if count_legit_images(app_reference_directory_full_path) < count_legit_images(original_reference_directory_full_path):
-        return exit('There are more images in "original references" dir than in "app references" dir')
+        exit('There are more images in "original references" dir than in "app references" dir')
 
 
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
