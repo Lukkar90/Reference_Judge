@@ -113,36 +113,36 @@ def is_empty(directory):
 def is_file_validation(original_reference_file_path, app_reference_file_path):
 
     if not os.path.isfile(original_reference_file_path):
-        print(" This file is invalid")
+        print("Error: This file is invalid")
     return
 
 
 def directories_validation(original_reference_directory_full_path, app_reference_directory_full_path):
 
     if app_reference_directory_full_path == original_reference_directory_full_path:
-        exit('"original references" and "app references" directories are the same')
+        exit('Error: "original references" and "app references" directories are the same')
 
     if not os.path.exists(original_reference_directory_full_path):
-        exit("Directory with original references does not exist")
+        exit("Error: Directory with original references does not exist")
 
     if is_empty(original_reference_directory_full_path):
-        exit("There is no images in Directory with original references")
+        exit("Error: There is no images in Directory with original references")
 
     if not os.path.exists(app_reference_directory_full_path):
-        exit("Directory with app references does not exist")
+        exit("Error: Directory with app references does not exist")
 
     if is_empty(app_reference_directory_full_path):
-        exit("There is no images in Directory with app references")
+        exit("Error: There is no images in Directory with app references")
 
     if count_legit_images(app_reference_directory_full_path) < count_legit_images(original_reference_directory_full_path):
-        exit('There are more images in "original references" dir than in "app references" dir')
+        exit('Error: There are more images in "original references" dir than in "app references" dir')
 
 
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
 
     # Checking if paths/url are not the same
     if original_reference_full_path == app_reference_full_path:
-        exit("Both files have the same path")
+        exit("Error: Both files have the same path")
 
     root_original, ext_original = os.path.splitext(original_reference_full_path)
     # if orginal image is file, not dir
@@ -158,7 +158,7 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
             original_name = os.path.basename(original_reference_full_path)
 
             if not os.path.isfile(original_reference_full_path):
-                exit("Original reference image does not exist")
+                exit("Error: Original reference image does not exist")
 
 
         root_app, ext_app = os.path.splitext(app_reference_full_path)
@@ -180,7 +180,7 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
             else:
 
                 if not os.path.isfile(app_reference_full_path):
-                    exit("App image does not exist")
+                    exit("Error: App image does not exist")
 
                 if uri_validator(original_reference_full_path):
                     source = url_to_image(original_reference_full_path)
