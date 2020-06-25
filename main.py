@@ -1,6 +1,6 @@
 from sys import argv
-from create_similar_images_list import create_similar_images_list
-from compute_image_diffrences import compute_image_diffrences
+from create_similar_images_list import create_similar_images_list  # internal lib
+from compute_image_diffrences import compute_image_diffrences  # internal lib
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
@@ -86,8 +86,6 @@ def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
     temp_name, temp_ext = temp_full_name.split('.', 1)  # https://stackoverflow.com/a/6670331/12490791
 
     i = 1
-
-    # print("{0}{1}-{2}.{3}".format(temp_dir, temp_name, i, temp_ext))
 
     # First do an exponential search
     while os.path.exists(format_path(temp_dir, temp_name, i, temp_ext)):

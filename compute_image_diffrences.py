@@ -4,6 +4,27 @@ import argparse
 import imutils
 import cv2
 
+from urllib.parse import urlparse
+import urllib.request
+import numpy as np
+
+def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/
+	# download the image, convert it to a NumPy array, and then read
+	# it into OpenCV format
+	resp = urllib.request.urlopen(url)
+	image = np.asarray(bytearray(resp.read()), dtype="uint8")
+	image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+	# return the image
+	return image
+
+
+def uri_validator(x):  # https://stackoverflow.com/a/38020041/12490791
+    try:
+        result = urlparse(x)
+        return all([result.scheme, result.netloc, result.path])
+    except:
+        return False
+
 
 def compute_image_diffrences(similar_pair):  # https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/
 
@@ -16,10 +37,16 @@ def compute_image_diffrences(similar_pair):  # https://www.pyimagesearch.com/201
 	# Upload name which would be used to save file in output directory
 	original_name = similar_pair["original_reference_name"]
 
-
 	# load the two input images
-	imageA = cv2.imread(paths["first"])
-	imageB = cv2.imread(paths["second"])
+	if uri_validator(paths["first"]):
+		imageA = url_to_image(paths["first"])
+	else:
+		imageA = cv2.imread(paths["first"])
+
+	if uri_validator(paths["second"]):
+		imageB = url_to_image(paths["second"])
+	else:
+		imageB = cv2.imread(paths["second"])
 
 	# compute diffrence between imageA and imageB in BGR
 	diff_BGR = cv2.subtract(imageA, imageB)
