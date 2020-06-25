@@ -162,7 +162,6 @@ def main():
             width = 360  # Default
 
         
-
         # Process all images, save each sequence in choosed director
         for similar_pair in similar_list:
 

@@ -8,6 +8,15 @@ from sys import exit
 from app_data import legit_extensions # internal lib
 from utlis import url_to_image, uri_validator  # internal lib
 
+class Reference_pair:
+    def __init__(self, source_name, source_path, file_path, similarity):
+        self.dictonary = {
+            "original_reference_name": source_name,
+            "original_reference_path": source_path,
+            "app_reference_path": file_path,
+            "similarity": similarity
+        }
+
 
 def find_most_similar_image(source_full_path, target_folder_full_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
 
@@ -69,16 +78,11 @@ def similar_images_list_generator(source_folder, target_folder):
     # add all similar images pairs to list
     for source_path in sources_paths:
 
-        source_name = os.path.basename(source_path.replace("\\", "/"))  # .replace("\\", "/") to solve "\\"" Directory path Windows Error
+        source_name = os.path.basename
 
         similar_image = find_most_similar_image(source_path, target_folder)
 
-        reference_pair = {
-            "original_reference_name": source_name,
-            "original_reference_path": source_path,
-            "app_reference_path": similar_image["file_path"],
-            "similarity": similar_image["similarity"]
-        }
+        reference_pair = Reference_pair(source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictonary
 
         print("Found reference : {}, similarity: {}".format(source_name, similar_image["similarity"]))  # Notice User with searching progress
         reference_pairs.append(reference_pair)
@@ -192,30 +196,18 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
                 target = imread(app_reference_full_path)
                 target = cvtColor(target, COLOR_BGR2GRAY)
 
-
             similitarity = compare_images(source, target)  # compute the structural similarity SSMI
 
-            reference_pair = {
-                "original_reference_name": original_name,
-                "original_reference_path": original_reference_full_path,
-                "app_reference_path": app_reference_full_path,
-                "similarity": similitarity
-            }
+            reference_pair = Reference_pair(original_name, original_reference_full_path, app_reference_full_path, similitarity).dictonary
         else:
 
             # Give results when it's only one original image and match reference image from many app references
             similar_image = find_most_similar_image(original_reference_full_path, app_reference_full_path)
             
-
-            reference_pair = {
-                "original_reference_name": original_name,
-                "original_reference_path": original_reference_full_path,
-                "app_reference_path": similar_image["file_path"],
-                "similarity": similar_image["similarity"]
-            }
+            reference_pair = Reference_pair(original_name, original_reference_full_path, similar_image["file_path"], similar_image["similarity"]).dictonary
         
 
-        similar_list.append(reference_pair)
+        similar_list.append(reference_pair)  # It can't be before "return", becouse if you have only one element in index, it wouldn't be iterable
         return similar_list
 
     else:
