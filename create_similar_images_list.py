@@ -21,7 +21,10 @@ class Reference_pair:
 def find_most_similar_image(source_full_path, target_folder_full_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
 
     # Init variables
-    source = imread(source_full_path)
+    if uri_validator(source_full_path):
+        source = url_to_image(source_full_path)
+    else:
+        source = imread(source_full_path)
     source = cvtColor(source, COLOR_BGR2GRAY)
 
     s_height, s_width = source.shape
@@ -78,7 +81,7 @@ def similar_images_list_generator(source_folder, target_folder):
     # add all similar images pairs to list
     for source_path in sources_paths:
 
-        source_name = os.path.basename
+        source_name = os.path.basename(source_path)
 
         similar_image = find_most_similar_image(source_path, target_folder)
 
@@ -148,11 +151,14 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
     if original_reference_full_path == app_reference_full_path:
         exit("Error: Both files have the same path")
 
-    root_original, ext_original = os.path.splitext(original_reference_full_path)
+    if os.path.isdir(original_reference_full_path) and os.path.isfile(app_reference_full_path):
+        exit("Error: Original reference path can't be directory, if app reference is only one file path")
+
+    ext_original = os.path.splitext(original_reference_full_path)[1]
     # if orginal image is file, not dir
     if ext_original:
 
-        return return_one_pair(original_reference_full_path, app_reference_full_path)
+        return return_one_ref_pair(original_reference_full_path, app_reference_full_path)
 
     else:
 
@@ -160,18 +166,14 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
 
         return similar_images_list_generator(original_reference_full_path, app_reference_full_path)
 
-def return_one_pair(original_reference_full_path, app_reference_full_path):
+def return_one_ref_pair(original_reference_full_path, app_reference_full_path):
 
     similar_list = list()
 
     original_name = os.path.basename(original_reference_full_path)
 
-    if not os.path.isfile(original_reference_full_path):
-        exit("Error: Original reference image does not exist")
-
-
-    root_app, ext_app = os.path.splitext(app_reference_full_path)
-    # if app image is file, not dir
+    ext_app = os.path.splitext(app_reference_full_path)[1]
+    # if app image is single file, not dir
     if ext_app:
 
         if uri_validator(app_reference_full_path):
@@ -180,6 +182,8 @@ def return_one_pair(original_reference_full_path, app_reference_full_path):
                 source = url_to_image(original_reference_full_path)
                 source = cvtColor(source, COLOR_BGR2GRAY)
             else:
+                if not os.path.isfile(original_reference_full_path):
+                    exit("Error: Original reference image does not exist")
                 source = imread(original_reference_full_path)
                 source = cvtColor(source, COLOR_BGR2GRAY)
 
@@ -188,13 +192,15 @@ def return_one_pair(original_reference_full_path, app_reference_full_path):
 
         else:
 
-            if not os.path.isfile(app_reference_full_path):
-                exit("Error: App image does not exist")
-
             if uri_validator(original_reference_full_path):
                 source = url_to_image(original_reference_full_path)
             else:
+                if not os.path.isfile(original_reference_full_path):
+                    exit("Error: Original reference image does not exist")
                 source = imread(original_reference_full_path)
+
+            if not os.path.isfile(app_reference_full_path):
+                exit("Error: App image does not exist")
 
             source = cvtColor(source, COLOR_BGR2GRAY)
 
@@ -212,7 +218,7 @@ def return_one_pair(original_reference_full_path, app_reference_full_path):
         reference_pair = Reference_pair(original_name, original_reference_full_path, similar_image["file_path"], similar_image["similarity"]).dictonary
 
 
-    similar_list.append(reference_pair)  # It can't be before "return", becouse if you have only one element in index, it wouldn't be iterable
+    similar_list.append(reference_pair)  # It can't be before "return", becouse if you have only one element in index, it wouldn't be iterable 
     return similar_list
 
 
