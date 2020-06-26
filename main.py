@@ -11,11 +11,45 @@ def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
 
+    if len(argv) == 2 and argv[1] == "help":
+        print("\n"
+            "On desktop:\n"
+            " save:\n"
+            f"  python {program_name} path_dir path_dir -save path_dir\n"
+            f"  python {program_name} path_dir path_dir -save path_file\n"
+            f"  python {program_name} path_file path_dir -save path_dir\n"
+            f"  python {program_name} path_file path_file -save path_dir *\n"
+            f"  python {program_name} path_file path_file -save path_file *\n"
+            "\n"
+            " show:\n"
+            f"  python {program_name} path_dir path_dir -show\n"
+            f"  python {program_name} path_file path_dir -show\n"
+            f"  python {program_name} path_file path_file -show *\n"
+            "\n"
+            "HTTPS:\n"
+            " save:\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_dir *\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_file *\n"
+            f"  python {program_name} https/address.com/image.img path_dir -save path_dir\n"
+            f"  python {program_name} https/address.com/image.img path_dir -save path_file\n"
+            f"  python {program_name} path_file https/address.com/image.img -save path_dir *\n"
+            f"  python {program_name} path_file https/address.com/image.img -save path_file *\n"
+            "\n"
+            " show:\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img -show *\n"
+            f"  python {program_name} path_file https/address.com/image.img -show *\n"
+            f"  python {program_name} https/address.com/image.img path_file -show *\n"
+            f"  python {program_name} https/address.com/image.img path_dir -show\n"
+            "\n"
+            " * images have to be the same size"
+            )
+        exit(1)
+        
     #  argv[0] == program name, argv[1] == data.csv
-    if len(argv) < 3 or len(argv) > 6:
-        print(f"Usage: python {program_name} <directory_orignal_refs> <directory_app_refs> <mode> [directory_diffrences_output] [width]")  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+    elif len(argv) < 3 or len(argv) > 6:
+        print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <-mode> [directory_diffrences_output] [width]")  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
         print("For more information:")
-        print(f"Usage: python {program_name} help")
+        print(f"Usage: python {program_name} -help")
         exit(1)
 
 
@@ -148,7 +182,7 @@ def main():
 
     similar_list = create_similar_images_list(original_ref_path, app_ref_path)
 
-    if mode == "save":
+    if mode == "-save":
 
         # Optional args
         if len(argv) >= 5:
@@ -169,7 +203,7 @@ def main():
 
             save_images_as_one(images, output_path, width)
 
-    elif mode == "show":
+    elif mode == "-show":
 
         # Optional arg
         if len(argv) == 5:
