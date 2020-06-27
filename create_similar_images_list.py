@@ -155,6 +155,7 @@ def create_similar_images_list(original_reference_full_path, app_reference_full_
     if original_reference_full_path == app_reference_full_path:
         exit("Error: Both files have the same path")
 
+    # Checking if many files will be compared to one
     if os.path.isdir(original_reference_full_path) and os.path.isfile(app_reference_full_path):
         exit("Error: Original reference path can't be directory, if app reference is only one file path")
 
