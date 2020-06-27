@@ -15,31 +15,31 @@ def check_if_argv_is_correct(argv):
         print("\n"
             "On desktop:\n"
             " save:\n"
-            f"  python {program_name} path_dir path_dir -save path_dir\n"
-            f"  python {program_name} path_dir path_dir -save path_file\n"
-            f"  python {program_name} path_file path_dir -save path_dir\n"
-            f"  python {program_name} path_file path_file -save path_dir *\n"
-            f"  python {program_name} path_file path_file -save path_file *\n"
+            f"  python {program_name} path_dir path_dir -save path_dir [px]\n"
+            f"  python {program_name} path_dir path_dir -save path_file [px]\n"
+            f"  python {program_name} path_file path_dir -save path_dir [px]\n"
+            f"  python {program_name} path_file path_file -save path_dir [px] *\n"
+            f"  python {program_name} path_file path_file -save path_file [px] *\n"
             "\n"
             " show:\n"
-            f"  python {program_name} path_dir path_dir -show\n"
-            f"  python {program_name} path_file path_dir -show\n"
-            f"  python {program_name} path_file path_file -show *\n"
+            f"  python {program_name} path_dir path_dir -show [px]\n"
+            f"  python {program_name} path_file path_dir -show [px]\n"
+            f"  python {program_name} path_file path_file -show [px] *\n"
             "\n"
             "HTTPS:\n"
             " save:\n"
-            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_dir *\n"
-            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_file *\n"
-            f"  python {program_name} https/address.com/image.img path_dir -save path_dir\n"
-            f"  python {program_name} https/address.com/image.img path_dir -save path_file\n"
-            f"  python {program_name} path_file https/address.com/image.img -save path_dir *\n"
-            f"  python {program_name} path_file https/address.com/image.img -save path_file *\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_dir [px] *\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_file [px] *\n"
+            f"  python {program_name} https/address.com/image.img path_dir -save path_dir [px]\n"
+            f"  python {program_name} https/address.com/image.img path_dir -save path_file [px]\n"
+            f"  python {program_name} path_file https/address.com/image.img -save path_dir [px] *\n"
+            f"  python {program_name} path_file https/address.com/image.img -save path_file [px] *\n"
             "\n"
             " show:\n"
-            f"  python {program_name} https/address.com/image.img https/address.com/image.img -show *\n"
-            f"  python {program_name} path_file https/address.com/image.img -show *\n"
-            f"  python {program_name} https/address.com/image.img path_file -show *\n"
-            f"  python {program_name} https/address.com/image.img path_dir -show\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img -show [px] *\n"
+            f"  python {program_name} path_file https/address.com/image.img -show [px] *\n"
+            f"  python {program_name} https/address.com/image.img path_file -show [px] *\n"
+            f"  python {program_name} https/address.com/image.img path_dir -show [px]\n"
             "\n"
             " * images have to be the same size"
             )
@@ -47,9 +47,9 @@ def check_if_argv_is_correct(argv):
         
     #  argv[0] == program name, argv[1] == data.csv
     elif len(argv) < 3 or len(argv) > 6:
-        print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <-mode> [directory_diffrences_output] [width]")  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-        print("For more information:")
-        print(f"Usage: python {program_name} -help")
+        print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <-mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+            "For more information:\n"
+            f"Usage: python {program_name} help")
         exit(1)
 
 
