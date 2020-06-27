@@ -147,10 +147,9 @@ def directories_validation(original_reference_directory_full_path, app_reference
 
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
 
+    # Get rid of "/" or "\", if User mistakenly add it at the end of string
     original_reference_full_path.rstrip('\\').rstrip('/')
     app_reference_full_path.rstrip('\\').rstrip('/')
-    print(original_reference_full_path)
-    print(app_reference_full_path)
 
     # Checking if paths/url are not the same
     if original_reference_full_path == app_reference_full_path:
@@ -178,43 +177,12 @@ def return_one_ref_pair(original_reference_full_path, app_reference_full_path):
     original_name = os.path.basename(original_reference_full_path)
 
     ext_app = os.path.splitext(app_reference_full_path)[1]
-    # if app image is single file, not dir
+    # if app image and orginal image are single file
     if ext_app:
 
-        if uri_validator(app_reference_full_path):
+        reference_pair = both_single_paths(original_reference_full_path, app_reference_full_path, original_name)
 
-            if uri_validator(original_reference_full_path):
-                source = url_to_image(original_reference_full_path)
-                source = cvtColor(source, COLOR_BGR2GRAY)
-            else:
-                if not os.path.isfile(original_reference_full_path):
-                    exit("Error: Original reference image does not exist")
-                source = imread(original_reference_full_path)
-                source = cvtColor(source, COLOR_BGR2GRAY)
-
-            target = url_to_image(app_reference_full_path)
-            target = cvtColor(target, COLOR_BGR2GRAY)
-
-        else:
-
-            if uri_validator(original_reference_full_path):
-                source = url_to_image(original_reference_full_path)
-            else:
-                if not os.path.isfile(original_reference_full_path):
-                    exit("Error: Original reference image does not exist")
-                source = imread(original_reference_full_path)
-
-            if not os.path.isfile(app_reference_full_path):
-                exit("Error: App image does not exist")
-
-            source = cvtColor(source, COLOR_BGR2GRAY)
-
-            target = imread(app_reference_full_path)
-            target = cvtColor(target, COLOR_BGR2GRAY)
-
-        similitarity = compare_images(source, target)  # compute the structural similarity SSMI
-
-        reference_pair = Reference_pair(original_name, original_reference_full_path, app_reference_full_path, similitarity).dictonary
+    # if orginal image is single file
     else:
 
         # Give results when it's only one original image and match reference image from many app references
@@ -226,6 +194,36 @@ def return_one_ref_pair(original_reference_full_path, app_reference_full_path):
     similar_list.append(reference_pair)  # It can't be before "return", becouse if you have only one element in index, it wouldn't be iterable 
     return similar_list
 
+
+def path_to_image(path, reference_type_name):
+
+    if uri_validator(path):
+        # original as url
+        image = url_to_image(path)
+
+    else:
+        # original as file
+        if not os.path.isfile(path):
+            exit(f"Error: {reference_type_name} image does not exist")
+        image = imread(path)
+
+    return image
+
+
+def both_single_paths(original_reference, app_reference, original_name):
+
+    source = path_to_image(original_reference, "Original reference")
+    target = path_to_image(app_reference, "App reference")
+
+    # change image to b&w to calculate similarity
+    source = cvtColor(source, COLOR_BGR2GRAY)
+    target = cvtColor(target, COLOR_BGR2GRAY)
+
+    # compute the structural similarity SSMI
+    similitarity = compare_images(source, target)
+
+    reference_pair = Reference_pair(original_name, original_reference, app_reference, similitarity).dictonary
+    return reference_pair
 
 r"""
 app_folder = r'D:\UserData karol\Documents\Tutorials\Image_processing\skimage Compare two images\images\referance'
