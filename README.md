@@ -30,3 +30,4 @@ It checks if images input are similar to references and gives visual output to t
   python reference-judge.py https/address.com/image.img path_dir -show [px]<br/>
 <br/>
 * images have to be the same size<br/>
+[px] is optional value of width of each image
