@@ -147,6 +147,11 @@ def directories_validation(original_reference_directory_full_path, app_reference
 
 def create_similar_images_list(original_reference_full_path, app_reference_full_path):
 
+    original_reference_full_path.rstrip('\\').rstrip('/')
+    app_reference_full_path.rstrip('\\').rstrip('/')
+    print(original_reference_full_path)
+    print(app_reference_full_path)
+
     # Checking if paths/url are not the same
     if original_reference_full_path == app_reference_full_path:
         exit("Error: Both files have the same path")
