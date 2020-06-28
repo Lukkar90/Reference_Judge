@@ -1,7 +1,10 @@
+# python libs
+from urllib.parse import urlparse
+
+# external libs
 import numpy as np
 import urllib.request
 import cv2
-from urllib.parse import urlparse
 
 def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/
 	# download the image, convert it to a NumPy array, and then read
@@ -14,7 +17,7 @@ def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-t
 	return image
 
 
-def uri_validator(x):  # https://stackoverflow.com/a/38020041/12490791
+def uri_validator(x):  # https://stackoverflow.com/questions/7160737/python-how-to-validate-a-url-in-python-malformed-or-not
     try:
         result = urlparse(x)
         return all([result.scheme, result.netloc, result.path])

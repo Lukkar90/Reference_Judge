@@ -1,12 +1,15 @@
-# import the necessary packages
-from skimage.metrics import structural_similarity as compare_images
-import matplotlib.pyplot as plt
-from cv2 import imread, cvtColor, COLOR_BGR2GRAY
+# python libs
 import os
 from sys import exit
 
-from app_data import legit_extensions # internal lib
-from utlis import url_to_image, uri_validator  # internal lib
+# external libs
+import matplotlib.pyplot as plt
+from skimage.metrics import structural_similarity as compare_images
+from cv2 import imread, cvtColor, COLOR_BGR2GRAY
+
+# internal libs
+from app_data import legit_extensions
+from utlis import url_to_image, uri_validator
 
 class Reference_pair:
     def __init__(self, source_name, source_path, file_path, similarity):
