@@ -1,6 +1,9 @@
 # Reference-Judge
 It checks if images input are similar to references and gives visual output to the User
 
+# Usage
+python reference-judge.py &lt;orignal_reference_path&gt; &lt;app_reference_path&gt; <-mode> [directory_diffrences_output] [width]
+
 ## On desktop:
 ### save:
   python reference-judge.py path_dir path_dir -save path_dir [px]<br/>

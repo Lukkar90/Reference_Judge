@@ -1,10 +1,15 @@
+# python libs
 from sys import argv
-from create_similar_images_list import create_similar_images_list  # internal lib
-from compute_image_diffrences import compute_image_diffrences  # internal lib
+import os
+
+# external libs
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
-import os
+
+# internal libs
+from create_similar_images_list import create_similar_images_list
+from compute_image_diffrences import compute_image_diffrences
 
 
 def check_if_argv_is_correct(argv):
