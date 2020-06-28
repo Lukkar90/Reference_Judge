@@ -12,10 +12,10 @@ from create_similar_images_list import create_similar_images_list
 from compute_image_diffrences import compute_image_diffrences
 
 
-def check_if_argv_is_correct(argv):
+def program_help(argv):
 
     program_name = argv[0]
-
+    
     if len(argv) == 2 and argv[1] == "help":
         print("\n"
             "On desktop:\n"
@@ -49,9 +49,13 @@ def check_if_argv_is_correct(argv):
             " * images have to be the same size"
             )
         exit(1)
-        
+
+
+def check_if_argv_is_correct(argv):
+
+    program_name = argv[0]
     
-    elif len(argv) < 3 or len(argv) > 6:
+    if len(argv) < 3 or len(argv) > 6:
         print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <-mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
             "For more information:\n"
             f"python {program_name} help")
@@ -178,6 +182,7 @@ def save_images_as_one(images, output_path, width):
 
 def main():
 
+    program_help(argv)
     check_if_argv_is_correct(argv)
 
     # Init variables
