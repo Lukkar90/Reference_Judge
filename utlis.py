@@ -17,7 +17,7 @@ def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-t
 	return image
 
 
-def uri_validator(x):  # https://stackoverflow.com/a/38020041/12490791
+def uri_validator(x):  # https://stackoverflow.com/questions/7160737/python-how-to-validate-a-url-in-python-malformed-or-not
     try:
         result = urlparse(x)
         return all([result.scheme, result.netloc, result.path])
