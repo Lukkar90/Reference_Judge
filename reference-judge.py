@@ -50,7 +50,7 @@ def check_if_argv_is_correct(argv):
             )
         exit(1)
         
-    #  argv[0] == program name, argv[1] == data.csv
+    
     elif len(argv) < 3 or len(argv) > 6:
         print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <-mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
             "For more information:\n"
