@@ -96,6 +96,21 @@ def show_images(images, width):
     cv2.imshow("Thresh", thresh)
 
 
+def dir_from_path(path):
+
+    if not os.path.isdir(path):
+        path = os.path.dirname(path)
+    return path
+
+
+def dir_exists(path):
+
+    # Get dir path from file path
+	path = dir_from_path(path)
+
+	return os.path.exists(path)
+
+
 def save_images_as_one(images, output_path, width):
 
     # Resize to default value or custom
@@ -119,6 +134,10 @@ def save_images_as_one(images, output_path, width):
     # Check if choosed loaction is file like
     ext_file = os.path.splitext(output_path)[1]
 
+    # Check if dir exists
+    if not dir_exists(output_path):
+        exit(f"Error: Directory doesn't exists: {dir_from_path(output_path)}")
+
     # When output file has not defined name, only dir
     if not ext_file:
         output_path = os.path.join(output_path, original_name)
@@ -135,18 +154,17 @@ def save_images_as_one(images, output_path, width):
 
 def get_rid_end_slashes(path):  # It can be used only to the last argument
     # Get rid of "/" or "\", if User mistakenly add it at the end of string
-    return path.rstrip('/\\')
+    return path.rstrip('/\\\"\'')
 
 
 def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
     
-    if len(argv) < 3 or len(argv) > 6:
-        print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+    if not (len(argv) == 2 or (len(argv) >= 4 and len(argv) <= 6)):
+        exit(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
             "For more information:\n"
             f"python {program_name} --help")
-        exit(1)
 
 
 def program_help(argv):
@@ -154,7 +172,7 @@ def program_help(argv):
     program_name = argv[0]
     
     if len(argv) == 2 and argv[1] == "--help":
-        print("\n"
+        exit("\n"
             "On desktop:\n"
             " save:\n"
             f"  python {program_name} path_dir path_dir --save path_dir [px]\n"
@@ -186,20 +204,25 @@ def program_help(argv):
             " * images have to be the same size"
             " [px] is optional value of width of each image"
             )
-        exit(1)
+    elif len(argv) == 2:
+        exit(f"Error: invalid 1st argument. Avaible usage: python {program_name} --help")
 
 
 def main():
 
-    program_help(argv)
     check_if_argv_is_correct(argv)
+    program_help(argv)
 
     # Init variables
-    original_ref_path = argv[1]
-    app_ref_path = argv[2]
+    original_ref_path = get_rid_end_slashes(argv[1])
+    app_ref_path = get_rid_end_slashes(argv[2])
 
-    # print(app_ref_path)
+    if not (argv[3] == "--save" or argv[3] == "--show"):
+        exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save"')
     mode = argv[3]
+
+    if mode == "--save" and len(argv) < 5:
+        exit("Error: No output path")
 
     similar_list = create_similar_images_list(original_ref_path, app_ref_path)
 
@@ -212,6 +235,7 @@ def main():
             output_path = None
 
         if len(argv) == 6:
+
             width = int(argv[5])  # Input user is width of reference image size
         else:
             width = 360  # Default
@@ -228,7 +252,10 @@ def main():
 
         # Optional arg
         if len(argv) == 5:
+            if isinstance(argv[4], int):
+                exit("Error: 3th, last argument is integrer, not string")
             width = int(argv[4])
+
         else:
             width = 360  # Default
 

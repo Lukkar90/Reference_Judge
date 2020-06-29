@@ -223,11 +223,3 @@ def create_similar_images_list(original_reference_path, app_reference_path):
         directories_validation(original_reference_path, app_reference_path)
 
         return similar_images_list_generator(original_reference_path, app_reference_path)
-
-r"""
-app_folder = r'D:\UserData karol\Documents\Tutorials\Image_processing\skimage Compare two images\images\referance'
-
-original_sources = r'D:\UserData karol\Documents\Tutorials\Image_processing\skimage Compare two images\images\original'
-
-print(create_similar_images_list(original_sources, app_folder))
-"""
