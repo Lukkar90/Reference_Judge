@@ -12,56 +12,6 @@ from create_similar_images_list import create_similar_images_list
 from compute_image_diffrences import compute_image_diffrences
 
 
-def program_help(argv):
-
-    program_name = argv[0]
-    
-    if len(argv) == 2 and argv[1] == "help":
-        print("\n"
-            "On desktop:\n"
-            " save:\n"
-            f"  python {program_name} path_dir path_dir -save path_dir [px]\n"
-            f"  python {program_name} path_dir path_dir -save path_file [px]\n"
-            f"  python {program_name} path_file path_dir -save path_dir [px]\n"
-            f"  python {program_name} path_file path_file -save path_dir [px] *\n"
-            f"  python {program_name} path_file path_file -save path_file [px] *\n"
-            "\n"
-            " show:\n"
-            f"  python {program_name} path_dir path_dir -show [px]\n"
-            f"  python {program_name} path_file path_dir -show [px]\n"
-            f"  python {program_name} path_file path_file -show [px] *\n"
-            "\n"
-            "HTTPS:\n"
-            " save:\n"
-            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_dir [px] *\n"
-            f"  python {program_name} https/address.com/image.img https/address.com/image.img -save path_file [px] *\n"
-            f"  python {program_name} https/address.com/image.img path_dir -save path_dir [px]\n"
-            f"  python {program_name} https/address.com/image.img path_dir -save path_file [px]\n"
-            f"  python {program_name} path_file https/address.com/image.img -save path_dir [px] *\n"
-            f"  python {program_name} path_file https/address.com/image.img -save path_file [px] *\n"
-            "\n"
-            " show:\n"
-            f"  python {program_name} https/address.com/image.img https/address.com/image.img -show [px] *\n"
-            f"  python {program_name} path_file https/address.com/image.img -show [px] *\n"
-            f"  python {program_name} https/address.com/image.img path_file -show [px] *\n"
-            f"  python {program_name} https/address.com/image.img path_dir -show [px]\n"
-            "\n"
-            " * images have to be the same size"
-            )
-        exit(1)
-
-
-def check_if_argv_is_correct(argv):
-
-    program_name = argv[0]
-    
-    if len(argv) < 3 or len(argv) > 6:
-        print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <-mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-            "For more information:\n"
-            f"python {program_name} help")
-        exit(1)
-
-
 def resize_with_wspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):  # https://stackoverflow.com/questions/35180764/opencv-python-image-too-big-to-display
 
     dim = None
@@ -87,24 +37,6 @@ def resize_all(images, width):
 
     return images
 
-def show_images(images, width):
-
-    # Resize to default value or custom
-    images = resize_all(images, width)
-
-    # Images
-    original = images["Original"]
-    modified = images["Modified"]
-    diff_BGR = images["Diffrence_RGB"]
-    diff = images["Diffrence_Structure"]
-    thresh = images["Thresh"]
-
-    # Show images
-    cv2.imshow("Original", original)
-    cv2.imshow("Modified", modified)
-    cv2.imshow("Diffrence_RGB", diff_BGR)
-    cv2.imshow("Diffrence_Structure", diff)
-    cv2.imshow("Thresh", thresh)
 
 def format_path(temp_dir, temp_name, index, temp_ext):
 
@@ -144,6 +76,26 @@ def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
     return format_path(temp_dir, temp_name, b, temp_ext).replace("\\", "/")  # .replace("\\", "/") to make path string more consistent
 
 
+def show_images(images, width):
+
+    # Resize to default value or custom
+    images = resize_all(images, width)
+
+    # Images
+    original = images["Original"]
+    modified = images["Modified"]
+    diff_BGR = images["Diffrence_RGB"]
+    diff = images["Diffrence_Structure"]
+    thresh = images["Thresh"]
+
+    # Show images
+    cv2.imshow("Original", original)
+    cv2.imshow("Modified", modified)
+    cv2.imshow("Diffrence_RGB", diff_BGR)
+    cv2.imshow("Diffrence_Structure", diff)
+    cv2.imshow("Thresh", thresh)
+
+
 def save_images_as_one(images, output_path, width):
 
     # Resize to default value or custom
@@ -179,6 +131,61 @@ def save_images_as_one(images, output_path, width):
     # Save image into choosed loaction
     cv2.imwrite(output_path, numpy_horizontal_concat)
 
+def get_rid_end_slashes(path):  # It can be used only to the last argument
+    # Get rid of "/" or "\", if User mistakenly add it at the end of string
+    return path.rstrip('/\\')
+
+
+def check_if_argv_is_correct(argv):
+
+    program_name = argv[0]
+    
+    if len(argv) < 3 or len(argv) > 6:
+        print(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+            "For more information:\n"
+            f"python {program_name} --help")
+        exit(1)
+
+
+def program_help(argv):
+
+    program_name = argv[0]
+    
+    if len(argv) == 2 and argv[1] == "--help":
+        print("\n"
+            "On desktop:\n"
+            " save:\n"
+            f"  python {program_name} path_dir path_dir --save path_dir [px]\n"
+            f"  python {program_name} path_dir path_dir --save path_file [px]\n"
+            f"  python {program_name} path_file path_dir --save path_dir [px]\n"
+            f"  python {program_name} path_file path_file --save path_dir [px] *\n"
+            f"  python {program_name} path_file path_file --save path_file [px] *\n"
+            "\n"
+            " show:\n"
+            f"  python {program_name} path_dir path_dir --show [px]\n"
+            f"  python {program_name} path_file path_dir --show [px]\n"
+            f"  python {program_name} path_file path_file --show [px] *\n"
+            "\n"
+            "HTTPS:\n"
+            " save:\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img --save path_dir [px] *\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img --save path_file [px] *\n"
+            f"  python {program_name} https/address.com/image.img path_dir --save path_dir [px]\n"
+            f"  python {program_name} https/address.com/image.img path_dir --save path_file [px]\n"
+            f"  python {program_name} path_file https/address.com/image.img --save path_dir [px] *\n"
+            f"  python {program_name} path_file https/address.com/image.img --save path_file [px] *\n"
+            "\n"
+            " show:\n"
+            f"  python {program_name} https/address.com/image.img https/address.com/image.img --show [px] *\n"
+            f"  python {program_name} path_file https/address.com/image.img --show [px] *\n"
+            f"  python {program_name} https/address.com/image.img path_file --show [px] *\n"
+            f"  python {program_name} https/address.com/image.img path_dir --show [px]\n"
+            "\n"
+            " * images have to be the same size"
+            " [px] is optional value of width of each image"
+            )
+        exit(1)
+
 
 def main():
 
@@ -188,15 +195,17 @@ def main():
     # Init variables
     original_ref_path = argv[1]
     app_ref_path = argv[2]
+
+    # print(app_ref_path)
     mode = argv[3]
 
     similar_list = create_similar_images_list(original_ref_path, app_ref_path)
 
-    if mode == "-save":
+    if mode == "--save":
 
         # Optional args
         if len(argv) >= 5:
-            output_path = argv[4]
+            output_path = get_rid_end_slashes(argv[4])
         else:
             output_path = None
 
@@ -213,7 +222,7 @@ def main():
 
             save_images_as_one(images, output_path, width)
 
-    elif mode == "-show":
+    elif mode == "--show":
 
         # Optional arg
         if len(argv) == 5:
@@ -227,7 +236,12 @@ def main():
             images = compute_image_diffrences(similar_pair)
 
             show_images(images, width)
+
+            print('NOTE: Press the "0" key, to close opened windows')
             cv2.waitKey(0)
+
+    else:
+        exit("Error: Invalid mode argument")
 
     exit(0)
 

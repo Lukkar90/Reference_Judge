@@ -1,6 +1,3 @@
-# python lib
-import argparse
-
 # external libs
 from skimage.metrics import structural_similarity
 import imutils
