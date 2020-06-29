@@ -130,7 +130,10 @@ def both_single_paths(original_reference, app_reference, original_name):
     target = cvtColor(target, COLOR_BGR2GRAY)
 
     # compute the structural similarity SSMI
-    similitarity = compare_images(source, target)
+    try:
+        similitarity = compare_images(source, target)
+    except ValueError as e:
+        exit(e)
 
     reference_pair = Reference_pair(original_name, original_reference, app_reference, similitarity).dictonary
     return reference_pair
@@ -149,10 +152,13 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
 
         similar_image = find_most_similar_image(source_path, target_directory_path)
 
-        reference_pair = Reference_pair(source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictonary
-
-        print(f"Found reference : {source_name}, similarity: {similar_image['similarity']}")  # Notice User with searching progress
-        reference_pairs.append(reference_pair)
+        if similar_image["file_path"] == "":
+            print(f"Not found reference : {source_name}")
+            reference_pair = None
+        else:
+            reference_pair = Reference_pair(source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictonary
+            print(f"Found reference : {source_name}, similarity: {similar_image['similarity']}")  # Notice User with searching progress
+            reference_pairs.append(reference_pair)
 
     return reference_pairs
 
@@ -196,7 +202,11 @@ def return_one_ref_pair(original_reference_path, app_reference_path):
         # Give results when it's only one original image and match reference image from many app references
         similar_image = find_most_similar_image(original_reference_path, app_reference_path)
 
-        reference_pair = Reference_pair(original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"]).dictonary
+        if similar_image["file_path"] == "":
+            print(f"Not found reference : {original_name}")
+            reference_pair = None
+        else:
+            reference_pair = Reference_pair(original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"]).dictonary
 
 
     similar_list.append(reference_pair)  # It can't be before "return", becouse if you have only one element in index, it wouldn't be iterable 

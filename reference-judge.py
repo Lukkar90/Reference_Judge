@@ -235,7 +235,8 @@ def main():
             output_path = None
 
         if len(argv) == 6:
-
+            if not argv[5].isnumeric():
+                exit("Error: 4th, last argument should be numeric")
             width = int(argv[5])  # Input user is width of reference image size
         else:
             width = 360  # Default
@@ -244,16 +245,18 @@ def main():
         # Process all images, save each sequence in choosed director
         for similar_pair in similar_list:
 
-            images = compute_image_diffrences(similar_pair)
+            if not similar_pair == None:
 
-            save_images_as_one(images, output_path, width)
+                images = compute_image_diffrences(similar_pair)
+
+                save_images_as_one(images, output_path, width)
 
     elif mode == "--show":
 
         # Optional arg
         if len(argv) == 5:
-            if isinstance(argv[4], int):
-                exit("Error: 3th, last argument is integrer, not string")
+            if not argv[4].isnumeric():
+                exit("Error: 3th, last argument should be numeric")
             width = int(argv[4])
 
         else:
@@ -262,12 +265,14 @@ def main():
         # Process all images, show user each sequence one by one
         for similar_pair in similar_list:
 
-            images = compute_image_diffrences(similar_pair)
+            if not similar_pair == None:
 
-            show_images(images, width)
+                images = compute_image_diffrences(similar_pair)
 
-            print('NOTE: Press the "0" key, to close opened windows')
-            cv2.waitKey(0)
+                show_images(images, width)
+
+                print('NOTE: Press the "0" key, to close opened windows')
+                cv2.waitKey(0)
 
     else:
         exit("Error: Invalid mode argument")
