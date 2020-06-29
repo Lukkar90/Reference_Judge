@@ -12,6 +12,22 @@ from app_data import legit_extensions
 from utlis import url_to_image, uri_validator
 
 
+def files_paths(directory):
+
+    # Init variables
+    paths = list()
+
+    # add all images paths to list
+    for file_ in os.listdir(directory):  # check all instances in this directory, but not sub-directories
+
+        full_path = os.path.join(directory, file_)
+
+        if os.path.isfile(full_path) and file_.endswith(tuple(legit_extensions)):  # file_.endswith(tuple(legit_extensions) -> https://stackoverflow.com/questions/22812785/use-endswith-with-multiple-extensions
+            paths.append(full_path)
+
+    return paths
+
+
 def count_legit_images(directory_path):
 
     # count all legit images
@@ -35,25 +51,25 @@ def is_empty(directory_path):
     return not there_are_files
 
 
-def directories_validation(original_reference_directory_path, app_reference_directory_path):
+def is_file_validation(file_path):
 
-    if app_reference_directory_path == original_reference_directory_path:
-        exit('Error: "original references" and "app references" directories are the same')
+    if not os.path.isfile(file_path):
+        exit(f"Error: This file is does not exists: {file_path}")
+    return
 
-    if not os.path.exists(original_reference_directory_path):
-        exit("Error: Directory with original references does not exist")
 
-    if is_empty(original_reference_directory_path):
-        exit("Error: There is no images in Directory with original references")
+def path_to_image(path, reference_name_kind):
 
-    if not os.path.exists(app_reference_directory_path):
-        exit("Error: Directory with app references does not exist")
+    if uri_validator(path):
+        # original as url
+        image = url_to_image(path)
 
-    if is_empty(app_reference_directory_path):
-        exit("Error: There is no images in Directory with app references")
+    else:
+        # original as file
+        is_file_validation(path)
+        image = imread(path)
 
-    if count_legit_images(app_reference_directory_path) < count_legit_images(original_reference_directory_path):
-        exit('Error: There are more images in "original references" dir than in "app references" dir')
+    return image
 
 
 class Reference_pair:
@@ -64,43 +80,6 @@ class Reference_pair:
             "app_reference_path": app_path,
             "similarity": similarity
         }
-
-
-def files_paths(directory):
-
-    # Init variables
-    paths = list()
-
-    # add all images paths to list
-    for file_ in os.listdir(directory):  # check all instances in this directory, but not sub-directories
-
-        full_path = os.path.join(directory, file_)
-
-        if os.path.isfile(full_path) and file_.endswith(tuple(legit_extensions)):  # file_.endswith(tuple(legit_extensions) -> https://stackoverflow.com/questions/22812785/use-endswith-with-multiple-extensions
-            paths.append(full_path)
-
-    return paths
-
-
-def similar_images_list_generator(source_directory_path, target_directory_path):
-
-    # Init variables
-    sources_paths = files_paths(source_directory_path)
-    reference_pairs = list()
-
-    # add all similar images pairs to list
-    for source_path in sources_paths:
-
-        source_name = os.path.basename(source_path)
-
-        similar_image = find_most_similar_image(source_path, target_directory_path)
-
-        reference_pair = Reference_pair(source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictonary
-
-        print(f"Found reference : {source_name}, similarity: {similar_image['similarity']}")  # Notice User with searching progress
-        reference_pairs.append(reference_pair)
-
-    return reference_pairs
 
 
 def find_most_similar_image(source_path, target_directory_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
@@ -130,7 +109,7 @@ def find_most_similar_image(source_path, target_directory_path):  # https://www.
             # NOTE: the two images must have the same dimension
             if s_height == t_height and s_width == t_width:
 
-                target_image= cvtColor(target_image, COLOR_BGR2GRAY)  # You have to change target image to gray to calculate similarity
+                target_image = cvtColor(target_image, COLOR_BGR2GRAY)  # You have to change target image to gray to calculate similarity
                 similitarity = compare_images(source_image, target_image)  # compute the structural similarity SSMI
 
                 # filtering most similar image
@@ -139,27 +118,6 @@ def find_most_similar_image(source_path, target_directory_path):  # https://www.
                     most_similar_image["file_path"] = target_path
 
     return most_similar_image
-
-
-def is_file_validation(file_path):
-
-    if not os.path.isfile(file_path):
-        print(f"Error: This file is does not exists: {file_path}")
-    return
-
-
-def path_to_image(path, reference_name_kind):
-
-    if uri_validator(path):
-        # original as url
-        image = url_to_image(path)
-
-    else:
-        # original as file
-        is_file_validation(path)
-        image = imread(path)
-
-    return image
 
 
 def both_single_paths(original_reference, app_reference, original_name):
@@ -176,6 +134,48 @@ def both_single_paths(original_reference, app_reference, original_name):
 
     reference_pair = Reference_pair(original_name, original_reference, app_reference, similitarity).dictonary
     return reference_pair
+
+
+def similar_images_list_generator(source_directory_path, target_directory_path):
+
+    # Init variables
+    sources_paths = files_paths(source_directory_path)
+    reference_pairs = list()
+
+    # add all similar images pairs to list
+    for source_path in sources_paths:
+
+        source_name = os.path.basename(source_path)
+
+        similar_image = find_most_similar_image(source_path, target_directory_path)
+
+        reference_pair = Reference_pair(source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictonary
+
+        print(f"Found reference : {source_name}, similarity: {similar_image['similarity']}")  # Notice User with searching progress
+        reference_pairs.append(reference_pair)
+
+    return reference_pairs
+
+
+def directories_validation(original_reference_directory_path, app_reference_directory_path):
+
+    if app_reference_directory_path == original_reference_directory_path:
+        exit('Error: "original references" and "app references" directories are the same')
+
+    if not os.path.exists(original_reference_directory_path):
+        exit("Error: Directory with original references does not exist")
+
+    if is_empty(original_reference_directory_path):
+        exit("Error: There is no images in Directory with original references")
+
+    if not os.path.exists(app_reference_directory_path):
+        exit("Error: Directory with app references does not exist")
+
+    if is_empty(app_reference_directory_path):
+        exit("Error: There is no images in Directory with app references")
+
+    if count_legit_images(app_reference_directory_path) < count_legit_images(original_reference_directory_path):
+        exit('Error: There are more images in "original references" dir than in "app references" dir')
 
 
 def return_one_ref_pair(original_reference_path, app_reference_path):
