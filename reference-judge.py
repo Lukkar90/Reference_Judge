@@ -40,7 +40,7 @@ def resize_all(images, width):
 
 def format_path(temp_dir, temp_name, index, temp_ext):
 
-    return "{0}/{1}-{2}.{3}".format(temp_dir, temp_name, str(index).zfill(5), temp_ext)  # example_dir_path/file-0000%.ext
+    return f"{temp_dir}/{temp_name}-{str(index).zfill(5)}.{temp_ext}"  # example_dir_path/file-0000%.ext
 
 
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
@@ -118,12 +118,14 @@ def save_images_as_one(images, output_path, width):
 
     # Check if choosed loaction is file like
     ext_file = os.path.splitext(output_path)[1]
-    # If it is dir path
+
+    # When output file has not defined name, only dir
     if not ext_file:
         output_path = os.path.join(output_path, original_name)
-    else:
-        if os.path.exists(output_path):
-            output_path = next_path(output_path)
+
+    # Check if file already exists, if so, add new one with name incremented by one
+    if os.path.exists(output_path):
+        output_path = next_path(output_path)
 
     # User notfication where to search saved image
     print("Saved reference : {} in {}".format(original_name, output_path))
