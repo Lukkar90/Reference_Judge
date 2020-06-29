@@ -10,6 +10,7 @@ import cv2
 # internal libs
 from create_similar_images_list import create_similar_images_list
 from compute_image_diffrences import compute_image_diffrences
+from app_data import legit_extensions
 
 
 def resize_with_wspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):  # https://stackoverflow.com/questions/35180764/opencv-python-image-too-big-to-display
@@ -152,9 +153,54 @@ def save_images_as_one(images, output_path, width):
     # Save image into choosed loaction
     cv2.imwrite(output_path, numpy_horizontal_concat)
 
+
 def get_rid_end_slashes(path):  # It can be used only to the last argument
     # Get rid of "/" or "\", if User mistakenly add it at the end of string
     return path.rstrip('/\\\"\'')
+
+
+def count_legit_images(directory_path):
+
+    # count all legit images
+    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(legit_extensions))])
+
+
+def is_empty(directory_path):
+
+    # Init variables
+    there_are_files = False
+
+    # check if there is any legit image in directory
+    for file_name in os.listdir(directory_path):
+
+        full_path = os.path.join(directory_path, file_name)
+
+        if os.path.isfile(full_path) and file_name.endswith(tuple(legit_extensions)):
+            there_are_files = True
+            break
+
+    return not there_are_files
+
+
+def directories_validation(original_reference_directory_path, app_reference_directory_path):
+
+    if app_reference_directory_path == original_reference_directory_path:
+        exit('Error: "original references" and "app references" directories are the same')
+
+    if not os.path.exists(original_reference_directory_path):
+        exit("Error: Directory with original references does not exist")
+
+    if is_empty(original_reference_directory_path):
+        exit("Error: There is no images in Directory with original references")
+
+    if not os.path.exists(app_reference_directory_path):
+        exit("Error: Directory with app references does not exist")
+
+    if is_empty(app_reference_directory_path):
+        exit("Error: There is no images in Directory with app references")
+
+    if count_legit_images(app_reference_directory_path) < count_legit_images(original_reference_directory_path):
+        exit('Error: There are more images in "original references" dir than in "app references" dir')
 
 
 def check_if_argv_is_correct(argv):
@@ -165,6 +211,16 @@ def check_if_argv_is_correct(argv):
         exit(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
             "For more information:\n"
             f"python {program_name} --help")
+
+    if len(argv) >= 4 and len(argv) <= 6:
+
+        original_reference_path = argv[1]
+        app_reference_path = argv[2]
+
+        ext_original = os.path.splitext(original_reference_path)[1]
+        # if orginal image are dir
+        if not ext_original:
+            directories_validation(original_reference_path, app_reference_path)
 
 
 def program_help(argv):
