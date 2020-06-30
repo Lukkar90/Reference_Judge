@@ -6,6 +6,12 @@ import numpy as np
 import urllib.request
 import cv2
 
+
+def get_rid_end_slashes(path):  # It can be used only to the last argument
+    # Get rid of "/" or "\", if User mistakenly add it at the end of string
+    return path.rstrip('/\\\"\'')
+
+
 def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/
 	# download the image, convert it to a NumPy array, and then read
 	# it into OpenCV format
