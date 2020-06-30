@@ -7,7 +7,7 @@ from urllib import error, request
 
 #internal libs
 from app_data import legit_extensions
-from utlis import dir_exists, dir_from_path, uri_validator
+from utlis import dir_exists, dir_from_path, uri_validator, Error_check_variable_is_empty_string
 
 
 def url_exists(url):
@@ -163,6 +163,9 @@ def check_path_kind(original_reference_path):
 
 
 def path_validation(path_kind, reference_path, dir_kind):
+
+    Error_check_variable_is_empty_string(dir_kind)
+
     if path_kind == "url":
         
         url_exists(reference_path)  # exit prompt is inside function
@@ -179,3 +182,5 @@ def path_validation(path_kind, reference_path, dir_kind):
 
         if is_empty(reference_path):
             exit(f"Error: There is no images in Directory with {dir_kind}")
+    else:
+        raise ValueError("Error: wrong path kind")

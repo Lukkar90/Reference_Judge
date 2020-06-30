@@ -58,7 +58,6 @@ def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
 
     Runs in log(n) time where n is the number of existing files in sequence
     """
-
     temp_dir = os.path.dirname(path_pattern)
     temp_full_name = os.path.basename(path_pattern)
     temp_name, temp_ext = temp_full_name.split('.', 1)  # https://stackoverflow.com/a/6670331/12490791
@@ -231,6 +230,8 @@ def main():
 
                 print('NOTE: Press the "0" key, to close opened windows')
                 cv2.waitKey(0)
+    else:
+        raise ValueError("Error: Invalid mode value")
 
     exit(0)
 

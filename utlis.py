@@ -8,6 +8,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+def Error_check_variable_is_empty_string(variable):
+    if variable == "": raise ValueError("Error: variable is empty string")
 
 def dir_from_path(path):
 

@@ -9,10 +9,12 @@ from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from app_data import legit_extensions
-from utlis import uri_validator, url_to_image
+from utlis import uri_validator, url_to_image, Error_check_variable_is_empty_string
 
 
 def files_paths(directory):
+
+    Error_check_variable_is_empty_string(directory)
 
     # Init variables
     paths = list()
@@ -28,11 +30,10 @@ def files_paths(directory):
     return paths
 
 
-def is_file_validation(file_path):
+def is_file_validation(file_path, reference_name_kind):
 
     if not os.path.isfile(file_path):
-        exit(f"Error: This file is does not exists: {file_path}")
-    return
+        exit(f"Error: This {reference_name_kind} does not exists: {file_path}")
 
 
 def path_to_image(path, reference_name_kind):
@@ -43,13 +44,16 @@ def path_to_image(path, reference_name_kind):
 
     else:
         # original as file
-        is_file_validation(path)
+        is_file_validation(path, reference_name_kind)
         image = imread(path)
 
     return image
 
 
 class Reference_pair:
+    """
+    Returned in similar_list in main in reference-judge.py
+    """
     def __init__(self, original_name, original_path, app_path, similarity):
         self.dictonary = {
             "original_reference_name": original_name,
@@ -60,6 +64,8 @@ class Reference_pair:
 
 
 def find_most_similar_image(source_path, target_directory_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
+
+    Error_check_variable_is_empty_string(target_directory_path)
 
     # Init variables
     if uri_validator(source_path):
@@ -99,6 +105,10 @@ def find_most_similar_image(source_path, target_directory_path):  # https://www.
 
 def both_single_paths(original_reference, app_reference, original_name):
 
+    Error_check_variable_is_empty_string(original_reference)
+    Error_check_variable_is_empty_string(app_reference)
+    Error_check_variable_is_empty_string(original_name)
+
     source = path_to_image(original_reference, "Original reference")
     target = path_to_image(app_reference, "App reference")
 
@@ -110,13 +120,16 @@ def both_single_paths(original_reference, app_reference, original_name):
     try:
         similitarity = compare_images(source, target)
     except ValueError as e:
-        exit(e)
+        exit(e) # returning circa "images not he same size"
 
     reference_pair = Reference_pair(original_name, original_reference, app_reference, similitarity).dictonary
     return reference_pair
 
 
 def similar_images_list_generator(source_directory_path, target_directory_path):
+
+    Error_check_variable_is_empty_string(source_directory_path)
+    Error_check_variable_is_empty_string(target_directory_path)
 
     # Init variables
     sources_paths = files_paths(source_directory_path)
@@ -141,6 +154,9 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
 
 
 def return_one_ref_pair(original_reference_path, app_reference_path):
+
+    Error_check_variable_is_empty_string(original_reference_path)
+    Error_check_variable_is_empty_string(app_reference_path)
 
     similar_list = list()
 
@@ -169,6 +185,12 @@ def return_one_ref_pair(original_reference_path, app_reference_path):
     return similar_list
 
 def create_similar_images_list(original_reference_path, app_reference_path):
+    """
+    Used in main in reference-judge.py
+    """
+
+    Error_check_variable_is_empty_string(original_reference_path)
+    Error_check_variable_is_empty_string(app_reference_path)
 
     ext_original = os.path.splitext(original_reference_path)[1]
     # if orginal image is file, not dir
