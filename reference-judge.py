@@ -11,6 +11,7 @@ import cv2
 from create_similar_images_list import create_similar_images_list
 from compute_image_diffrences import compute_image_diffrences
 from app_data import legit_extensions
+from utlis import uri_validator
 
 
 def resize_with_wspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):  # https://stackoverflow.com/questions/35180764/opencv-python-image-too-big-to-display
@@ -207,20 +208,59 @@ def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
     
+    # incorrect number of arguments
     if not (len(argv) == 2 or (len(argv) >= 4 and len(argv) <= 6)):
         exit(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
             "For more information:\n"
             f"python {program_name} --help")
 
+    # correct number of arguments
     if len(argv) >= 4 and len(argv) <= 6:
 
         original_reference_path = argv[1]
         app_reference_path = argv[2]
 
+        # check if mode is correct
+        if not (argv[3] == "--save" or argv[3] == "--show"):
+            exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save"')
+        mode = argv[3]
+
+        # check modes arguments
+        if mode == "--save":
+            if len(argv) < 5:
+                exit("Error: No output path")
+
+            elif len(argv) == 6 and not argv[5].isnumeric():
+                exit("Error: 5th, last argument should be numeric")
+
+        elif mode == "--show":
+            if len(argv) == 5 and not argv[4].isnumeric():
+                exit("Error: 4th, last argument should be numeric")
+
+            elif len(argv) == 6:
+                exit("Error: one argument too much")
+        else:
+            exit("Error: Invalid mode argument")
+
+        # Checking paths arguments
         ext_original = os.path.splitext(original_reference_path)[1]
-        # if orginal image are dir
-        if not ext_original:
+        # original ref arg is a file
+        if ext_original:
+
+            ext_app = os.path.splitext(app_reference_path)[1]
+            if ext_app and original_reference_path == app_reference_path:
+                # Checking if paths/url are not the same
+                exit("Error: Both files have the same path")
+
+        # if orginal images are dir
+        else:
+
+            # Checking if many files will be compared to one
+            if os.path.isdir(original_reference_path) and (os.path.isfile(app_reference_path) or uri_validator(app_reference_path)):
+                exit("Error: Original reference path can't be directory, if app reference is only one file")
+
             directories_validation(original_reference_path, app_reference_path)
+
 
 
 def program_help(argv):
@@ -272,13 +312,7 @@ def main():
     # Init variables
     original_ref_path = get_rid_end_slashes(argv[1])
     app_ref_path = get_rid_end_slashes(argv[2])
-
-    if not (argv[3] == "--save" or argv[3] == "--show"):
-        exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save"')
     mode = argv[3]
-
-    if mode == "--save" and len(argv) < 5:
-        exit("Error: No output path")
 
     similar_list = create_similar_images_list(original_ref_path, app_ref_path)
 
@@ -291,8 +325,6 @@ def main():
             output_path = None
 
         if len(argv) == 6:
-            if not argv[5].isnumeric():
-                exit("Error: 4th, last argument should be numeric")
             width = int(argv[5])  # Input user is width of reference image size
         else:
             width = 360  # Default
@@ -311,8 +343,6 @@ def main():
 
         # Optional arg
         if len(argv) == 5:
-            if not argv[4].isnumeric():
-                exit("Error: 3th, last argument should be numeric")
             width = int(argv[4])
 
         else:
@@ -329,9 +359,6 @@ def main():
 
                 print('NOTE: Press the "0" key, to close opened windows')
                 cv2.waitKey(0)
-
-    else:
-        exit("Error: Invalid mode argument")
 
     exit(0)
 
