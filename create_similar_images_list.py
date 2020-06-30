@@ -4,12 +4,12 @@ from sys import exit
 
 # external libs
 import matplotlib.pyplot as plt
+from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
-from cv2 import imread, cvtColor, COLOR_BGR2GRAY
 
 # internal libs
 from app_data import legit_extensions
-from utlis import url_to_image, uri_validator
+from utlis import uri_validator, url_to_image
 
 
 def files_paths(directory):

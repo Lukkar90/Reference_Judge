@@ -1,10 +1,10 @@
 # external libs
-from skimage.metrics import structural_similarity
-import imutils
 import cv2
+import imutils
+from skimage.metrics import structural_similarity
 
-# internal lib
-from utlis import url_to_image, uri_validator
+# internal libs
+from utlis import uri_validator, url_to_image
 
 
 def compute_image_diffrences(similar_pair):  # https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/

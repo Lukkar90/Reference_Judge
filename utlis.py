@@ -1,15 +1,32 @@
 # python libs
+import os
+import urllib.request
 from urllib.parse import urlparse
+from pathlib import Path
 
 # external libs
-import numpy as np
-import urllib.request
 import cv2
+import numpy as np
 
 
-def get_rid_end_slashes(path):  # It can be used only to the last argument
-    # Get rid of "/" or "\", if User mistakenly add it at the end of string
-    return path.rstrip('/\\\"\'')
+def dir_from_path(path):
+
+    if not os.path.isdir(path):
+        path = os.path.dirname(path)
+    return path
+
+
+def dir_exists(path):
+
+	file_ext = Path(path).suffix  # https://docs.python.org/3/library/pathlib.html
+
+	# if path is file
+	if file_ext:
+		path = dir_from_path(path)
+		return os.path.exists(path)
+    # if path is already dir
+	else:
+		return os.path.isdir(path)
 
 
 def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/

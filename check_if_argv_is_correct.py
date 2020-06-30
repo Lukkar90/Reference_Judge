@@ -1,11 +1,25 @@
 # python lib
 import os
+from sys import exit
 
-#internal lib
+# external libs
+from urllib import error, request
+
+#internal libs
 from app_data import legit_extensions
-from utlis import uri_validator, get_rid_end_slashes
+from utlis import dir_exists, dir_from_path, uri_validator
 
 
+def url_exists(url):
+
+    try:
+        request.urlopen(url)
+    except error.HTTPError as e:
+        exit(f"Error: path http: {e}")
+    except error.URLError as e:
+        exit(f"Error: path url: {e}")
+
+    return True
 
 def count_legit_images(directory_path):
 
@@ -30,27 +44,6 @@ def is_empty(directory_path):
     return not there_are_files
 
 
-def directories_validation(original_reference_directory_path, app_reference_directory_path):
-
-    if app_reference_directory_path == original_reference_directory_path:
-        exit('Error: "original references" and "app references" directories are the same')
-
-    if not os.path.exists(original_reference_directory_path):
-        exit("Error: Directory with original references does not exist")
-
-    if is_empty(original_reference_directory_path):
-        exit("Error: There is no images in Directory with original references")
-
-    if not os.path.exists(app_reference_directory_path):
-        exit("Error: Directory with app references does not exist")
-
-    if is_empty(app_reference_directory_path):
-        exit("Error: There is no images in Directory with app references")
-
-    if count_legit_images(app_reference_directory_path) < count_legit_images(original_reference_directory_path):
-        exit('Error: There are more images in "original references" dir than in "app references" dir')
-
-
 def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
@@ -61,52 +54,128 @@ def check_if_argv_is_correct(argv):
             "For more information:\n"
             f"python {program_name} --help")
 
-    elif len(argv) == 2:
+    # arg for def program_help(argv) in reference-judge.py
+    elif len(argv) == 2 and not argv[1] == "--help":
         exit(f"Error: invalid 1st argument. Avaible usage: python {program_name} --help")
         
     # correct number of arguments
     elif len(argv) >= 4 and len(argv) <= 6:
 
-        original_reference_path = argv[1]
-        app_reference_path = argv[2]
-
         # check if mode is correct
-        if not (argv[3] == "--save" or argv[3] == "--show"):
-            exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save"')
-        mode = argv[3]
+        check_mode(argv)
 
-        # check modes arguments
-        if mode == "--save":
-            if len(argv) < 5:
-                exit("Error: No output path")
+        check_paths(argv)
 
-            elif len(argv) == 6 and not argv[5].isnumeric():
-                exit("Error: 5th, last argument should be numeric")
 
-        elif mode == "--show":
-            if len(argv) == 5 and not argv[4].isnumeric():
-                exit("Error: 4th, last argument should be numeric")
+def check_mode(argv):
 
-            elif len(argv) == 6:
-                exit("Error: one argument too much")
+    if not (argv[3] == "--save" or argv[3] == "--show"):
+        exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save"')
+    mode = argv[3]
+
+    # check modes arguments
+    if mode == "--save":
+        if len(argv) < 5:
+            exit("Error: No output path")
+
+        elif len(argv) == 6 and not argv[5].isnumeric():
+            exit("Error: 5th, last argument should be numeric")
+
+    elif mode == "--show":
+        if len(argv) == 5 and not argv[4].isnumeric():
+            exit("Error: 4th, last argument should be numeric")
+
+        elif len(argv) == 6:
+            exit("Error: one argument too much")
+    else:
+        exit("Error: Invalid mode argument")
+
+    return mode
+
+
+def check_paths(argv):
+
+    # Path args
+    original_reference_path = argv[1]
+    app_reference_path = argv[2]
+    output_path = None
+    if len(argv) >= 5 and not argv[4].isnumeric():  # this argument position can be also width
+        output_path = argv[4]
+
+    # Path kind args
+    original_ref_is = None
+    app_ref_is = None
+    output_is = None
+
+    # Checking what kind of paths are
+    original_ref_is = check_path_kind(original_reference_path)
+    app_ref_is = check_path_kind(app_reference_path)
+
+    if output_path:
+        output_is = check_path_kind(output_path)
+        if output_is == "url":
+            exit("Error: output can't be url")
+        
+
+    # Paths validation
+    path_validation(original_ref_is, original_reference_path, "original references")
+    path_validation(app_ref_is, app_reference_path, "app references")
+
+    if output_is and not dir_exists(output_path):
+        exit(f"Error: Output directory doesn't exists: {output_path}")
+
+
+    # If original path and app path are dirs
+    if original_ref_is == "dir" and app_ref_is == "dir":
+
+        if original_reference_path == app_reference_path:
+            exit('Error: "original references" and "app references" directories are the same')
+
+        if count_legit_images(original_reference_path) > count_legit_images(app_reference_path):
+            exit('Error: There are more images in "original references" dir than in "app references" dir')
+
+
+    # If original path and app path are files
+    if (original_ref_is == "file" and app_ref_is == "file") or (original_ref_is == "url" and app_ref_is == "url"):
+
+        if original_reference_path == app_reference_path:
+            # Checking if paths/url are not the same
+            exit("Error: Both files have the same path")
+
+    # If original path is dir and app path is file
+    if original_ref_is == "dir" and (app_ref_is == "file" or app_ref_is == "url"):
+        exit("Error: Original reference path can't be directory, if app reference is only one file")
+
+
+def check_path_kind(original_reference_path):
+    # Checking paths arguments
+    ext_path = os.path.splitext(original_reference_path)[1]
+
+    # Check original path kind
+    if ext_path:
+
+        if uri_validator(original_reference_path):
+            return "url"
         else:
-            exit("Error: Invalid mode argument")
+            return "file"
+    else:
+        return "dir"
 
-        # Checking paths arguments
-        ext_original = os.path.splitext(original_reference_path)[1]
-        # original ref arg is a file
-        if ext_original:
 
-            ext_app = os.path.splitext(app_reference_path)[1]
-            if ext_app and original_reference_path == app_reference_path:
-                # Checking if paths/url are not the same
-                exit("Error: Both files have the same path")
+def path_validation(path_kind, reference_path, dir_kind):
+    if path_kind == "url":
+        
+        url_exists(reference_path)  # exit prompt is inside function
 
-        # if orginal images are dir
-        else:
+    elif path_kind == "file":
 
-            # Checking if many files will be compared to one
-            if os.path.isdir(original_reference_path) and (os.path.isfile(app_reference_path) or uri_validator(app_reference_path)):
-                exit("Error: Original reference path can't be directory, if app reference is only one file")
+        if os.path.isfile(path_kind):
+            exit(f"Error: File doesn't exists: {reference_path}")
 
-            directories_validation(original_reference_path, app_reference_path)
+    elif path_kind == "dir":
+
+        if not os.path.exists(reference_path):
+            exit(f"Error: Directory with {dir_kind} does not exist")
+
+        if is_empty(reference_path):
+            exit(f"Error: There is no images in Directory with {dir_kind}")

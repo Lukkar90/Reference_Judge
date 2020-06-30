@@ -2,17 +2,17 @@
 import os
 from sys import argv
 
-import cv2
 # external libs
+import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from compute_image_diffrences import compute_image_diffrences
 
 # internal libs
 from app_data import legit_extensions
-from create_similar_images_list import create_similar_images_list
-from utlis import uri_validator, get_rid_end_slashes
 from check_if_argv_is_correct import check_if_argv_is_correct
+from compute_image_diffrences import compute_image_diffrences
+from create_similar_images_list import create_similar_images_list
+from utlis import uri_validator
 
 
 def resize_with_wspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):  # https://stackoverflow.com/questions/35180764/opencv-python-image-too-big-to-display
@@ -99,21 +99,6 @@ def show_images(images, width):
     cv2.imshow("Thresh", thresh)
 
 
-def dir_from_path(path):
-
-    if not os.path.isdir(path):
-        path = os.path.dirname(path)
-    return path
-
-
-def dir_exists(path):
-
-    # Get dir path from file path
-	path = dir_from_path(path)
-
-	return os.path.exists(path)
-
-
 def save_images_as_one(images, output_path, width):
 
     # Resize to default value or custom
@@ -137,11 +122,7 @@ def save_images_as_one(images, output_path, width):
     # Check if choosed loaction is file like
     ext_file = os.path.splitext(output_path)[1]
 
-    # Check if dir exists
-    if not dir_exists(output_path):
-        exit(f"Error: Directory doesn't exists: {dir_from_path(output_path)}")
-
-    # When output file has not defined name, only dir
+    # Define output path
     if not ext_file:
         output_path = os.path.join(output_path, original_name)
 
@@ -211,7 +192,7 @@ def main():
 
         # Optional args
         if len(argv) >= 5:
-            output_path = get_rid_end_slashes(argv[4])
+            output_path = argv[4]
         else:
             output_path = None
 
