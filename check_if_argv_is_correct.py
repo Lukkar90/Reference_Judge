@@ -55,13 +55,21 @@ class Help_tip:
         self.string = f"For more information:\n Usage: python {program_name} --help"
 
 
+class Help_content:
+    """Explaining user general usage of program"""
+
+    def __init__(self):
+        program_name = __main__.__file__ # os.path.basename(argv[0])
+        self.string = f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]"
+
+
 def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
     
     # incorrect number of arguments
     if not (len(argv) == 2 or (len(argv) >= 4 and len(argv) <= 6)):
-        exit(f" Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+        exit(f"{Help_content().string}\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
             f"{Help_tip().string}")
 
     # arg for def program_help(argv) in reference-judge.py

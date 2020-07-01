@@ -9,7 +9,7 @@ import numpy as np
 
 # internal libs
 from app_data import legit_extensions
-from check_if_argv_is_correct import check_if_argv_is_correct
+from check_if_argv_is_correct import check_if_argv_is_correct, Help_content
 from compute_image_diffrences import compute_image_diffrences
 from create_similar_images_list import create_similar_images_list
 from utlis import uri_validator
@@ -142,7 +142,7 @@ def program_help(argv):
     
     if len(argv) == 2 and argv[1] == "--help":
         exit("\n"
-            f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"
+            f"{Help_content().string}\n" 
             "\n"
             "On desktop:\n"
             " save:\n"
