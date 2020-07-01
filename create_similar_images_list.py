@@ -30,12 +30,6 @@ def files_paths(directory):
     return paths
 
 
-def is_file_validation(file_path, reference_name_kind):
-
-    if not os.path.isfile(file_path):
-        exit(f"Error: This {reference_name_kind} does not exists: {file_path}")
-
-
 def path_to_image(path, reference_name_kind):
 
     if uri_validator(path):
@@ -44,16 +38,14 @@ def path_to_image(path, reference_name_kind):
 
     else:
         # original as file
-        is_file_validation(path, reference_name_kind)
         image = imread(path)
 
     return image
 
 
 class Reference_pair:
-    """
-    Returned in similar_list in main in reference-judge.py
-    """
+    """Returned in similar_list in main in reference-judge.py"""
+
     def __init__(self, original_name, original_path, app_path, similarity):
         self.dictonary = {
             "original_reference_name": original_name,

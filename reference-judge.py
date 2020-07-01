@@ -142,6 +142,8 @@ def program_help(argv):
     
     if len(argv) == 2 and argv[1] == "--help":
         exit("\n"
+            f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"
+            "\n"
             "On desktop:\n"
             " save:\n"
             f"  python {program_name} path_dir path_dir --save path_dir [px]\n"
@@ -170,7 +172,7 @@ def program_help(argv):
             f"  python {program_name} https/address.com/image.img path_file --show [px] *\n"
             f"  python {program_name} https/address.com/image.img path_dir --show [px]\n"
             "\n"
-            " * images have to be the same size"
+            " * images have to be the same size\n"
             " [px] is optional value of width of each image"
             )
 
@@ -231,7 +233,8 @@ def main():
                 print('NOTE: Press the "0" key, to close opened windows')
                 cv2.waitKey(0)
     else:
-        raise ValueError("Error: Invalid mode value")
+        raise ValueError("Error: Invalid mode value\n"
+                        f" {mode}")
 
     exit(0)
 

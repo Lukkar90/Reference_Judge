@@ -4,5 +4,6 @@ images_test/
 .vscode/
 # untracked code
 test.py
+test_module.py
 # testing commands
 command_example.txt

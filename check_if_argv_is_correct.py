@@ -1,6 +1,7 @@
 # python lib
 import os
-from sys import exit
+from sys import exit, argv
+import __main__
 
 # external libs
 from urllib import error, request
@@ -15,9 +16,11 @@ def url_exists(url):
     try:
         request.urlopen(url)
     except error.HTTPError as e:
-        exit(f"Error: path http: {e}")
+        exit(f"Error: path http: {e}:\n"
+            f" {url}")
     except error.URLError as e:
-        exit(f"Error: path url: {e}")
+        exit(f"Error: path url: {e}:\n"
+            f" {url}")
 
     return True
 
@@ -44,51 +47,68 @@ def is_empty(directory_path):
     return not there_are_files
 
 
+class Help_tip:
+    """String to use when user write wrong input, showing him how to invoke help function"""
+
+    def __init__(self):
+        program_name = __main__.__file__ # os.path.basename(argv[0])
+        self.string = f"For more information:\n Usage: python {program_name} --help"
+
+
 def check_if_argv_is_correct(argv):
 
     program_name = argv[0]
     
     # incorrect number of arguments
     if not (len(argv) == 2 or (len(argv) >= 4 and len(argv) <= 6)):
-        exit(f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-            "For more information:\n"
-            f"python {program_name} --help")
+        exit(f" Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+            f"{Help_tip().string}")
 
     # arg for def program_help(argv) in reference-judge.py
     elif len(argv) == 2 and not argv[1] == "--help":
-        exit(f"Error: invalid 1st argument. Avaible usage: python {program_name} --help")
+        exit(f"Error: invalid 1st argument. Usage: python {program_name} --help:\n"
+            f" {argv[1]}")
         
     # correct number of arguments
     elif len(argv) >= 4 and len(argv) <= 6:
 
-        # check if mode is correct
-        check_mode(argv)
-
         check_paths(argv)
+
+        check_mode(argv)
 
 
 def check_mode(argv):
 
     if not (argv[3] == "--save" or argv[3] == "--show"):
-        exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save"')
+        exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save":\n'
+            f" {argv[3]}\n"
+            f"{Help_tip().string}")
     mode = argv[3]
 
     # check modes arguments
     if mode == "--save":
         if len(argv) < 5:
-            exit("Error: No output path")
+            exit("Error: No output path\n"
+                f"{Help_tip().string}")
 
         elif len(argv) == 6 and not argv[5].isnumeric():
-            exit("Error: 5th, last argument should be numeric")
+            exit("Error: 5th, last argument should be numeric:\n"
+                f" {argv[5]}\n"
+                f"{Help_tip().string}")
 
     elif mode == "--show":
         if len(argv) == 5 and not argv[4].isnumeric():
-            exit("Error: 4th, last argument should be numeric")
+            exit("Error: 4th, last argument should be numeric:\n"
+                f" {argv[4]}\n"
+                f"{Help_tip().string}")
 
         elif len(argv) == 6:
-            exit("Error: one argument too much")
+            exit("Error: one argument too much:\n"
+                f" {argv[5]}\n"
+                f"{Help_tip().string}")
     else:
-        exit("Error: Invalid mode argument")
+        raise ValueError(f"Error: wrong mode kind:\n" 
+                        f"{mode}")
 
     return mode
 
@@ -114,25 +134,33 @@ def check_paths(argv):
     if output_path:
         output_is = check_path_kind(output_path)
         if output_is == "url":
-            exit("Error: output can't be url")
+            exit("Error: output can't be url:\n"
+                f" {output_path}\n"
+                f"{Help_tip().string}")
         
-
-    # Paths validation
+    # Paths validation depending on kind
     path_validation(original_ref_is, original_reference_path, "original references")
     path_validation(app_ref_is, app_reference_path, "app references")
 
     if output_is and not dir_exists(output_path):
-        exit(f"Error: Output directory doesn't exists: {output_path}")
+        exit(f"Error: Output directory does not exists:\n"
+            f" {output_path}\n"
+            f"{Help_tip().string}")
 
 
     # If original path and app path are dirs
     if original_ref_is == "dir" and app_ref_is == "dir":
 
         if original_reference_path == app_reference_path:
-            exit('Error: "original references" and "app references" directories are the same')
+            exit('Error: "original references" and "app references" directories are the same:\n'
+                f" {original_reference_path}\n"
+                f"{Help_tip().string}")
 
         if count_legit_images(original_reference_path) > count_legit_images(app_reference_path):
-            exit('Error: There are more images in "original references" dir than in "app references" dir')
+            exit('Error: There are more images in "original references" dir than in "app references" dir:\n'
+                f" {original_reference_path}\n"
+                f" {app_reference_path}\n"
+                f"{Help_tip().string}")
 
 
     # If original path and app path are files
@@ -140,11 +168,16 @@ def check_paths(argv):
 
         if original_reference_path == app_reference_path:
             # Checking if paths/url are not the same
-            exit("Error: Both files have the same path")
+            exit("Error: Both files have the same path:\n"
+                f" {original_reference_path}\n"
+                f"{Help_tip().string}")
 
     # If original path is dir and app path is file
     if original_ref_is == "dir" and (app_ref_is == "file" or app_ref_is == "url"):
-        exit("Error: Original reference path can't be directory, if app reference is only one file")
+        exit("Error: Original reference path can't be directory, if app reference is only one file:\n"
+            f" {original_reference_path}\n"
+            f" {app_reference_path}\n"
+            f"{Help_tip().string}")
 
 
 def check_path_kind(original_reference_path):
@@ -172,15 +205,22 @@ def path_validation(path_kind, reference_path, dir_kind):
 
     elif path_kind == "file":
 
-        if os.path.isfile(path_kind):
-            exit(f"Error: File doesn't exists: {reference_path}")
+        if not os.path.isfile(reference_path):
+            exit(f"Error: File does not exists:\n"
+                f" {reference_path}\n"
+                f"{Help_tip().string}")
 
     elif path_kind == "dir":
 
         if not os.path.exists(reference_path):
-            exit(f"Error: Directory with {dir_kind} does not exist")
+            exit(f"Error: Directory with {dir_kind} does not exist:\n"
+                f" {reference_path}\n"
+                f"{Help_tip().string}")
 
         if is_empty(reference_path):
-            exit(f"Error: There is no images in Directory with {dir_kind}")
+            exit(f"Error: There is no images in Directory with {dir_kind}:\n"
+                f" {reference_path}\n"
+                f"{Help_tip().string}")
     else:
-        raise ValueError("Error: wrong path kind")
+        raise ValueError(f"Error: wrong path kind {dir_kind}:\n"
+                        f" {reference_path}")
