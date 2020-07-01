@@ -51,7 +51,7 @@ class Help_tip:
     """String to use when user write wrong input, showing him how to invoke help function"""
 
     def __init__(self):
-        program_name = __main__.__file__ # os.path.basename(argv[0])
+        program_name = __main__.__file__  # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
         self.string = f"For more information:\n Usage: python {program_name} --help"
 
 
@@ -59,7 +59,7 @@ class Help_content:
     """Explaining user general usage of program"""
 
     def __init__(self):
-        program_name = __main__.__file__ # os.path.basename(argv[0])
+        program_name = __main__.__file__  # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
         self.string = f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]"
 
 
