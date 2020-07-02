@@ -1,20 +1,24 @@
+"""
+This module is responsible for creating list of matched images between chosen paths
+Chosen paths could be single image, dir or url path
+"""
 # python libs
 import os
-from sys import exit
+import sys
 
 # external libs
-import matplotlib.pyplot as plt
 from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from app_data import legit_extensions
-from utlis import uri_validator, url_to_image, Error_check_variable_is_empty_string
+from utils import uri_validator, url_to_image, error_check_variable_is_empty_string
 
 
 def files_paths(directory):
+    """returning legit list paths of files in chosen directory"""
 
-    Error_check_variable_is_empty_string(directory)
+    error_check_variable_is_empty_string(directory)
 
     # Init variables
     paths = list()
@@ -24,13 +28,14 @@ def files_paths(directory):
 
         full_path = os.path.join(directory, file_)
 
-        if os.path.isfile(full_path) and file_.endswith(tuple(legit_extensions)):  # file_.endswith(tuple(legit_extensions) -> https://stackoverflow.com/questions/22812785/use-endswith-with-multiple-extensions
+        if os.path.isfile(full_path) and file_.endswith(tuple(legit_extensions)):  # (tuple(legit_extensions) to use multiply arguments
             paths.append(full_path)
 
     return paths
 
 
-def path_to_image(path, reference_name_kind):
+def path_to_image(path):
+    """returning raw image"""
 
     if uri_validator(path):
         # original as url
@@ -43,35 +48,37 @@ def path_to_image(path, reference_name_kind):
     return image
 
 
-class Reference_pair:
-    """Returned in similar_list in main in reference-judge.py"""
+def reference_pair_dictionary(original_name, original_path, app_path, similarity):
+    """Returned in similar_list in main in reference_judge.py"""
 
-    def __init__(self, original_name, original_path, app_path, similarity):
-        self.dictonary = {
-            "original_reference_name": original_name,
-            "original_reference_path": original_path,
-            "app_reference_path": app_path,
-            "similarity": similarity
-        }
+    dictionary = {
+        "original_reference_name": original_name,
+        "original_reference_path": original_path,
+        "app_reference_path": app_path,
+        "similarity": similarity
+    }
+
+    return dictionary
 
 
-def find_most_similar_image(source_path, target_directory_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
+def find_most_similar_image(file_source_path, target_directory_path):  # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
+    """Return matched images paths of chosen file and dir"""
 
-    Error_check_variable_is_empty_string(target_directory_path)
+    error_check_variable_is_empty_string(target_directory_path)
 
     # Init variables
-    if uri_validator(source_path):
-        source_image = url_to_image(source_path)  # load image into memory
+    if uri_validator(file_source_path):
+        source_image = url_to_image(file_source_path)  # load image into memory
     else:
-        source_image = imread(source_path)  # load image into memory
+        source_image = imread(file_source_path)  # load image into memory
     source_image = cvtColor(source_image, COLOR_BGR2GRAY)
 
     s_height, s_width = source_image.shape
 
     most_similar_image = {"file_path": "", "similarity": 0}
-    source_extension = os.path.splitext(source_path)
+    source_extension = os.path.splitext(file_source_path)
 
-    # Check each file in choosed folder to find this most similar
+    # Check each file in chosen folder to find this most similar
     for file_ in os.listdir(target_directory_path):
 
         # Source extension and file extension should be "png"
@@ -85,24 +92,25 @@ def find_most_similar_image(source_path, target_directory_path):  # https://www.
             if s_height == t_height and s_width == t_width:
 
                 target_image = cvtColor(target_image, COLOR_BGR2GRAY)  # You have to change target image to gray to calculate similarity
-                similitarity = compare_images(source_image, target_image)  # compute the structural similarity SSMI
+                similarity = compare_images(source_image, target_image)  # compute the structural similarity SSMI
 
                 # filtering most similar image
-                if most_similar_image["similarity"] < similitarity:
-                    most_similar_image["similarity"] = similitarity
+                if most_similar_image["similarity"] < similarity:
+                    most_similar_image["similarity"] = similarity
                     most_similar_image["file_path"] = target_path
 
     return most_similar_image
 
 
 def both_single_paths(original_reference, app_reference, original_name):
+    """logic when both source and target paths are files"""
 
-    Error_check_variable_is_empty_string(original_reference)
-    Error_check_variable_is_empty_string(app_reference)
-    Error_check_variable_is_empty_string(original_name)
+    error_check_variable_is_empty_string(original_reference)
+    error_check_variable_is_empty_string(app_reference)
+    error_check_variable_is_empty_string(original_name)
 
-    source = path_to_image(original_reference, "Original reference")
-    target = path_to_image(app_reference, "App reference")
+    source = path_to_image(original_reference)
+    target = path_to_image(app_reference)
 
     # change image to b&w to calculate similarity
     source = cvtColor(source, COLOR_BGR2GRAY)
@@ -110,18 +118,19 @@ def both_single_paths(original_reference, app_reference, original_name):
 
     # compute the structural similarity SSMI
     try:
-        similitarity = compare_images(source, target)
-    except ValueError as e:
-        exit(e) # returning circa "images not he same size"
+        similarity = compare_images(source, target)
+    except ValueError as alert:
+        sys.exit(alert) # returning circa "images not he same size"
 
-    reference_pair = Reference_pair(original_name, original_reference, app_reference, similitarity).dictonary
+    reference_pair = reference_pair_dictionary(original_name, original_reference, app_reference, similarity)
     return reference_pair
 
 
 def similar_images_list_generator(source_directory_path, target_directory_path):
+    """return list of paths of matched images"""
 
-    Error_check_variable_is_empty_string(source_directory_path)
-    Error_check_variable_is_empty_string(target_directory_path)
+    error_check_variable_is_empty_string(source_directory_path)
+    error_check_variable_is_empty_string(target_directory_path)
 
     # Init variables
     sources_paths = files_paths(source_directory_path)
@@ -138,7 +147,7 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
             print(f"Not found reference : {source_name}")
             reference_pair = None
         else:
-            reference_pair = Reference_pair(source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictonary
+            reference_pair = reference_pair_dictionary(source_name, source_path, similar_image["file_path"], similar_image["similarity"])
             print(f"Found reference : {source_name}, similarity: {similar_image['similarity']}")  # Notice User with searching progress
             reference_pairs.append(reference_pair)
 
@@ -146,21 +155,22 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
 
 
 def return_one_ref_pair(original_reference_path, app_reference_path):
+    """return on pair of paths of matched images"""
 
-    Error_check_variable_is_empty_string(original_reference_path)
-    Error_check_variable_is_empty_string(app_reference_path)
+    error_check_variable_is_empty_string(original_reference_path)
+    error_check_variable_is_empty_string(app_reference_path)
 
     similar_list = list()
 
     original_name = os.path.basename(original_reference_path)
 
     ext_app = os.path.splitext(app_reference_path)[1]
-    # if app image and orginal image are single file
+    # if app image and original image are single file
     if ext_app:
 
         reference_pair = both_single_paths(original_reference_path, app_reference_path, original_name)
 
-    # if orginal image is single file
+    # if original image is single file
     else:
 
         # Give results when it's only one original image and match reference image from many app references
@@ -170,22 +180,20 @@ def return_one_ref_pair(original_reference_path, app_reference_path):
             print(f"Not found reference : {original_name}")
             reference_pair = None
         else:
-            reference_pair = Reference_pair(original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"]).dictonary
+            reference_pair = reference_pair_dictionary(original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"])
 
 
-    similar_list.append(reference_pair)  # It can't be before "return", becouse if you have only one element in index, it wouldn't be iterable 
+    similar_list.append(reference_pair)  # It can't be before "return", because if you have only one element in index, it wouldn't be iterable
     return similar_list
 
 def create_similar_images_list(original_reference_path, app_reference_path):
-    """
-    Used in main in reference-judge.py
-    """
+    """Main function of this module used in main in reference_judge.py"""
 
-    Error_check_variable_is_empty_string(original_reference_path)
-    Error_check_variable_is_empty_string(app_reference_path)
+    error_check_variable_is_empty_string(original_reference_path)
+    error_check_variable_is_empty_string(app_reference_path)
 
     ext_original = os.path.splitext(original_reference_path)[1]
-    # if orginal image is file, not dir
+    # if original image is file, not dir
     if ext_original:
 
         return return_one_ref_pair(original_reference_path, app_reference_path)
