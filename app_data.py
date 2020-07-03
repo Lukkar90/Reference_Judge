@@ -1,3 +1,3 @@
 """Place to hold program global const"""
 
-legit_extensions = [".png"]
+legit_extensions = tuple(".png")

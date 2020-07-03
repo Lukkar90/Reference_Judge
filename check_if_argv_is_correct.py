@@ -69,10 +69,6 @@ def help_content():
 def check_mode(argv_):
     """Check if images have to be saved or they will be shown"""
 
-    if not (argv_[3] == "--save" or argv_[3] == "--show"):
-        sys.exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save":\n'
-                 f" {argv_[3]}\n"
-                 f"{help_tip()}")
     mode = argv_[3]
 
     # check modes arguments
@@ -97,9 +93,10 @@ def check_mode(argv_):
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
     else:
-        raise ValueError(f"Error: wrong mode kind:\n"
-                         f"{mode}")
-
+        sys.exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save":\n'
+                 f" {argv_[3]}\n"
+                 f"{help_tip()}")
+                 
     return mode
 
 
