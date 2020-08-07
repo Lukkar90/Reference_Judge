@@ -12,13 +12,15 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-def error_check_variable_is_empty_string(variable):
+
+def error_check_path_is_empty_string(path):
     """
     Used to fail fast than too late.
     Also to avoid empty string in os path (when path is empty it takes script directory)
     """
-    if variable == "":
+    if path == "":
         raise ValueError("Error: variable is empty string")
+
 
 def dir_from_path(path):
     """If path is file address. Strip file name and retrieve dir directory"""
@@ -35,7 +37,8 @@ def dir_exists(path):
     if directory in path where you want to create new file exists.
     """
 
-    file_ext = Path(path).suffix  # https://docs.python.org/3/library/pathlib.html
+    # https://docs.python.org/3/library/pathlib.html
+    file_ext = Path(path).suffix
 
     # Retrieve dir path from file path
     if file_ext:

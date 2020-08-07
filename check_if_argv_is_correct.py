@@ -7,9 +7,9 @@ import sys
 from urllib import error, request
 import __main__
 
-#internal libs
+# internal libs
 from app_data import legit_extensions
-from utils import dir_exists, uri_validator, error_check_variable_is_empty_string
+from utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
 def url_exists(url):
@@ -25,6 +25,7 @@ def url_exists(url):
                  f" {url}")
 
     return True
+
 
 def count_legit_images(directory_path):
     """Count all images with legit_extensions"""
@@ -53,7 +54,8 @@ def is_empty(directory_path):
 def help_tip():
     """String to use when user write wrong input, showing him how to invoke help function"""
 
-    program_name = __main__.__file__  # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
+    # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
+    program_name = __main__.__file__
 
     return f"For more information:\n Usage: python {program_name} --help"
 
@@ -61,7 +63,8 @@ def help_tip():
 def help_content():
     """Explaining user general usage of program"""
 
-    program_name = __main__.__file__  # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
+    # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
+    program_name = __main__.__file__
 
     return f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]"
 
@@ -96,7 +99,7 @@ def check_mode(argv_):
         sys.exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save":\n'
                  f" {argv_[3]}\n"
                  f"{help_tip()}")
-                 
+
     return mode
 
 
@@ -107,7 +110,8 @@ def check_paths(argv_):
     original_reference_path = argv_[1]
     app_reference_path = argv_[2]
     output_path = None
-    if len(argv_) >= 5 and not argv_[4].isnumeric():  # this argument position can be also width
+    # this argument position can be also width
+    if len(argv_) >= 5 and not argv_[4].isnumeric():
         output_path = argv_[4]
 
     # Path kind args
@@ -127,14 +131,14 @@ def check_paths(argv_):
                      f"{help_tip()}")
 
     # Paths validation depending on kind
-    path_validation(original_ref_is, original_reference_path, "original references")
+    path_validation(original_ref_is, original_reference_path,
+                    "original references")
     path_validation(app_ref_is, app_reference_path, "app references")
 
     if output_is and not dir_exists(output_path):
         sys.exit(f"Error: Output directory does not exists:\n"
                  f" {output_path}\n"
                  f"{help_tip()}")
-
 
     # If original path and app path are dirs
     if original_ref_is == "dir" and app_ref_is == "dir":
@@ -149,7 +153,6 @@ def check_paths(argv_):
                      f" {original_reference_path}\n"
                      f" {app_reference_path}\n"
                      f"{help_tip()}")
-
 
     # If original path and app path are files
     if (original_ref_is == "file" and app_ref_is == "file") or (original_ref_is == "url" and app_ref_is == "url"):
@@ -188,7 +191,7 @@ def check_path_kind(original_reference_path):
 def path_validation(path_kind, reference_path, dir_kind):
     """Check if path exists: url, file, dir"""
 
-    error_check_variable_is_empty_string(dir_kind)
+    error_check_path_is_empty_string(dir_kind)
 
     if path_kind == "url":
 
