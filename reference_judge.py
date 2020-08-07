@@ -31,24 +31,7 @@ import numpy as np
 from check_if_argv_is_correct import check_if_argv_is_correct, help_content
 from compute_image_differences import compute_image_differences
 from create_similar_images_list import create_similar_images_list
-
-
-def resize_with_with_aspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):  # https://stackoverflow.com/a/58126805/12490791
-    """Resize input image by width or height keeping proportion to the image"""
-
-    dimension = None
-    (h_source, w_source) = image.shape[:2]
-
-    if width is None and height is None:
-        return image
-    if width is None:
-        resize = height / float(h_source)
-        dimension = (int(w_source * resize), height)
-    else:
-        resize = width / float(w_source)
-        dimension = (width, int(h_source * resize))
-
-    return cv2.resize(image, dimension, interpolation=inter)
+from utils import resize_with_with_aspect_ratio
 
 
 def resize_all(images, width):

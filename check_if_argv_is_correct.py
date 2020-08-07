@@ -66,6 +66,7 @@ def help_content():
     # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
     program_name = __main__.__file__
 
+    # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
     return f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]"
 
 
@@ -227,10 +228,10 @@ def check_if_argv_is_correct(argv_):
 
     # incorrect number of arguments
     if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 6)):
-        sys.exit(f"{help_content()}\n"  # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
+        sys.exit(f"{help_content()}\n"
                  f"{help_tip()}")
 
-    # arg for def program_help(argv) in reference_judge.py
+    # invalid usage
     elif len(argv_) == 2 and not argv_[1] == "--help":
         sys.exit(f"Error: invalid 1st argument. Usage: python {program_name} --help:\n"
                  f" {argv_[1]}")

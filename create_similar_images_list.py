@@ -74,6 +74,7 @@ def find_most_similar_image(file_source_path, target_directory_path):
         source_image = url_to_image(file_source_path)  # load image into memory
     else:
         source_image = imread(file_source_path)  # load image into memory
+
     source_image = cvtColor(source_image, COLOR_BGR2GRAY)
 
     s_height, s_width = source_image.shape
@@ -96,6 +97,7 @@ def find_most_similar_image(file_source_path, target_directory_path):
 
                 # You have to change target image to gray to calculate similarity
                 target_image = cvtColor(target_image, COLOR_BGR2GRAY)
+                
                 # compute the structural similarity SSMI
                 similarity = compare_images(source_image, target_image)
 
@@ -161,6 +163,7 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
                 f"Found reference : {source_name}, similarity: {similar_image['similarity']}")
             reference_pairs.append(reference_pair)
 
+
     return reference_pairs
 
 
@@ -201,7 +204,10 @@ def return_one_ref_pair(original_reference_path, app_reference_path):
 
 
 def create_similar_images_list(original_reference_path, app_reference_path):
-    """Main function of this module used in main in reference_judge.py"""
+    """
+    Main function of this module used in main in reference_judge.py
+    It returns path or paths of similar images compared to reference
+    """
 
     error_check_path_is_empty_string(original_reference_path)
     error_check_path_is_empty_string(app_reference_path)
