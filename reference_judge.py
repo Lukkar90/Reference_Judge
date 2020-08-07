@@ -15,6 +15,8 @@ DESCRIPTION
 
     For programmer this tool available instant check of screen if it is done according to references
     For designer this tool relieve him/she from task of checking if particular screen was done according to reference.
+
+    This program uses image recognition algorithms from https://opencv.org/
 """
 
 # python libs
@@ -120,7 +122,7 @@ def show_images(images, width):
 
 
 def save_images_as_one(images, output_path, width):
-    """save app and ref images with images showing differences in one image"""
+    """save app and ref images with images showing differences in one file"""
 
     # Resize to default value or custom
     images = resize_all(images, width)
