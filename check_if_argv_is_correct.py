@@ -93,7 +93,7 @@ def check_mode(argv_):
                 print('Error: 5th should be numeric.\n')
 
             sys.exit('Error: 6th, last argument should be"--search_by_ratio":\n'
-                f" {argv_[5]}\n"
+                f" {argv_[6]}\n"
                 f"{help_tip()}")
                      
 
@@ -115,7 +115,7 @@ def check_mode(argv_):
 
         elif len(argv_) == 7:
             sys.exit("Error: one argument too much:\n"
-                     f" {argv_[5]}\n"
+                     f" {argv_[6]}\n"
                      f"{help_tip()}")
     else:
         sys.exit('Error: 3th argument is invalid. It\'s not mode: "--show" or "--save":\n'

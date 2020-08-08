@@ -213,19 +213,22 @@ def main():
         else:
             output_path = None
 
-        if len(sys.argv) >= 6 and len(sys.argv) <= 7:
+        if len(sys.argv) >= 6 and sys.argv[5].isnumeric():
 
-            if sys.argv[5].isnumeric():
-                width = int(sys.argv[5])  # Input user is width of reference image size
+            width = int(sys.argv[5])  # Input user is width of reference image size
 
-            elif sys.argv[5] != "--search_by_ratio":
-                raise ValueError("Error: Invalid argument value\n"
+        elif len(sys.argv) == 6:
+
+            if sys.argv[5] != "--search_by_ratio" and not sys.argv[5].isnumeric():
+                raise ValueError('Error: Invalid argument value. It should be numeric or "--search_by_ratio"\n'
                     f" {sys.argv[5]}")
 
-            if len(sys.argv) == 7 and sys.argv[6] == "--search_by_ratio" or not sys.argv[5].isnumeric():
-                raise ValueError("Error: Invalid argument value\n"
-                    f" {sys.argv[5]}")
-                
+        elif len(sys.argv) == 7:
+
+            if sys.argv[6] != "--search_by_ratio":
+                raise ValueError('Error: Invalid argument value. It should be "--search_by_ratio\n'
+                    f" {sys.argv[6]}")
+
 
         # Process all images, save each sequence in chosen director
         for similar_pair in similar_list:
@@ -241,17 +244,21 @@ def main():
     elif mode == "--show":
 
         # Optional arg
-        if len(sys.argv) >= 5 and len(sys.argv) <= 6:
+        if len(sys.argv) >= 5 and sys.argv[4].isnumeric():
 
-            if sys.argv[4].isnumeric():
-                width = int(sys.argv[4])
-            
-            elif sys.argv[4] != "--search_by_ratio":
-                raise ValueError("Error: Invalid argument value\n"
+            width = int(sys.argv[4])  # Input user is width of reference image size
+
+        elif len(sys.argv) == 5:
+
+            if sys.argv[4] != "--search_by_ratio" and not sys.argv[5].isnumeric():
+                raise ValueError('Error: Invalid argument value. It should be numeric or "--search_by_ratio"\n'
+                    f" {sys.argv[4]}")
+
+        elif len(sys.argv) == 6:
+
+            if sys.argv[5] != "--search_by_ratio":
+                raise ValueError('Error: Invalid argument value. It should be "--search_by_ratio\n'
                     f" {sys.argv[5]}")
-
-            if len(sys.argv) == 6 and sys.argv[5] != "--search_by_ratio" and not sys.argv[4].isnumeric():
-
 
 
         # Process all images, show user each sequence one by one
