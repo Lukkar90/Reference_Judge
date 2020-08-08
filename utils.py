@@ -87,3 +87,24 @@ def uri_validator(path):  # https://stackoverflow.com/a/38020041/12490791
         return all([result.scheme, result.netloc, result.path])
     except:
         return False
+
+
+def make_sizes_of_images_the_same(source, target):
+
+    # take dimensions
+    (h_source, w_source) = source.shape[:2]
+    (h_target, w_target) = target.shape[:2]
+
+    # check if ratio of both images are the same
+    source_ratio = w_source/h_source
+    target_ratio = w_target/h_target
+
+    same_ratio = (source_ratio == target_ratio)
+
+    # resize image to the same size
+    if same_ratio:
+        target = resize_with_with_aspect_ratio(target, w_source)
+
+    
+    return target
+

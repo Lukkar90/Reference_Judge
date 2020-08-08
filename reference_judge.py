@@ -235,7 +235,7 @@ def main():
 
             if not similar_pair is None:
 
-                images = compute_image_differences(similar_pair)
+                images = compute_image_differences(similar_pair, by_ratio)
 
                 save_images_as_one(images, output_path, width)
 
@@ -264,7 +264,7 @@ def main():
 
             if not similar_pair is None:
 
-                images = compute_image_differences(similar_pair)
+                images = compute_image_differences(similar_pair, by_ratio)
 
                 show_images(images, width)
 

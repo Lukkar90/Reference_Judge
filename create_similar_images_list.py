@@ -7,12 +7,12 @@ import os
 import sys
 
 # external libs
-from cv2 import COLOR_BGR2GRAY, cvtColor, imread
+from cv2 import COLOR_BGR2GRAY, cvtColor, imread, imshow
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from app_data import legit_extensions
-from utils import uri_validator, url_to_image, error_check_path_is_empty_string
+from utils import uri_validator, url_to_image, error_check_path_is_empty_string, resize_with_with_aspect_ratio, make_sizes_of_images_the_same
 
 
 def files_paths(directory):
@@ -64,7 +64,7 @@ def reference_pair_dictionary(original_name, original_path, app_path, similarity
 
 
 # https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
-def find_most_similar_image(file_source_path, target_directory_path):
+def find_most_similar_image(file_source_path, target_directory_path, by_ratio=False):
     """Return matched images paths of chosen file and dir"""
 
     error_check_path_is_empty_string(target_directory_path)
@@ -90,6 +90,9 @@ def find_most_similar_image(file_source_path, target_directory_path):
 
             target_path = os.path.join(target_directory_path, file_)
             target_image = imread(target_path)  # load image into memory
+            # resize image target image to the same size if ratio is the same
+            if by_ratio:
+                target_image = make_sizes_of_images_the_same(source_image, target_image)
             t_height, t_width, _ = target_image.shape
 
             # NOTE: the two images must have the same dimension
@@ -109,7 +112,7 @@ def find_most_similar_image(file_source_path, target_directory_path):
     return most_similar_image
 
 
-def both_single_paths(original_reference, app_reference, original_name):
+def both_single_paths(original_reference, app_reference, original_name, by_ratio=False):
     """logic when both source and target paths are files"""
 
     error_check_path_is_empty_string(original_reference)
@@ -118,6 +121,10 @@ def both_single_paths(original_reference, app_reference, original_name):
 
     source = path_to_image(original_reference)
     target = path_to_image(app_reference)
+
+    # resize image target image to the same size if ratio is the same
+    if by_ratio:
+        target = make_sizes_of_images_the_same(source, target)
 
     # change image to b&w to calculate similarity
     source = cvtColor(source, COLOR_BGR2GRAY)
@@ -134,7 +141,7 @@ def both_single_paths(original_reference, app_reference, original_name):
     return reference_pair
 
 
-def similar_images_list_generator(source_directory_path, target_directory_path):
+def similar_images_list_generator(source_directory_path, target_directory_path, by_ratio):
     """return list of paths of matched images"""
 
     error_check_path_is_empty_string(source_directory_path)
@@ -150,7 +157,7 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
         source_name = os.path.basename(source_path)
 
         similar_image = find_most_similar_image(
-            source_path, target_directory_path)
+            source_path, target_directory_path, by_ratio)
 
         if similar_image["file_path"] == "":
             print(f"Not found reference : {source_name}")
@@ -167,7 +174,7 @@ def similar_images_list_generator(source_directory_path, target_directory_path):
     return reference_pairs
 
 
-def return_one_ref_pair(original_reference_path, app_reference_path):
+def return_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
     """return on pair of paths of matched images"""
 
     error_check_path_is_empty_string(original_reference_path)
@@ -182,14 +189,14 @@ def return_one_ref_pair(original_reference_path, app_reference_path):
     if ext_app:
 
         reference_pair = both_single_paths(
-            original_reference_path, app_reference_path, original_name)
+            original_reference_path, app_reference_path, original_name, by_ratio)
 
     # if original image is single file
     else:
 
         # Give results when it's only one original image and match reference image from many app references
         similar_image = find_most_similar_image(
-            original_reference_path, app_reference_path)
+            original_reference_path, app_reference_path, by_ratio)
 
         if similar_image["file_path"] == "":
             print(f"Not found reference : {original_name}")
@@ -209,8 +216,6 @@ def create_similar_images_list(original_reference_path, app_reference_path, by_r
     It returns path or paths of similar images compared to reference
     """
 
-    print("create_similar_images_list: by_ratio: ", by_ratio)
-
     error_check_path_is_empty_string(original_reference_path)
     error_check_path_is_empty_string(app_reference_path)
 
@@ -218,8 +223,8 @@ def create_similar_images_list(original_reference_path, app_reference_path, by_r
     # if original image is file, not dir
     if ext_original:
 
-        return return_one_ref_pair(original_reference_path, app_reference_path)
+        return return_one_ref_pair(original_reference_path, app_reference_path, by_ratio)
     # if original images are dir
     else:
 
-        return similar_images_list_generator(original_reference_path, app_reference_path)
+        return similar_images_list_generator(original_reference_path, app_reference_path, by_ratio)

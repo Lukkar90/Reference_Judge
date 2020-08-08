@@ -92,9 +92,10 @@ def check_mode(argv_):
             if not argv_[5].isnumeric():
                 print('Error: 5th should be numeric.\n')
 
-            sys.exit('Error: 6th, last argument should be"--search_by_ratio":\n'
-                f" {argv_[6]}\n"
-                f"{help_tip()}")
+            if  argv_[6] != "--search_by_ratio":
+                sys.exit('Error: 6th, last argument should be"--search_by_ratio":\n'
+                    f" {argv_[6]}\n"
+                    f"{help_tip()}")
                      
 
     elif mode == "--show":

@@ -7,10 +7,10 @@ import imutils
 from skimage.metrics import structural_similarity
 
 # internal libs
-from utils import uri_validator, url_to_image
+from utils import uri_validator, url_to_image, make_sizes_of_images_the_same
 
 
-def compute_image_differences(similar_pair):  # https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/
+def compute_image_differences(similar_pair, by_ratio=False):  # https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/
 
     # construct the argument
     paths = {
@@ -33,6 +33,10 @@ def compute_image_differences(similar_pair):  # https://www.pyimagesearch.com/20
         image_B = url_to_image(paths["second"])
     else:
         image_B = cv2.imread(paths["second"])
+
+    # resize image target image to the same size if ratio is the same
+    if by_ratio:
+        image_B = make_sizes_of_images_the_same(image_A, image_B)
 
     # compute difference between imageA and imageB in BGR
     diff_BGR = cv2.subtract(image_A, image_B)
