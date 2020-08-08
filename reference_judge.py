@@ -237,8 +237,6 @@ def main():
 
                 images = compute_image_differences(similar_pair)
 
-                print(width)
-
                 save_images_as_one(images, output_path, width)
 
     elif mode == "--show":
