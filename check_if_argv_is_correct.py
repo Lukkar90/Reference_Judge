@@ -67,7 +67,7 @@ def help_content():
     program_name = __main__.__file__
 
     # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-    return f"Usage: python {program_name} <orignal_reference_path> <app_reference_path> <--mode> [directory_diffrences_output] [width]"
+    return f"Usage: python {program_name} <original_reference_path> <app_reference_path> <--mode> [directory_differences_output] [width] [--search_by_ratio]"
 
 
 def check_mode(argv_):
@@ -81,18 +81,38 @@ def check_mode(argv_):
             sys.exit("Error: No output path\n"
                      f"{help_tip()}")
 
-        elif len(argv_) == 6 and not argv_[5].isnumeric():
-            sys.exit("Error: 5th, last argument should be numeric:\n"
+        elif len(argv_) == 6 and (not argv_[5].isnumeric() or argv_[5] != "--search_by_ratio"):
+
+            sys.exit('Error: 5th, last argument should be numeric or be "--search_by_ratio":\n'
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
+        
+        elif len(argv_) == 7 and argv_[6] != "--search_by_ratio":
+
+            if not argv_[5].isnumeric():
+                print('Error: 5th should be numeric.\n')
+
+            sys.exit('Error: 6th, last argument should be"--search_by_ratio":\n'
+                f" {argv_[5]}\n"
+                f"{help_tip()}")
+                     
 
     elif mode == "--show":
-        if len(argv_) == 5 and not argv_[4].isnumeric():
-            sys.exit("Error: 4th, last argument should be numeric:\n"
+        if len(argv_) == 5 and (not argv_[4].isnumeric() or argv_[4] != "--search_by_ratio"):
+            sys.exit('Error: 4th, last argument should be numeric or be "--search_by_ratio":\n'
                      f" {argv_[4]}\n"
                      f"{help_tip()}")
 
         elif len(argv_) == 6:
+
+            if not argv_[4].isnumeric():
+                print('Error: 4th should be numeric.\n')
+
+            sys.exit('Error: 5th, last argument should be "--search_by_ratio":\n'
+                f" {argv_[5]}\n"
+                f"{help_tip()}")
+
+        elif len(argv_) == 7:
             sys.exit("Error: one argument too much:\n"
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
@@ -227,7 +247,7 @@ def check_if_argv_is_correct(argv_):
     program_name = argv_[0]
 
     # incorrect number of arguments
-    if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 6)):
+    if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 7)):
         sys.exit(f"{help_content()}\n"
                  f"{help_tip()}")
 
@@ -237,7 +257,7 @@ def check_if_argv_is_correct(argv_):
                  f" {argv_[1]}")
 
     # correct number of arguments
-    elif len(argv_) >= 4 and len(argv_) <= 6:
+    elif len(argv_) >= 4 and len(argv_) <= 7:
 
         check_paths(argv_)
 
