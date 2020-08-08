@@ -196,7 +196,12 @@ def main():
     app_ref_path = sys.argv[2]
     mode = sys.argv[3]
 
-    similar_list = create_similar_images_list(original_ref_path, app_ref_path)
+    if sys.argv[-1] == "--search_by_ratio": # To avoid checking 3 places at one, this argument is always last
+        by_ratio = True
+    else:
+        by_ratio = False
+
+    similar_list = create_similar_images_list(original_ref_path, app_ref_path, by_ratio)
 
     width = 360  # Default
 
@@ -208,8 +213,19 @@ def main():
         else:
             output_path = None
 
-        if len(sys.argv) == 6:
-            width = int(sys.argv[5])  # Input user is width of reference image size
+        if len(sys.argv) >= 6 and len(sys.argv) <= 7:
+
+            if sys.argv[5].isnumeric():
+                width = int(sys.argv[5])  # Input user is width of reference image size
+
+            elif sys.argv[5] != "--search_by_ratio":
+                raise ValueError("Error: Invalid argument value\n"
+                    f" {sys.argv[5]}")
+
+            if len(sys.argv) == 7 and sys.argv[6] == "--search_by_ratio" or not sys.argv[5].isnumeric():
+                raise ValueError("Error: Invalid argument value\n"
+                    f" {sys.argv[5]}")
+                
 
         # Process all images, save each sequence in chosen director
         for similar_pair in similar_list:
@@ -218,13 +234,25 @@ def main():
 
                 images = compute_image_differences(similar_pair)
 
+                print(width)
+
                 save_images_as_one(images, output_path, width)
 
     elif mode == "--show":
 
         # Optional arg
-        if len(sys.argv) == 5:
-            width = int(sys.argv[4])
+        if len(sys.argv) >= 5 and len(sys.argv) <= 6:
+
+            if sys.argv[4].isnumeric():
+                width = int(sys.argv[4])
+            
+            elif sys.argv[4] != "--search_by_ratio":
+                raise ValueError("Error: Invalid argument value\n"
+                    f" {sys.argv[5]}")
+
+            if len(sys.argv) == 6 and sys.argv[5] != "--search_by_ratio" and not sys.argv[4].isnumeric():
+
+
 
         # Process all images, show user each sequence one by one
         for similar_pair in similar_list:

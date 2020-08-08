@@ -203,11 +203,13 @@ def return_one_ref_pair(original_reference_path, app_reference_path):
     return similar_list
 
 
-def create_similar_images_list(original_reference_path, app_reference_path):
+def create_similar_images_list(original_reference_path, app_reference_path, by_ratio=False):
     """
     Main function of this module used in main in reference_judge.py
     It returns path or paths of similar images compared to reference
     """
+
+    print("create_similar_images_list: by_ratio: ", by_ratio)
 
     error_check_path_is_empty_string(original_reference_path)
     error_check_path_is_empty_string(app_reference_path)

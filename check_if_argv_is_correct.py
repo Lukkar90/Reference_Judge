@@ -81,7 +81,7 @@ def check_mode(argv_):
             sys.exit("Error: No output path\n"
                      f"{help_tip()}")
 
-        elif len(argv_) == 6 and (not argv_[5].isnumeric() or argv_[5] != "--search_by_ratio"):
+        elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] == "--search_by_ratio"):
 
             sys.exit('Error: 5th, last argument should be numeric or be "--search_by_ratio":\n'
                      f" {argv_[5]}\n"
@@ -98,7 +98,7 @@ def check_mode(argv_):
                      
 
     elif mode == "--show":
-        if len(argv_) == 5 and (not argv_[4].isnumeric() or argv_[4] != "--search_by_ratio"):
+        if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] == "--search_by_ratio"):
             sys.exit('Error: 4th, last argument should be numeric or be "--search_by_ratio":\n'
                      f" {argv_[4]}\n"
                      f"{help_tip()}")
@@ -108,9 +108,10 @@ def check_mode(argv_):
             if not argv_[4].isnumeric():
                 print('Error: 4th should be numeric.\n')
 
-            sys.exit('Error: 5th, last argument should be "--search_by_ratio":\n'
-                f" {argv_[5]}\n"
-                f"{help_tip()}")
+            if  argv_[5] != "--search_by_ratio":
+                sys.exit('Error: 5th, last argument should be "--search_by_ratio":\n'
+                    f" {argv_[5]}\n"
+                    f"{help_tip()}")
 
         elif len(argv_) == 7:
             sys.exit("Error: one argument too much:\n"
@@ -132,7 +133,7 @@ def check_paths(argv_):
     app_reference_path = argv_[2]
     output_path = None
     # this argument position can be also width
-    if len(argv_) >= 5 and not argv_[4].isnumeric():
+    if len(argv_) >= 5 and not argv_[4].isnumeric() and argv_[4] != "--search_by_ratio":
         output_path = argv_[4]
 
     # Path kind args
