@@ -32,6 +32,7 @@ from check_if_argv_is_correct import check_if_argv_is_correct, help_content
 from compute_image_differences import compute_image_differences
 from create_similar_images_list import create_similar_images_list
 from utils import resize_with_with_aspect_ratio
+from app_data import ARGV
 
 
 def resize_all(images, width):
@@ -148,40 +149,41 @@ def program_help(argv_):
 
     program_name = argv_[0]
 
-    if len(argv_) == 2 and argv_[1] == "--help":
+    if len(argv_) == 2 and argv_[1] == ARGV["help"]:
         sys.exit("\n"
                  f"{help_content()}\n"
                  "\n"
                  "On desktop:\n"
                  " save:\n"
-                 f"  python {program_name} path_dir path_dir --save path_dir [px]\n"
-                 f"  python {program_name} path_dir path_dir --save path_file [px]\n"
-                 f"  python {program_name} path_file path_dir --save path_dir [px]\n"
-                 f"  python {program_name} path_file path_file --save path_dir [px] *\n"
-                 f"  python {program_name} path_file path_file --save path_file [px] *\n"
+                 f"  python {program_name} path_dir path_dir {ARGV['save']} path_dir [px] [ratio]\n"
+                 f"  python {program_name} path_dir path_dir {ARGV['save']} path_file [px] [ratio]\n"
+                 f"  python {program_name} path_file path_dir {ARGV['save']} path_dir [px] [ratio]\n"
+                 f"  python {program_name} path_file path_file {ARGV['save']} path_dir [px] [ratio] *\n"
+                 f"  python {program_name} path_file path_file {ARGV['save']} path_file [px] [ratio] *\n"
                  "\n"
                  " show:\n"
-                 f"  python {program_name} path_dir path_dir --show [px]\n"
-                 f"  python {program_name} path_file path_dir --show [px]\n"
-                 f"  python {program_name} path_file path_file --show [px] *\n"
+                 f"  python {program_name} path_dir path_dir {ARGV['show']} [px] [ratio]\n"
+                 f"  python {program_name} path_file path_dir {ARGV['show']} [px] [ratio]\n"
+                 f"  python {program_name} path_file path_file {ARGV['show']} [px] [ratio] *\n"
                  "\n"
                  "HTTPS:\n"
                  " save:\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img --save path_dir [px] *\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img --save path_file [px] *\n"
-                 f"  python {program_name} https/address.com/image.img path_dir --save path_dir [px]\n"
-                 f"  python {program_name} https/address.com/image.img path_dir --save path_file [px]\n"
-                 f"  python {program_name} path_file https/address.com/image.img --save path_dir [px] *\n"
-                 f"  python {program_name} path_file https/address.com/image.img --save path_file [px] *\n"
+                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save']} path_dir [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save']} path_file [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save']} path_dir [px] [ratio]\n"
+                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save']} path_file [px] [ratio]\n"
+                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save']} path_dir [px] [ratio] *\n"
+                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save']} path_file [px] [ratio] *\n"
                  "\n"
                  " show:\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img --show [px] *\n"
-                 f"  python {program_name} path_file https/address.com/image.img --show [px] *\n"
-                 f"  python {program_name} https/address.com/image.img path_file --show [px] *\n"
-                 f"  python {program_name} https/address.com/image.img path_dir --show [px]\n"
+                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['show']} [px] [ratio] *\n"
+                 f"  python {program_name} path_file https/address.com/image.img {ARGV['show']} [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img path_file {ARGV['show']} [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['show']} [px] [ratio]\n"
                  "\n"
                  " * images have to be the same size\n"
-                 " [px] is optional value of width of each image"
+                 " [px] is optional value of width of each image\n"
+                 f" [ratio] {ARGV['search_by_ratio']}"
                  )
                  
 def parse_optional_argvs(argv, cap_len_argv, DEFAULT_width):
@@ -197,14 +199,14 @@ def parse_optional_argvs(argv, cap_len_argv, DEFAULT_width):
 
     if len(argv) == (n - 1):
 
-        if argv[n -2] != "--search_by_ratio" and not argv[n -2].isnumeric():
-            raise ValueError('Error: Invalid argument value. It should be numeric or "--search_by_ratio"\n'
+        if argv[n -2] != ARGV["search_by_ratio"] and not argv[n -2].isnumeric():
+            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search_by_ratio"]}\n'
                 f" {argv[n -2]}")
 
     elif len(argv) == n:
 
-        if argv[n -1] != "--search_by_ratio":
-            raise ValueError('Error: Invalid argument value. It should be "--search_by_ratio"\n'
+        if argv[n -1] != ARGV["search_by_ratio"]:
+            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"]}\n'
                 f" {argv[n -1]}")
 
     if width is not None:
@@ -224,7 +226,7 @@ def main():
     app_ref_path = sys.argv[2]
     mode = sys.argv[3]
 
-    if sys.argv[-1] == "--search_by_ratio": # To avoid checking 3 places at one, this argument is always last
+    if sys.argv[-1] == ARGV["search_by_ratio"]: # To avoid checking 3 places at one, this argument is always last
         by_ratio = True
     else:
         by_ratio = False
@@ -233,7 +235,7 @@ def main():
 
     width = 360  # Default
 
-    if mode == "--save":
+    if mode == ARGV["save"]:
 
         if len(sys.argv) >= 5:
             output_path = sys.argv[4]
@@ -254,7 +256,7 @@ def main():
 
                 save_images_as_one(images, output_path, width)
 
-    elif mode == "--show":
+    elif mode == ARGV["show"]:
 
         # Optional args
         if len(sys.argv) >= 6:

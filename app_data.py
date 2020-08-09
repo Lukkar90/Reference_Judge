@@ -2,4 +2,9 @@
 
 legit_extensions = tuple(".png")
 
-argv_search_by_ratio = "--search_by_ratio"
+ARGV = {
+    "search_by_ratio": "--search_by_ratio",
+    "save": "--save",
+    "show": "--show",
+    "help": "--help",
+}
