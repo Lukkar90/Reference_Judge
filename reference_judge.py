@@ -183,6 +183,34 @@ def program_help(argv_):
                  " * images have to be the same size\n"
                  " [px] is optional value of width of each image"
                  )
+                 
+def parse_optional_argvs(argv, cap_len_argv, DEFAULT_width):
+
+    # init variables
+    n = cap_len_argv
+    width = None
+
+    # Optional arg
+    if len(argv) >= (n -1) and argv[n -2].isnumeric():
+
+        width = int(argv[n -2])  # Input user is width of reference image size
+
+    if len(argv) == (n - 1):
+
+        if argv[n -2] != "--search_by_ratio" and not argv[n -2].isnumeric():
+            raise ValueError('Error: Invalid argument value. It should be numeric or "--search_by_ratio"\n'
+                f" {argv[n -2]}")
+
+    elif len(argv) == n:
+
+        if argv[n -1] != "--search_by_ratio":
+            raise ValueError('Error: Invalid argument value. It should be "--search_by_ratio"\n'
+                f" {argv[n -1]}")
+
+    if width is not None:
+        return width
+    else:
+        return DEFAULT_width
 
 
 def main():
@@ -207,27 +235,14 @@ def main():
 
     if mode == "--save":
 
-        # Optional args
         if len(sys.argv) >= 5:
             output_path = sys.argv[4]
         else:
             output_path = None
 
-        if len(sys.argv) >= 6 and sys.argv[5].isnumeric():
-
-            width = int(sys.argv[5])  # Input user is width of reference image size
-
-        elif len(sys.argv) == 6:
-
-            if sys.argv[5] != "--search_by_ratio" and not sys.argv[5].isnumeric():
-                raise ValueError('Error: Invalid argument value. It should be numeric or "--search_by_ratio"\n'
-                    f" {sys.argv[5]}")
-
-        elif len(sys.argv) == 7:
-
-            if sys.argv[6] != "--search_by_ratio":
-                raise ValueError('Error: Invalid argument value. It should be "--search_by_ratio\n'
-                    f" {sys.argv[6]}")
+        # Optional args
+        if len(sys.argv) >= 6:
+            width = parse_optional_argvs(sys.argv, 7, width)
 
 
         # Process all images, save each sequence in chosen director
@@ -241,23 +256,9 @@ def main():
 
     elif mode == "--show":
 
-        # Optional arg
-        if len(sys.argv) >= 5 and sys.argv[4].isnumeric():
-
-            width = int(sys.argv[4])  # Input user is width of reference image size
-
-        elif len(sys.argv) == 5:
-
-            if sys.argv[4] != "--search_by_ratio" and not sys.argv[5].isnumeric():
-                raise ValueError('Error: Invalid argument value. It should be numeric or "--search_by_ratio"\n'
-                    f" {sys.argv[4]}")
-
-        elif len(sys.argv) == 6:
-
-            if sys.argv[5] != "--search_by_ratio":
-                raise ValueError('Error: Invalid argument value. It should be "--search_by_ratio\n'
-                    f" {sys.argv[5]}")
-
+        # Optional args
+        if len(sys.argv) >= 6:
+            width = parse_optional_argvs(sys.argv, 6, width)
 
         # Process all images, show user each sequence one by one
         for similar_pair in similar_list:
