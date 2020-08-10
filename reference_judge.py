@@ -32,7 +32,7 @@ from check_if_argv_is_correct import check_if_argv_is_correct, help_content
 from compute_image_differences import compute_image_differences
 from create_similar_images_list import create_similar_images_list
 from utils import resize_with_with_aspect_ratio
-from app_data import ARGV, IMAGES_sizes
+from app_data import ARGV
 
 
 def resize_all(images, width):
@@ -226,10 +226,10 @@ def retrieve_width(argv_, cap_len_argv, DEFAULT_width):
         # Input user is width of reference image size
         width = int(argv_[n - 2])
 
-        if width is not None:
-            return width
-        else:
-            return DEFAULT_width
+    if width is not None:
+        return width
+    else:
+        return DEFAULT_width
 
 
 def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
@@ -251,11 +251,8 @@ def main():
     app_ref_path = sys.argv[2]
     mode = sys.argv[3]
 
-    # To avoid checking 3 places at one, this argument is always last
-    if sys.argv[-1] == ARGV["search_by_ratio"]:
-        by_ratio = True
-    else:
-        by_ratio = False
+    # [-1] To avoid checking 3 places at one, this argument is always last
+    by_ratio = bool(sys.argv[-1] in ARGV["search_by_ratio"])
 
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)
@@ -264,46 +261,59 @@ def main():
 
     if mode in ARGV["save"]:
 
-        if len(sys.argv) >= 5:
-            output_path = sys.argv[4]
-        else:
-            output_path = None
-
-        # Optional args
-        if len(sys.argv) >= 6:
-            width = parse_optional_argvs(sys.argv, 7, width)
-
-        # Process all images, save each sequence in chosen director
-        for similar_pair in similar_list:
-
-            if not similar_pair is None:
-
-                images = compute_image_differences(similar_pair, by_ratio)
-
-                save_images_as_one(images, output_path, width)
+        mode_save(width, similar_list, by_ratio)
 
     elif mode in ARGV["show"]:
 
         # Optional args
-        if len(sys.argv) >= 6:
-            width = parse_optional_argvs(sys.argv, 6, width)
-
-        # Process all images, show user each sequence one by one
-        for similar_pair in similar_list:
-
-            if not similar_pair is None:
-
-                images = compute_image_differences(similar_pair, by_ratio)
-
-                show_images(images, width)
-
-                print('NOTE: Press the "0" key, to close opened windows')
-                cv2.waitKey(0)
+        mode_show(width, similar_list, by_ratio)
     else:
         raise ValueError("Error: Invalid mode value\n"
                          f" {mode}")
 
     sys.exit(0)
+
+
+def mode_show(width, similar_list, by_ratio):
+    """show matched images"""
+
+    # Optional args
+    if len(sys.argv) >= 6:
+        width = parse_optional_argvs(sys.argv, 6, width)
+
+    # Process all images, show user each sequence one by one
+    for similar_pair in similar_list:
+
+        if not similar_pair is None:
+
+            images = compute_image_differences(similar_pair, by_ratio)
+
+            show_images(images, width)
+
+            print('NOTE: Press the "0" key, to close opened windows')
+            cv2.waitKey(0)
+
+
+def mode_save(width, similar_list, by_ratio):
+    """save matched images in chosen directory"""
+
+    if len(sys.argv) >= 5:
+        output_path = sys.argv[4]
+    else:
+        output_path = None
+
+    # Optional args
+    if len(sys.argv) >= 6:
+        width = parse_optional_argvs(sys.argv, 7, width)
+
+    # Process all images, save each sequence in chosen director
+    for similar_pair in similar_list:
+
+        if not similar_pair is None:
+
+            images = compute_image_differences(similar_pair, by_ratio)
+
+            save_images_as_one(images, output_path, width)
 
 
 if __name__ == "__main__":

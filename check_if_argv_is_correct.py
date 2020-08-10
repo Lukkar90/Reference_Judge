@@ -77,52 +77,67 @@ def check_mode(argv_):
 
     # check modes arguments
     if mode in ARGV["save"]:
-        if len(argv_) < 5:
-            sys.exit("Error: No output path\n"
-                     f"{help_tip()}")
 
-        elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] in ARGV["search_by_ratio"]):
-
-            sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
-                     f" {argv_[5]}\n"
-                     f"{help_tip()}")
-
-        elif len(argv_) == 7 and argv_[6] not in ARGV["search_by_ratio"]:
-
-            if not argv_[5].isnumeric():
-                print('Error: 5th should be numeric.\n')
-
-            if argv_[6] not in ARGV["search_by_ratio"]:
-                sys.exit(f'Error: 6th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
-                         f" {argv_[6]}\n"
-                         f"{help_tip()}")
+        check_mode_save(argv_)
 
     elif mode in ARGV["show"]:
-        if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] in ARGV["search_by_ratio"]):
-            sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
-                     f" {argv_[4]}\n"
-                     f"{help_tip()}")
 
-        elif len(argv_) == 6:
+        check_mode_show(argv_)
 
-            if not argv_[4].isnumeric():
-                print('Error: 4th should be numeric.\n')
-
-            if argv_[5] not in ARGV["search_by_ratio"]:
-                sys.exit(f'Error: 5th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
-                         f" {argv_[5]}\n"
-                         f"{help_tip()}")
-
-        elif len(argv_) == 7:
-            sys.exit("Error: one argument too much:\n"
-                     f" {argv_[6]}\n"
-                     f"{help_tip()}")
     else:
         sys.exit(f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:\n'
                  f" {argv_[3]}\n"
                  f"{help_tip()}")
 
     return mode
+
+
+def check_mode_save(argv_):
+    """check correctness all argv in save mode"""
+
+    if len(argv_) < 5:
+        sys.exit("Error: No output path\n"
+                 f"{help_tip()}")
+
+    elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] in ARGV["search_by_ratio"]):
+
+        sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
+                 f" {argv_[5]}\n"
+                 f"{help_tip()}")
+
+    elif len(argv_) == 7 and argv_[6] not in ARGV["search_by_ratio"]:
+
+        if not argv_[5].isnumeric():
+            print('Error: 5th should be numeric.\n')
+
+        if argv_[6] not in ARGV["search_by_ratio"]:
+            sys.exit(f'Error: 6th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
+                     f" {argv_[6]}\n"
+                     f"{help_tip()}")
+
+
+def check_mode_show(argv_):
+    """check correctness all argv in show mode"""
+
+    if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] in ARGV["search_by_ratio"]):
+        sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
+                 f" {argv_[4]}\n"
+                 f"{help_tip()}")
+
+    elif len(argv_) == 6:
+
+        if not argv_[4].isnumeric():
+            print('Error: 4th should be numeric.\n')
+
+        if argv_[5] not in ARGV["search_by_ratio"]:
+            sys.exit(f'Error: 5th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
+                     f" {argv_[5]}\n"
+                     f"{help_tip()}")
+
+    elif len(argv_) == 7:
+        sys.exit("Error: one argument too much:\n"
+                 f" {argv_[6]}\n"
+                 f"{help_tip()}")
 
 
 def check_paths(argv_):
@@ -243,6 +258,7 @@ def path_validation(path_kind, reference_path, dir_kind):
 
 
 def check_width_values(argv_):
+    """check if width value is lower or equal IMAGES_sizes["biggest dimmension"] in save or show mode"""
 
     mode = argv_[3]
 
@@ -255,6 +271,7 @@ def check_width_values(argv_):
 
 
 def check_legal_value(argv_, cap_len_argv):
+    """check if width value is lower or equal IMAGES_sizes["biggest dimmension"]"""
 
     n = cap_len_argv
 
@@ -270,7 +287,7 @@ def check_legal_value(argv_, cap_len_argv):
 
 
 def check_if_argv_is_correct(argv_):
-    """main function of module: check_if_argv_is_correct.py, used in: reference_judge.py"""
+    """main function of module: check_if_argv_is_correct.py, used in : reference_judge.py"""
 
     program_name = argv_[0]
 
