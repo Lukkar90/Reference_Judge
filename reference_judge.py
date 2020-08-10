@@ -193,11 +193,13 @@ def program_help(argv_):
                  )
 
 
-def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
-    """check if width, search_by_ratio are correct. If both are it returns width"""
+def check_correctness_optional_argvs(argv_, cap_len_argv):
+    """notify developer when problem occurs"""
 
+    #  init variable
     n = cap_len_argv
 
+    # check correctness
     if len(argv_) == (n - 1):
 
         if argv_[n - 2] not in ARGV["search_by_ratio"] and not argv_[n - 2].isnumeric():
@@ -210,19 +212,32 @@ def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
             raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
                              f" {argv_[n -1]}")
 
+
+def retrieve_width(argv_, cap_len_argv, DEFAULT_width):
+    """take width from argv, dependably by numeber of argv"""
+
     # init variables
+    n = cap_len_argv
     width = None
 
-    # Optional arg
+    # check width param
     if len(argv_) >= (n - 1) and argv_[n - 2].isnumeric():
 
         # Input user is width of reference image size
         width = int(argv_[n - 2])
 
-    if width is not None:
-        return width
-    else:
-        return DEFAULT_width
+        if width is not None:
+            return width
+        else:
+            return DEFAULT_width
+
+
+def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
+    """check if width, search_by_ratio are correct. If both are it returns width"""
+
+    check_correctness_optional_argvs(argv_, cap_len_argv)
+
+    return retrieve_width(argv_, cap_len_argv, DEFAULT_width)
 
 
 def main():
