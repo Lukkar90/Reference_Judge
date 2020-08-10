@@ -264,3 +264,28 @@ def check_if_argv_is_correct(argv_):
         check_paths(argv_)
 
         check_mode(argv_)
+
+        check_width(argv_)
+
+        check_by_ratio(argv_)
+
+def check_width(argv_):
+
+    
+
+
+def check_legal_value(argv_, cap_len_argv):
+
+    n = cap_len_argv
+
+    if len(argv_) >= (n -1) and argv_[n -2].isnumeric():
+
+        width = int(argv_[n -2])  # Input user is width of reference image size
+
+        # check if value is too high
+        if width > IMAGES_sizes["biggest dimmension"]: 
+            sys.exit(f"Width value is too high: {width}. It should be higher than: {IMAGES_sizes['biggest dimmension']}")
+
+
+def funcname(parameter_list):
+    pass

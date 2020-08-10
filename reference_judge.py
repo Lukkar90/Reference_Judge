@@ -32,7 +32,7 @@ from check_if_argv_is_correct import check_if_argv_is_correct, help_content
 from compute_image_differences import compute_image_differences
 from create_similar_images_list import create_similar_images_list
 from utils import resize_with_with_aspect_ratio
-from app_data import ARGV
+from app_data import ARGV, IMAGES_sizes
 
 
 def resize_all(images, width):
@@ -188,28 +188,32 @@ def program_help(argv_):
                  f" [ratio] {ARGV['search_by_ratio'][0]} or {ARGV['search_by_ratio'][1]} -> images could be different sizes but they have to be the same ratio"
                  )
                  
-def parse_optional_argvs(argv, cap_len_argv, DEFAULT_width):
+def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
 
     # init variables
     n = cap_len_argv
     width = None
 
     # Optional arg
-    if len(argv) >= (n -1) and argv[n -2].isnumeric():
+    if len(argv_) >= (n -1) and argv_[n -2].isnumeric():
 
-        width = int(argv[n -2])  # Input user is width of reference image size
+        width = int(argv_[n -2])  # Input user is width of reference image size
 
-    if len(argv) == (n - 1):
+        # check if value is too high
+        if width > IMAGES_sizes["biggest dimmension"]: 
+            sys.exit(f"Width value is too high: {width}. It should be higher than: {IMAGES_sizes['biggest dimmension']}")
 
-        if argv[n -2] != ARGV["search_by_ratio"] and not argv[n -2].isnumeric():
+    if len(argv_) == (n - 1):
+
+        if argv_[n -2] != ARGV["search_by_ratio"] and not argv_[n -2].isnumeric():
             raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search_by_ratio"]}\n'
-                f" {argv[n -2]}")
+                f" {argv_[n -2]}")
 
-    elif len(argv) == n:
+    elif len(argv_) == n:
 
-        if argv[n -1] != ARGV["search_by_ratio"]:
+        if argv_[n -1] != ARGV["search_by_ratio"]:
             raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"]}\n'
-                f" {argv[n -1]}")
+                f" {argv_[n -1]}")
 
     if width is not None:
         return width
