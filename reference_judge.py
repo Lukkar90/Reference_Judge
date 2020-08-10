@@ -126,6 +126,8 @@ def save_images_as_one(images, output_path, width):
     diff = cv2.cvtColor(diff, cv2.COLOR_GRAY2RGB)
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
+    # Add titles to all images: https://stackoverflow.com/a/34273603/12490791 todo
+
     # Combining all images into one
     numpy_horizontal_concat = np.concatenate(
         [original, modified, diff_BGR, diff, thresh], axis=1)
