@@ -248,7 +248,6 @@ def main():
         if len(sys.argv) >= 6:
             width = parse_optional_argvs(sys.argv, 7, width)
 
-
         # Process all images, save each sequence in chosen director
         for similar_pair in similar_list:
 
@@ -257,6 +256,7 @@ def main():
                 images = compute_image_differences(similar_pair, by_ratio)
 
                 save_images_as_one(images, output_path, width)
+                
 
     elif mode in ARGV["show"]:
 

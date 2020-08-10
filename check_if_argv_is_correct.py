@@ -243,7 +243,7 @@ def path_validation(path_kind, reference_path, dir_kind):
                          f" {reference_path}")
 
 
-def check_width(argv_):
+def check_width_values(argv_):
 
     mode = argv_[3]
 
@@ -290,10 +290,4 @@ def check_if_argv_is_correct(argv_):
 
         check_mode(argv_)
 
-        check_width(argv_)
-
-        #check_by_ratio(argv_)
-
-
-def check_by_ratio(argv_):
-    pass
+        check_width_values(argv_)
