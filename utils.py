@@ -12,6 +12,9 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+# internal libs
+from app_data import IMAGES_sizes
+
 
 # https://stackoverflow.com/a/58126805/12490791
 def resize_with_with_aspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
@@ -103,8 +106,13 @@ def make_sizes_of_images_the_same(source, target):
 
     same_ratio = (source_ratio == target_ratio)
 
+    # to avoid too big size differences between images
+    compared_ratio = w_target/w_source
+    comparable_sizes = bool(
+        compared_ratio >= IMAGES_sizes["lowest ratio"] and compared_ratio <= IMAGES_sizes["highest ratio"])
+
     # resize image to the same size
-    if same_ratio:
+    if same_ratio and comparable_sizes:
         target = resize_with_with_aspect_ratio(target, w_source)
 
     return target

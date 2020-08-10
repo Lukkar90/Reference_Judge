@@ -1,4 +1,4 @@
-"""Place to hold program global const"""
+"""Place to hold program's global const"""
 
 legit_extensions = tuple(".png")
 
@@ -11,6 +11,6 @@ ARGV = {
 
 IMAGES_sizes = {
     "highest ratio":  4,
-    "lowest ratio": 0.25,
+    "lowest ratio": 0.5,
     "biggest dimmension": 1080,
 }
