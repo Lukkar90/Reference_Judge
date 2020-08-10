@@ -86,17 +86,16 @@ def check_mode(argv_):
             sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
-        
+
         elif len(argv_) == 7 and argv_[6] not in ARGV["search_by_ratio"]:
 
             if not argv_[5].isnumeric():
                 print('Error: 5th should be numeric.\n')
 
-            if  argv_[6] not in ARGV["search_by_ratio"]:
+            if argv_[6] not in ARGV["search_by_ratio"]:
                 sys.exit(f'Error: 6th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
-                    f" {argv_[6]}\n"
-                    f"{help_tip()}")
-                     
+                         f" {argv_[6]}\n"
+                         f"{help_tip()}")
 
     elif mode in ARGV["show"]:
         if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] in ARGV["search_by_ratio"]):
@@ -109,10 +108,10 @@ def check_mode(argv_):
             if not argv_[4].isnumeric():
                 print('Error: 4th should be numeric.\n')
 
-            if  argv_[5] not in ARGV["search_by_ratio"]:
+            if argv_[5] not in ARGV["search_by_ratio"]:
                 sys.exit(f'Error: 5th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
-                    f" {argv_[5]}\n"
-                    f"{help_tip()}")
+                         f" {argv_[5]}\n"
+                         f"{help_tip()}")
 
         elif len(argv_) == 7:
             sys.exit("Error: one argument too much:\n"
@@ -259,13 +258,15 @@ def check_legal_value(argv_, cap_len_argv):
 
     n = cap_len_argv
 
-    if len(argv_) >= (n -1) and argv_[n -2].isnumeric():
+    if len(argv_) >= (n - 1) and argv_[n - 2].isnumeric():
 
-        width = int(argv_[n -2])  # Input user is width of reference image size
+        # Input user is width of reference image size
+        width = int(argv_[n - 2])
 
         # check if value is too high
-        if width > IMAGES_sizes["biggest dimmension"]: 
-            sys.exit(f"Width value is too high: {width}. It should not be higher than: {IMAGES_sizes['biggest dimmension']}")
+        if width > IMAGES_sizes["biggest dimmension"]:
+            sys.exit(
+                f"Width value is too high: {width}. It should not be higher than: {IMAGES_sizes['biggest dimmension']}")
 
 
 def check_if_argv_is_correct(argv_):

@@ -66,7 +66,8 @@ def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
     """
     temp_dir = os.path.dirname(path_pattern)
     temp_full_name = os.path.basename(path_pattern)
-    temp_name, temp_ext = temp_full_name.split('.', 1)  # https://stackoverflow.com/a/6670331/12490791
+    # https://stackoverflow.com/a/6670331/12490791
+    temp_name, temp_ext = temp_full_name.split('.', 1)
 
     i = 1
 
@@ -78,10 +79,12 @@ def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
     # We call this interval (first..last] and narrow it down until first + 1 = last
     first, last = (i // 2, i)
     while first + 1 < last:
-        mid = (first + last) // 2 # interval midpoint
-        first, last = (mid, last) if os.path.exists(format_path(temp_dir, temp_name, mid, temp_ext)) else (first, mid)
+        mid = (first + last) // 2  # interval midpoint
+        first, last = (mid, last) if os.path.exists(format_path(
+            temp_dir, temp_name, mid, temp_ext)) else (first, mid)
 
-    return format_path(temp_dir, temp_name, last, temp_ext).replace("\\", "/")  # .replace("\\", "/") to make path string more consistent
+    # .replace("\\", "/") to make path string more consistent
+    return format_path(temp_dir, temp_name, last, temp_ext).replace("\\", "/")
 
 
 def show_images(images, width):
@@ -124,7 +127,8 @@ def save_images_as_one(images, output_path, width):
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
     # Combining all images into one
-    numpy_horizontal_concat = np.concatenate([original, modified, diff_BGR, diff, thresh], axis=1)
+    numpy_horizontal_concat = np.concatenate(
+        [original, modified, diff_BGR, diff, thresh], axis=1)
 
     # Check if choosed loaction is file like
     ext_file = os.path.splitext(output_path)[1]
@@ -187,29 +191,33 @@ def program_help(argv_):
                  f" abbr of {ARGV['show'][0]} is {ARGV['show'][1]}\n"
                  f" [ratio] {ARGV['search_by_ratio'][0]} or {ARGV['search_by_ratio'][1]} -> images could be different sizes but they have to be the same ratio"
                  )
-                 
+
+
 def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
+    """check if width, search_by_ratio are correct. If both are it returns width"""
 
-    # init variables
     n = cap_len_argv
-    width = None
-
-    # Optional arg
-    if len(argv_) >= (n -1) and argv_[n -2].isnumeric():
-
-        width = int(argv_[n -2])  # Input user is width of reference image size
 
     if len(argv_) == (n - 1):
 
-        if argv_[n -2] not in ARGV["search_by_ratio"] and not argv_[n -2].isnumeric():
+        if argv_[n - 2] not in ARGV["search_by_ratio"] and not argv_[n - 2].isnumeric():
             raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
-                f" {argv_[n -2]}")
+                             f" {argv_[n -2]}")
 
     elif len(argv_) == n:
 
-        if argv_[n -1] not in ARGV["search_by_ratio"]:
+        if argv_[n - 1] not in ARGV["search_by_ratio"]:
             raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
-                f" {argv_[n -1]}")
+                             f" {argv_[n -1]}")
+
+    # init variables
+    width = None
+
+    # Optional arg
+    if len(argv_) >= (n - 1) and argv_[n - 2].isnumeric():
+
+        # Input user is width of reference image size
+        width = int(argv_[n - 2])
 
     if width is not None:
         return width
@@ -228,12 +236,14 @@ def main():
     app_ref_path = sys.argv[2]
     mode = sys.argv[3]
 
-    if sys.argv[-1] == ARGV["search_by_ratio"]: # To avoid checking 3 places at one, this argument is always last
+    # To avoid checking 3 places at one, this argument is always last
+    if sys.argv[-1] == ARGV["search_by_ratio"]:
         by_ratio = True
     else:
         by_ratio = False
 
-    similar_list = create_similar_images_list(original_ref_path, app_ref_path, by_ratio)
+    similar_list = create_similar_images_list(
+        original_ref_path, app_ref_path, by_ratio)
 
     width = 360  # Default
 
@@ -256,7 +266,6 @@ def main():
                 images = compute_image_differences(similar_pair, by_ratio)
 
                 save_images_as_one(images, output_path, width)
-                
 
     elif mode in ARGV["show"]:
 

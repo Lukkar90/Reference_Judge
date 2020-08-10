@@ -7,12 +7,15 @@ import os
 import sys
 
 # external libs
-from cv2 import COLOR_BGR2GRAY, cvtColor, imread, imshow
+from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from app_data import legit_extensions
-from utils import uri_validator, url_to_image, error_check_path_is_empty_string, resize_with_with_aspect_ratio, make_sizes_of_images_the_same
+from utils import (
+    uri_validator, url_to_image, error_check_path_is_empty_string,
+    make_sizes_of_images_the_same
+)
 
 
 def files_paths(directory):
@@ -91,7 +94,9 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
             target_path = os.path.join(target_directory_path, file_)
             target_image = imread(target_path)  # load image into memory
             # resize image target image to the same size if ratio is the same
-            if by_ratio: target_image = make_sizes_of_images_the_same(source_image, target_image)
+            if by_ratio:
+                target_image = make_sizes_of_images_the_same(
+                    source_image, target_image)
             t_height, t_width, _ = target_image.shape
 
             # NOTE: the two images must have the same dimension
@@ -99,7 +104,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
                 # You have to change target image to gray to calculate similarity
                 target_image = cvtColor(target_image, COLOR_BGR2GRAY)
-                
+
                 # compute the structural similarity SSMI
                 similarity = compare_images(source_image, target_image)
 
@@ -168,7 +173,6 @@ def similar_images_list_generator(source_directory_path, target_directory_path, 
             print(
                 f"Found reference : {source_name}, similarity: {similar_image['similarity']}")
             reference_pairs.append(reference_pair)
-
 
     return reference_pairs
 

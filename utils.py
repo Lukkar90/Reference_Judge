@@ -13,7 +13,8 @@ import cv2
 import numpy as np
 
 
-def resize_with_with_aspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):  # https://stackoverflow.com/a/58126805/12490791
+# https://stackoverflow.com/a/58126805/12490791
+def resize_with_with_aspect_ratio(image, width=None, height=None, inter=cv2.INTER_AREA):
     """Resize input image by width or height keeping proportion to the image"""
 
     dimension = None
@@ -85,11 +86,12 @@ def uri_validator(path):  # https://stackoverflow.com/a/38020041/12490791
     try:
         result = urlparse(path)
         return all([result.scheme, result.netloc, result.path])
-    except:
+    except:  # todo not sure what type exception is it
         return False
 
 
 def make_sizes_of_images_the_same(source, target):
+    """Resize target image to the same size as source if ratio between width and height are both the same"""
 
     # take dimensions
     (h_source, w_source) = source.shape[:2]
@@ -105,6 +107,4 @@ def make_sizes_of_images_the_same(source, target):
     if same_ratio:
         target = resize_with_with_aspect_ratio(target, w_source)
 
-    
     return target
-
