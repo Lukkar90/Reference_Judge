@@ -149,41 +149,43 @@ def program_help(argv_):
 
     program_name = argv_[0]
 
-    if len(argv_) == 2 and argv_[1] == ARGV["help"]:
+    if len(argv_) == 2 and argv_[1] in ARGV["help"]:
         sys.exit("\n"
                  f"{help_content()}\n"
                  "\n"
                  "On desktop:\n"
                  " save:\n"
-                 f"  python {program_name} path_dir path_dir {ARGV['save']} path_dir [px] [ratio]\n"
-                 f"  python {program_name} path_dir path_dir {ARGV['save']} path_file [px] [ratio]\n"
-                 f"  python {program_name} path_file path_dir {ARGV['save']} path_dir [px] [ratio]\n"
-                 f"  python {program_name} path_file path_file {ARGV['save']} path_dir [px] [ratio] *\n"
-                 f"  python {program_name} path_file path_file {ARGV['save']} path_file [px] [ratio] *\n"
+                 f"  python {program_name} path_dir path_dir {ARGV['save'][0]} path_dir [px] [ratio]\n"
+                 f"  python {program_name} path_dir path_dir {ARGV['save'][0]} path_file [px] [ratio]\n"
+                 f"  python {program_name} path_file path_dir {ARGV['save'][0]} path_dir [px] [ratio]\n"
+                 f"  python {program_name} path_file path_file {ARGV['save'][0]} path_dir [px] [ratio] *\n"
+                 f"  python {program_name} path_file path_file {ARGV['save'][0]} path_file [px] [ratio] *\n"
                  "\n"
                  " show:\n"
-                 f"  python {program_name} path_dir path_dir {ARGV['show']} [px] [ratio]\n"
-                 f"  python {program_name} path_file path_dir {ARGV['show']} [px] [ratio]\n"
-                 f"  python {program_name} path_file path_file {ARGV['show']} [px] [ratio] *\n"
+                 f"  python {program_name} path_dir path_dir {ARGV['show'][0]} [px] [ratio]\n"
+                 f"  python {program_name} path_file path_dir {ARGV['show'][0]} [px] [ratio]\n"
+                 f"  python {program_name} path_file path_file {ARGV['show'][0]} [px] [ratio] *\n"
                  "\n"
                  "HTTPS:\n"
                  " save:\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save']} path_dir [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save']} path_file [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save']} path_dir [px] [ratio]\n"
-                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save']} path_file [px] [ratio]\n"
-                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save']} path_dir [px] [ratio] *\n"
-                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save']} path_file [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save'][0]} path_dir [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save'][0]} path_file [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save'][0]} path_dir [px] [ratio]\n"
+                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save'][0]} path_file [px] [ratio]\n"
+                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save'][0]} path_dir [px] [ratio] *\n"
+                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save'][0]} path_file [px] [ratio] *\n"
                  "\n"
                  " show:\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['show']} [px] [ratio] *\n"
-                 f"  python {program_name} path_file https/address.com/image.img {ARGV['show']} [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img path_file {ARGV['show']} [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['show']} [px] [ratio]\n"
+                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['show'][0]} [px] [ratio] *\n"
+                 f"  python {program_name} path_file https/address.com/image.img {ARGV['show'][0]} [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img path_file {ARGV['show'][0]} [px] [ratio] *\n"
+                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['show'][0]} [px] [ratio]\n"
                  "\n"
                  " * images have to be the same size\n"
                  " [px] is optional value of width of each image\n"
-                 f" [ratio] {ARGV['search_by_ratio']}"
+                 f" abbr of {ARGV['save'][0]} is {ARGV['save'][1]}\n"
+                 f" abbr of {ARGV['show'][0]} is {ARGV['show'][1]}\n"
+                 f" [ratio] {ARGV['search_by_ratio'][0]} or {ARGV['search_by_ratio'][1]} -> images could be different sizes but they have to be the same ratio"
                  )
                  
 def parse_optional_argvs(argv, cap_len_argv, DEFAULT_width):
@@ -235,7 +237,7 @@ def main():
 
     width = 360  # Default
 
-    if mode == ARGV["save"]:
+    if mode in ARGV["save"]:
 
         if len(sys.argv) >= 5:
             output_path = sys.argv[4]
@@ -256,7 +258,7 @@ def main():
 
                 save_images_as_one(images, output_path, width)
 
-    elif mode == ARGV["show"]:
+    elif mode in ARGV["show"]:
 
         # Optional args
         if len(sys.argv) >= 6:

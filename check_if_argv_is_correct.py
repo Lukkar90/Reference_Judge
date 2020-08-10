@@ -57,7 +57,7 @@ def help_tip():
     # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
     program_name = __main__.__file__
 
-    return f"For more information:\n Usage: python {program_name} {ARGV['help']}"
+    return f"For more information:\n Usage: python {program_name} {ARGV['help'][0]}"
 
 
 def help_content():
@@ -67,7 +67,7 @@ def help_content():
     program_name = __main__.__file__
 
     # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-    return f"Usage: python {program_name} <original_reference_path> <app_reference_path> <--mode> [directory_differences_output] [width] [{ARGV['search_by_ratio']}]"
+    return f"Usage: python {program_name} <original_reference_path> <app_reference_path> <--mode> [directory_differences_output] [width] [{ARGV['search_by_ratio'][0]}]"
 
 
 def check_mode(argv_):
@@ -76,31 +76,31 @@ def check_mode(argv_):
     mode = argv_[3]
 
     # check modes arguments
-    if mode == ARGV["save"]:
+    if mode in ARGV["save"]:
         if len(argv_) < 5:
             sys.exit("Error: No output path\n"
                      f"{help_tip()}")
 
-        elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] == ARGV["search_by_ratio"]):
+        elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] in ARGV["search_by_ratio"]):
 
-            sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search_by_ratio"]}:\n'
+            sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
         
-        elif len(argv_) == 7 and argv_[6] != ARGV["search_by_ratio"]:
+        elif len(argv_) == 7 and argv_[6] not in ARGV["search_by_ratio"]:
 
             if not argv_[5].isnumeric():
                 print('Error: 5th should be numeric.\n')
 
-            if  argv_[6] != ARGV["search_by_ratio"]:
-                sys.exit(f'Error: 6th, last argument should be {ARGV["search_by_ratio"]}:\n'
+            if  argv_[6] not in ARGV["search_by_ratio"]:
+                sys.exit(f'Error: 6th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
                     f" {argv_[6]}\n"
                     f"{help_tip()}")
                      
 
-    elif mode == ARGV["show"]:
-        if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] == ARGV["search_by_ratio"]):
-            sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search_by_ratio"]}:\n'
+    elif mode in ARGV["show"]:
+        if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] in ARGV["search_by_ratio"]):
+            sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search_by_ratio"][0]}:\n'
                      f" {argv_[4]}\n"
                      f"{help_tip()}")
 
@@ -109,8 +109,8 @@ def check_mode(argv_):
             if not argv_[4].isnumeric():
                 print('Error: 4th should be numeric.\n')
 
-            if  argv_[5] != ARGV["search_by_ratio"]:
-                sys.exit(f'Error: 5th, last argument should be {ARGV["search_by_ratio"]}:\n'
+            if  argv_[5] not in ARGV["search_by_ratio"]:
+                sys.exit(f'Error: 5th, last argument should be {ARGV["search_by_ratio"][0]}:\n'
                     f" {argv_[5]}\n"
                     f"{help_tip()}")
 
@@ -119,7 +119,7 @@ def check_mode(argv_):
                      f" {argv_[6]}\n"
                      f"{help_tip()}")
     else:
-        sys.exit(f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"]} or {ARGV["save"]}:\n'
+        sys.exit(f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:\n'
                  f" {argv_[3]}\n"
                  f"{help_tip()}")
 
@@ -134,7 +134,7 @@ def check_paths(argv_):
     app_reference_path = argv_[2]
     output_path = None
     # this argument position can be also width
-    if len(argv_) >= 5 and not argv_[4].isnumeric() and argv_[4] != ARGV["search_by_ratio"]:
+    if len(argv_) >= 5 and not argv_[4].isnumeric() and argv_[4] not in ARGV["search_by_ratio"]:
         output_path = argv_[4]
 
     # Path kind args
@@ -254,8 +254,8 @@ def check_if_argv_is_correct(argv_):
                  f"{help_tip()}")
 
     # invalid usage
-    elif len(argv_) == 2 and not argv_[1] == ARGV["help"]:
-        sys.exit(f"Error: invalid 1st argument. Usage: python {program_name} {ARGV['help']}:\n"
+    elif len(argv_) == 2 and not argv_[1] in ARGV["help"]:
+        sys.exit(f"Error: invalid 1st argument. Usage: python {program_name} {ARGV['help'][0]} or {ARGV['help'][1]}:\n"
                  f" {argv_[1]}")
 
     # correct number of arguments

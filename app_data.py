@@ -3,8 +3,8 @@
 legit_extensions = tuple(".png")
 
 ARGV = {
-    "search_by_ratio": "--search_by_ratio",
-    "save": "--save",
-    "show": "--show",
-    "help": "--help",
+    "search_by_ratio": ["--search_by_ratio", "-br"],
+    "save": ["--save", "-sv"],
+    "show": ["--show", "-sh"],
+    "help": ["--help", "-h"],
 }
