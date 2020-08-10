@@ -109,7 +109,7 @@ def make_sizes_of_images_the_same(source, target):
     # to avoid too big size differences between images
     compared_ratio = w_target/w_source
     comparable_sizes = bool(
-        compared_ratio >= IMAGES_sizes["lowest ratio"] and compared_ratio <= IMAGES_sizes["highest ratio"])
+        IMAGES_sizes["lowest ratio"] <= compared_ratio <= IMAGES_sizes["highest ratio"])
 
     # resize image to the same size
     if same_ratio and comparable_sizes:
