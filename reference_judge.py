@@ -189,7 +189,7 @@ def program_help(argv_):
                  " [px] is optional value of width of each image\n"
                  f" abbr of {ARGV['save'][0]} is {ARGV['save'][1]}\n"
                  f" abbr of {ARGV['show'][0]} is {ARGV['show'][1]}\n"
-                 f" [ratio] {ARGV['search_by_ratio'][0]} or {ARGV['search_by_ratio'][1]} -> images could be different sizes but they have to be the same ratio"
+                 f" [ratio] {ARGV['search by ratio'][0]} or {ARGV['search by ratio'][1]} -> images could be different sizes but they have to be the same ratio"
                  )
 
 
@@ -202,14 +202,14 @@ def check_correctness_optional_argvs(argv_, cap_len_argv):
     # check correctness
     if len(argv_) == (n - 1):
 
-        if argv_[n - 2] not in ARGV["search_by_ratio"] and not argv_[n - 2].isnumeric():
-            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
+        if argv_[n - 2] not in ARGV["search by ratio"] and not argv_[n - 2].isnumeric():
+            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}\n'
                              f" {argv_[n -2]}")
 
     elif len(argv_) == n:
 
-        if argv_[n - 1] not in ARGV["search_by_ratio"]:
-            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
+        if argv_[n - 1] not in ARGV["search by ratio"]:
+            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}\n'
                              f" {argv_[n -1]}")
 
 
@@ -252,7 +252,7 @@ def main():
     mode = sys.argv[3]
 
     # [-1] To avoid checking 3 places at one, this argument is always last
-    by_ratio = bool(sys.argv[-1] in ARGV["search_by_ratio"])
+    by_ratio = bool(sys.argv[-1] in ARGV["search by ratio"])
 
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)
