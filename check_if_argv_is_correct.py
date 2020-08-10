@@ -8,7 +8,7 @@ from urllib import error, request
 import __main__
 
 # internal libs
-from app_data import legit_extensions, ARGV
+from app_data import legit_extensions, ARGV, IMAGES_sizes
 from utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
@@ -243,6 +243,31 @@ def path_validation(path_kind, reference_path, dir_kind):
                          f" {reference_path}")
 
 
+def check_width(argv_):
+
+    mode = argv_[3]
+
+    if len(argv_) >= 5:
+        if mode in ARGV["show"]:
+            check_legal_value(argv_, 6)
+
+        elif mode in ARGV["save"]:
+            check_legal_value(argv_, 7)
+
+
+def check_legal_value(argv_, cap_len_argv):
+
+    n = cap_len_argv
+
+    if len(argv_) >= (n -1) and argv_[n -2].isnumeric():
+
+        width = int(argv_[n -2])  # Input user is width of reference image size
+
+        # check if value is too high
+        if width > IMAGES_sizes["biggest dimmension"]: 
+            sys.exit(f"Width value is too high: {width}. It should not be higher than: {IMAGES_sizes['biggest dimmension']}")
+
+
 def check_if_argv_is_correct(argv_):
     """main function of module: check_if_argv_is_correct.py, used in: reference_judge.py"""
 
@@ -267,25 +292,8 @@ def check_if_argv_is_correct(argv_):
 
         check_width(argv_)
 
-        check_by_ratio(argv_)
-
-def check_width(argv_):
-
-    
+        #check_by_ratio(argv_)
 
 
-def check_legal_value(argv_, cap_len_argv):
-
-    n = cap_len_argv
-
-    if len(argv_) >= (n -1) and argv_[n -2].isnumeric():
-
-        width = int(argv_[n -2])  # Input user is width of reference image size
-
-        # check if value is too high
-        if width > IMAGES_sizes["biggest dimmension"]: 
-            sys.exit(f"Width value is too high: {width}. It should be higher than: {IMAGES_sizes['biggest dimmension']}")
-
-
-def funcname(parameter_list):
+def check_by_ratio(argv_):
     pass

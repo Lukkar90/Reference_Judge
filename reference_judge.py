@@ -199,20 +199,16 @@ def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
 
         width = int(argv_[n -2])  # Input user is width of reference image size
 
-        # check if value is too high
-        if width > IMAGES_sizes["biggest dimmension"]: 
-            sys.exit(f"Width value is too high: {width}. It should be higher than: {IMAGES_sizes['biggest dimmension']}")
-
     if len(argv_) == (n - 1):
 
-        if argv_[n -2] != ARGV["search_by_ratio"] and not argv_[n -2].isnumeric():
-            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search_by_ratio"]}\n'
+        if argv_[n -2] not in ARGV["search_by_ratio"] and not argv_[n -2].isnumeric():
+            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
                 f" {argv_[n -2]}")
 
     elif len(argv_) == n:
 
-        if argv_[n -1] != ARGV["search_by_ratio"]:
-            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"]}\n'
+        if argv_[n -1] not in ARGV["search_by_ratio"]:
+            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search_by_ratio"][0]} or {ARGV["search_by_ratio"][1]}\n'
                 f" {argv_[n -1]}")
 
     if width is not None:
