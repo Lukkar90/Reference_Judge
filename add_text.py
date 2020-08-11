@@ -3,13 +3,12 @@ import math
 
 # external libs
 import cv2
-import numpy as np
 
 
-def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, fontColor=(0, 0, 0), thickness=2):
+def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, fontColor=(0, 0, 0), thickness=1):
 
     # check if canvas is to small to add text
-    if image_is_bigger_than(100, img):
+    if is_bigger_than(100, img):
 
         # init value
         img_h, img_w = img.shape[:2]
@@ -43,7 +42,7 @@ def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontSc
     return img
 
 
-def image_is_bigger_than(value, img):
+def is_bigger_than(value, img):
     w_img = img.shape[1]
     big_enough = w_img >= value
 
@@ -105,11 +104,8 @@ def get_scale_value(img_w):
 
 def rescale_values(resize, fontScale, thickness):
 
-    print("thickness", thickness)
     fontScale *= resize
-    print(resize)
-    thickness = math.floor((thickness * 1.5) * resize)
-    print("thickness", thickness)
+    thickness = math.floor((thickness * 3) * resize)
     return fontScale, thickness
 
 
