@@ -33,6 +33,7 @@ from compute_image_differences import compute_image_differences
 from create_similar_images_list import create_similar_images_list
 from utils import resize_with_with_aspect_ratio
 from app_data import ARGV
+from add_text import add_text
 
 
 def resize_all(images, width):
@@ -126,7 +127,12 @@ def save_images_as_one(images, output_path, width):
     diff = cv2.cvtColor(diff, cv2.COLOR_GRAY2RGB)
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
-    # Add titles to all images: https://stackoverflow.com/a/34273603/12490791 todo
+    # Add titles to all images: https://stackoverflow.com/a/34273603/12490791
+    original = add_text(original, "Original")
+    modified = add_text(modified, "Modified")
+    diff_BGR = add_text(diff_BGR, "Difference_RGB")
+    diff = add_text(diff, "Difference_Structure")
+    thresh = add_text(thresh, "Thresh")
 
     # Combining all images into one
     numpy_horizontal_concat = np.concatenate(
