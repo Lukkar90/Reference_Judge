@@ -15,7 +15,17 @@ def add_text(
         fontColor=(0, 0, 0),
         thickness=1
 ):
-    """Main function, it adds white padding and text at the bottom of provided image"""
+    """
+    Main function, it adds white padding and text at the bottom of provided image
+        :param 3d list int img: GBR image
+        :param str text_description: percent of added canvas to image, amx len of str = 25
+        :param cv2.FONT font: https://docs.opencv.org/3.1.0/d0/de1/group__core.html#ga0f9314ea6e35f99bb23f29567fc16e11
+        :param int fontScale: resizing font
+        :param tulpe(int R, int G, int B) fontColor: color of font
+        :param int thickness: adding thickness to font
+    """
+    # check max length of description
+    check_max_str_len(text_description)
 
     # check if canvas is to small to add text
     if is_bigger_than(100, img):
@@ -52,6 +62,13 @@ def add_text(
     return img
 
 
+def check_max_str_len(text_description, max_str_len=25):
+    """To assure developer that string is not too long to display in image"""
+    if len(text_description) > max_str_len:
+        raise ValueError(f"Too long description: {max_str_len}\n"
+                         f" {text_description}")
+
+
 def is_bigger_than(value, img):
     """Return bool value if provided image is bigger than provided value"""
 
@@ -71,11 +88,11 @@ def add_white_space(
 ):
     """
     Add white padding to the image in chosen direction\n
-    :param int pad_top: percent of added canvas to image\n
-    :param int pad_bot: percent of added canvas to image\n
-    :param int pad_left: percent of added canvas to image\n
-    :param int pad_right: percent of added canvas to image\n
-    :param tulpe(int red, int green, int blue) pad_right: color of added background
+        :param int pad_top: percent of added canvas to image\n
+        :param int pad_bot: percent of added canvas to image\n
+        :param int pad_left: percent of added canvas to image\n
+        :param int pad_right: percent of added canvas to image\n
+        :param tulpe(int G, int B, int R) pad_right: color of added background
     """
 
     pad_top, pad_bot, pad_left, pad_right = calculate_pads_values(
