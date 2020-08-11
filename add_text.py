@@ -32,8 +32,8 @@ def add_text(
         img_h, img_w = img.shape[:2]
 
         # add 10% white padding
-        percent = 10
-        img = add_white_space(img, pad_bot=percent)
+        percent_of_img = 10
+        img = add_white_space(img, pad_bot=percent_of_img)
 
         # calculate proportional text values
         bottom_left_origin, fontScale, thickness = calculate_text_values(
@@ -42,7 +42,7 @@ def add_text(
             text_description,
             font,
             thickness,
-            percent,
+            percent_of_img,
             fontScale
         )
 
@@ -77,7 +77,14 @@ def add_white_space(
         pad_right=0,
         color=(255, 255, 255)
 ):
-    """Add white padding to the image in chosen direction"""
+    """
+    Add white padding to the image in chosen direction\n
+    :param int pad_top: percent of added canvas to image\n
+    :param int pad_bot: percent of added canvas to image\n
+    :param int pad_left: percent of added canvas to image\n
+    :param int pad_right: percent of added canvas to image\n
+    :param tulpe(int red, int green, int blue) pad_right: color of added background
+    """
 
     pad_top, pad_bot, pad_left, pad_right = calculate_pads_values(
         img, pad_top, pad_bot, pad_left, pad_right)
@@ -113,7 +120,14 @@ def calculate_pads_values(img, pad_top=0, pad_bot=0, pad_left=0, pad_right=0):
     return (pad_top, pad_bot, pad_left, pad_right)
 
 
-def calculate_text_values(img_h, img_w, text_description, font, thickness, percent, fontScale):
+def calculate_text_values(
+        img_h,
+        img_w,
+        text_description,
+        font, thickness,
+        percent_of_img,
+        fontScale
+):
     """return all needed values to render text in cv2.putText"""
 
     # calculate ratio to resize all values
@@ -124,7 +138,7 @@ def calculate_text_values(img_h, img_w, text_description, font, thickness, perce
 
     # get values of co-ordinates of text
     coord_w, coord_h = get_middle_coords_of_pad(
-        img_h, img_w, text_description, font, thickness, percent, fontScale)
+        img_h, img_w, text_description, font, thickness, percent_of_img, fontScale)
 
     # pass co-ordinates
     middle_of_padding = (
@@ -149,11 +163,18 @@ def rescale_values(resize, fontScale, thickness):
     return fontScale, thickness
 
 
-def get_middle_coords_of_pad(img_h, img_w, text_description, font, thickness, percent_of_img, fontScale):
+def get_middle_coords_of_pad(
+        img_h,
+        img_w,
+        text_description,
+        font, thickness,
+        percent_of_img,
+        fontScale
+):
     """Get coords for relative center of white padding"""
 
-    text_width, text_height = cv2.getTextSize(
-        text_description, font, fontScale, thickness)[0]
+    text_width = cv2.getTextSize(
+        text_description, font, fontScale, thickness)[0][0]
 
     pad_value = give_pad_value(img_h, percent_of_img)
 
@@ -170,5 +191,9 @@ def give_pad_value(img_edge, percent_of_img=0):
         fraction = percent_of_img/100
         pad = img_edge*fraction
         pad = int(pad)
+
+        # avoid too small pad
+        if pad < 20:
+            pad = 20
 
     return pad
