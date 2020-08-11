@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 
-def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.25, fontColor=(0, 0, 0), lineType=1):
+def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.20, fontColor=(0, 0, 0), lineType=1):
 
     # check if canvas is to small to add text
     if image_is_bigger_than(100, img):
