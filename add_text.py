@@ -1,12 +1,4 @@
-"""
-MODULE
-
-    Add text
-
-DESCRIPTION
-
-    Add text description to the image
-"""
+""" Add text description to the image"""
 
 # python libs
 import math
