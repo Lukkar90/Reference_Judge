@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 
-def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.20, fontColor=(0, 0, 0), thickness=0):
+def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, fontColor=(0, 0, 0), thickness=2):
 
     # check if canvas is to small to add text
     if image_is_bigger_than(100, img):
@@ -28,8 +28,6 @@ def add_text(img, text_description="None", font=cv2.FONT_HERSHEY_SIMPLEX, fontSc
             percent,
             fontScale
         )
-
-        print(img_w, img_h, bottomLeftCornerOfText)
 
         # add text to image
         cv2.putText(
@@ -91,8 +89,6 @@ def calculate_text_values(img_w, img_h, text_description, font, thickness, perce
     coord_w, coord_h = get_middle_coords_of_pad(
         text_description, font, fontScale, thickness, img_h, percent, img_w)
 
-    print(img_w, img_h)
-
     # pass co-ordinates
     middle_of_padding = (
         coord_w, coord_h)
@@ -103,14 +99,17 @@ def calculate_text_values(img_w, img_h, text_description, font, thickness, perce
 def get_scale_value(img_w):
 
     default_size = 512
-    resize = default_size/img_w
+    resize = img_w/default_size
     return resize
 
 
 def rescale_values(resize, fontScale, thickness):
 
+    print("thickness", thickness)
     fontScale *= resize
-    thickness = math.ceil(thickness * resize)
+    print(resize)
+    thickness = math.floor((thickness * 1.5) * resize)
+    print("thickness", thickness)
     return fontScale, thickness
 
 
