@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 
 # internal libs
-from app_data import IMAGES_sizes
+from config.config import IMAGES_sizes
 
 
 # https://stackoverflow.com/a/58126805/12490791

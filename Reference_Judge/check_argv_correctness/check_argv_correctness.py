@@ -8,8 +8,8 @@ from urllib import error, request
 import __main__
 
 # internal libs
-from app_data import legit_extensions, ARGV, IMAGES_sizes
-from app.utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
+from config.config import legit_extensions, ARGV, IMAGES_sizes
+from utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
 def url_exists(url):

@@ -11,8 +11,8 @@ from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
-from app_data import legit_extensions
-from app.utils.utils import (
+from config.config import legit_extensions
+from utils.utils import (
     uri_validator, url_to_image, error_check_path_is_empty_string,
     make_sizes_of_images_the_same
 )
@@ -187,14 +187,14 @@ def return_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
 
     original_name = os.path.basename(original_reference_path)
 
+    # if app image and original image are single files
     ext_app = os.path.splitext(app_reference_path)[1]
-    # if app image and original image are single file
     if ext_app:
 
         reference_pair = both_single_paths(
             original_reference_path, app_reference_path, original_name, by_ratio)
 
-    # if original image is single file
+    # if only original image is single file and
     else:
 
         # Give results when it's only one original image and match reference image from many app references

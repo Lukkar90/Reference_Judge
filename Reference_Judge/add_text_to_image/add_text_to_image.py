@@ -18,11 +18,11 @@ def add_text_to_image(
     """
     Main function, it adds white padding and text at the bottom of provided image
         :param 3d list int img: GBR image
-        :param str text_description: percent of added canvas to image, amx len of str = 25
+        :param str text_description: percent of added canvas to image, max len of str = 25
         :param cv2.FONT font: https://docs.opencv.org/3.1.0/d0/de1/group__core.html#ga0f9314ea6e35f99bb23f29567fc16e11
-        :param int fontScale: resizing font
-        :param tulpe(int R, int G, int B) fontColor: color of font
-        :param int thickness: adding thickness to font
+        :param int fontScale:
+        :param tulpe(int R, int G, int B) fontColor:
+        :param int thickness:
     """
     # check max length of description
     check_max_str_len(text_description)
@@ -35,7 +35,7 @@ def add_text_to_image(
 
         # add 10% white padding
         percent_of_img = 10
-        img = add_white_space(img, pad_bot=percent_of_img)
+        img = add_padding(img, pad_bot=percent_of_img)
 
         # calculate proportional text values
         bottom_left_origin, fontScale, thickness = calculate_text_values(
@@ -78,7 +78,7 @@ def is_bigger_than(value, img):
     return big_enough
 
 
-def add_white_space(
+def add_padding(
         img,
         pad_top=0,
         pad_bot=0,
@@ -92,7 +92,7 @@ def add_white_space(
         :param int pad_bot: percent of added canvas to image\n
         :param int pad_left: percent of added canvas to image\n
         :param int pad_right: percent of added canvas to image\n
-        :param tulpe(int G, int B, int R) pad_right: color of added background
+        :param tulpe(int G, int B, int R) color: color of added background
     """
 
     pad_top, pad_bot, pad_left, pad_right = calculate_pads_values(
