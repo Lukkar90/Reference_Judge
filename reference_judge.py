@@ -28,12 +28,12 @@ import cv2
 import numpy as np
 
 # internal libs
-from check_if_argv_is_correct import check_if_argv_is_correct, help_content
-from compute_image_differences import compute_image_differences
-from create_similar_images_list import create_similar_images_list
-from utils import resize_with_with_aspect_ratio
+from app.check_argv_correctness.check_argv_correctness import check_argv_correctness, help_content
+from app.compute_image_differences.compute_image_differences import compute_image_differences
+from app.create_similar_images_list.create_similar_images_list import create_similar_images_list
+from app.utils.utils import resize_with_with_aspect_ratio
 from app_data import ARGV
-from add_text import add_text
+from app.add_text_to_image.add_text_to_image import add_text_to_image
 
 
 def resize_all(images, width):
@@ -128,11 +128,11 @@ def save_images_as_one(images, output_path, width):
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
     # Add titles to all images: https://stackoverflow.com/a/34273603/12490791
-    original = add_text(original, "Original")
-    modified = add_text(modified, "Modified")
-    diff_BGR = add_text(diff_BGR, "Difference_RGB")
-    diff = add_text(diff, "Difference_Structure")
-    thresh = add_text(thresh, "Thresh")
+    original = add_text_to_image(original, "Original")
+    modified = add_text_to_image(modified, "Modified")
+    diff_BGR = add_text_to_image(diff_BGR, "Difference_RGB")
+    diff = add_text_to_image(diff, "Difference_Structure")
+    thresh = add_text_to_image(thresh, "Thresh")
 
     # Combining all images into one
     numpy_horizontal_concat = np.concatenate(
@@ -251,7 +251,7 @@ def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
 def main():
     """Parsing sys.argv to pass them into right functions"""
 
-    check_if_argv_is_correct(sys.argv)
+    check_argv_correctness(sys.argv)
     program_help(sys.argv)
 
     # Init variables

@@ -9,7 +9,7 @@ import __main__
 
 # internal libs
 from app_data import legit_extensions, ARGV, IMAGES_sizes
-from utils import dir_exists, uri_validator, error_check_path_is_empty_string
+from app.utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
 def url_exists(url):
@@ -286,7 +286,7 @@ def check_legal_value(argv_, cap_len_argv):
                 f"Width value is too high: {width}. It should not be higher than: {IMAGES_sizes['biggest dimmension']}")
 
 
-def check_if_argv_is_correct(argv_):
+def check_argv_correctness(argv_):
     """main function of module: check_if_argv_is_correct.py, used in : reference_judge.py"""
 
     program_name = argv_[0]

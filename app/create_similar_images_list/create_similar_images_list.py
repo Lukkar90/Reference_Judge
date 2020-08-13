@@ -12,7 +12,7 @@ from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from app_data import legit_extensions
-from utils import (
+from app.utils.utils import (
     uri_validator, url_to_image, error_check_path_is_empty_string,
     make_sizes_of_images_the_same
 )

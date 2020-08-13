@@ -7,7 +7,7 @@ import math
 import cv2
 
 
-def add_text(
+def add_text_to_image(
         img,
         text_description="None",
         font=cv2.FONT_HERSHEY_SIMPLEX,
