@@ -12,52 +12,29 @@ from config.config import LEGIT_EXTENSIONS, ARGV, IMAGES_SIZES
 from utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
-def url_exists(url):
-    """Check if url exists on web"""
+def check_argv_correctness(argv_):
+    """main function of module: check_if_argv_is_correct.py, used in : reference_judge.py"""
 
-    try:
-        request.urlopen(url)
-    except error.HTTPError as alert:
-        sys.exit(f"Error: path http: {alert}:\n"
-                 f" {url}")
-    except error.URLError as alert:
-        sys.exit(f"Error: path url: {alert}:\n"
-                 f" {url}")
+    program_name = argv_[0]
 
-    return True
+    # incorrect number of arguments
+    if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 7)):
+        sys.exit(f"{help_content()}\n"
+                 f"{help_tip()}")
 
+    # invalid usage
+    elif len(argv_) == 2 and not argv_[1] in ARGV["help"]:
+        sys.exit(f"Error: invalid 1st argument. Usage: python {program_name} {ARGV['help'][0]} or {ARGV['help'][1]}:\n"
+                 f" {argv_[1]}")
 
-def count_legit_images(directory_path):
-    """Count all images with LEGIT_EXTENSIONS"""
+    # correct number of arguments
+    elif len(argv_) >= 4 and len(argv_) <= 7:
 
-    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(LEGIT_EXTENSIONS))])
+        check_paths(argv_)
 
+        check_mode(argv_)
 
-def is_empty(directory_path):
-    """Check if there are images with LEGIT_EXTENSIONS"""
-
-    # Init variables
-    there_are_files = False
-
-    # check if there is any legit image in directory
-    for file_name in os.listdir(directory_path):
-
-        full_path = os.path.join(directory_path, file_name)
-
-        if os.path.isfile(full_path) and file_name.endswith(tuple(LEGIT_EXTENSIONS)):
-            there_are_files = True
-            break
-
-    return not there_are_files
-
-
-def help_tip():
-    """String to use when user write wrong input, showing him how to invoke help function"""
-
-    # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
-    program_name = __main__.__file__
-
-    return f"For more information:\n Usage: python {program_name} {ARGV['help'][0]}"
+        check_width_values(argv_)
 
 
 def help_content():
@@ -68,76 +45,6 @@ def help_content():
 
     # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
     return f"Usage: python {program_name} <original_reference_path> <app_reference_path> <--mode> [directory_differences_output] [width] [{ARGV['search by ratio'][0]}]"
-
-
-def check_mode(argv_):
-    """Check if images have to be saved or they will be shown"""
-
-    mode = argv_[3]
-
-    # check modes arguments
-    if mode in ARGV["save"]:
-
-        check_mode_save(argv_)
-
-    elif mode in ARGV["show"]:
-
-        check_mode_show(argv_)
-
-    else:
-        sys.exit(f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:\n'
-                 f" {argv_[3]}\n"
-                 f"{help_tip()}")
-
-    return mode
-
-
-def check_mode_save(argv_):
-    """check correctness all argv in save mode"""
-
-    if len(argv_) < 5:
-        sys.exit("Error: No output path\n"
-                 f"{help_tip()}")
-
-    elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] in ARGV["search by ratio"]):
-
-        sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
-                 f" {argv_[5]}\n"
-                 f"{help_tip()}")
-
-    elif len(argv_) == 7 and argv_[6] not in ARGV["search by ratio"]:
-
-        if not argv_[5].isnumeric():
-            print('Error: 5th should be numeric.\n')
-
-        if argv_[6] not in ARGV["search by ratio"]:
-            sys.exit(f'Error: 6th, last argument should be {ARGV["search by ratio"][0]}:\n'
-                     f" {argv_[6]}\n"
-                     f"{help_tip()}")
-
-
-def check_mode_show(argv_):
-    """check correctness all argv in show mode"""
-
-    if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] in ARGV["search by ratio"]):
-        sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
-                 f" {argv_[4]}\n"
-                 f"{help_tip()}")
-
-    elif len(argv_) == 6:
-
-        if not argv_[4].isnumeric():
-            print('Error: 4th should be numeric.\n')
-
-        if argv_[5] not in ARGV["search by ratio"]:
-            sys.exit(f'Error: 5th, last argument should be {ARGV["search by ratio"][0]}:\n'
-                     f" {argv_[5]}\n"
-                     f"{help_tip()}")
-
-    elif len(argv_) == 7:
-        sys.exit("Error: one argument too much:\n"
-                 f" {argv_[6]}\n"
-                 f"{help_tip()}")
 
 
 def check_paths(argv_):
@@ -257,6 +164,115 @@ def path_validation(path_kind, reference_path, dir_kind):
                          f" {reference_path}")
 
 
+def url_exists(url):
+    """Check if url exists on web"""
+
+    try:
+        request.urlopen(url)
+    except error.HTTPError as alert:
+        sys.exit(f"Error: path http: {alert}:\n"
+                 f" {url}")
+    except error.URLError as alert:
+        sys.exit(f"Error: path url: {alert}:\n"
+                 f" {url}")
+
+    return True
+
+
+def is_empty(directory_path):
+    """Check if there are images with LEGIT_EXTENSIONS"""
+
+    # Init variables
+    there_are_files = False
+
+    # check if there is any legit image in directory
+    for file_name in os.listdir(directory_path):
+
+        full_path = os.path.join(directory_path, file_name)
+
+        if os.path.isfile(full_path) and file_name.endswith(tuple(LEGIT_EXTENSIONS)):
+            there_are_files = True
+            break
+
+    return not there_are_files
+
+
+def count_legit_images(directory_path):
+    """Count all images with LEGIT_EXTENSIONS"""
+
+    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(LEGIT_EXTENSIONS))])
+
+
+def check_mode(argv_):
+    """Check if images have to be saved or they will be shown"""
+
+    mode = argv_[3]
+
+    # check modes arguments
+    if mode in ARGV["save"]:
+
+        check_mode_save(argv_)
+
+    elif mode in ARGV["show"]:
+
+        check_mode_show(argv_)
+
+    else:
+        sys.exit(f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:\n'
+                 f" {argv_[3]}\n"
+                 f"{help_tip()}")
+
+    return mode
+
+
+def check_mode_save(argv_):
+    """check correctness all argv in save mode"""
+
+    if len(argv_) < 5:
+        sys.exit("Error: No output path\n"
+                 f"{help_tip()}")
+
+    elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] in ARGV["search by ratio"]):
+
+        sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
+                 f" {argv_[5]}\n"
+                 f"{help_tip()}")
+
+    elif len(argv_) == 7 and argv_[6] not in ARGV["search by ratio"]:
+
+        if not argv_[5].isnumeric():
+            print('Error: 5th should be numeric.\n')
+
+        if argv_[6] not in ARGV["search by ratio"]:
+            sys.exit(f'Error: 6th, last argument should be {ARGV["search by ratio"][0]}:\n'
+                     f" {argv_[6]}\n"
+                     f"{help_tip()}")
+
+
+def check_mode_show(argv_):
+    """check correctness all argv in show mode"""
+
+    if len(argv_) == 5 and not (argv_[4].isnumeric() or argv_[4] in ARGV["search by ratio"]):
+        sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
+                 f" {argv_[4]}\n"
+                 f"{help_tip()}")
+
+    elif len(argv_) == 6:
+
+        if not argv_[4].isnumeric():
+            print('Error: 4th should be numeric.\n')
+
+        if argv_[5] not in ARGV["search by ratio"]:
+            sys.exit(f'Error: 5th, last argument should be {ARGV["search by ratio"][0]}:\n'
+                     f" {argv_[5]}\n"
+                     f"{help_tip()}")
+
+    elif len(argv_) == 7:
+        sys.exit("Error: one argument too much:\n"
+                 f" {argv_[6]}\n"
+                 f"{help_tip()}")
+
+
 def check_width_values(argv_):
     """check if width value is lower or equal IMAGES_SIZES["biggest dimmension"] in save or show mode"""
 
@@ -286,26 +302,10 @@ def check_legal_value(argv_, cap_len_argv):
                 f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}")
 
 
-def check_argv_correctness(argv_):
-    """main function of module: check_if_argv_is_correct.py, used in : reference_judge.py"""
+def help_tip():
+    """String to use when user write wrong input, showing him how to invoke help function"""
 
-    program_name = argv_[0]
+    # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
+    program_name = __main__.__file__
 
-    # incorrect number of arguments
-    if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 7)):
-        sys.exit(f"{help_content()}\n"
-                 f"{help_tip()}")
-
-    # invalid usage
-    elif len(argv_) == 2 and not argv_[1] in ARGV["help"]:
-        sys.exit(f"Error: invalid 1st argument. Usage: python {program_name} {ARGV['help'][0]} or {ARGV['help'][1]}:\n"
-                 f" {argv_[1]}")
-
-    # correct number of arguments
-    elif len(argv_) >= 4 and len(argv_) <= 7:
-
-        check_paths(argv_)
-
-        check_mode(argv_)
-
-        check_width_values(argv_)
+    return f"For more information:\n Usage: python {program_name} {ARGV['help'][0]}"
