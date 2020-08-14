@@ -8,7 +8,7 @@ from urllib import error, request
 import __main__
 
 # internal libs
-from config.config import legit_extensions, ARGV, IMAGES_sizes
+from config.config import LEGIT_EXTENSIONS, ARGV, IMAGES_SIZES
 from utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
@@ -28,13 +28,13 @@ def url_exists(url):
 
 
 def count_legit_images(directory_path):
-    """Count all images with legit_extensions"""
+    """Count all images with LEGIT_EXTENSIONS"""
 
-    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(legit_extensions))])
+    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(LEGIT_EXTENSIONS))])
 
 
 def is_empty(directory_path):
-    """Check if there are images with legit_extensions"""
+    """Check if there are images with LEGIT_EXTENSIONS"""
 
     # Init variables
     there_are_files = False
@@ -44,7 +44,7 @@ def is_empty(directory_path):
 
         full_path = os.path.join(directory_path, file_name)
 
-        if os.path.isfile(full_path) and file_name.endswith(tuple(legit_extensions)):
+        if os.path.isfile(full_path) and file_name.endswith(tuple(LEGIT_EXTENSIONS)):
             there_are_files = True
             break
 
@@ -258,7 +258,7 @@ def path_validation(path_kind, reference_path, dir_kind):
 
 
 def check_width_values(argv_):
-    """check if width value is lower or equal IMAGES_sizes["biggest dimmension"] in save or show mode"""
+    """check if width value is lower or equal IMAGES_SIZES["biggest dimmension"] in save or show mode"""
 
     mode = argv_[3]
 
@@ -271,7 +271,7 @@ def check_width_values(argv_):
 
 
 def check_legal_value(argv_, cap_len_argv):
-    """check if width value is lower or equal IMAGES_sizes["biggest dimmension"]"""
+    """check if width value is lower or equal IMAGES_SIZES["biggest dimmension"]"""
 
     n = cap_len_argv
 
@@ -281,9 +281,9 @@ def check_legal_value(argv_, cap_len_argv):
         width = int(argv_[n - 2])
 
         # check if value is too high
-        if width > IMAGES_sizes["biggest dimmension"]:
+        if width > IMAGES_SIZES["biggest dimmension"]:
             sys.exit(
-                f"Width value is too high: {width}. It should not be higher than: {IMAGES_sizes['biggest dimmension']}")
+                f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}")
 
 
 def check_argv_correctness(argv_):

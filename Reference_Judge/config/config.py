@@ -1,6 +1,6 @@
 """Place to hold program's global const"""
 
-legit_extensions = tuple(".png")
+LEGIT_EXTENSIONS = tuple(".png")
 
 ARGV = {
     "search by ratio": ["--search_by_ratio", "-br"],
@@ -9,7 +9,7 @@ ARGV = {
     "help": ["--help", "-h"],
 }
 
-IMAGES_sizes = {
+IMAGES_SIZES = {
     "highest ratio":  4,
     "lowest ratio": 0.5,
     "biggest dimmension": 1080,

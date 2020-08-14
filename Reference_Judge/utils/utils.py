@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 
 # internal libs
-from config.config import IMAGES_sizes
+from config.config import IMAGES_SIZES
 
 
 # https://stackoverflow.com/a/58126805/12490791
@@ -109,7 +109,7 @@ def make_sizes_of_images_the_same(source, target):
     # to avoid too big size differences between images
     compared_ratio = w_target/w_source
     comparable_sizes = bool(
-        IMAGES_sizes["lowest ratio"] <= compared_ratio <= IMAGES_sizes["highest ratio"])
+        IMAGES_SIZES["lowest ratio"] <= compared_ratio <= IMAGES_SIZES["highest ratio"])
 
     # resize image to the same size
     if same_ratio and comparable_sizes:
