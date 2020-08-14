@@ -33,7 +33,7 @@ from compute_image_differences.compute_image_differences import compute_image_di
 from create_similar_images_list.create_similar_images_list import create_similar_images_list
 from utils.utils import resize_with_with_aspect_ratio
 from config.config import ARGV
-from add_text_to_image.add_text_to_image import add_text_to_image
+from add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
 
 
 def resize_all(images, width):
@@ -127,12 +127,14 @@ def save_images_as_one(images, output_path, width):
     diff = cv2.cvtColor(diff, cv2.COLOR_GRAY2RGB)
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
-    # Add titles to all images: https://stackoverflow.com/a/34273603/12490791
-    original = add_text_to_image(original, "Original")
-    modified = add_text_to_image(modified, "Modified")
-    diff_BGR = add_text_to_image(diff_BGR, "Difference_RGB")
-    diff = add_text_to_image(diff, "Difference_Structure")
-    thresh = add_text_to_image(thresh, "Thresh")
+    # check if canvas is to small to add text
+    if is_bigger_than(100, original):
+
+        original = add_text_to_image(original, "Original")
+        modified = add_text_to_image(modified, "Modified")
+        diff_BGR = add_text_to_image(diff_BGR, "Difference_RGB")
+        diff = add_text_to_image(diff, "Difference_Structure")
+        thresh = add_text_to_image(thresh, "Thresh")
 
     # Combining all images into one
     numpy_horizontal_concat = np.concatenate(

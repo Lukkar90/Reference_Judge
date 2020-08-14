@@ -27,7 +27,6 @@ def add_text_to_image(
     # check max length of description
     check_max_str_len(text_description)
 
-    # check if canvas is to small to add text
     if is_bigger_than(100, img):
 
         # init value
