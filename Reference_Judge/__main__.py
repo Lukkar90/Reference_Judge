@@ -32,7 +32,7 @@ from check_argv_correctness.check_argv_correctness import check_argv_correctness
 from compute_image_differences.compute_image_differences import compute_image_differences
 from create_similar_images_list.create_similar_images_list import create_similar_images_list
 from utils.utils import resize_with_with_aspect_ratio
-from config.config import ARGV
+from config import ARGV
 from add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
 
 

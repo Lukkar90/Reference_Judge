@@ -8,7 +8,7 @@ from urllib import error, request
 import __main__
 
 # internal libs
-from config.config import LEGIT_EXTENSIONS, ARGV, IMAGES_SIZES
+from config import LEGIT_EXTENSIONS, ARGV, IMAGES_SIZES
 from utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
