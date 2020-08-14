@@ -9,7 +9,7 @@ import __main__
 
 # internal libs
 from config import LEGIT_EXTENSIONS, ARGV, IMAGES_SIZES
-from utils.utils import dir_exists, uri_validator, error_check_path_is_empty_string
+from utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
 def check_argv_correctness(argv_):
