@@ -63,14 +63,13 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
     return most_similar_image
 
 
-def reference_pair_dictionary(original_name, original_path, app_path, similarity):
+class ReferencePair():
     """Returned in similar_list in main in reference_judge.py"""
 
-    dictionary = {
-        "original_reference_name": original_name,
-        "original_reference_path": original_path,
-        "app_reference_path": app_path,
-        "similarity": similarity
-    }
-
-    return dictionary
+    def __init__(self, original_name, original_path, app_path, similarity):
+        self.dictionary = {
+            "original_reference_name": original_name,
+            "original_reference_path": original_path,
+            "app_reference_path": app_path,
+            "similarity": similarity
+        }

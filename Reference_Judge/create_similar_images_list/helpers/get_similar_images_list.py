@@ -10,7 +10,7 @@ from config import LEGIT_EXTENSIONS
 from utils import error_check_path_is_empty_string
 
 # same module
-from create_similar_images_list.helpers.utils import reference_pair_dictionary, find_most_similar_image
+from create_similar_images_list.helpers.utils import ReferencePair, find_most_similar_image
 
 
 def get_similar_images_list(source_directory_path, target_directory_path, by_ratio):
@@ -35,8 +35,8 @@ def get_similar_images_list(source_directory_path, target_directory_path, by_rat
             print(f"Not found reference : {source_name}")
             reference_pair = None
         else:
-            reference_pair = reference_pair_dictionary(
-                source_name, source_path, similar_image["file_path"], similar_image["similarity"])
+            reference_pair = ReferencePair(
+                source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictionary
             # Notice User with searching progress
             print(
                 f"Found reference : {source_name}, similarity: {similar_image['similarity']}")

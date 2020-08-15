@@ -15,7 +15,7 @@ from utils import (
 )
 from create_similar_images_list.helpers.utils import (
     find_most_similar_image,
-    reference_pair_dictionary
+    ReferencePair
 )
 
 
@@ -47,8 +47,8 @@ def get_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
             print(f"Not found reference : {original_name}")
             reference_pair = None
         else:
-            reference_pair = reference_pair_dictionary(
-                original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"])
+            reference_pair = ReferencePair(
+                original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"]).dictionary
 
     # It can't be before "return", because if you have only one element in index, it wouldn't be iterable
     similar_list.append(reference_pair)
@@ -79,8 +79,8 @@ def both_single_paths(original_reference, app_reference, original_name, by_ratio
     except ValueError as alert:
         sys.exit(alert)  # returning circa "images not he same size"
 
-    reference_pair = reference_pair_dictionary(
-        original_name, original_reference, app_reference, similarity)
+    reference_pair = ReferencePair(
+        original_name, original_reference, app_reference, similarity).dictionary
     return reference_pair
 
 
