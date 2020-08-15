@@ -123,7 +123,7 @@ def calculate_pads_values(img, pad_top=0, pad_bot=0, pad_left=0, pad_right=0):
         pad_left = give_pad_value(w, pad_left)
 
     if pad_right > 0:
-        pad_left = give_pad_value(w, pad_right)
+        pad_right = give_pad_value(w, pad_right)
 
     return (pad_top, pad_bot, pad_left, pad_right)
 

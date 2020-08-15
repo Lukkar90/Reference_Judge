@@ -5,9 +5,9 @@ This module is responsible for checking if program arguments are correct
 import os
 import sys
 from urllib import error, request
-import __main__
 
 # internal libs
+from help import help_command_line, help_tip
 from config import LEGIT_EXTENSIONS, ARGV, IMAGES_SIZES
 from utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
@@ -19,7 +19,7 @@ def check_argv_correctness(argv_):
 
     # incorrect number of arguments
     if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 7)):
-        sys.exit(f"{help_content()}\n"
+        sys.exit(f"{help_command_line()}\n"
                  f"{help_tip()}")
 
     # invalid usage
@@ -35,16 +35,6 @@ def check_argv_correctness(argv_):
         check_mode(argv_)
 
         check_width_values(argv_)
-
-
-def help_content():
-    """Explaining user general usage of program"""
-
-    # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
-    program_name = __main__.__file__
-
-    # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-    return f"Usage: python {program_name} <original_reference_path> <app_reference_path> <--mode> [directory_differences_output] [width] [{ARGV['search by ratio'][0]}]"
 
 
 def check_paths(argv_):
@@ -300,12 +290,3 @@ def check_legal_value(argv_, cap_len_argv):
         if width > IMAGES_SIZES["biggest dimmension"]:
             sys.exit(
                 f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}")
-
-
-def help_tip():
-    """String to use when user write wrong input, showing him how to invoke help function"""
-
-    # https://stackoverflow.com/questions/4152963/get-name-of-current-script-in-python
-    program_name = __main__.__file__
-
-    return f"For more information:\n Usage: python {program_name} {ARGV['help'][0]}"

@@ -28,7 +28,8 @@ import cv2
 import numpy as np
 
 # internal libs
-from check_argv_correctness.check_argv_correctness import check_argv_correctness, help_content
+from help import help_command_line, help_detailed_usage
+from check_argv_correctness.check_argv_correctness import check_argv_correctness
 from compute_image_differences.compute_image_differences import compute_image_differences
 from create_similar_images_list.create_similar_images_list import create_similar_images_list
 from utils import resize_with_with_aspect_ratio
@@ -40,7 +41,7 @@ def main():
     """Parsing sys.argv to pass them into right functions"""
 
     check_argv_correctness(sys.argv)
-    program_help(sys.argv)
+    help_detailed_usage(sys.argv)
 
     # Init variables
     original_ref_path = sys.argv[1]
@@ -188,51 +189,6 @@ def save_images_as_one(images, output_path, width):
 
     # Save image into choosed loaction
     cv2.imwrite(output_path, numpy_horizontal_concat)
-
-
-def program_help(argv_):
-    """showing user "usage" of program"""
-
-    program_name = argv_[0]
-
-    if len(argv_) == 2 and argv_[1] in ARGV["help"]:
-        sys.exit("\n"
-                 f"{help_content()}\n"
-                 "\n"
-                 "On desktop:\n"
-                 " save:\n"
-                 f"  python {program_name} path_dir path_dir {ARGV['save'][0]} path_dir [px] [ratio]\n"
-                 f"  python {program_name} path_dir path_dir {ARGV['save'][0]} path_file [px] [ratio]\n"
-                 f"  python {program_name} path_file path_dir {ARGV['save'][0]} path_dir [px] [ratio]\n"
-                 f"  python {program_name} path_file path_file {ARGV['save'][0]} path_dir [px] [ratio] *\n"
-                 f"  python {program_name} path_file path_file {ARGV['save'][0]} path_file [px] [ratio] *\n"
-                 "\n"
-                 " show:\n"
-                 f"  python {program_name} path_dir path_dir {ARGV['show'][0]} [px] [ratio]\n"
-                 f"  python {program_name} path_file path_dir {ARGV['show'][0]} [px] [ratio]\n"
-                 f"  python {program_name} path_file path_file {ARGV['show'][0]} [px] [ratio] *\n"
-                 "\n"
-                 "HTTPS:\n"
-                 " save:\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save'][0]} path_dir [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['save'][0]} path_file [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save'][0]} path_dir [px] [ratio]\n"
-                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['save'][0]} path_file [px] [ratio]\n"
-                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save'][0]} path_dir [px] [ratio] *\n"
-                 f"  python {program_name} path_file https/address.com/image.img {ARGV['save'][0]} path_file [px] [ratio] *\n"
-                 "\n"
-                 " show:\n"
-                 f"  python {program_name} https/address.com/image.img https/address.com/image.img {ARGV['show'][0]} [px] [ratio] *\n"
-                 f"  python {program_name} path_file https/address.com/image.img {ARGV['show'][0]} [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img path_file {ARGV['show'][0]} [px] [ratio] *\n"
-                 f"  python {program_name} https/address.com/image.img path_dir {ARGV['show'][0]} [px] [ratio]\n"
-                 "\n"
-                 " * images have to be the same size\n"
-                 " [px] is optional value of width of each image\n"
-                 f" abbr of {ARGV['save'][0]} is {ARGV['save'][1]}\n"
-                 f" abbr of {ARGV['show'][0]} is {ARGV['show'][1]}\n"
-                 f" [ratio] {ARGV['search by ratio'][0]} or {ARGV['search by ratio'][1]} -> images could be different sizes but they have to be the same ratio"
-                 )
 
 
 def check_correctness_optional_argvs(argv_, cap_len_argv):
