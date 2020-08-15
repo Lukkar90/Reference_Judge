@@ -15,8 +15,7 @@ from create_similar_images_list.helpers.get_similar_images_list import get_simil
 
 def create_similar_images_list(original_reference_path, app_reference_path, by_ratio=False):
     """
-    Main function of this module used in main in reference_judge.py
-    It returns path or paths of similar images compared to reference
+    It returns path or paths of similar images compared to image reference
     """
 
     error_check_path_is_empty_string(original_reference_path)

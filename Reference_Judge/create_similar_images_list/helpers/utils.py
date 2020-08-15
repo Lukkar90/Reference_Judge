@@ -64,7 +64,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
 
 class ReferencePair():
-    """Returned in similar_list in main in reference_judge.py"""
+    """Returned pair of matched images and its attributes"""
 
     def __init__(self, original_name, original_path, app_path, similarity):
         self.dictionary = {

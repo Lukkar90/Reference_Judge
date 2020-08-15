@@ -13,7 +13,7 @@ from utils import dir_exists, uri_validator, error_check_path_is_empty_string
 
 
 def check_argv_correctness(argv_):
-    """main function of module: check_if_argv_is_correct.py, used in : reference_judge.py"""
+    """check if all argvs have correct paths, modes and width values"""
 
     program_name = argv_[0]
 
