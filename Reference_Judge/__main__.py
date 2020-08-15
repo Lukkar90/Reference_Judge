@@ -54,7 +54,7 @@ def main():
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)
 
-    width = 360  # Default
+    width = 360  # Default value for mobiles apps
 
     if mode in ARGV["save"]:
 
@@ -75,8 +75,9 @@ def mode_show(width, similar_list, by_ratio):
     """show matched images"""
 
     # Optional args
-    if len(sys.argv) >= 6:
-        width = parse_optional_argvs(sys.argv, 6, width)
+    if len(sys.argv) >= 5:
+        check_correctness_optional_argvs(sys.argv, 6)
+        width = retrieve_width(sys.argv, 6, width)
 
     # Process all images, show user each sequence one by one
     for similar_pair in similar_list:
@@ -89,36 +90,6 @@ def mode_show(width, similar_list, by_ratio):
 
             print('NOTE: Press the "0" key, to close opened windows')
             cv2.waitKey(0)
-
-
-def mode_save(width, similar_list, by_ratio):
-    """save matched images in chosen directory"""
-
-    if len(sys.argv) >= 5:
-        output_path = sys.argv[4]
-    else:
-        output_path = None
-
-    # Optional args
-    if len(sys.argv) >= 6:
-        width = parse_optional_argvs(sys.argv, 7, width)
-
-    # Process all images, save each sequence in chosen director
-    for similar_pair in similar_list:
-
-        if not similar_pair is None:
-
-            images = compute_image_differences(similar_pair, by_ratio)
-
-            save_images_as_one(images, output_path, width)
-
-
-def parse_optional_argvs(argv_, cap_len_argv, DEFAULT_width):
-    """check if width, search_by_ratio are correct. If both are it returns width"""
-
-    check_correctness_optional_argvs(argv_, cap_len_argv)
-
-    return retrieve_width(argv_, cap_len_argv, DEFAULT_width)
 
 
 def show_images(images, width):
@@ -140,6 +111,29 @@ def show_images(images, width):
     cv2.imshow("Difference_RGB", diff_BGR)
     cv2.imshow("Difference_Structure", diff)
     cv2.imshow("Thresh", thresh)
+
+
+def mode_save(width, similar_list, by_ratio):
+    """save matched images in chosen directory"""
+
+    if len(sys.argv) >= 5:
+        output_path = sys.argv[4]
+    else:
+        output_path = None
+
+    # Optional args
+    if len(sys.argv) >= 6:
+        check_correctness_optional_argvs(sys.argv, 7)
+        width = retrieve_width(sys.argv, 7, width)
+
+    # Process all images, save each sequence in chosen director
+    for similar_pair in similar_list:
+
+        if not similar_pair is None:
+
+            images = compute_image_differences(similar_pair, by_ratio)
+
+            save_images_as_one(images, output_path, width)
 
 
 def save_images_as_one(images, output_path, width):
@@ -191,37 +185,6 @@ def save_images_as_one(images, output_path, width):
     cv2.imwrite(output_path, numpy_horizontal_concat)
 
 
-def check_correctness_optional_argvs(argv_, cap_len_argv):
-    """notify developer when problem occurs"""
-
-    #  init variable
-    n = cap_len_argv
-
-    # check correctness
-    if len(argv_) == (n - 1):
-
-        if argv_[n - 2] not in ARGV["search by ratio"] and not argv_[n - 2].isnumeric():
-            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}\n'
-                             f" {argv_[n -2]}")
-
-    elif len(argv_) == n:
-
-        if argv_[n - 1] not in ARGV["search by ratio"]:
-            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}\n'
-                             f" {argv_[n -1]}")
-
-
-def resize_all(images, width):
-    """Change all image size keeping ratio"""
-
-    for image in images:
-        if not image == "Original_name":  # This is the only value in dict which is not a image
-            resize = resize_with_with_aspect_ratio(images[image], width)
-            images[image] = resize
-
-    return images
-
-
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
     """
     Finds the next free path in an sequentially named list of files
@@ -261,6 +224,37 @@ def format_path(temp_dir, temp_name, index, temp_ext):
     """example_dir_path/file-0000%.ext"""
 
     return f"{temp_dir}/{temp_name}-{str(index).zfill(5)}.{temp_ext}"
+
+
+def check_correctness_optional_argvs(argv_, cap_len_argv):
+    """notify developer when problem occurs"""
+
+    #  init variable
+    n = cap_len_argv
+
+    # check correctness
+    if len(argv_) == (n - 1):
+
+        if argv_[n - 2] not in ARGV["search by ratio"] and not argv_[n - 2].isnumeric():
+            raise ValueError(f'Error: Invalid argument value. It should be numeric or {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}\n'
+                             f" {argv_[n -2]}")
+
+    elif len(argv_) == n:
+
+        if argv_[n - 1] not in ARGV["search by ratio"]:
+            raise ValueError(f'Error: Invalid argument value. It should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}\n'
+                             f" {argv_[n -1]}")
+
+
+def resize_all(images, width):
+    """Change all image size keeping ratio"""
+
+    for image in images:
+        if not image == "Original_name":  # This is the only value in dict which is not a image
+            resize = resize_with_with_aspect_ratio(images[image], width)
+            images[image] = resize
+
+    return images
 
 
 def retrieve_width(argv_, cap_len_argv, DEFAULT_width):
