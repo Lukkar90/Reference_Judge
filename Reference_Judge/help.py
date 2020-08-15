@@ -27,9 +27,11 @@ def help_tip():
 
 def help_detailed_usage(argv_):
     """showing user "usage" of program"""
+    sys.exit(DetailedUsage().string)
 
-    if len(argv_) == 2 and argv_[1] in ARGV["help"]:
-        sys.exit(DetailedUsage().string)
+
+def user_usage_help(argv_):
+    return len(argv_) == 2 and argv_[1] in ARGV["help"]
 
 
 class DetailedUsage():

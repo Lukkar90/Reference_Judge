@@ -34,20 +34,20 @@ def resize_all(images, width):
     return images
 
 
-def retrieve_width(argv_, cap_len_argv, DEFAULT_width):
-    """take width from argv, dependably by numeber of argv"""
+def retrieve_argv_width(argv_, cap_len_argv, default_width):
+    """take width from argv, dependably by number of argv"""
 
     # init variables
     n = cap_len_argv
-    width = None
 
-    # check width param
-    if len(argv_) >= (n - 1) and argv_[n - 2].isnumeric():
+    # Input user is width of reference image size
+    width = int(argv_[n - 2])
+    if not isinstance(width, int):
+        raise("width value is not int")
 
-        # Input user is width of reference image size
-        width = int(argv_[n - 2])
+    return width
 
-    if width is not None:
-        return width
-    else:
-        return DEFAULT_width
+
+def check_width_argv_exists(argv_, cap_len_argv):
+    n = cap_len_argv
+    return len(argv_) >= (n - 1) and argv_[n - 2].isnumeric()

@@ -10,7 +10,8 @@ ARGV = {
 }
 
 IMAGES_SIZES = {
-    "highest ratio":  4,
-    "lowest ratio": 0.5,
-    "biggest dimmension": 1080,
+    "highest ratio":  4,  # to avoid image distortions
+    "lowest ratio": 0.5,  # to avoid image distortions
+    "biggest dimmension": 1080,  # to avoid performance issues
+    "default width": 360,
 }

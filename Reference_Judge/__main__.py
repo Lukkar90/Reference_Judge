@@ -23,10 +23,10 @@ DESCRIPTION
 import sys
 
 # internal libs
-from help import help_detailed_usage
+from help import help_detailed_usage, user_usage_help
 from check_argv_correctness.check_argv_correctness import check_argv_correctness
 from create_similar_images_list.create_similar_images_list import create_similar_images_list
-from config import ARGV
+from config import ARGV, IMAGES_SIZES
 
 # same module
 from modes.show import show
@@ -37,7 +37,8 @@ def main():
     """Parsing sys.argv to pass them into right functions"""
 
     check_argv_correctness(sys.argv)
-    help_detailed_usage(sys.argv)
+    if user_usage_help(sys.argv):
+        return help_detailed_usage(sys.argv)
 
     # Init variables
     original_ref_path = sys.argv[1]
@@ -50,7 +51,7 @@ def main():
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)
 
-    width = 360  # Default value for mobiles apps
+    width = IMAGES_SIZES["default width"]  # Default value for mobiles apps
 
     if mode in ARGV["save"]:
 

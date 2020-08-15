@@ -11,7 +11,7 @@ from compute_image_differences.compute_image_differences import compute_image_di
 from add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
 
 # same module
-from modes.utils import check_correctness_optional_argvs, retrieve_width, resize_all
+from modes.utils import check_width_argv_exists, check_correctness_optional_argvs, retrieve_argv_width, resize_all
 
 
 def save(width, similar_list, by_ratio):
@@ -25,7 +25,8 @@ def save(width, similar_list, by_ratio):
     # Optional args
     if len(sys.argv) >= 6:
         check_correctness_optional_argvs(sys.argv, 7)
-        width = retrieve_width(sys.argv, 7, width)
+        if check_width_argv_exists(sys.argv, 7):
+            width = retrieve_argv_width(sys.argv, 7, width)
 
     # Process all images, save each sequence in chosen director
     for similar_pair in similar_list:
