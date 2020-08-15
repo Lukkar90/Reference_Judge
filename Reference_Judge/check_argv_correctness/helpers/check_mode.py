@@ -1,7 +1,7 @@
 # Python libs
 import sys
 
-# interna libs
+# internal libs
 from help import help_tip
 from config import ARGV
 
