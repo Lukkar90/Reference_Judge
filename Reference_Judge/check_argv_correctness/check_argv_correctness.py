@@ -4,14 +4,11 @@ This module is responsible for checking if program arguments are correct
 
 
 # python lib
-import os
 import sys
-from urllib import error, request
 
 # internal libs
-from config import ARGV, IMAGES_SIZES, LEGIT_EXTENSIONS
+from config import ARGV
 from help import help_command_line, help_tip
-from utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
 # same lib
 from check_argv_correctness.helpers.check_paths import check_paths
@@ -24,21 +21,42 @@ def check_argv_correctness(argv_):
 
     program_name = argv_[0]
 
-    # incorrect number of arguments
-    if not (len(argv_) == 2 or (len(argv_) >= 4 and len(argv_) <= 7)):
+    if check_correctness_number_of_args_all_cases(argv_):
         sys.exit(f"{help_command_line()}\n"
                  f"{help_tip()}")
 
-    # invalid usage
-    elif len(argv_) == 2 and not argv_[1] in ARGV["help"]:
+    elif check_correctness_help_command(argv_):
         sys.exit(f"Error: invalid 1st argument. Usage: python {program_name} {ARGV['help'][0]} or {ARGV['help'][1]}:\n"
                  f" {argv_[1]}")
 
     # correct number of arguments
-    elif len(argv_) >= 4 and len(argv_) <= 7:
+    elif check_correctness_number_of_args_mode(argv_):
 
         check_paths(argv_)
 
         check_mode(argv_)
 
         check_width_values(argv_)
+
+    else:
+        raise ValueError("Invalid usage of program")
+
+
+def check_correctness_number_of_args_all_cases(argv_):
+    """return bool"""
+    return not (check_command_help_len(argv_) or check_correctness_number_of_args_mode(argv_))
+
+
+def check_correctness_help_command(argv_):
+    """return bool"""
+    return check_command_help_len(argv_) and not argv_[1] in ARGV["help"]
+
+
+def check_correctness_number_of_args_mode(argv_):
+    """return bool"""
+    return len(argv_) >= 4 and len(argv_) <= 7
+
+
+def check_command_help_len(argv_):
+    """return bool"""
+    return len(argv_) == 2

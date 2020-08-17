@@ -7,7 +7,7 @@ from config import ARGV
 
 
 def check_mode(argv_):
-    """Check if images have to be saved or they will be shown"""
+    """Check if images have to be saved or they have be shown"""
 
     mode = argv_[3]
 
@@ -31,17 +31,17 @@ def check_mode(argv_):
 def check_mode_save(argv_):
     """check correctness all argv in save mode"""
 
-    if len(argv_) < 5:
+    if is_output_path(argv_):
         sys.exit("Error: No output path\n"
                  f"{help_tip()}")
 
-    elif len(argv_) == 6 and not (argv_[5].isnumeric() or argv_[5] in ARGV["search by ratio"]):
+    elif len(argv_) == 6 and not is_5th_legit_argv(argv_):
 
         sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
                  f" {argv_[5]}\n"
                  f"{help_tip()}")
 
-    elif len(argv_) == 7 and argv_[6] not in ARGV["search by ratio"]:
+    elif len(argv_) == 7 and not is_last_argv_by_ratio(argv_):
 
         if not argv_[5].isnumeric():
             print('Error: 5th should be numeric.\n')
@@ -50,6 +50,18 @@ def check_mode_save(argv_):
             sys.exit(f'Error: 6th, last argument should be {ARGV["search by ratio"][0]}:\n'
                      f" {argv_[6]}\n"
                      f"{help_tip()}")
+
+
+def is_output_path(argv_):
+    return len(argv_) < 5
+
+
+def is_last_argv_by_ratio(argv_):
+    return argv_[6] in ARGV["search by ratio"]
+
+
+def is_5th_legit_argv(argv_):
+    return (argv_[5].isnumeric() or argv_[5] in ARGV["search by ratio"])
 
 
 def check_mode_show(argv_):
