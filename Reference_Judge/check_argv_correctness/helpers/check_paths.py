@@ -17,37 +17,45 @@ def check_paths(argv_):
     app_reference_path = argv_[2]
     output_path = None
     # this argument position can be also width
-    if len(argv_) >= 5 and not argv_[4].isnumeric() and argv_[4] not in ARGV["search by ratio"]:
+    if len(argv_) >= 5 and is_output_path_argv(argv_):
         output_path = argv_[4]
 
     # Path kind args
-    original_ref_is = None
-    app_ref_is = None
-    output_is = None
+    original_ref_kind = None
+    app_ref_kind = None
+    output_kind = None
 
     # Checking what kind of paths are
-    original_ref_is = check_path_kind(original_reference_path)
-    app_ref_is = check_path_kind(app_reference_path)
+    original_ref_kind = get_path_kind(original_reference_path)
+    app_ref_kind = get_path_kind(app_reference_path)
 
     if output_path:
-        output_is = check_path_kind(output_path)
-        if output_is == "url":
+        output_kind = get_path_kind(output_path)
+        if output_kind == "url":
             sys.exit("Error: output can't be url:\n"
                      f" {output_path}\n"
                      f"{help_tip()}")
 
     # Paths validation depending on kind
-    path_validation(original_ref_is, original_reference_path,
-                    "original references")
-    path_validation(app_ref_is, app_reference_path, "app references")
+    path_validation(
+        original_ref_kind,
+        original_reference_path,
+        "original references"
+    )
 
-    if output_is and not dir_exists(output_path):
+    path_validation(
+        app_ref_kind,
+        app_reference_path,
+        "app references"
+    )
+
+    if output_kind and not dir_exists(output_path):
         sys.exit(f"Error: Output directory does not exists:\n"
                  f" {output_path}\n"
                  f"{help_tip()}")
 
     # If original path and app path are dirs
-    if original_ref_is == "dir" and app_ref_is == "dir":
+    if original_ref_kind == "dir" and app_ref_kind == "dir":
 
         if original_reference_path == app_reference_path:
             sys.exit('Error: "original references" and "app references" directories are the same:\n'
@@ -61,7 +69,7 @@ def check_paths(argv_):
                      f"{help_tip()}")
 
     # If original path and app path are files
-    if (original_ref_is == "file" and app_ref_is == "file") or (original_ref_is == "url" and app_ref_is == "url"):
+    if (original_ref_kind == "file" and app_ref_kind == "file") or (original_ref_kind == "url" and app_ref_kind == "url"):
 
         if original_reference_path == app_reference_path:
             # Checking if paths/url are not the same
@@ -70,14 +78,18 @@ def check_paths(argv_):
                      f"{help_tip()}")
 
     # If original path is dir and app path is file
-    if original_ref_is == "dir" and app_ref_is in ('file', 'url'):
+    if original_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
         sys.exit("Error: Original reference path can't be directory, if app reference is only one file:\n"
                  f" {original_reference_path}\n"
                  f" {app_reference_path}\n"
                  f"{help_tip()}")
 
 
-def check_path_kind(original_reference_path):
+def is_output_path_argv(argv_):
+    return not argv_[4].isnumeric() and isinstance(argv_[4], str) and argv_[4] not in ARGV["search by ratio"]
+
+
+def get_path_kind(original_reference_path):
     """Check what kind of path is: url, file, dir"""
 
     # Checking paths arguments
