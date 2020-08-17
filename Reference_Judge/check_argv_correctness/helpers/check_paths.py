@@ -38,6 +38,7 @@ def check_paths(argv_):
 
 
 def get_output_path_if_exists_and_legal(argv_):
+    """if output_path exists return output_path and his output_kind_legal"""
 
     output_path = None
     output_kind_legal = None
@@ -56,6 +57,8 @@ def get_output_path_if_exists_and_legal(argv_):
 
 
 def check_output_path_exists(output_path, output_kind_legal):
+    """if wrong, it exits program"""
+
     if output_kind_legal and not dir_exists(output_path):
         sys.exit(f"Error: Output directory does not exists:\n"
                  f" {output_path}\n"
@@ -70,6 +73,7 @@ def check_if_paths_exists(
         app_ref_kind,
         output_kind_legal
 ):
+    """if wrong, it exits program"""
 
     path_exists(
         original_ref_kind,
@@ -95,6 +99,7 @@ def check_paths_legal_combinations(
         original_reference_path,
         app_reference_path
 ):
+    """if wrong, it exits program"""
 
     check_original_and_reference_if_dirs(
         original_ref_kind,
@@ -124,6 +129,7 @@ def check_original_and_reference_if_dirs(
     original_reference_path,
     app_reference_path
 ):
+    """if wrong, it exits program"""
 
     if original_ref_kind == "dir" and app_ref_kind == "dir":
 
@@ -140,6 +146,8 @@ def check_original_and_reference_if_dirs(
 
 
 def check_original_and_reference_if_files(original_ref_kind, app_ref_kind, original_reference_path, app_reference_path):
+    """if wrong, it exits program"""
+
     if (original_ref_kind == "file" and app_ref_kind == "file") or (original_ref_kind == "url" and app_ref_kind == "url"):
 
         if original_reference_path == app_reference_path:
@@ -154,6 +162,8 @@ def check_if_original_dir_and_reference_file_or_url(
     original_reference_path,
     app_reference_path
 ):
+    """if wrong, it exits program"""
+
     if original_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
         sys.exit("Error: Original reference path can't be directory, if app reference is only one file:\n"
                  f" {original_reference_path}\n"
@@ -162,6 +172,7 @@ def check_if_original_dir_and_reference_file_or_url(
 
 
 def is_output_path_argv(argv_):
+    """return bool"""
     return not argv_[4].isnumeric() and isinstance(argv_[4], str) and argv_[4] not in ARGV["search by ratio"]
 
 
