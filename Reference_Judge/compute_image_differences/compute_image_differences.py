@@ -48,6 +48,25 @@ def compute_image_differences(similar_pair, by_ratio=False):
     thresh = cv2.threshold(diff, 0, 255,
                            cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
+    image_A, image_B = draw_countours_where_images_differ(
+        thresh, image_A, image_B)
+
+    # Images data to latter process
+    computed_images = {
+        "Original_name": original_name,
+        "Original": image_A,
+        "Modified": image_B,
+        "Difference_RGB": diff_BGR,
+        "Difference_Structure": diff,
+        "Thresh": thresh
+    }
+
+    return computed_images
+
+
+def draw_countours_where_images_differ(thresh, image_A, image_B):
+    """it draws on images red rectangle where differ occurs"""
+
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
                             cv2.CHAIN_APPROX_SIMPLE)
 
@@ -62,17 +81,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
         cv2.rectangle(image_A, (x, y), (x + w, y + h), (0, 0, 255), 2)
         cv2.rectangle(image_B, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
-    # Images data to latter process
-    computed_images = {
-        "Original_name": original_name,
-        "Original": image_A,
-        "Modified": image_B,
-        "Difference_RGB": diff_BGR,
-        "Difference_Structure": diff,
-        "Thresh": thresh
-    }
-
-    return computed_images
+    return image_A, image_B
 
 
 def convert_image_to_gray(image):
