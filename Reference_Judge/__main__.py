@@ -23,7 +23,7 @@ DESCRIPTION
 import sys
 
 # internal libs
-from help import help_detailed_usage, user_usage_help
+from help import help_detailed_usage, user_commanded_help
 from check_argv_correctness.check_argv_correctness import check_argv_correctness
 from create_similar_images_list.create_similar_images_list import create_similar_images_list
 from config import ARGV, IMAGES_SIZES
@@ -37,8 +37,8 @@ def main():
     """Parsing sys.argv to pass them into right functions"""
 
     check_argv_correctness(sys.argv)
-    if user_usage_help(sys.argv):
-        return help_detailed_usage(sys.argv)
+    if user_commanded_help(sys.argv):
+        return help_detailed_usage()
 
     # Init variables
     original_ref_path = sys.argv[1]

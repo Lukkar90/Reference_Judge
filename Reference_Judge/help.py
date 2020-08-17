@@ -1,3 +1,6 @@
+"""
+Place to store all generic data for user about program help
+"""
 # python libs
 import sys
 
@@ -25,12 +28,13 @@ def help_tip():
     return f"For more information:\n Usage: python {program_name} {ARGV['help'][0]}"
 
 
-def help_detailed_usage(argv_):
+def help_detailed_usage():
     """showing user "usage" of program"""
     sys.exit(DetailedUsage().string)
 
 
-def user_usage_help(argv_):
+def user_commanded_help(argv_):
+    """return bool"""
     return len(argv_) == 2 and argv_[1] in ARGV["help"]
 
 
