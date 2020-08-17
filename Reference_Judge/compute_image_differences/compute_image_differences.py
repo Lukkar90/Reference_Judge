@@ -30,7 +30,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
 
     image_B = upload_image(paths["second"])
 
-    # resize image target image to the same size if ratio is the same
+    # resize image target image to the same size if ratio is the same and argv has "search by ratio"
     if by_ratio:
         image_B = MakeSizesOfImagesTheSame(image_A, image_B).target
 
