@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 
 # internal libs
-from compute_image_differences.compute_image_differences import compute_image_differences
+from compute_image_differences import compute_image_differences
 from add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
 
 # same module

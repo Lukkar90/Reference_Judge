@@ -5,7 +5,7 @@ import sys
 import cv2
 
 # internal libs
-from compute_image_differences.compute_image_differences import compute_image_differences
+from compute_image_differences import compute_image_differences
 
 # same module
 from modes.utils import check_width_argv_exists, check_correctness_optional_argvs, retrieve_argv_width, resize_all
