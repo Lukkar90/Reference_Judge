@@ -14,23 +14,11 @@ def check_paths(argv_):
 
     original_reference_path = argv_[1]
     app_reference_path = argv_[2]
-    output_path = None
-    if len(argv_) >= 5 and is_output_path_argv(argv_):
-        output_path = argv_[4]
 
-    original_ref_kind = None
-    app_ref_kind = None
-    output_kind_legal = None
+    output_path, output_kind_legal = get_output_path_if_exists_and_legal(argv_)
 
     original_ref_kind = get_path_kind(original_reference_path)
     app_ref_kind = get_path_kind(app_reference_path)
-
-    if output_path:
-        output_kind_legal = get_path_kind(output_path)
-        if output_kind_legal == "url":
-            sys.exit("Error: output can't be url:\n"
-                     f" {output_path}\n"
-                     f"{help_tip()}")
 
     check_if_paths_exists(
         original_reference_path,
@@ -47,6 +35,24 @@ def check_paths(argv_):
         original_reference_path,
         app_reference_path
     )
+
+
+def get_output_path_if_exists_and_legal(argv_):
+
+    output_path = None
+    output_kind_legal = None
+
+    if len(argv_) >= 5 and is_output_path_argv(argv_):
+        output_path = argv_[4]
+
+    if output_path:
+        output_kind_legal = get_path_kind(output_path)
+        if output_kind_legal == "url":
+            sys.exit("Error: output can't be url:\n"
+                     f" {output_path}\n"
+                     f"{help_tip()}")
+
+    return output_path, output_kind_legal
 
 
 def check_output_path_exists(output_path, output_kind_legal):
