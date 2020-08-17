@@ -1,3 +1,8 @@
+"""
+get_one_pair_of_similar images by comparing another one or iterating among many in selected dir
+"""
+
+
 # python libs
 import os
 import sys
@@ -34,24 +39,24 @@ def get_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
     if ext_app:
 
         reference_pair = both_single_paths(
-            original_reference_path, app_reference_path, original_name, by_ratio)
+            original_reference_path,
+            app_reference_path,
+            original_name, by_ratio
+        )
 
-    # if only original image is single file and
+    # if only original image is single file
     else:
+        reference_pair = find_similar_one_original_image_among_references(
+            original_reference_path,
+            original_name,
+            app_reference_path,
+            by_ratio
+        )
 
-        # Give results when it's only one original image and match reference image from many app references
-        similar_image = find_most_similar_image(
-            original_reference_path, app_reference_path, by_ratio)
-
-        if similar_image["file_path"] == "":
-            print(f"Not found reference : {original_name}")
-            reference_pair = None
-        else:
-            reference_pair = ReferencePair(
-                original_name, original_reference_path, similar_image["file_path"], similar_image["similarity"]).dictionary
-
-    # It can't be before "return", because if you have only one element in index, it wouldn't be iterable
+    # It can't be before "return", because if you have only one element in index
+    # it wouldn't be iterable
     similar_list.append(reference_pair)
+
     return similar_list
 
 
@@ -96,3 +101,32 @@ def path_to_image(path):
         image = imread(path)
 
     return image
+
+
+def find_similar_one_original_image_among_references(
+    original_reference_path,
+    original_name,
+    app_reference_path,
+    by_ratio
+):
+    """return no pair or only one"""
+
+    similar_image = find_most_similar_image(
+        original_reference_path, app_reference_path, by_ratio)
+
+    if no_similar_images(similar_image):
+        print(f"Not found reference : {original_name}")
+        reference_pair = None
+    else:
+        reference_pair = ReferencePair(
+            original_name,
+            original_reference_path,
+            similar_image["file_path"],
+            similar_image["similarity"]).dictionary
+
+    return reference_pair
+
+
+def no_similar_images(similar_image):
+    """return bool"""
+    return similar_image["file_path"] == ""

@@ -24,7 +24,7 @@ def create_similar_images_list(original_reference_path, app_reference_path, by_r
     error_check_path_is_empty_string(app_reference_path)
 
     ext_original = os.path.splitext(original_reference_path)[1]
-    # if original image is file, not dir
+    # if original image is file
     if ext_original:
 
         return get_one_ref_pair(original_reference_path, app_reference_path, by_ratio)
