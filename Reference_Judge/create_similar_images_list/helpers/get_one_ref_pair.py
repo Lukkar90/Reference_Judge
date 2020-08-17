@@ -10,7 +10,7 @@ from skimage.metrics import structural_similarity as compare_images
 from utils import (
     error_check_path_is_empty_string,
     uri_validator,
-    make_sizes_of_images_the_same,
+    MakeSizesOfImagesTheSame,
     url_to_image
 )
 from create_similar_images_list.helpers.utils import (
@@ -67,7 +67,7 @@ def both_single_paths(original_reference, app_reference, original_name, by_ratio
 
     # resize image target image to the same size if ratio is the same
     if by_ratio:
-        target = make_sizes_of_images_the_same(source, target)
+        target = MakeSizesOfImagesTheSame(source, target).target
 
     # change image to b&w to calculate similarity
     source = cvtColor(source, COLOR_BGR2GRAY)

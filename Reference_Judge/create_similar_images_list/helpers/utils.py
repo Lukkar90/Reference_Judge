@@ -9,7 +9,7 @@ from skimage.metrics import structural_similarity as compare_images
 from utils import (
     error_check_path_is_empty_string,
     uri_validator, url_to_image,
-    make_sizes_of_images_the_same
+    MakeSizesOfImagesTheSame
 )
 
 
@@ -42,8 +42,8 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
             target_image = imread(target_path)  # load image into memory
             # resize image target image to the same size if ratio is the same
             if by_ratio:
-                target_image = make_sizes_of_images_the_same(
-                    source_image, target_image)
+                target_image = MakeSizesOfImagesTheSame(
+                    source_image, target_image).target
             t_height, t_width, _ = target_image.shape
 
             # NOTE: the two images must have the same dimension
