@@ -1,5 +1,6 @@
 """Place to hold program's global const"""
 
+
 LEGIT_EXTENSIONS = tuple(".png")
 
 ARGV = {

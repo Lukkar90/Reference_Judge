@@ -1,6 +1,8 @@
 """
 This module is responsible for checking if program arguments are correct
 """
+
+
 # python lib
 import os
 import sys

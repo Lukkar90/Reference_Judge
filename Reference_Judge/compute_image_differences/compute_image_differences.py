@@ -1,6 +1,8 @@
 """
 This module return images differences between image original reference and app reference
 """
+
+
 # external libs
 import cv2
 import imutils

@@ -2,6 +2,8 @@
 This module is responsible for creating list of matched images between chosen paths
 Chosen paths could be single image, dir or url path
 """
+
+
 # python libs
 import os
 
@@ -15,7 +17,7 @@ from create_similar_images_list.helpers.get_similar_images_list import get_simil
 
 def create_similar_images_list(original_reference_path, app_reference_path, by_ratio=False):
     """
-    It returns path or paths of similar images compared to image reference
+    It returns path or paths of similar images compared to image reference with additional attributes
     """
 
     error_check_path_is_empty_string(original_reference_path)
@@ -26,6 +28,7 @@ def create_similar_images_list(original_reference_path, app_reference_path, by_r
     if ext_original:
 
         return get_one_ref_pair(original_reference_path, app_reference_path, by_ratio)
+
     # if original images are dir
     else:
 

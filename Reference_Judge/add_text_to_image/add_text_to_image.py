@@ -1,5 +1,6 @@
 """ Add text description to the image"""
 
+
 # python libs
 import math
 

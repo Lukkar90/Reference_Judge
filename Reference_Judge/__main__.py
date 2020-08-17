@@ -13,14 +13,15 @@ DESCRIPTION
 
     It's aims to improve workflow for programmer and also designer.
 
-    For programmer this tool available instant check of screen
+    For programmer this tool availables instant check of screen,
     if it is done according to references.
 
-    For designer this tool relieve him/she from task of checking
-    if particular screen was done according to reference.
+    For designer this tool relieve him/she from task of constant checking,
+    if particular screen was done according to the reference.
 
     This program uses image recognition algorithms from https://opencv.org/
 """
+
 
 # python libs
 import sys

@@ -2,6 +2,7 @@
 This module is snipsets of functions which are used in many places in code
 """
 
+
 # python libs
 import os
 import urllib.request
