@@ -13,8 +13,11 @@ DESCRIPTION
 
     It's aims to improve workflow for programmer and also designer.
 
-    For programmer this tool available instant check of screen if it is done according to references
-    For designer this tool relieve him/she from task of checking if particular screen was done according to reference.
+    For programmer this tool available instant check of screen
+    if it is done according to references.
+
+    For designer this tool relieve him/she from task of checking
+    if particular screen was done according to reference.
 
     This program uses image recognition algorithms from https://opencv.org/
 """
@@ -27,6 +30,7 @@ from help import help_detailed_usage, user_commanded_help
 from check_argv_correctness.check_argv_correctness import check_argv_correctness
 from create_similar_images_list.create_similar_images_list import create_similar_images_list
 from config import ARGV, IMAGES_SIZES
+from utils import check_ratio_argv
 
 # same module
 from modes.show import show
@@ -34,7 +38,7 @@ from modes.save import save
 
 
 def main():
-    """Parsing sys.argv to pass them into right functions"""
+    """Parsing sys.argv to invoke in chosen paths modes: save or show, or to get help"""
 
     check_argv_correctness(sys.argv)
     if user_commanded_help(sys.argv):
@@ -45,8 +49,7 @@ def main():
     app_ref_path = sys.argv[2]
     mode = sys.argv[3]
 
-    # [-1] To avoid checking 3 places at one, this argument is always last
-    by_ratio = bool(sys.argv[-1] in ARGV["search by ratio"])
+    by_ratio = check_ratio_argv(sys.argv)
 
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)

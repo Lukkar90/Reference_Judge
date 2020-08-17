@@ -13,7 +13,14 @@ import cv2
 import numpy as np
 
 # internal libs
-from config import IMAGES_SIZES
+from config import IMAGES_SIZES, ARGV
+
+
+def check_ratio_argv(_argv):
+    """Return bool, check optional argument if images are searched by same ratio"""
+
+    # [-1] To avoid checking 3 places at one, this argument is always last
+    return bool(_argv[-1] in ARGV["search by ratio"])
 
 
 # https://stackoverflow.com/a/58126805/12490791
