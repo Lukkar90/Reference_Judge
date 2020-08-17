@@ -20,7 +20,7 @@ def check_paths(argv_):
     original_ref_kind = get_path_kind(original_reference_path)
     app_ref_kind = get_path_kind(app_reference_path)
 
-    check_if_paths_exists(
+    check_if_many_paths_exists(
         original_reference_path,
         app_reference_path,
         output_path,
@@ -65,13 +65,13 @@ def check_output_path_exists(output_path, output_kind_legal):
                  f"{help_tip()}")
 
 
-def check_if_paths_exists(
+def check_if_many_paths_exists(
     original_reference_path,
-        app_reference_path,
-        output_path,
-        original_ref_kind,
-        app_ref_kind,
-        output_kind_legal
+    app_reference_path,
+    output_path,
+    original_ref_kind,
+    app_ref_kind,
+    output_kind_legal
 ):
     """if wrong, it exits program"""
 
@@ -87,10 +87,11 @@ def check_if_paths_exists(
         "app references"
     )
 
-    check_output_path_exists(
-        output_path,
-        output_kind_legal
-    )
+    if len(sys.argv) >= 5 and sys.argv[4] in ARGV["save"]:
+        check_output_path_exists(
+            output_path,
+            output_kind_legal
+        )
 
 
 def check_paths_legal_combinations(
@@ -145,7 +146,12 @@ def check_original_and_reference_if_dirs(
                      f"{help_tip()}")
 
 
-def check_original_and_reference_if_files(original_ref_kind, app_ref_kind, original_reference_path, app_reference_path):
+def check_original_and_reference_if_files(
+    original_ref_kind,
+    app_ref_kind,
+    original_reference_path,
+    app_reference_path
+):
     """if wrong, it exits program"""
 
     if (original_ref_kind == "file" and app_ref_kind == "file") or (original_ref_kind == "url" and app_ref_kind == "url"):

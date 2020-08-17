@@ -1,5 +1,4 @@
 # python libs
-import os
 import sys
 
 # internal libs
@@ -7,7 +6,10 @@ from config import ARGV, IMAGES_SIZES
 
 
 def check_width_values(argv_):
-    """check if width value is lower or equal IMAGES_SIZES["biggest dimmension"] in save or show mode"""
+    """
+    check if width value is lower or equal IMAGES_SIZES["biggest dimmension"]
+    in save or show mode
+    """
 
     mode = argv_[3]
 
@@ -24,7 +26,7 @@ def check_legal_value(argv_, cap_len_argv):
 
     n = cap_len_argv
 
-    if len(argv_) >= (n - 1) and argv_[n - 2].isnumeric():
+    if check_argv_len_with_width(argv_, n) and check_if_width_is_legal(argv_, n):
 
         # Input user is width of reference image size
         width = int(argv_[n - 2])
@@ -33,3 +35,13 @@ def check_legal_value(argv_, cap_len_argv):
         if width > IMAGES_SIZES["biggest dimmension"]:
             sys.exit(
                 f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}")
+
+
+def check_argv_len_with_width(argv_, n):
+    """return bool"""
+    return len(argv_) >= (n - 1)
+
+
+def check_if_width_is_legal(argv_, n):
+    """return bool"""
+    return argv_[n - 2].isnumeric()
