@@ -16,28 +16,25 @@ from utils import uri_validator, url_to_image, MakeSizesOfImagesTheSame
 def compute_image_differences(similar_pair, by_ratio=False):
     """calculate differences between images and show them in returned object"""
 
-    # construct the argument
     paths = {
         "first": similar_pair["original_reference_path"],
         "second": similar_pair["app_reference_path"]
     }
 
-    # Upload name which would be used to save file in output directory
+    # upload name which would be used to save file in output directory
     original_name = similar_pair["original_reference_name"]
 
-    # load the two input images
     image_A = upload_image(paths["first"])
-
     image_B = upload_image(paths["second"])
 
-    # resize image target image to the same size if ratio is the same and argv has "search by ratio"
+    # when there is "search by ratio" argv resize image to the same size
+    # if ratio is also the same
     if by_ratio:
         image_B = MakeSizesOfImagesTheSame(image_A, image_B).target
 
     # compute difference between imageA and imageB in BGR
     diff_BGR = cv2.subtract(image_A, image_B)
 
-    # convert the images to grayscale
     gray_A = convert_image_to_gray(image_A)
     gray_B = convert_image_to_gray(image_B)
 
@@ -65,7 +62,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
         cv2.rectangle(image_A, (x, y), (x + w, y + h), (0, 0, 255), 2)
         cv2.rectangle(image_B, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
-    # Images to latter process
+    # Images data to latter process
     computed_images = {
         "Original_name": original_name,
         "Original": image_A,
