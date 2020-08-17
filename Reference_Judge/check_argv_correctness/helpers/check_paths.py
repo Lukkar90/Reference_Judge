@@ -12,49 +12,113 @@ from utils import dir_exists, uri_validator, error_check_path_is_empty_string
 def check_paths(argv_):
     """Check if files/dir/url paths program arguments are correct"""
 
-    # Path args
     original_reference_path = argv_[1]
     app_reference_path = argv_[2]
     output_path = None
-    # this argument position can be also width
     if len(argv_) >= 5 and is_output_path_argv(argv_):
         output_path = argv_[4]
 
-    # Path kind args
     original_ref_kind = None
     app_ref_kind = None
-    output_kind = None
+    output_kind_legal = None
 
-    # Checking what kind of paths are
     original_ref_kind = get_path_kind(original_reference_path)
     app_ref_kind = get_path_kind(app_reference_path)
 
     if output_path:
-        output_kind = get_path_kind(output_path)
-        if output_kind == "url":
+        output_kind_legal = get_path_kind(output_path)
+        if output_kind_legal == "url":
             sys.exit("Error: output can't be url:\n"
                      f" {output_path}\n"
                      f"{help_tip()}")
 
-    # Paths validation depending on kind
-    path_validation(
+    check_if_paths_exists(
+        original_reference_path,
+        app_reference_path,
+        output_path,
+        original_ref_kind,
+        app_ref_kind,
+        output_kind_legal
+    )
+
+    check_paths_legal_combinations(
+        original_ref_kind,
+        app_ref_kind,
+        original_reference_path,
+        app_reference_path
+    )
+
+
+def check_output_path_exists(output_path, output_kind_legal):
+    if output_kind_legal and not dir_exists(output_path):
+        sys.exit(f"Error: Output directory does not exists:\n"
+                 f" {output_path}\n"
+                 f"{help_tip()}")
+
+
+def check_if_paths_exists(
+    original_reference_path,
+        app_reference_path,
+        output_path,
+        original_ref_kind,
+        app_ref_kind,
+        output_kind_legal
+):
+
+    path_exists(
         original_ref_kind,
         original_reference_path,
         "original references"
     )
 
-    path_validation(
+    path_exists(
         app_ref_kind,
         app_reference_path,
         "app references"
     )
 
-    if output_kind and not dir_exists(output_path):
-        sys.exit(f"Error: Output directory does not exists:\n"
-                 f" {output_path}\n"
-                 f"{help_tip()}")
+    check_output_path_exists(
+        output_path,
+        output_kind_legal
+    )
 
-    # If original path and app path are dirs
+
+def check_paths_legal_combinations(
+    original_ref_kind,
+        app_ref_kind,
+        original_reference_path,
+        app_reference_path
+):
+
+    check_original_and_reference_if_dirs(
+        original_ref_kind,
+        app_ref_kind,
+        original_reference_path,
+        app_reference_path
+    )
+
+    check_original_and_reference_if_files(
+        original_ref_kind,
+        app_ref_kind,
+        original_reference_path,
+        app_reference_path
+    )
+
+    check_if_original_dir_and_reference_file_or_url(
+        original_ref_kind,
+        app_ref_kind,
+        original_reference_path,
+        app_reference_path
+    )
+
+
+def check_original_and_reference_if_dirs(
+    original_ref_kind,
+    app_ref_kind,
+    original_reference_path,
+    app_reference_path
+):
+
     if original_ref_kind == "dir" and app_ref_kind == "dir":
 
         if original_reference_path == app_reference_path:
@@ -68,16 +132,22 @@ def check_paths(argv_):
                      f" {app_reference_path}\n"
                      f"{help_tip()}")
 
-    # If original path and app path are files
+
+def check_original_and_reference_if_files(original_ref_kind, app_ref_kind, original_reference_path, app_reference_path):
     if (original_ref_kind == "file" and app_ref_kind == "file") or (original_ref_kind == "url" and app_ref_kind == "url"):
 
         if original_reference_path == app_reference_path:
-            # Checking if paths/url are not the same
             sys.exit("Error: Both files have the same path:\n"
                      f" {original_reference_path}\n"
                      f"{help_tip()}")
 
-    # If original path is dir and app path is file
+
+def check_if_original_dir_and_reference_file_or_url(
+    original_ref_kind,
+    app_ref_kind,
+    original_reference_path,
+    app_reference_path
+):
     if original_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
         sys.exit("Error: Original reference path can't be directory, if app reference is only one file:\n"
                  f" {original_reference_path}\n"
@@ -106,7 +176,7 @@ def get_path_kind(original_reference_path):
         return "dir"
 
 
-def path_validation(path_kind, reference_path, dir_kind):
+def path_exists(path_kind, reference_path, dir_kind):
     """Check if path exists: url, file, dir"""
 
     error_check_path_is_empty_string(dir_kind)
