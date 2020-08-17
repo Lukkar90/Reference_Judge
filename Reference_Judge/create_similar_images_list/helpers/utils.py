@@ -73,3 +73,8 @@ class ReferencePair():
             "app_reference_path": app_path,
             "similarity": similarity
         }
+
+
+def no_similar_images(similar_image):
+    """return bool"""
+    return similar_image["file_path"] == ""

@@ -1,16 +1,19 @@
+"""get list of similar images with all attributes"""
+
+
 # python libs
 import os
-import sys
-
-# external libs
-from cv2 import imread
 
 # internal libs
 from config import LEGIT_EXTENSIONS
 from utils import error_check_path_is_empty_string
 
 # same module
-from create_similar_images_list.helpers.utils import ReferencePair, find_most_similar_image
+from create_similar_images_list.helpers.utils import (
+    ReferencePair,
+    find_most_similar_image,
+    no_similar_images
+)
 
 
 def get_similar_images_list(source_directory_path, target_directory_path, by_ratio):
@@ -21,26 +24,9 @@ def get_similar_images_list(source_directory_path, target_directory_path, by_rat
 
     # Init variables
     sources_paths = files_paths(source_directory_path)
-    reference_pairs = list()
 
-    # add all similar images pairs to list
-    for source_path in sources_paths:
-
-        source_name = os.path.basename(source_path)
-
-        similar_image = find_most_similar_image(
-            source_path, target_directory_path, by_ratio)
-
-        if similar_image["file_path"] == "":
-            print(f"Not found reference : {source_name}")
-            reference_pair = None
-        else:
-            reference_pair = ReferencePair(
-                source_name, source_path, similar_image["file_path"], similar_image["similarity"]).dictionary
-            # Notice User with searching progress
-            print(
-                f"Found reference : {source_name}, similarity: {similar_image['similarity']}")
-            reference_pairs.append(reference_pair)
+    reference_pairs = find_similar_images(
+        sources_paths, target_directory_path, by_ratio)
 
     return reference_pairs
 
@@ -64,3 +50,39 @@ def files_paths(directory):
             paths.append(full_path)
 
     return paths
+
+
+def find_similar_images(sources_paths, target_directory_path, by_ratio):
+    """return list of similar images with all attributes"""
+
+    reference_pairs = list()
+
+    # add all similar images pairs to list
+    for source_path in sources_paths:
+
+        source_name = os.path.basename(source_path)
+
+        similar_image = find_most_similar_image(
+            source_path, target_directory_path, by_ratio)
+
+        if no_similar_images(similar_image):
+
+            # Notice User
+            print(f"Not found reference : {source_name}")
+
+            # reset temp variable
+            reference_pair = None
+        else:
+            reference_pair = ReferencePair(
+                source_name,
+                source_path,
+                similar_image["file_path"],
+                similar_image["similarity"]).dictionary
+
+            # Notice User with searching progress
+            print(
+                f"Found reference : {source_name}, similarity: {similar_image['similarity']}")
+
+            reference_pairs.append(reference_pair)
+
+    return reference_pairs

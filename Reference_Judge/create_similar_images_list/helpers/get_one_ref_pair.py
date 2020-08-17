@@ -20,7 +20,8 @@ from utils import (
 )
 from create_similar_images_list.helpers.utils import (
     find_most_similar_image,
-    ReferencePair
+    ReferencePair,
+    no_similar_images
 )
 
 
@@ -125,8 +126,3 @@ def find_similar_one_original_image_among_references(
             similar_image["similarity"]).dictionary
 
     return reference_pair
-
-
-def no_similar_images(similar_image):
-    """return bool"""
-    return similar_image["file_path"] == ""
