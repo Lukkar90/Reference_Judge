@@ -27,15 +27,15 @@ DESCRIPTION
 import sys
 
 # internal libs
-from help import help_detailed_usage, user_commanded_help
 from check_argv_correctness.check_argv_correctness import check_argv_correctness
-from create_similar_images_list.create_similar_images_list import create_similar_images_list
 from config import ARGV, IMAGES_SIZES
-from utils import check_ratio_argv
+from create_similar_images_list.create_similar_images_list import create_similar_images_list
+from help import help_detailed_usage, user_commanded_help
 
 # same module
-from modes.show import show
 from modes.save import save
+from modes.show import show
+from utils import check_ratio_argv
 
 
 def main():

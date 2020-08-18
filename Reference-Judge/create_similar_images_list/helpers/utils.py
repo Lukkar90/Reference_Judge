@@ -1,15 +1,18 @@
+"""common functions for helpers"""
+
+
 # python libs
 import os
 
 # external libs
-from cv2 import imread, cvtColor, COLOR_BGR2GRAY
+from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from utils import (
     error_check_path_is_empty_string,
-    uri_validator, url_to_image,
-    MakeSizesOfImagesTheSame
+    MakeSizesOfImagesTheSame,
+    uri_validator, url_to_image
 )
 
 

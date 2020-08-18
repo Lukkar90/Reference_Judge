@@ -5,8 +5,8 @@
 import sys
 
 # internal libs
-from help import help_tip
 from config import ARGV
+from help import help_tip
 
 
 def check_mode(argv_):
@@ -50,7 +50,7 @@ def check_mode_save(argv_):
 
     elif len(argv_) == 6 and not is_5th_legit_argv(argv_):
 
-        sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
+        sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
                  f" {argv_[5]}\n"
                  f"{help_tip()}")
 
@@ -60,7 +60,7 @@ def check_mode_save(argv_):
             sys.exit('Error: 5th should be numeric.\n')
 
         if not is_last_argv_by_ratio(argv_):
-            sys.exit(f'Error: 6th, last argument should be {ARGV["search by ratio"][0]}:\n'
+            sys.exit(f'Error: 6th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
                      f" {argv_[6]}\n"
                      f"{help_tip()}")
 
@@ -73,7 +73,7 @@ def check_mode_show(argv_):
         return is_legit_width(argv_, 4) or argv_[4] in ARGV["search by ratio"]
 
     if len(argv_) == 5 and not is_4th_legit_argv(argv_):
-        sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search by ratio"][0]}:\n'
+        sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
                  f" {argv_[4]}\n"
                  f"{help_tip()}")
 
@@ -83,7 +83,7 @@ def check_mode_show(argv_):
             sys.exit('Error: 4th should be numeric.\n')
 
         if not is_5th_by_ratio(argv_):
-            sys.exit(f'Error: 5th, last argument should be {ARGV["search by ratio"][0]}:\n'
+            sys.exit(f'Error: 5th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
 

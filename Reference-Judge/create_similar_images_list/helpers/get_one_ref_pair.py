@@ -8,20 +8,20 @@ import os
 import sys
 
 # external libs
-from cv2 import imread, cvtColor, COLOR_BGR2GRAY
+from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
-from utils import (
-    error_check_path_is_empty_string,
-    uri_validator,
-    MakeSizesOfImagesTheSame,
-    url_to_image
-)
 from create_similar_images_list.helpers.utils import (
     find_most_similar_image,
-    ReferencePair,
-    no_similar_images
+    no_similar_images,
+    ReferencePair
+)
+from utils import (
+    error_check_path_is_empty_string,
+    MakeSizesOfImagesTheSame,
+    uri_validator,
+    url_to_image
 )
 
 

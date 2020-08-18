@@ -11,8 +11,8 @@ from config import ARGV
 from help import help_command_line, help_tip
 
 # same lib
-from check_argv_correctness.helpers.check_paths import check_paths
 from check_argv_correctness.helpers.check_mode import check_mode
+from check_argv_correctness.helpers.check_paths import check_paths
 from check_argv_correctness.helpers.check_width_values import check_width_values
 
 

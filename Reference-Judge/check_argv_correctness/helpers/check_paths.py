@@ -6,7 +6,7 @@ from urllib import error, request
 # internal libs
 from config import LEGIT_EXTENSIONS, ARGV
 from help import help_tip
-from utils import dir_exists, uri_validator, error_check_path_is_empty_string
+from utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
 
 def check_paths(argv_):

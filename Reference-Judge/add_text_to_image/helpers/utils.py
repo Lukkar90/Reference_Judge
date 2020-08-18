@@ -1,3 +1,6 @@
+"""common functions for helpers"""
+
+
 def give_pad_value(img_edge, percent_of_img=0):
     """Create height value for padding"""
 

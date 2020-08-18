@@ -1,3 +1,6 @@
+"""common functions for helpers"""
+
+
 # internal libs
 from config import ARGV
 from utils import resize_with_with_aspect_ratio

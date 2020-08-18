@@ -7,8 +7,8 @@ import cv2
 import numpy as np
 
 # internal libs
-from compute_image_differences import compute_image_differences
 from add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
+from compute_image_differences import compute_image_differences
 
 # same module
 from modes.utils import check_width_argv_exists, check_correctness_optional_argvs, retrieve_argv_width, resize_all

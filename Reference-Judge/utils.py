@@ -1,20 +1,19 @@
 """
-This module is snipsets of functions which are used in many places in code
+This module are repeating snipsets of functions which are used in many places in application
 """
 
 
 # python libs
 import os
 import urllib.request
-from urllib.parse import urlparse
 from pathlib import Path
+from urllib.parse import urlparse
 
 # external libs
 import cv2
 import numpy as np
-
 # internal libs
-from config import IMAGES_SIZES, ARGV
+from config import ARGV, IMAGES_SIZES
 
 
 def check_ratio_argv(_argv):

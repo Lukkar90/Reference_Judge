@@ -10,9 +10,9 @@ from utils import error_check_path_is_empty_string
 
 # same module
 from create_similar_images_list.helpers.utils import (
-    ReferencePair,
     find_most_similar_image,
-    no_similar_images
+    no_similar_images,
+    ReferencePair
 )
 
 
