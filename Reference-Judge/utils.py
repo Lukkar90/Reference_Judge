@@ -131,8 +131,9 @@ class MakeSizesOfImagesTheSame:
         """return boolean if scale is bigger than 'lowest scale' and smaller than 'highest scale'"""
 
         compared_ratio = w_source/w_target
+
         comparable_sizes = bool(
-            IMAGES_SIZES["lowest scale"] >= compared_ratio >= IMAGES_SIZES["highest scale"])
+            IMAGES_SIZES["lowest scale"] <= compared_ratio <= IMAGES_SIZES["highest scale"])
 
         return comparable_sizes
 
@@ -160,11 +161,11 @@ class MakeSizesOfImagesTheSame:
     def notify_user_about_wrong_scale(w_target, w_source):
         compared_ratio = w_source/w_target
 
-        if compared_ratio <= IMAGES_SIZES["lowest scale"]:
+        if compared_ratio >= IMAGES_SIZES["lowest scale"]:
             print(f"Reference image is size {compared_ratio} times than app image\n"
                   f"min resize value: {IMAGES_SIZES['lowest scale']}"
                   )
-        elif compared_ratio >= IMAGES_SIZES["highest scale"]:
+        elif compared_ratio <= IMAGES_SIZES["highest scale"]:
             print(f"Reference image is size {compared_ratio} times than app image\n"
                   f"max value: {IMAGES_SIZES['highest scale']}"
                   )

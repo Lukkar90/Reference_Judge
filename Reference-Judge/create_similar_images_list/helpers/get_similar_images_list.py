@@ -25,7 +25,7 @@ def get_similar_images_list(source_directory_path, target_directory_path, by_rat
     # Init variables
     sources_paths = files_paths(source_directory_path)
 
-    reference_pairs = find_similar_images(
+    reference_pairs = create_similar_images_list(
         sources_paths, target_directory_path, by_ratio)
 
     return reference_pairs
@@ -52,7 +52,7 @@ def files_paths(directory):
     return paths
 
 
-def find_similar_images(sources_paths, target_directory_path, by_ratio):
+def create_similar_images_list(sources_paths, target_directory_path, by_ratio):
     """return list of similar images with all attributes"""
 
     reference_pairs = list()

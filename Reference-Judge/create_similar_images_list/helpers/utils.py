@@ -24,9 +24,9 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
     # Init variables
     if uri_validator(file_source_path):
-        source_image = url_to_image(file_source_path)  # load image into memory
+        source_image = url_to_image(file_source_path)
     else:
-        source_image = imread(file_source_path)  # load image into memory
+        source_image = imread(file_source_path)
 
     source_image = cvtColor(source_image, COLOR_BGR2GRAY)
 
@@ -42,11 +42,12 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
         if file_.endswith(source_extension):
 
             target_path = os.path.join(target_directory_path, file_)
-            target_image = imread(target_path)  # load image into memory
+            target_image = imread(target_path)
             # resize image target image to the same size if ratio is the same
             if by_ratio:
                 target_image = MakeSizesOfImagesTheSame(
                     source_image, target_image).target
+
             t_height, t_width, _ = target_image.shape
 
             # NOTE: the two images must have the same dimension
