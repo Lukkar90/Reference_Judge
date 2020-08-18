@@ -87,7 +87,7 @@ def check_if_many_paths_exists(
         "app references"
     )
 
-    if len(sys.argv) >= 5 and sys.argv[4] in ARGV["save"]:
+    if len(sys.argv) >= 4 and sys.argv[3] in ARGV["save"]:
         check_output_path_exists(
             output_path,
             output_kind_legal

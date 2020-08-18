@@ -117,6 +117,10 @@ class MakeSizesOfImagesTheSame:
         # to avoid too big size differences between images and therefore distortions
         comparable_sizes = self.check_if_scale_is_similar(w_target, w_source)
 
+        if not comparable_sizes:
+
+            self.notify_user_about_wrong_scale(w_target, w_source)
+
         if same_ratio and comparable_sizes:
             target = resize_with_with_aspect_ratio(target, w_source)
 
@@ -126,9 +130,9 @@ class MakeSizesOfImagesTheSame:
     def check_if_scale_is_similar(cls, w_target, w_source):
         """return boolean if scale is bigger than 'lowest scale' and smaller than 'highest scale'"""
 
-        compared_ratio = w_target/w_source
+        compared_ratio = w_source/w_target
         comparable_sizes = bool(
-            IMAGES_SIZES["lowest scale"] <= compared_ratio <= IMAGES_SIZES["highest scale"])
+            IMAGES_SIZES["lowest scale"] >= compared_ratio >= IMAGES_SIZES["highest scale"])
 
         return comparable_sizes
 
@@ -151,3 +155,16 @@ class MakeSizesOfImagesTheSame:
         (h_target, w_target) = target.shape[:2]
 
         return w_source, h_source, w_target, h_target
+
+    @classmethod
+    def notify_user_about_wrong_scale(cls, w_target, w_source):
+        compared_ratio = w_source/w_target
+
+        if compared_ratio <= IMAGES_SIZES["lowest scale"]:
+            print(f"Reference image is size {compared_ratio} times than app image\n"
+                  f"min resize value: {IMAGES_SIZES['lowest scale']}"
+                  )
+        elif compared_ratio >= IMAGES_SIZES["highest scale"]:
+            print(f"Reference image is size {compared_ratio} times than app image\n"
+                  f"max value: {IMAGES_SIZES['highest scale']}"
+                  )

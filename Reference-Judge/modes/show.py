@@ -27,13 +27,13 @@ def show(width, similar_list, by_ratio):
 
             images = compute_image_differences(similar_pair, by_ratio)
 
-            show_images(images, width)
+            show_images(width, images)
 
             print('NOTE: Press the "0" key, to close opened windows')
             cv2.waitKey(0)
 
 
-def show_images(images, width):
+def show_images(width, images):
     """show user differences between app image and reference"""
 
     # Resize to default value or custom

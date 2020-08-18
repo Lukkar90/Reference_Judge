@@ -42,7 +42,8 @@ def get_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
         reference_pair = both_single_paths(
             original_reference_path,
             app_reference_path,
-            original_name, by_ratio
+            original_name,
+            by_ratio
         )
 
     # if only original image is single file
