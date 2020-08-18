@@ -46,8 +46,11 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
             # when you want to search any image with the same ratio and similar scale
             if by_ratio:
-                target_image = MakeSizesOfImagesTheSame(
-                    source_image, target_image).target
+                if MakeSizesOfImagesTheSame(source_image, target_image).check_if_scale_not_too_big():
+                    target_image = MakeSizesOfImagesTheSame(
+                        source_image,
+                        target_image
+                    ).resize_image(target_image)
 
             t_height, t_width, _ = target_image.shape
 

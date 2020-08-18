@@ -74,7 +74,11 @@ def both_single_paths(original_reference, app_reference, original_name, by_ratio
 
     # resize image target image to the same size if ratio is the same
     if by_ratio:
-        target = MakeSizesOfImagesTheSame(source, target).target
+        if MakeSizesOfImagesTheSame(source, target).check_if_scale_not_too_big():
+            target = MakeSizesOfImagesTheSame(
+                source,
+                target
+            ).resize_image(target)
 
     # change image to b&w to calculate similarity
     source = cvtColor(source, COLOR_BGR2GRAY)

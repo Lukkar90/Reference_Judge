@@ -5,6 +5,7 @@ This module are repeating snipsets of functions which are used in many places in
 
 # python libs
 import os
+from sys import exit as sys_exit
 import urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
@@ -111,18 +112,21 @@ class MakeSizesOfImagesTheSame:
             source, target)
 
         # ratio have to be same to match images
-        same_ratio = self.check_if_ratios_are_same()
+        self.same_ratio = self.check_if_ratios_are_same()
 
         # to avoid too big size differences between images and therefore distortions
-        comparable_sizes = self.check_if_scale_is_similar()
+        self.comparable_sizes = self.check_if_scale_is_similar()
 
-        if not comparable_sizes:
-            self.notify_user_about_wrong_scale()
+    def check_if_scale_not_too_big(self):
+        is_OK = self.same_ratio and self.comparable_sizes
 
-        if same_ratio and comparable_sizes:
-            target = resize_with_with_aspect_ratio(target, self.w_source)
+        return is_OK
 
-        self.target = target
+    # I know it's not elegant but I've done it for performance reasons
+    def resize_image(self, target):
+        target = resize_with_with_aspect_ratio(target, self.w_source)
+
+        return target
 
     def check_if_scale_is_similar(self):
         """return boolean if scale is bigger than 'lowest scale' and smaller than 'highest scale'"""
@@ -157,12 +161,12 @@ class MakeSizesOfImagesTheSame:
         compared_ratio = self.w_source/self.w_target
 
         if compared_ratio < IMAGES_SIZES["lowest scale"]:
-            print(f"Reference image is size {compared_ratio} times than app image\n"
-                  f"min resize value: {IMAGES_SIZES['lowest scale']}"
-                  )
+            sys_exit(f"Reference image is size {compared_ratio} times than app image\n"
+                     f"min resize value: {IMAGES_SIZES['lowest scale']}"
+                     )
         elif compared_ratio > IMAGES_SIZES["highest scale"]:
-            print(f"Reference image is size {compared_ratio} times than app image\n"
-                  f"max value: {IMAGES_SIZES['highest scale']}"
-                  )
+            sys_exit(f"Reference image is size {compared_ratio} times than app image\n"
+                     f"max value: {IMAGES_SIZES['highest scale']}"
+                     )
         else:
             raise ValueError("invoked function for wrong ratio values")

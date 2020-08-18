@@ -30,7 +30,11 @@ def compute_image_differences(similar_pair, by_ratio=False):
     # when there is "search by ratio" argv resize image to the same size
     # if ratio is also the same
     if by_ratio:
-        image_B = MakeSizesOfImagesTheSame(image_A, image_B).target
+        if MakeSizesOfImagesTheSame(image_A, image_B).check_if_scale_not_too_big():
+            image_B = MakeSizesOfImagesTheSame(
+                image_A,
+                image_B
+            ).resize_image(image_B)
 
     # compute difference between imageA and imageB in BGR
     diff_BGR = cv2.subtract(image_A, image_B)
