@@ -126,8 +126,8 @@ class MakeSizesOfImagesTheSame:
 
         self.target = target
 
-    @classmethod  # https://www.programiz.com/python-programming/methods/built-in/classmethod
-    def check_if_scale_is_similar(cls, w_target, w_source):
+    @staticmethod
+    def check_if_scale_is_similar(w_target, w_source):
         """return boolean if scale is bigger than 'lowest scale' and smaller than 'highest scale'"""
 
         compared_ratio = w_source/w_target
@@ -136,8 +136,8 @@ class MakeSizesOfImagesTheSame:
 
         return comparable_sizes
 
-    @classmethod
-    def check_if_ratios_are_same(cls, w_source, h_source, w_target, h_target):
+    @staticmethod
+    def check_if_ratios_are_same(w_source, h_source, w_target, h_target):
         """return boolean if ratios of the same images are the same"""
 
         source_ratio = w_source/h_source
@@ -147,8 +147,8 @@ class MakeSizesOfImagesTheSame:
 
         return same_ratio
 
-    @classmethod
-    def take_images_dimensions(cls, source, target):
+    @staticmethod
+    def take_images_dimensions(source, target):
         """get width and height of both images"""
 
         (h_source, w_source) = source.shape[:2]
@@ -156,8 +156,8 @@ class MakeSizesOfImagesTheSame:
 
         return w_source, h_source, w_target, h_target
 
-    @classmethod
-    def notify_user_about_wrong_scale(cls, w_target, w_source):
+    @staticmethod
+    def notify_user_about_wrong_scale(w_target, w_source):
         compared_ratio = w_source/w_target
 
         if compared_ratio <= IMAGES_SIZES["lowest scale"]:
