@@ -169,3 +169,5 @@ class MakeSizesOfImagesTheSame:
             print(f"Reference image is size {compared_ratio} times than app image\n"
                   f"max value: {IMAGES_SIZES['highest scale']}"
                   )
+        else:
+            raise ValueError("invoked function for wrong ratio values")
