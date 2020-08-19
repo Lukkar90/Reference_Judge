@@ -12,12 +12,12 @@ from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
-from create_similar_images_list.helpers.utils import (
+from Reference_Judge.create_similar_images_list.helpers.utils import (
     find_most_similar_image,
     no_similar_images,
     ReferencePair
 )
-from utils import (
+from Reference_Judge.utils import (
     error_check_path_is_empty_string,
     MakeSizesOfImagesTheSame,
     uri_validator,

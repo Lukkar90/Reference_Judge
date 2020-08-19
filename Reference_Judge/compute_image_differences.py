@@ -9,7 +9,7 @@ import imutils
 from skimage.metrics import structural_similarity
 
 # internal libs
-from utils import MakeSizesOfImagesTheSame, uri_validator, url_to_image
+from Reference_Judge.utils import MakeSizesOfImagesTheSame, uri_validator, url_to_image
 
 
 # https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/

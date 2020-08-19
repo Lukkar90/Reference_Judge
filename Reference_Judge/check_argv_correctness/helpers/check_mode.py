@@ -5,8 +5,8 @@
 import sys
 
 # internal libs
-from config import ARGV
-from help import help_tip
+from Reference_Judge.config import ARGV
+from Reference_Judge.help import help_tip
 
 
 def check_mode(argv_):

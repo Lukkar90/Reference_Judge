@@ -4,7 +4,7 @@
 import cv2
 
 # internal libs
-from add_text_to_image.helpers.utils import give_pad_value
+from Reference_Judge.add_text_to_image.helpers.utils import give_pad_value
 
 
 def add_padding(

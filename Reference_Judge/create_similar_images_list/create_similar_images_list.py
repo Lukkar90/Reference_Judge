@@ -8,11 +8,11 @@ Chosen paths could be single image, dir or url path
 import os
 
 # internal libs
-from utils import error_check_path_is_empty_string
+from Reference_Judge.utils import error_check_path_is_empty_string
 
 # same module
-from create_similar_images_list.helpers.get_similar_images_list import get_similar_images_list
-from create_similar_images_list.helpers.get_one_ref_pair import get_one_ref_pair
+from Reference_Judge.create_similar_images_list.helpers.get_similar_images_list import get_similar_images_list
+from Reference_Judge.create_similar_images_list.helpers.get_one_ref_pair import get_one_ref_pair
 
 
 def create_similar_images_list(original_reference_path, app_reference_path, by_ratio=False):

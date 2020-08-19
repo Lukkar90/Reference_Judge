@@ -27,18 +27,16 @@ DESCRIPTION
 import sys
 
 # internal libs
-from check_argv_correctness.check_argv_correctness import check_argv_correctness
-from config import ARGV, IMAGES_SIZES
-from create_similar_images_list.create_similar_images_list import create_similar_images_list
-from help import help_detailed_usage, user_commanded_help
-
-# same module
-from modes.save import save
-from modes.show import show
-from utils import check_ratio_argv
+from Reference_Judge.check_argv_correctness.check_argv_correctness import check_argv_correctness
+from Reference_Judge.config import ARGV, IMAGES_SIZES
+from Reference_Judge.create_similar_images_list.create_similar_images_list import create_similar_images_list
+from Reference_Judge.help import help_detailed_usage, user_commanded_help
+from Reference_Judge.modes.save import save
+from Reference_Judge.modes.show import show
+from Reference_Judge.utils import check_ratio_argv
 
 
-def main():
+def Reference_Judge():
     """Parsing sys.argv to invoke in chosen paths modes: save or show, or to get help"""
 
     check_argv_correctness(sys.argv)
@@ -70,7 +68,3 @@ def main():
                          f" {mode}")
 
     sys.exit(0)
-
-
-if __name__ == "__main__":
-    main()

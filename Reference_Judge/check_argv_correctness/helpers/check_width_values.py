@@ -2,7 +2,7 @@
 import sys
 
 # internal libs
-from config import ARGV, IMAGES_SIZES
+from Reference_Judge.config import ARGV, IMAGES_SIZES
 
 
 def check_width_values(argv_):

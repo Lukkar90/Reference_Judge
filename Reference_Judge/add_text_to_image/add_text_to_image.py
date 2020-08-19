@@ -5,8 +5,8 @@
 import cv2
 
 # internal libs
-from add_text_to_image.helpers.add_padding import add_padding
-from add_text_to_image.helpers.calculate_text_values import calculate_text_values
+from Reference_Judge.add_text_to_image.helpers.add_padding import add_padding
+from Reference_Judge.add_text_to_image.helpers.calculate_text_values import calculate_text_values
 
 
 def add_text_to_image(

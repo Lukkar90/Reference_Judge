@@ -5,11 +5,11 @@
 import os
 
 # internal libs
-from config import LEGIT_EXTENSIONS
-from utils import error_check_path_is_empty_string
+from Reference_Judge.config import LEGIT_EXTENSIONS
+from Reference_Judge.utils import error_check_path_is_empty_string
 
 # same module
-from create_similar_images_list.helpers.utils import (
+from Reference_Judge.create_similar_images_list.helpers.utils import (
     find_most_similar_image,
     no_similar_images,
     ReferencePair
