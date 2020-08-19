@@ -78,7 +78,7 @@ def both_single_paths(original_reference, app_reference, original_name, by_ratio
             target = MakeSizesOfImagesTheSame(
                 source,
                 target
-            ).resize_image(target)
+            ).give_resized_image(target)
         else:
             MakeSizesOfImagesTheSame(
                 source, target).notify_user_about_wrong_scale()  # For UX, user has to be informed

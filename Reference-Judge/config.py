@@ -16,3 +16,5 @@ IMAGES_SIZES = {
     "biggest dimmension": 1080,  # to avoid performance issues
     "default width": 360,
 }
+
+ENOUGH_SIMILARITY = 0.95  # SSMI value in calculating resemblance

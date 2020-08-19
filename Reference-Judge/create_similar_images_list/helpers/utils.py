@@ -9,6 +9,7 @@ from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
+from config import ENOUGH_SIMILARITY
 from utils import (
     error_check_path_is_empty_string,
     MakeSizesOfImagesTheSame,
@@ -50,7 +51,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
                     target_image = MakeSizesOfImagesTheSame(
                         source_image,
                         target_image
-                    ).resize_image(target_image)
+                    ).give_resized_image(target_image)
 
             t_height, t_width, _ = target_image.shape
 
@@ -67,6 +68,10 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
                 if most_similar_image["similarity"] < similarity:
                     most_similar_image["similarity"] = similarity
                     most_similar_image["file_path"] = target_path
+
+                # For performance issues, it's high propability that with this value is the same image
+                if most_similar_image["similarity"] >= ENOUGH_SIMILARITY:
+                    break
 
     return most_similar_image
 
