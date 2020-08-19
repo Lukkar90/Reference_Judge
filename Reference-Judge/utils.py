@@ -118,12 +118,15 @@ class MakeSizesOfImagesTheSame:
         self.comparable_sizes = self.check_if_scale_is_similar()
 
     def check_if_scale_not_too_big(self):
+        """images have to have the same ratio and comparable sizes"""
+
         is_OK = self.same_ratio and self.comparable_sizes
 
         return is_OK
 
-    # I know it's not elegant but I've done it for performance reasons
-    def resize_image(self, target):
+    # I know it's not elegant but I've done it for performance reasons. self.target -> target
+    def give_resized_image(self, target):
+        """It returns target image"""
         target = resize_with_with_aspect_ratio(target, self.w_source)
 
         return target

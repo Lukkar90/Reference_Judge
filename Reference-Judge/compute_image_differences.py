@@ -34,7 +34,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
             image_B = MakeSizesOfImagesTheSame(
                 image_A,
                 image_B
-            ).resize_image(image_B)
+            ).give_resized_image(image_B)
 
     # compute difference between imageA and imageB in BGR
     diff_BGR = cv2.subtract(image_A, image_B)
