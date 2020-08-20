@@ -102,7 +102,7 @@ def uri_validator(path):  # https://stackoverflow.com/a/38020041/12490791
         return False
 
 
-class MakeSizesOfImagesTheSame:
+class SizesSimilarityImages:
     """
     Resize target image to the same size as source image,
     if ratio between width and height of both images are the same
@@ -118,19 +118,14 @@ class MakeSizesOfImagesTheSame:
         # to avoid too big size differences between images and therefore distortions
         self.comparable_sizes = self.check_if_scale_is_similar()
 
+        self.resizable_images = self.same_ratio and self.comparable_sizes
+
     def check_if_scale_not_too_big(self):
         """images have to have the same ratio and comparable sizes"""
 
         is_OK = self.same_ratio and self.comparable_sizes
 
         return is_OK
-
-    # I know it's not elegant but I've done it for performance reasons. self.target -> target
-    def give_resized_image(self, target):
-        """It returns target image"""
-        target = resize_with_with_aspect_ratio(target, self.w_source)
-
-        return target
 
     def check_if_scale_is_similar(self):
         """return boolean if scale is bigger than 'lowest scale' and smaller than 'highest scale'"""
@@ -156,15 +151,18 @@ class MakeSizesOfImagesTheSame:
     def take_images_dimensions(source, target):
         """get width and height of both images"""
 
-        (h_source, w_source) = source.shape[:2]
-        (h_target, w_target) = target.shape[:2]
+        h_source, w_source = source.shape[:2]
+        h_target, w_target = target.shape[:2]
 
         return w_source, h_source, w_target, h_target
 
     def notify_user_about_wrong_scale(self):
         compared_ratio = self.w_source/self.w_target
 
-        if compared_ratio < IMAGES_SIZES["lowest scale"]:
+        if not self.same_ratio:
+            sys_exit("Images has diffrent ratios")
+
+        elif compared_ratio < IMAGES_SIZES["lowest scale"]:
             sys_exit(f"Reference image is size {compared_ratio} times than app image\n"
                      f"min resize value: {IMAGES_SIZES['lowest scale']}"
                      )
@@ -173,4 +171,13 @@ class MakeSizesOfImagesTheSame:
                      f"max value: {IMAGES_SIZES['highest scale']}"
                      )
         else:
-            raise ValueError("invoked function for wrong ratio values")
+            raise ValueError(
+                "invoked function for wrong ratio values", compared_ratio)
+
+
+def give_resized_image(source, target):
+    """It returns resized target image to size of source image"""
+    w_source = source.shape[1]
+    target = resize_with_with_aspect_ratio(target, w_source)
+
+    return target

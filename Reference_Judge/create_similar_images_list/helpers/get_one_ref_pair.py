@@ -18,8 +18,9 @@ from Reference_Judge.create_similar_images_list.helpers.utils import (
     ReferencePair
 )
 from Reference_Judge.utils import (
+    give_resized_image,
     error_check_path_is_empty_string,
-    MakeSizesOfImagesTheSame,
+    SizesSimilarityImages,
     uri_validator,
     url_to_image
 )
@@ -74,13 +75,13 @@ def both_single_paths(original_reference, app_reference, original_name, by_ratio
 
     # resize image target image to the same size if ratio is the same
     if by_ratio:
-        if MakeSizesOfImagesTheSame(source, target).check_if_scale_not_too_big():
-            target = MakeSizesOfImagesTheSame(
-                source,
-                target
-            ).give_resized_image(target)
+
+        if SizesSimilarityImages(source, target).resizable_images:
+            target = give_resized_image(source, target)
+
         else:
-            MakeSizesOfImagesTheSame(
+
+            SizesSimilarityImages(
                 source, target).notify_user_about_wrong_scale()  # For UX, user has to be informed
 
     # change image to b&w to calculate similarity

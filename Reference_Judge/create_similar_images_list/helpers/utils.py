@@ -11,8 +11,9 @@ from skimage.metrics import structural_similarity as compare_images
 # internal libs
 from Reference_Judge.config import ENOUGH_SIMILARITY
 from Reference_Judge.utils import (
+    give_resized_image,
     error_check_path_is_empty_string,
-    MakeSizesOfImagesTheSame,
+    SizesSimilarityImages,
     uri_validator, url_to_image
 )
 
@@ -47,11 +48,10 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
             # when you want to search any image with the same ratio and similar scale
             if by_ratio:
-                if MakeSizesOfImagesTheSame(source_image, target_image).check_if_scale_not_too_big():
-                    target_image = MakeSizesOfImagesTheSame(
-                        source_image,
-                        target_image
-                    ).give_resized_image(target_image)
+
+                if SizesSimilarityImages(source_image, target_image).resizable_images:
+                    target_image = give_resized_image(
+                        source_image, target_image)
 
             t_height, t_width, _ = target_image.shape
 

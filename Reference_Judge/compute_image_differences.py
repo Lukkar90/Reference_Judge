@@ -9,7 +9,7 @@ import imutils
 from skimage.metrics import structural_similarity
 
 # internal libs
-from Reference_Judge.utils import MakeSizesOfImagesTheSame, uri_validator, url_to_image
+from Reference_Judge.utils import give_resized_image, SizesSimilarityImages, uri_validator, url_to_image
 
 
 # https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/
@@ -30,11 +30,9 @@ def compute_image_differences(similar_pair, by_ratio=False):
     # when there is "search by ratio" argv resize image to the same size
     # if ratio is also the same
     if by_ratio:
-        if MakeSizesOfImagesTheSame(image_A, image_B).check_if_scale_not_too_big():
-            image_B = MakeSizesOfImagesTheSame(
-                image_A,
-                image_B
-            ).give_resized_image(image_B)
+
+        if SizesSimilarityImages(image_A, image_B).resizable_images:
+            image_B = give_resized_image(image_A, image_B)
 
     # compute difference between imageA and imageB in BGR
     diff_BGR = cv2.subtract(image_A, image_B)
