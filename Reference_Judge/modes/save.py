@@ -1,6 +1,5 @@
 # Python libs
 import os
-import sys
 
 # external libs
 import cv2
@@ -18,19 +17,19 @@ from Reference_Judge.modes.utils import (
 )
 
 
-def save(width, similar_list, by_ratio):
+def save(width, similar_list, by_ratio, _argv):
     """save matched images in chosen directory"""
 
-    if len(sys.argv) >= 5:
-        output_path = sys.argv[4]
+    if len(_argv) >= 5:
+        output_path = _argv[4]
     else:
         output_path = None
 
     # Optional args
-    if len(sys.argv) >= 6:
-        check_correctness_optional_argvs(sys.argv, 7)
-        if check_width_argv_exists(sys.argv, 7):
-            width = retrieve_argv_width(sys.argv, 7, width)
+    if len(_argv) >= 6:
+        check_correctness_optional_argvs(_argv, 7)
+        if check_width_argv_exists(_argv, 7):
+            width = retrieve_argv_width(_argv, 7, width)
 
     # Process all images, save each sequence in chosen director
     for similar_pair in similar_list:

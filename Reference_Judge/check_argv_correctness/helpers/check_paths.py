@@ -9,13 +9,13 @@ from Reference_Judge.help import help_tip
 from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
 
-def check_paths(argv_):
+def check_paths(_argv):
     """Check if files/dir/url paths program arguments are correct"""
 
-    original_reference_path = argv_[1]
-    app_reference_path = argv_[2]
+    original_reference_path = _argv[1]
+    app_reference_path = _argv[2]
 
-    output_path, output_kind_legal = get_output_path_if_exists_and_legal(argv_)
+    output_path, output_kind_legal = get_output_path_if_exists_and_legal(_argv)
 
     original_ref_kind = get_path_kind(original_reference_path)
     app_ref_kind = get_path_kind(app_reference_path)
@@ -26,7 +26,8 @@ def check_paths(argv_):
         output_path,
         original_ref_kind,
         app_ref_kind,
-        output_kind_legal
+        output_kind_legal,
+        _argv
     )
 
     check_paths_legal_combinations(
@@ -71,7 +72,8 @@ def check_if_many_paths_exists(
     output_path,
     original_ref_kind,
     app_ref_kind,
-    output_kind_legal
+    output_kind_legal,
+    _argv
 ):
     """if wrong, it exits program"""
 
@@ -87,7 +89,7 @@ def check_if_many_paths_exists(
         "app references"
     )
 
-    if len(sys.argv) >= 4 and sys.argv[3] in ARGV["save"]:
+    if len(_argv) >= 4 and _argv[3] in ARGV["save"]:
         check_output_path_exists(
             output_path,
             output_kind_legal

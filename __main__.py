@@ -1,4 +1,5 @@
-from Reference_Judge.Reference_Judge import Reference_Judge
+import sys
+from manage import execute_from_command_line
 
 if __name__ == "__main__":
-    Reference_Judge()
+    execute_from_command_line(sys.argv)

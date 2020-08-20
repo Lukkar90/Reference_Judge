@@ -36,19 +36,19 @@ from Reference_Judge.modes.show import show
 from Reference_Judge.utils import check_ratio_argv
 
 
-def Reference_Judge():
+def Reference_Judge(_argv):
     """Parsing sys.argv to invoke in chosen paths modes: save or show, or to get help"""
 
-    check_argv_correctness(sys.argv)
-    if user_commanded_help(sys.argv):
+    check_argv_correctness(_argv)
+    if user_commanded_help(_argv):
         return help_detailed_usage()
 
     # Init variables
-    original_ref_path = sys.argv[1]
-    app_ref_path = sys.argv[2]
-    mode = sys.argv[3]
+    original_ref_path = _argv[1]
+    app_ref_path = _argv[2]
+    mode = _argv[3]
 
-    by_ratio = check_ratio_argv(sys.argv)
+    by_ratio = check_ratio_argv(_argv)
 
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)
@@ -57,11 +57,11 @@ def Reference_Judge():
 
     if mode in ARGV["save"]:
 
-        save(width, similar_list, by_ratio)
+        save(width, similar_list, by_ratio, _argv)
 
     elif mode in ARGV["show"]:
 
-        show(width, similar_list, by_ratio)
+        show(width, similar_list, by_ratio, _argv)
 
     else:
         raise ValueError("Error: Invalid mode value\n"
