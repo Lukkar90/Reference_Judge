@@ -54,3 +54,10 @@ def retrieve_argv_width(argv_, cap_len_argv, default_width):
 def check_width_argv_exists(argv_, cap_len_argv):
     n = cap_len_argv
     return len(argv_) >= (n - 1) and argv_[n - 2].isnumeric()
+
+
+def check_type_width(width):
+    """raise error when it's not string"""
+
+    if not isinstance(width, int):
+        raise TypeError(f"Wrong type {type(width)}, it should be int")

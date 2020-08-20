@@ -66,5 +66,3 @@ def Reference_Judge(_argv):
     else:
         raise ValueError("Error: Invalid mode value\n"
                          f" {mode}")
-
-    sys.exit(0)

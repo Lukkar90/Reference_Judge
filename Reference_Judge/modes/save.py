@@ -11,8 +11,9 @@ from Reference_Judge.compute_image_differences import compute_image_differences
 
 # same module
 from Reference_Judge.modes.utils import (
-    check_width_argv_exists,
     check_correctness_optional_argvs,
+    check_type_width,
+    check_width_argv_exists,
     retrieve_argv_width, resize_all
 )
 
@@ -30,6 +31,8 @@ def save(width, similar_list, by_ratio, _argv):
         check_correctness_optional_argvs(_argv, 7)
         if check_width_argv_exists(_argv, 7):
             width = retrieve_argv_width(_argv, 7, width)
+
+    check_type_width(width)  # fail fast
 
     # Process all images, save each sequence in chosen director
     for similar_pair in similar_list:
