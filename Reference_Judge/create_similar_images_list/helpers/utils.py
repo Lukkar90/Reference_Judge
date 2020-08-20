@@ -9,7 +9,7 @@ from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
-from Reference_Judge.config import ENOUGH_SIMILARITY
+from Reference_Judge.config import SIMILARITY
 from Reference_Judge.utils import (
     give_resized_image,
     error_check_path_is_empty_string,
@@ -65,12 +65,12 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
                 similarity = compare_images(source_image, target_image)
 
                 # filtering most similar image
-                if most_similar_image["similarity"] < similarity:
+                if most_similar_image["similarity"] < similarity > SIMILARITY["not enough"]:
                     most_similar_image["similarity"] = similarity
                     most_similar_image["file_path"] = target_path
 
-                # For performance issues, it's high propability that with this value is the same image
-                if most_similar_image["similarity"] >= ENOUGH_SIMILARITY:
+                # For performance, it's high propability that with this value is the same image
+                if most_similar_image["similarity"] >= SIMILARITY["enough"]:
                     break
 
     return most_similar_image

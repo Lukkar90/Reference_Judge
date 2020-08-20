@@ -17,4 +17,7 @@ IMAGES_SIZES = {
     "default width": 360,
 }
 
-ENOUGH_SIMILARITY = 0.95  # SSMI value in calculating resemblance
+SIMILARITY = {
+    "enough": 0.95,  # SSMI value in calculating resemblance, 1 is Max
+    "not enough": 0.10  # Why so low? Well... sometimes execution is not so similar
+}
