@@ -80,6 +80,7 @@ def check_mode_show(argv_):
     elif len(argv_) == 6:
 
         if not is_legit_width(argv_, 4):
+
             sys.exit('Error: 4th should be numeric.\n')
 
         if not is_5th_by_ratio(argv_):

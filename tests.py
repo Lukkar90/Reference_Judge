@@ -4,15 +4,14 @@
 import os
 import shutil
 import unittest
+import sys
+from io import StringIO
 
 import cv2
 
 from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
-
-from contextlib import redirect_stdout
-import io
 
 
 def _get_app_absolute_dir_path(path=""):
@@ -53,11 +52,23 @@ def check_if_width_is_correct(width, output_folder):
             img = cv2.imread(file_path, 0)
             width_image = img.shape[1]
 
-            if not (int(width_image/5) == int(width)):
+            if int(width_image / 5) != int(width):
                 are_correct = False
                 break
 
     return are_correct
+
+
+class Capturing(list):
+    def __enter__(self):
+        self._stdout = sys.stdout
+        sys.stdout = self._stringio = StringIO()
+        return self
+
+    def __exit__(self, *args):
+        self.extend(self._stringio.getvalue().splitlines())
+        del self._stringio    # free up some memory
+        sys.stdout = self._stdout
 
 
 program_name = get_program_name()
@@ -140,17 +151,21 @@ class TestReferenceJudge(unittest.TestCase):
     def test_folder_by_folder_to_folder_show(self):
 
         _argv = [program_name, self.source_dir,
-                 self.target_dir, self.show, self.output_dir, self.width]
+                 self.target_dir, self.show, self.width]
 
-        # run module
-        Reference_Judge(_argv)
+        number_of_found = 2
 
-        with self.subTest():
-            self.assertEqual(number_of_created_files, 2, "Should be 2")
+        with Capturing() as output:
 
-        with self.subTest():
-            self.assertTrue(legit_5_times_widths,
-                            "Should be 5 more than width input")
+            Reference_Judge(_argv)
+
+        output_occurrence = output.count(
+            'NOTE: Press the "0" key, to close opened windows')
+
+        self.assertTrue(
+            number_of_found == output_occurrence,
+            f"output: {output}"
+        )
 
 
 if __name__ == '__main__':

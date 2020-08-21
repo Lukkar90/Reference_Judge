@@ -11,6 +11,7 @@ numpy = "==1.18.5"
 imutils = "==0.5.3"
 opencv-python = "==4.2.0.34"
 scikit-image = "==0.17.2"
+PyAutoGUI = "==0.9.50"
 
 [requires]
 python_version = "3.7"
