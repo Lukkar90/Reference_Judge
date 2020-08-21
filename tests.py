@@ -9,7 +9,7 @@ from io import StringIO
 
 import cv2
 
-from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS
+from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
 
@@ -78,12 +78,15 @@ test_paths = {
     "source dir": images_path + "\\original",
     "target dir": images_path + "\\modified",
     "output dir": images_path + "\\output",
-    "source file": "Android-Login.png",
-    "target file": "Android-Login.png",
+    "source file": "modified.png",
+    "target file": "modified.png",
     "target file size": "Android-Login 01.png",
     "target file size err": "Android-Login 01.png",
     "target file ratio err": "Android-Login 01.png",
-    "http": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png"
+    "http source": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png",
+    "http target": "https://3.bp.blogspot.com/-idDNlSH6Sas/U8_gCraGJZI/AAAAAAAAAt4/6xAk4-AuE68/s1600/opencv_logo_with_text.png",
+    "source file http": "opencv_logo.png",
+    "target file http": "opencv_logo.png"
 }
 
 
@@ -91,12 +94,31 @@ class TestReferenceJudge(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestReferenceJudge, self).__init__(*args, **kwargs)
+
+        self.custom_name = "new name.png"
+
         self.source_dir = _get_app_absolute_dir_path(test_paths["source dir"])
         self.target_dir = _get_app_absolute_dir_path(test_paths["target dir"])
         self.output_dir = _get_app_absolute_dir_path(test_paths["output dir"])
+
+        self.source_single = os.path.join(
+            self.source_dir, test_paths["source file"])
+        self.target_single = os.path.join(
+            self.target_dir,  test_paths["target file"])
+        self.output_single = os.path.join(self.output_dir, self.custom_name)
+
+        self.http = test_paths["http source"]
+        self.source_http = os.path.join(
+            self.source_dir, test_paths["source file http"])
+        self.target_http = os.path.join(
+            self.target_dir, test_paths["target file http"])
+
         self.save = ARGV["save"][0]
         self.show = ARGV["show"][0]
+
         self.width = "200"
+        self.width_DEFAULT = IMAGES_SIZES["default width"]
+
         self.refresh_folder = True
 
     def test_folder_by_folder_to_folder_save(self):
@@ -113,12 +135,19 @@ class TestReferenceJudge(unittest.TestCase):
 
         # check conditions
         number_of_created_files = count_legit_images(self.output_dir)
+        legit_5_times_widths = check_if_width_is_correct(
+            self.width_DEFAULT, self.output_dir)
 
         # refresh folder
         if self.refresh_folder:
             make_folder_empty(self.output_dir)
 
-        self.assertEqual(number_of_created_files, 2, "Should be 2")
+        with self.subTest():
+            self.assertEqual(number_of_created_files, 2, "Should be 2")
+
+        with self.subTest():
+            self.assertTrue(legit_5_times_widths,
+                            "Should be 5 more than width input")
 
     def test_folder_by_folder_to_folder_save_width(self):
 
@@ -147,6 +176,184 @@ class TestReferenceJudge(unittest.TestCase):
         with self.subTest():
             self.assertTrue(legit_5_times_widths,
                             "Should be 5 more than width input")
+
+    def test_single_by_single_to_single_save(self):
+
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.save, self.output_single]
+
+        # make sure that folder is empty
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        # run module
+        Reference_Judge(_argv)
+
+        # check conditions
+        number_of_created_files = count_legit_images(self.output_dir)
+        legit_5_times_widths = check_if_width_is_correct(
+            self.width_DEFAULT, self.output_dir)
+
+        # refresh folder
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        with self.subTest():
+            self.assertEqual(number_of_created_files, 1, "Should be 1")
+
+        with self.subTest():
+            self.assertTrue(legit_5_times_widths,
+                            "Should be 5 more than width input")
+
+    def test_single_by_single_to_single_save_width(self):
+
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.save, self.output_single, self.width]
+
+        # make sure that folder is empty
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        # run module
+        Reference_Judge(_argv)
+
+        # check conditions
+        number_of_created_files = count_legit_images(self.output_dir)
+        legit_5_times_widths = check_if_width_is_correct(
+            self.width, self.output_dir)
+
+        # refresh folder
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        with self.subTest():
+            self.assertEqual(number_of_created_files, 1, "Should be 1")
+
+        with self.subTest():
+            self.assertTrue(legit_5_times_widths,
+                            "Should be 5 more than width input")
+
+    def test_single_by_single_to_folder_save(self):
+
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.save, self.output_dir]
+
+        # make sure that folder is empty
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        # run module
+        Reference_Judge(_argv)
+
+        # check conditions
+        number_of_created_files = count_legit_images(self.output_dir)
+        legit_5_times_widths = check_if_width_is_correct(
+            self.width_DEFAULT, self.output_dir)
+
+        # refresh folder
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        with self.subTest():
+            self.assertEqual(number_of_created_files, 1, "Should be 1")
+
+        with self.subTest():
+            self.assertTrue(legit_5_times_widths,
+                            "Should be 5 more than width input")
+
+    def test_single_by_single_to_folder_save_width(self):
+
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.save, self.output_dir, self.width]
+
+        # make sure that folder is empty
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        # run module
+        Reference_Judge(_argv)
+
+        # check conditions
+        number_of_created_files = count_legit_images(self.output_dir)
+        legit_5_times_widths = check_if_width_is_correct(
+            self.width, self.output_dir)
+
+        # refresh folder
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        with self.subTest():
+            self.assertEqual(number_of_created_files, 1, "Should be 1")
+
+        with self.subTest():
+            self.assertTrue(legit_5_times_widths,
+                            "Should be 5 more than width input")
+
+    def test_http_by_single_to_folder_save(self):
+
+        _argv = [program_name, self.http,
+                 self.target_http, self.save, self.output_dir]
+
+        # make sure that folder is empty
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        # run module
+        Reference_Judge(_argv)
+
+        # check conditions
+        number_of_created_files = count_legit_images(self.output_dir)
+        legit_5_times_widths = check_if_width_is_correct(
+            self.width_DEFAULT, self.output_dir)
+
+        # refresh folder
+        if self.refresh_folder:
+            make_folder_empty(self.output_dir)
+
+        with self.subTest():
+            self.assertEqual(number_of_created_files, 1, "Should be 1")
+
+        with self.subTest():
+            self.assertTrue(legit_5_times_widths,
+                            "Should be 5 more than width input")
+
+    def test_single_by_single_show(self):
+
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.show]
+
+        number_of_found = 1
+
+        with Capturing() as output:
+
+            Reference_Judge(_argv)
+
+        output_occurrence = output.count(
+            'NOTE: Press the "0" key, to close opened windows')
+
+        self.assertTrue(
+            number_of_found == output_occurrence,
+            f"output: {output}"
+        )
+
+    def test_single_by_single_show_width(self):
+
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.show, self.width]
+
+        number_of_found = 1
+
+        with Capturing() as output:
+
+            Reference_Judge(_argv)
+
+        output_occurrence = output.count(
+            'NOTE: Press the "0" key, to close opened windows')
+
+        self.assertTrue(
+            number_of_found == output_occurrence,
+            f"output: {output}"
+        )
 
     def test_folder_by_folder_to_folder_show(self):
 

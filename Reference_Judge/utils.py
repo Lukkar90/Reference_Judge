@@ -30,7 +30,7 @@ def resize_with_with_aspect_ratio(image, width=None, height=None, inter=cv2.INTE
     """Resize input image by width or height keeping proportion to the image"""
 
     dimension = None
-    (h_source, w_source) = image.shape[:2]
+    h_source, w_source = image.shape[:2]
 
     if width is None and height is None:
         return image
