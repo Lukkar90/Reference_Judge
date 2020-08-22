@@ -80,9 +80,12 @@ def check_if_width_is_correct(width, output_folder):
     return are_correct
 
 
-def test_save_mode(self, _argv, number_of_saved, width=None):
+def test_save_mode(self, _argv, number_of_saved):
 
-    if width is None:
+    # parse to pass in legit_5_times_widths
+    if self.width in _argv:
+        width = self.width
+    else:
         width = self.width_DEFAULT
 
     # make sure that folder is empty
@@ -207,91 +210,28 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.save, self.output_dir, self.width]
 
-        test_save_mode(self, _argv, 2, self.width)
+        test_save_mode(self, _argv, 2)
 
-    # def test_http_by_folder_to_folder_save(self):
+    def test_http_by_folder_to_folder_save(self):
 
-    #     _argv = [program_name, self.http_source,
-    #              self.target_dir, self.save, self.output_dir]
+        _argv = [program_name, self.http_source,
+                 self.target_dir, self.save, self.output_dir]
 
-    #     # make sure that folder is empty
-    #     if self.refresh_folder:
-    #         make_folder_empty(self.output_dir)
+        test_save_mode(self, _argv, 1)
 
-    #     # run module
-    #     Reference_Judge(_argv)
+    def test_single_by_single_to_single_save(self):
 
-    #     # check conditions
-    #     number_of_created_files = count_legit_images(self.output_dir)
-    #     legit_5_times_widths = check_if_width_is_correct(
-    #         self.width_DEFAULT, self.output_dir)
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.save, self.output_single]
 
-    #     # refresh folder
-    #     if self.refresh_folder:
-    #         make_folder_empty(self.output_dir)
+        test_save_mode(self, _argv, 1)
 
-    #     with self.subTest():
-    #         self.assertEqual(number_of_created_files, 1, "Should be 1")
+    def test_single_by_single_to_single_save_width(self):
 
-    #     with self.subTest():
-    #         self.assertTrue(legit_5_times_widths,
-    #                         "Should be 5 more than width input")
+        _argv = [program_name, self.source_single,
+                 self.target_single, self.save, self.output_single, self.width]
 
-    # def test_single_by_single_to_single_save(self):
-
-    #     _argv = [program_name, self.source_single,
-    #              self.target_single, self.save, self.output_single]
-
-    #     # make sure that folder is empty
-    #     if self.refresh_folder:
-    #         make_folder_empty(self.output_dir)
-
-    #     # run module
-    #     Reference_Judge(_argv)
-
-    #     # check conditions
-    #     number_of_created_files = count_legit_images(self.output_dir)
-    #     legit_5_times_widths = check_if_width_is_correct(
-    #         self.width_DEFAULT, self.output_dir)
-
-    #     # refresh folder
-    #     if self.refresh_folder:
-    #         make_folder_empty(self.output_dir)
-
-    #     with self.subTest():
-    #         self.assertEqual(number_of_created_files, 1, "Should be 1")
-
-    #     with self.subTest():
-    #         self.assertTrue(legit_5_times_widths,
-    #                         "Should be 5 more than width input")
-
-    # def test_single_by_single_to_single_save_width(self):
-
-    #     _argv = [program_name, self.source_single,
-    #              self.target_single, self.save, self.output_single, self.width]
-
-    #     # make sure that folder is empty
-    #     if self.refresh_folder:
-    #         make_folder_empty(self.output_dir)
-
-    #     # run module
-    #     Reference_Judge(_argv)
-
-    #     # check conditions
-    #     number_of_created_files = count_legit_images(self.output_dir)
-    #     legit_5_times_widths = check_if_width_is_correct(
-    #         self.width, self.output_dir)
-
-    #     # refresh folder
-    #     if self.refresh_folder:
-    #         make_folder_empty(self.output_dir)
-
-    #     with self.subTest():
-    #         self.assertEqual(number_of_created_files, 1, "Should be 1")
-
-    #     with self.subTest():
-    #         self.assertTrue(legit_5_times_widths,
-    #                         "Should be 5 more than width input")
+        test_save_mode(self, _argv, 1)
 
     # def test_single_by_single_to_folder_save(self):
 
