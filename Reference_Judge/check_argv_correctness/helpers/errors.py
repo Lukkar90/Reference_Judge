@@ -1,7 +1,7 @@
 """list of errors in module Reference_Judge"""
 
 # internal libs
-from Reference_Judge.config import ARGV
+from Reference_Judge.config import ARGV, IMAGES_SIZES
 
 ERRORS_MESSAGES = {
     "no file": "Error: File does not exists:",
@@ -16,3 +16,8 @@ ERRORS_MESSAGES = {
 def get_error_directory_does_not_exists(dir_kind):
 
     return f"Error: Directory with {dir_kind} does not exist:"
+
+
+def get_error_width_too_high(width):
+
+    return f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}"

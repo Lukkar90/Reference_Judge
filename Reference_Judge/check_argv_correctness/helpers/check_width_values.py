@@ -3,6 +3,7 @@ import sys
 
 # internal libs
 from Reference_Judge.config import ARGV, IMAGES_SIZES
+from Reference_Judge.check_argv_correctness.helpers.errors import get_error_width_too_high
 
 
 def check_width_values(argv_):
@@ -33,8 +34,7 @@ def check_legal_value(argv_, cap_len_argv):
 
         # check if value is too high
         if width > IMAGES_SIZES["biggest dimmension"]:
-            sys.exit(
-                f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}")
+            sys.exit(get_error_width_too_high(width))
 
 
 def check_argv_len_with_width(argv_, n):
