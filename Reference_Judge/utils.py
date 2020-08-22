@@ -5,7 +5,7 @@ This module are repeating snipsets of functions which are used in many places in
 
 # python libs
 import os
-from sys import exit as sys_exit
+import sys
 import urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
@@ -160,14 +160,14 @@ class SizesSimilarityImages:
         compared_ratio = self.w_source/self.w_target
 
         if not self.same_ratio:
-            sys_exit("Images has diffrent ratios")
+            sys.exit("Images has diffrent ratios")
 
         elif compared_ratio < IMAGES_SIZES["lowest scale"]:
-            sys_exit(f"Reference image is size {compared_ratio} times than app image\n"
+            sys.exit(f"Reference image is size {compared_ratio} times than app image\n"
                      f"min resize value: {IMAGES_SIZES['lowest scale']}"
                      )
         elif compared_ratio > IMAGES_SIZES["highest scale"]:
-            sys_exit(f"Reference image is size {compared_ratio} times than app image\n"
+            sys.exit(f"Reference image is size {compared_ratio} times than app image\n"
                      f"max value: {IMAGES_SIZES['highest scale']}"
                      )
         else:

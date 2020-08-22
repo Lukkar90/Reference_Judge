@@ -1,4 +1,4 @@
-"""check correctnes of mode args and accompanying arguments"""
+"""check correctness of mode args and accompanying arguments"""
 
 
 # Python libs
