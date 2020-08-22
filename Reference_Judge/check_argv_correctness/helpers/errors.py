@@ -15,7 +15,12 @@ ERRORS_MESSAGES = {
     "Original > App": 'Error: There are more images in "original references" dir than in "app references" dir:',
     "Original App same files": "Error: Both files have the same path:",
     "Original dir App file": "Error: Original reference path can't be directory, if app reference is only one file:",
-    "404": "Error: path http: HTTP Error 404: Not Found:"
+    "404": "Error: path http: HTTP Error 404: Not Found:",
+    "5th numeric": "Error: 5th should be numeric.",
+    "4th numeric": "Error: 4th should be numeric.",
+    "5th last arg -br": f'Error: 5th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:',
+    "one arg too much": "Error: one argument too much:",
+    "not mode": f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:'
 }
 
 
@@ -34,4 +39,6 @@ def get_error_no_images_in_dir(dir_kind):
 
 
 def get_error_wrong_web_path(web_type, alert):
+    """web_type in ["http", "url"]"""
+
     return f"Error: path {web_type}: {alert}:"

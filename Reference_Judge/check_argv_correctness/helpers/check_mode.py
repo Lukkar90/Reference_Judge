@@ -27,7 +27,7 @@ def check_mode(argv_):
         check_mode_show(argv_)
 
     else:
-        sys.exit(f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:\n'
+        sys.exit(f'{ERRORS_MESSAGES["not mode"]}\n'
                  f" {argv_[3]}\n"
                  f"{help_tip()}")
 
@@ -60,7 +60,7 @@ def check_mode_save(argv_):
     elif len(argv_) == 7:
 
         if not is_legit_width(argv_, 5):
-            sys.exit('Error: 5th should be numeric.\n')
+            sys.exit(f'{ERRORS_MESSAGES["5th numeric"]}\n')
 
         if not is_last_argv_by_ratio(argv_):
             sys.exit(f'{ERRORS_MESSAGES["6th last arg"]}:\n'
@@ -84,15 +84,15 @@ def check_mode_show(argv_):
 
         if not is_legit_width(argv_, 4):
 
-            sys.exit('Error: 4th should be numeric.\n')
+            sys.exit(f'{ERRORS_MESSAGES["4th numeric"]}\n')
 
         if not is_5th_by_ratio(argv_):
-            sys.exit(f'Error: 5th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
+            sys.exit(f'{ERRORS_MESSAGES["5th last arg -br"]}\n'
                      f" {argv_[5]}\n"
                      f"{help_tip()}")
 
     elif len(argv_) == 7:
-        sys.exit("Error: one argument too much:\n"
+        sys.exit(f"{ERRORS_MESSAGES['one arg too much']}\n"
                  f" {argv_[6]}\n"
                  f"{help_tip()}")
 
