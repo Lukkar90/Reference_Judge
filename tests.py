@@ -14,6 +14,27 @@ from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
 
+# https://stackoverflow.com/a/54955094/12490791
+
+os.system("")
+
+
+class style():
+    BLACK = '\033[30m'
+    RED = '\033[31m'
+    GREEN = '\033[32m'
+    YELLOW = '\033[33m'
+    BLUE = '\033[34m'
+    MAGENTA = '\033[35m'
+    CYAN = '\033[36m'
+    WHITE = '\033[37m'
+    UNDERLINE = '\033[4m'
+    RESET = '\033[0m'
+
+
+def print_image_show_up_notification():
+    print(style.RED + 'NOTE: Press the "0" key, to close opened windows' + style.RESET)
+
 
 def _get_app_absolute_dir_path(path=""):
     """It works only in tests dir"""
@@ -531,6 +552,8 @@ class TestReferenceJudge(unittest.TestCase):
 
     def test_single_by_single_show(self):
 
+        print_image_show_up_notification()
+
         _argv = [program_name, self.source_single,
                  self.target_single, self.show]
 
@@ -544,6 +567,8 @@ class TestReferenceJudge(unittest.TestCase):
         self.assertEqual(output_occurrence, 1, "Should be 1")
 
     def test_single_by_single_show_width(self):
+
+        print_image_show_up_notification()
 
         _argv = [program_name, self.source_single,
                  self.target_single, self.show, self.width]
@@ -559,6 +584,8 @@ class TestReferenceJudge(unittest.TestCase):
 
     def test_folder_by_folder_show(self):
 
+        print_image_show_up_notification()
+
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.show, self.width]
 
@@ -572,6 +599,8 @@ class TestReferenceJudge(unittest.TestCase):
         self.assertEqual(output_occurrence, 2, "Should be 1")
 
     def test_single_by_folder_show(self):
+
+        print_image_show_up_notification()
 
         _argv = [program_name, self.source_single,
                  self.target_dir, self.show]
@@ -587,6 +616,8 @@ class TestReferenceJudge(unittest.TestCase):
 
     def test_http_by_folder_show(self):
 
+        print_image_show_up_notification()
+
         _argv = [program_name, self.http_source,
                  self.target_dir, self.show]
 
@@ -599,7 +630,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         self.assertEqual(output_occurrence, 1, "Should be 1")
 
-    def test_folder_by_folder_save_by_ratio(self):  # todo
+    def test_folder_by_folder_save_by_ratio(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.save, self.output_dir, self.by_ratio]
@@ -651,6 +682,8 @@ class TestReferenceJudge(unittest.TestCase):
 
     def test_folder_by_folder_show_by_ratio(self):
 
+        print_image_show_up_notification()
+
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.show, self.by_ratio]
 
@@ -664,6 +697,8 @@ class TestReferenceJudge(unittest.TestCase):
         self.assertEqual(output_occurrence, 3, "Should be 3")
 
     def test_folder_by_folder_show_width_by_ratio(self):
+
+        print_image_show_up_notification()
 
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.show, self.width, self.by_ratio]
