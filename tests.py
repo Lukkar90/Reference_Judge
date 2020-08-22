@@ -9,7 +9,7 @@ from io import StringIO
 
 import cv2
 
-from Reference_Judge.help import help_tip
+from Reference_Judge.help import help_tip, help_command_line
 from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
@@ -23,10 +23,9 @@ def _get_app_absolute_dir_path(path=""):
 
 
 def get_program_name():
-    dir_path = os.getcwd()
-    dir_name = os.path.dirname(dir_path)
+    program_name = sys.argv[0]
 
-    return dir_name
+    return program_name
 
 
 def make_folder_empty(folder):
@@ -670,13 +669,26 @@ class TestReferenceJudge(unittest.TestCase):
 
     #     self.assertEqual(output_occurrence, 3, "Should be 1")
 
-    def test_FAIL_file_does_not_exists(self):
+    # def test_FAIL_file_does_not_exists(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_fail, self.save, self.output_dir]
+    #     _argv = [program_name, self.source_dir,
+    #              self.target_fail, self.save, self.output_dir]
 
-        error_message = (f"Error: File does not exists:\n"
-                         f" {self.target_fail}\n"
+    #     error_message = (f"Error: File does not exists:\n"
+    #                      f" {self.target_fail}\n"
+    #                      f"{help_tip()}")
+
+    #     with self.assertRaises(SystemExit) as cm:
+    #         # run module
+    #         Reference_Judge(_argv)
+
+    #     self.assertEqual(cm.exception.code, error_message)
+
+    def test_FAIL_too_small_number_of_args(self):
+
+        _argv = [program_name, self.source_dir, self.show]
+
+        error_message = (f"{help_command_line()}\n"
                          f"{help_tip()}")
 
         with self.assertRaises(SystemExit) as cm:
