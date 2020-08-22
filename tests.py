@@ -13,6 +13,7 @@ from Reference_Judge.help import help_tip, help_command_line
 from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
+from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
 
 # https://stackoverflow.com/a/54955094/12490791
 
@@ -215,173 +216,173 @@ class TestReferenceJudge(unittest.TestCase):
 
         self.random = test_paths["random"]
 
-    def test_folder_by_folder_to_folder_save(self):
+    # def test_folder_by_folder_to_folder_save(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.save, self.output_dir]
 
-        test_save_mode(self, _argv, 2)
+        #     test_save_mode(self, _argv, 2)
 
-    def test_folder_by_folder_to_single_save(self):
+        # def test_folder_by_folder_to_single_save(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_single]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.save, self.output_single]
 
-        test_save_mode(self, _argv, 2)
+        #     test_save_mode(self, _argv, 2)
 
-    def test_folder_by_folder_to_folder_save_width(self):
+        # def test_folder_by_folder_to_folder_save_width(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir, self.width]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.save, self.output_dir, self.width]
 
-        test_save_mode(self, _argv, 2)
+        #     test_save_mode(self, _argv, 2)
 
-    def test_http_by_folder_to_folder_save(self):
+        # def test_http_by_folder_to_folder_save(self):
 
-        _argv = [program_name, self.http_source,
-                 self.target_dir, self.save, self.output_dir]
+        #     _argv = [program_name, self.http_source,
+        #              self.target_dir, self.save, self.output_dir]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_single_by_single_to_single_save(self):
+        # def test_single_by_single_to_single_save(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_single, self.save, self.output_single]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_single, self.save, self.output_single]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_single_by_single_to_single_save_width(self):
+        # def test_single_by_single_to_single_save_width(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_single, self.save, self.output_single, self.width]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_single, self.save, self.output_single, self.width]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_single_by_single_to_folder_save(self):
+        # def test_single_by_single_to_folder_save(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_single, self.save, self.output_dir]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_single, self.save, self.output_dir]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_single_by_single_to_folder_save_width(self):
+        # def test_single_by_single_to_folder_save_width(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_single, self.save, self.output_dir, self.width]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_single, self.save, self.output_dir, self.width]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_http_by_single_to_folder_save(self):
+        # def test_http_by_single_to_folder_save(self):
 
-        _argv = [program_name, self.http_source,
-                 self.target_file_http, self.save, self.output_dir]
+        #     _argv = [program_name, self.http_source,
+        #              self.target_file_http, self.save, self.output_dir]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_http_by_single_to_folder_save_width(self):
+        # def test_http_by_single_to_folder_save_width(self):
 
-        _argv = [program_name, self.http_source,
-                 self.target_file_http, self.save, self.output_dir, self.width]
+        #     _argv = [program_name, self.http_source,
+        #              self.target_file_http, self.save, self.output_dir, self.width]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_http_by_single_to_single_save(self):
+        # def test_http_by_single_to_single_save(self):
 
-        _argv = [program_name, self.http_source,
-                 self.target_file_http, self.save, self.output_single]
+        #     _argv = [program_name, self.http_source,
+        #              self.target_file_http, self.save, self.output_single]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_http_by_http_to_folder_save(self):
+        # def test_http_by_http_to_folder_save(self):
 
-        _argv = [program_name, self.http_source,
-                 self.http_target, self.save, self.output_dir]
+        #     _argv = [program_name, self.http_source,
+        #              self.http_target, self.save, self.output_dir]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_single_by_http_to_folder_save(self):
+        # def test_single_by_http_to_folder_save(self):
 
-        _argv = [program_name, self.source_file_http,
-                 self.http_target, self.save, self.output_dir]
+        #     _argv = [program_name, self.source_file_http,
+        #              self.http_target, self.save, self.output_dir]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_http_by_http_to_single_save(self):
+        # def test_http_by_http_to_single_save(self):
 
-        _argv = [program_name, self.http_source,
-                 self.http_target, self.save, self.output_single]
+        #     _argv = [program_name, self.http_source,
+        #              self.http_target, self.save, self.output_single]
 
-        test_save_mode(self, _argv, 1)
+        #     test_save_mode(self, _argv, 1)
 
-    def test_single_by_single_show(self):
+        # def test_single_by_single_show(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_single, self.show]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_single, self.show]
 
-        test_show_mode(self, _argv, 1)
+        #     test_show_mode(self, _argv, 1)
 
-    def test_single_by_single_show_width(self):
+        # def test_single_by_single_show_width(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_single, self.show, self.width]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_single, self.show, self.width]
 
-        test_show_mode(self, _argv, 1)
+        #     test_show_mode(self, _argv, 1)
 
-    def test_folder_by_folder_show(self):
+        # def test_folder_by_folder_show(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.show]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.show]
 
-        test_show_mode(self, _argv, 2)
+        #     test_show_mode(self, _argv, 2)
 
-    def test_single_by_folder_show(self):
+        # def test_single_by_folder_show(self):
 
-        _argv = [program_name, self.source_single,
-                 self.target_dir, self.show]
+        #     _argv = [program_name, self.source_single,
+        #              self.target_dir, self.show]
 
-        test_show_mode(self, _argv, 1)
+        #     test_show_mode(self, _argv, 1)
 
-    def test_http_by_folder_show(self):
+        # def test_http_by_folder_show(self):
 
-        _argv = [program_name, self.http_source,
-                 self.target_dir, self.show]
+        #     _argv = [program_name, self.http_source,
+        #              self.target_dir, self.show]
 
-        test_show_mode(self, _argv, 1)
+        #     test_show_mode(self, _argv, 1)
 
-    def test_folder_by_folder_save_by_ratio(self):
+        # def test_folder_by_folder_save_by_ratio(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir, self.by_ratio]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.save, self.output_dir, self.by_ratio]
 
-        test_save_mode(self, _argv, 3)
+        #     test_save_mode(self, _argv, 3)
 
-    def test_folder_by_folder_save_width_by_ratio(self):
+        # def test_folder_by_folder_save_width_by_ratio(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir, self.width, self.by_ratio]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.save, self.output_dir, self.width, self.by_ratio]
 
-        test_save_mode(self, _argv, 3)
+        #     test_save_mode(self, _argv, 3)
 
-    def test_folder_by_folder_show_by_ratio(self):
+        # def test_folder_by_folder_show_by_ratio(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.show, self.by_ratio]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.show, self.by_ratio]
 
-        test_show_mode(self, _argv, 3)
+        #     test_show_mode(self, _argv, 3)
 
-    def test_folder_by_folder_show_width_by_ratio(self):
+        # def test_folder_by_folder_show_width_by_ratio(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.show, self.width, self.by_ratio]
+        #     _argv = [program_name, self.source_dir,
+        #              self.target_dir, self.show, self.width, self.by_ratio]
 
-        test_show_mode(self, _argv, 3)
+        #     test_show_mode(self, _argv, 3)
 
     def test_FAIL_file_does_not_exists(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_fail, self.save, self.output_dir]
 
-        error_message = (f"Error: File does not exists:\n"
+        error_message = (f"{ERRORS_MESSAGES['no file']}\n"
                          f" {self.target_fail}\n"
                          f"{help_tip()}")
 
@@ -400,7 +401,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         _argv = [program_name, self.source_dir, self.target_dir, self.save]
 
-        error_message = ("Error: No output path\n"
+        error_message = (f"{ERRORS_MESSAGES['no output']}\n"
                          f"{help_tip()}")
 
         test_FAIL_argv(self, _argv, error_message)
@@ -410,76 +411,76 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.show, self.random]
 
-        error_message = (f'Error: 4th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
+        error_message = (f'{ERRORS_MESSAGES["4th last arg"]}\n'  # 1
                          f" {self.random}\n"
                          f"{help_tip()}")
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_5th_last_argument_should_numeric_or_by_ratio(self):
+    # def test_FAIL_5th_last_argument_should_numeric_or_by_ratio(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir, self.random]
+    #     _argv = [program_name, self.source_dir,
+    #              self.target_dir, self.save, self.output_dir, self.random]
 
-        error_message = (f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
-                         f" {self.random}\n"
-                         f"{help_tip()}")
+    #     error_message = (f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'  # 1
+    #                      f" {self.random}\n"
+    #                      f"{help_tip()}")
 
-        test_FAIL_argv(self, _argv, error_message)
+    #     test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_6th_last_argument_should_numeric_or_by_ratio(self):
+    # def test_FAIL_6th_last_argument_should_numeric_or_by_ratio(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir, self.width, self.random]
+    #     _argv = [program_name, self.source_dir,
+    #              self.target_dir, self.save, self.output_dir, self.width, self.random]
 
-        error_message = (f'Error: 6th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
-                         f" {self.random}\n"
-                         f"{help_tip()}")
+    #     error_message = (f'Error: 6th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'  # 1
+    #                      f" {self.random}\n"
+    #                      f"{help_tip()}")
 
-        test_FAIL_argv(self, _argv, error_message)
+    #     test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_directory_with_app_references_does_not_exists(self):
+    # def test_FAIL_directory_with_app_references_does_not_exists(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir_fail, self.show]
+    #     _argv = [program_name, self.source_dir,
+    #              self.target_dir_fail, self.show]
 
-        error_message = (f"Error: Directory with app references does not exist:\n"
-                         f" {self.target_dir_fail}\n"
-                         f"{help_tip()}")
+    #     error_message = (f"Error: Directory with app references does not exist:\n"
+    #                      f" {self.target_dir_fail}\n"
+    #                      f"{help_tip()}")
 
-        test_FAIL_argv(self, _argv, error_message)
+    #     test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_directory_with_original_references_does_not_exists(self):
+    # def test_FAIL_directory_with_original_references_does_not_exists(self):
 
-        _argv = [program_name, self.source_dir_fail,
-                 self.target_dir, self.show]
+    #     _argv = [program_name, self.source_dir_fail,
+    #              self.target_dir, self.show]
 
-        error_message = (f"Error: Directory with original references does not exist:\n"
-                         f" {self.source_dir_fail}\n"
-                         f"{help_tip()}")
+    #     error_message = (f"Error: Directory with original references does not exist:\n"
+    #                      f" {self.source_dir_fail}\n"
+    #                      f"{help_tip()}")
 
-        test_FAIL_argv(self, _argv, error_message)
+    #     test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_output_directory_does_not_exists(self):
+    # def test_FAIL_output_directory_does_not_exists(self):
 
-        _argv = [program_name, self.source_dir,
-                 self.target_dir, self.save, self.output_dir_fail]
+    #     _argv = [program_name, self.source_dir,
+    #              self.target_dir, self.save, self.output_dir_fail]
 
-        error_message = (f"Error: Output directory does not exists:\n"
-                         f" {self.output_dir_fail}\n"
-                         f"{help_tip()}")
+    #     error_message = (f"Error: Output directory does not exists:\n"  # 1
+    #                      f" {self.output_dir_fail}\n"
+    #                      f"{help_tip()}")
 
-        test_FAIL_argv(self, _argv, error_message)
+    #     test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_http_Error_404(self):
+    # def test_FAIL_http_Error_404(self):
 
-        _argv = [program_name, self.http_source_fail,
-                 self.target_dir, self.save, self.output_dir]
+    #     _argv = [program_name, self.http_source_fail,
+    #              self.target_dir, self.save, self.output_dir]
 
-        error_message = (f"Error: path http: HTTP Error 404: Not Found:\n"
-                         f" {self.http_source_fail}")
+    #     error_message = (f"Error: path http: HTTP Error 404: Not Found:\n"
+    #                      f" {self.http_source_fail}")
 
-        test_FAIL_argv(self, _argv, error_message)
+    #     test_FAIL_argv(self, _argv, error_message)
 
 
 if __name__ == '__main__':

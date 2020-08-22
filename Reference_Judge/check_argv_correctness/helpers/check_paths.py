@@ -8,6 +8,9 @@ from Reference_Judge.config import LEGIT_EXTENSIONS, ARGV
 from Reference_Judge.help import help_tip
 from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
+# same lib
+from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
+
 
 def check_paths(_argv):
     """Check if files/dir/url paths program arguments are correct"""
@@ -213,7 +216,7 @@ def path_exists(path_kind, reference_path, dir_kind):
     elif path_kind == "file":
 
         if not os.path.isfile(reference_path):
-            sys.exit(f"Error: File does not exists:\n"
+            sys.exit(f"{ERRORS_MESSAGES['no file']}\n"
                      f" {reference_path}\n"
                      f"{help_tip()}")
 

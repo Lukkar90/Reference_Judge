@@ -8,6 +8,9 @@ import sys
 from Reference_Judge.config import ARGV
 from Reference_Judge.help import help_tip
 
+# same lib
+from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
+
 
 def check_mode(argv_):
     """Check if images have to be saved or they have be shown"""
@@ -45,7 +48,7 @@ def check_mode_save(argv_):
         return is_legit_width(argv_, 5) or is_5th_by_ratio(argv_)
 
     if is_output_path(argv_):
-        sys.exit("Error: No output path\n"
+        sys.exit(f"{ERRORS_MESSAGES['no output']}\n"
                  f"{help_tip()}")
 
     elif len(argv_) == 6 and not is_5th_legit_argv(argv_):
@@ -73,7 +76,7 @@ def check_mode_show(argv_):
         return is_legit_width(argv_, 4) or argv_[4] in ARGV["search by ratio"]
 
     if len(argv_) == 5 and not is_4th_legit_argv(argv_):
-        sys.exit(f'Error: 4th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
+        sys.exit(f'{ERRORS_MESSAGES["4th last arg"]}\n'
                  f" {argv_[4]}\n"
                  f"{help_tip()}")
 
