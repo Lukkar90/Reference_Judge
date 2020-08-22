@@ -64,7 +64,7 @@ def check_output_path_exists(output_path, output_kind_legal):
     """if wrong, it exits program"""
 
     if output_kind_legal and not dir_exists(output_path):
-        sys.exit(f"Error: Output directory does not exists:\n"
+        sys.exit(f"{ERRORS_MESSAGES['output does not exists']}\n"
                  f" {output_path}\n"
                  f"{help_tip()}")
 
