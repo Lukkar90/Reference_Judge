@@ -20,7 +20,7 @@ from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGE
 os.system("")
 
 
-class style():
+class Style():
     BLACK = '\033[30m'
     RED = '\033[31m'
     GREEN = '\033[32m'
@@ -34,10 +34,10 @@ class style():
 
 
 def print_image_show_up_notification():
-    print(style.RED + 'NOTE: Press the "0" key, to close opened windows' + style.RESET)
+    print(Style.RED + 'NOTE: Press the "0" key, to close opened windows' + Style.RESET)
 
 
-def _get_app_absolute_dir_path(path=""):
+def _get_app_absolute_dir_path(path):
     """It works only in tests dir"""
 
     file_dir = os.getcwd()
@@ -45,9 +45,7 @@ def _get_app_absolute_dir_path(path=""):
 
 
 def get_program_name():
-    program_name = sys.argv[0]
-
-    return program_name
+    return sys.argv[0]
 
 
 def make_folder_empty(folder):

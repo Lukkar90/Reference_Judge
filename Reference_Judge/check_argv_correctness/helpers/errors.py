@@ -25,6 +25,7 @@ ERRORS_MESSAGES = {
 
 
 def get_error_directory_does_not_exists(dir_kind):
+    """dir kind = [dir, file ,url]"""
 
     return f"Error: Directory with {dir_kind} does not exist:"
 
@@ -35,6 +36,8 @@ def get_error_width_too_high(width):
 
 
 def get_error_no_images_in_dir(dir_kind):
+    """dir kind = [dir, file ,url]"""
+
     return f"Error: There is no images in Directory with {dir_kind}:"
 
 
