@@ -53,7 +53,7 @@ def check_mode_save(argv_):
 
     elif len(argv_) == 6 and not is_5th_legit_argv(argv_):
 
-        sys.exit(f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
+        sys.exit(f'{ERRORS_MESSAGES["5th last arg"]}:\n'
                  f" {argv_[5]}\n"
                  f"{help_tip()}")
 

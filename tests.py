@@ -411,22 +411,22 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.show, self.random]
 
-        error_message = (f'{ERRORS_MESSAGES["4th last arg"]}\n'  # 1
+        error_message = (f'{ERRORS_MESSAGES["4th last arg"]}\n'
                          f" {self.random}\n"
                          f"{help_tip()}")
 
         test_FAIL_argv(self, _argv, error_message)
 
-    # def test_FAIL_5th_last_argument_should_numeric_or_by_ratio(self):
+    def test_FAIL_5th_last_argument_should_numeric_or_by_ratio(self):
 
-    #     _argv = [program_name, self.source_dir,
-    #              self.target_dir, self.save, self.output_dir, self.random]
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.output_dir, self.random]
 
-    #     error_message = (f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'  # 1
-    #                      f" {self.random}\n"
-    #                      f"{help_tip()}")
+        error_message = (f'{ERRORS_MESSAGES["5th last arg"]}:\n'
+                         f" {self.random}\n"
+                         f"{help_tip()}")
 
-    #     test_FAIL_argv(self, _argv, error_message)
+        test_FAIL_argv(self, _argv, error_message)
 
     # def test_FAIL_6th_last_argument_should_numeric_or_by_ratio(self):
 
