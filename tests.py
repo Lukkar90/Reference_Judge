@@ -477,7 +477,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.http_source_fail,
                  self.target_dir, self.save, self.output_dir]
 
-        error_message = (f"Error: path http: HTTP Error 404: Not Found:\n"
+        error_message = (f"{ERRORS_MESSAGES['404']}\n"
                          f" {self.http_source_fail}")
 
         test_FAIL_argv(self, _argv, error_message)

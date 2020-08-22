@@ -9,7 +9,12 @@ from Reference_Judge.help import help_tip
 from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
 # same lib
-from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES, get_error_directory_does_not_exists
+from Reference_Judge.check_argv_correctness.helpers.errors import (
+    ERRORS_MESSAGES,
+    get_error_directory_does_not_exists,
+    get_error_no_images_in_dir,
+    get_error_wrong_web_path
+)
 
 
 def check_paths(_argv):
@@ -176,7 +181,7 @@ def check_if_original_dir_and_reference_file_or_url(
     """if wrong, it exits program"""
 
     if original_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
-        sys.exit("Error: Original reference path can't be directory, if app reference is only one file:\n"
+        sys.exit(f"{ERRORS_MESSAGES['Original dir App file']}\n"
                  f" {original_reference_path}\n"
                  f" {app_reference_path}\n"
                  f"{help_tip()}")
@@ -228,7 +233,7 @@ def path_exists(path_kind, reference_path, dir_kind):
                      f"{help_tip()}")
 
         if is_empty(reference_path):
-            sys.exit(f"Error: There is no images in Directory with {dir_kind}:\n"
+            sys.exit(f"{get_error_no_images_in_dir(dir_kind)}\n"
                      f" {reference_path}\n"
                      f"{help_tip()}")
     else:
@@ -242,10 +247,10 @@ def url_exists(url):
     try:
         request.urlopen(url)
     except error.HTTPError as alert:
-        sys.exit(f"Error: path http: {alert}:\n"
+        sys.exit(f"{get_error_wrong_web_path('http', alert)}\n"  # can't be  exported reasonably to general function
                  f" {url}")
     except error.URLError as alert:
-        sys.exit(f"Error: path url: {alert}:\n"
+        sys.exit(f"{get_error_wrong_web_path('url', alert)}\n"  # can't be  exported reasonably to general function
                  f" {url}")
 
     return True
