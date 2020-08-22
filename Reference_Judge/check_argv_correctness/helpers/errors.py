@@ -9,7 +9,11 @@ ERRORS_MESSAGES = {
     "4th last arg": f"Error: 4th, last argument should be numeric or be {ARGV['search by ratio'][0]} or {ARGV['search by ratio'][1]}:",
     "5th last arg": f'Error: 5th, last argument should be numeric or be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:',
     "6th last arg": f'Error: 6th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}',
-    "output does not exists": "Error: Output directory does not exists:"
+    "output does not exists": "Error: Output directory does not exists:",
+    "cant be url": "Error: output can\'t be url:",
+    "Original App same": 'Error: "original references" and "app references" directories are the same:',
+    "Original > App": 'Error: There are more images in "original references" dir than in "app references" dir:',
+    "Original App same files": "Error: Both files have the same path:"
 }
 
 

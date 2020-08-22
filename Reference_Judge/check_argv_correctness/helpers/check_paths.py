@@ -53,7 +53,7 @@ def get_output_path_if_exists_and_legal(argv_):
     if output_path:
         output_kind_legal = get_path_kind(output_path)
         if output_kind_legal == "url":
-            sys.exit("Error: output can't be url:\n"
+            sys.exit(f'{ERRORS_MESSAGES["cant be url"]}\n'
                      f" {output_path}\n"
                      f"{help_tip()}")
 
@@ -140,12 +140,12 @@ def check_original_and_reference_if_dirs(
     if original_ref_kind == "dir" and app_ref_kind == "dir":
 
         if original_reference_path == app_reference_path:
-            sys.exit('Error: "original references" and "app references" directories are the same:\n'
+            sys.exit(f'{ERRORS_MESSAGES["Original App same"]}\n'
                      f" {original_reference_path}\n"
                      f"{help_tip()}")
 
         if count_legit_images(original_reference_path) > count_legit_images(app_reference_path):
-            sys.exit('Error: There are more images in "original references" dir than in "app references" dir:\n'
+            sys.exit(f'{ERRORS_MESSAGES["Original > App"]}\n'
                      f" {original_reference_path}\n"
                      f" {app_reference_path}\n"
                      f"{help_tip()}")
@@ -162,7 +162,7 @@ def check_original_and_reference_if_files(
     if (original_ref_kind == "file" and app_ref_kind == "file") or (original_ref_kind == "url" and app_ref_kind == "url"):
 
         if original_reference_path == app_reference_path:
-            sys.exit("Error: Both files have the same path:\n"
+            sys.exit(f"{ERRORS_MESSAGES['Original App same files']}\n"
                      f" {original_reference_path}\n"
                      f"{help_tip()}")
 
