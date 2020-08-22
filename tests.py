@@ -13,7 +13,7 @@ from Reference_Judge.help import help_tip, help_command_line
 from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
-from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
+from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES, get_error_directory_does_not_exists
 
 # https://stackoverflow.com/a/54955094/12490791
 
@@ -428,27 +428,27 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    # def test_FAIL_6th_last_argument_should_numeric_or_by_ratio(self):
+    def test_FAIL_6th_last_argument_should_numeric_or_by_ratio(self):
 
-    #     _argv = [program_name, self.source_dir,
-    #              self.target_dir, self.save, self.output_dir, self.width, self.random]
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.output_dir, self.width, self.random]
 
-    #     error_message = (f'Error: 6th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'  # 1
-    #                      f" {self.random}\n"
-    #                      f"{help_tip()}")
+        error_message = (f'{ERRORS_MESSAGES["6th last arg"]}:\n'
+                         f" {self.random}\n"
+                         f"{help_tip()}")
 
-    #     test_FAIL_argv(self, _argv, error_message)
+        test_FAIL_argv(self, _argv, error_message)
 
-    # def test_FAIL_directory_with_app_references_does_not_exists(self):
+    def test_FAIL_directory_with_app_references_does_not_exists(self):
 
-    #     _argv = [program_name, self.source_dir,
-    #              self.target_dir_fail, self.show]
+        _argv = [program_name, self.source_dir,
+                 self.target_dir_fail, self.show]
 
-    #     error_message = (f"Error: Directory with app references does not exist:\n"
-    #                      f" {self.target_dir_fail}\n"
-    #                      f"{help_tip()}")
+        error_message = (f"{get_error_directory_does_not_exists('app references')}\n"
+                         f" {self.target_dir_fail}\n"
+                         f"{help_tip()}")
 
-    #     test_FAIL_argv(self, _argv, error_message)
+        test_FAIL_argv(self, _argv, error_message)
 
     # def test_FAIL_directory_with_original_references_does_not_exists(self):
 

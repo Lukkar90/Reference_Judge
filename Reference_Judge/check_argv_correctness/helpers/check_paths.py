@@ -9,7 +9,7 @@ from Reference_Judge.help import help_tip
 from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
 # same lib
-from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
+from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES, get_error_directory_does_not_exists
 
 
 def check_paths(_argv):
@@ -223,7 +223,7 @@ def path_exists(path_kind, reference_path, dir_kind):
     elif path_kind == "dir":
 
         if not os.path.exists(reference_path):
-            sys.exit(f"Error: Directory with {dir_kind} does not exist:\n"
+            sys.exit(f"{get_error_directory_does_not_exists(dir_kind)}\n"
                      f" {reference_path}\n"
                      f"{help_tip()}")
 

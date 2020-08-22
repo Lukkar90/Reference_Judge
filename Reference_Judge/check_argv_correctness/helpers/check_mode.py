@@ -63,7 +63,7 @@ def check_mode_save(argv_):
             sys.exit('Error: 5th should be numeric.\n')
 
         if not is_last_argv_by_ratio(argv_):
-            sys.exit(f'Error: 6th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:\n'
+            sys.exit(f'{ERRORS_MESSAGES["6th last arg"]}:\n'
                      f" {argv_[6]}\n"
                      f"{help_tip()}")
 
