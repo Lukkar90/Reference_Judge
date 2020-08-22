@@ -1,3 +1,6 @@
+"""list of errors in module Reference_Judge"""
+
+# internal libs
 from Reference_Judge.config import ARGV
 
 ERRORS_MESSAGES = {
