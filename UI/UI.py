@@ -127,11 +127,16 @@ class UI:
         self.width_entry.grid(row=11, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
 
         # By ratio
-        
+        self.by_ratio = tk.StringVar()
+
+        self.by_ratio_checkbox = tk.Checkbutton(master, text="Search by the same ratio", variable=self.by_ratio,
+                onvalue=ARGV["search by ratio"][0], offvalue="default")
+        self.by_ratio_checkbox.deselect()
+        self.by_ratio_checkbox.grid(row=12, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
 
         # Match images
         self.btn_match = tk.Button(text="Match images", command=self.match_images)
-        self.btn_match.grid(row=12, column=0, pady=(20, 0), ipadx=220, stick=tk.W, padx=(left_pad, 0))
+        self.btn_match.grid(row=13, column=0, pady=(20, 0), ipadx=220, stick=tk.W, padx=(left_pad, 0))
 
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
@@ -224,20 +229,21 @@ class UI:
 
         width = self.width_entry.get()
 
-        if width != IMAGES_SIZES["default width"]:
+        if width != str(IMAGES_SIZES["default width"]):
             _argv.append(width)
 
+        by_ratio = self.by_ratio.get()
+
+        if by_ratio != "default":
+            _argv.append(by_ratio)
 
         print(_argv)
         print(len(_argv))
         
-        # _argv=list()
-
-        # _argv
-        # Reference_Judge(_argv)
+        Reference_Judge(_argv)
 
 
-def main():  # run mianloop
+def main():  # run mainloop
     root = tk.Tk()
     app = UI(root)
     root.mainloop()
