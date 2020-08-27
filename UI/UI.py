@@ -14,12 +14,13 @@ def on_focusout(entry, placeholder):
         entry.insert(0, placeholder)
         entry.config(fg='grey')
 
-def btn_find_path(self, entry, askpath):
+def btn_find_path(entry, askpath):
 
     path = askpath()
-    entry.delete(0, tk.END)
-    entry.insert(0, path)
-    entry.config(fg='black')
+    if path:
+        entry.delete(0, tk.END)
+        entry.insert(0, path)
+        entry.config(fg='black')
 
 # https://stackoverflow.com/a/17466924/12490791
 class UI:
@@ -67,12 +68,12 @@ class UI:
         self.target_entry.config(fg='grey')
         self.target_entry.grid(row=4, column=0, columnspan=2, pady=(0, 5), stick="we", padx=(left_pad, 0))
 
-        # Source buttons for path
-        self.target_btn_folder = tk.Button()
+        # Target buttons for path
+        self.target_btn_folder = tk.Button(master, command=self.target_btn_folder_open)
         self.target_btn_folder.config(image=self.img_open_folder)
         self.target_btn_folder.grid(row=4, column=2)
 
-        self.target_btn_file = tk.Button()
+        self.target_btn_file = tk.Button(master, command=self.target_btn_file_open)
         self.target_btn_file.config(image=self.img_open_file)
         self.target_btn_file.grid(row=4, column=3)
 
@@ -97,17 +98,19 @@ class UI:
 
     def source_btn_folder_open(self):
 
-        directory = filedialog.askdirectory()
-        self.source_entry.delete(0, tk.END)
-        self.source_entry.insert(0, directory)
-        self.source_entry.config(fg='black')
+        btn_find_path(self.source_entry, filedialog.askdirectory)
 
     def source_btn_file_open(self):
 
-        file = filedialog.askopenfilename()
-        self.source_entry.delete(0, tk.END)
-        self.source_entry.insert(0, file)
-        self.source_entry.config(fg='black')
+        btn_find_path(self.source_entry, filedialog.askopenfilename)
+
+    def target_btn_folder_open(self):
+
+        btn_find_path(self.target_entry, filedialog.askdirectory)
+
+    def target_btn_file_open(self):
+
+        btn_find_path(self.target_entry, filedialog.askopenfilename)
 
 
 
