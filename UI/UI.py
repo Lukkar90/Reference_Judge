@@ -273,11 +273,28 @@ class UI:
             _argv.append(by_ratio)
 
         # Check input
+        window_name = "Wrong input"
+
+        print(source, target, mode, width)
+
+        if not source or source == self.entry_text_placeholder:
+            return messagebox.showwarning(window_name, "No original references")
+
+        if not target or target == self.entry_text_placeholder:
+            return messagebox.showwarning(window_name, "No app references")
+
+        if mode == ARGV["save"][0] and (not output or output == self.entry_text_placeholder):
+            return messagebox.showwarning(window_name, "No output path")
+
+        if not width.isnumeric():
+            return messagebox.showwarning(window_name, "Width should be numeric")
 
         try:
             Reference_Judge(_argv)
         except SystemExit as error:
-            messagebox.showwarning("Wrong input", error)
+            messagebox.showwarning(window_name, error)
+
+        messagebox.showinfo("Done!", f"You saved images in: {output}")
 
 
 def main():  # run mainloop
