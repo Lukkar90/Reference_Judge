@@ -1,12 +1,14 @@
 # Python libs
 import tkinter as tk
 from tkinter import filedialog #for Python 3
+from tkinter import messagebox
 import sys
 
 # internal libs
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.config import IMAGES_SIZES, ARGV
 from UI.widgets import CreateToolTip
+from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
 
 some_var = "works"
 
@@ -177,8 +179,6 @@ class UI:
 
         CreateToolTip(self.match_btn, match_btn_tooltip)
 
-        # Errors
-
 
 
     def on_entry_click_source(self, event):
@@ -272,8 +272,12 @@ class UI:
         if by_ratio != "default":
             _argv.append(by_ratio)
 
+        # Check input
 
-        Reference_Judge(_argv)
+        try:
+            Reference_Judge(_argv)
+        except SystemExit as error:
+            messagebox.showwarning("Wrong input", error)
 
 
 def main():  # run mainloop
