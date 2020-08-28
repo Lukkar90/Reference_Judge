@@ -6,6 +6,7 @@ import sys
 # internal libs
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.config import IMAGES_SIZES, ARGV
+from UI.widgets import CreateToolTip
 
 some_var = "works"
 
@@ -42,7 +43,7 @@ class UI:
         self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
 
         # Source
-        self.source_label = tk.Label(text="Source:")
+        self.source_label = tk.Label(text="Original refs:")
         self.source_label.grid(row=1, column=0, pady=(15, 5), stick=tk.W, padx=(left_pad, 0))
 
         self.source_entry = tk.Entry(master, borderwidth=1)
@@ -67,7 +68,7 @@ class UI:
 
 
         # Target
-        self.target_label = tk.Label(text="Target:")
+        self.target_label = tk.Label(text="App refs:")
         self.target_label.grid(row=3, column=0, pady=(0, 5), stick=tk.W, padx=(left_pad, 0))
 
         self.target_entry = tk.Entry(master, borderwidth=1)
@@ -94,7 +95,7 @@ class UI:
         self.save_radio.grid(row=6, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
 
         # Output
-        self.output_label = tk.Label(text="Output:")
+        self.output_label = tk.Label(text="Output files:")
         self.output_label.grid(row=7, column=0, pady=(0, 5), stick=tk.W, padx=(left_pad, 0))
 
         self.output_entry = tk.Entry(master, borderwidth=1)
@@ -135,8 +136,50 @@ class UI:
         self.by_ratio_checkbox.grid(row=12, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
 
         # Match images
-        self.btn_match = tk.Button(text="Match images", command=self.match_images)
-        self.btn_match.grid(row=13, column=0, pady=(20, 0), ipadx=220, stick=tk.W, padx=(left_pad, 0))
+        self.match_btn = tk.Button(text="Match images", command=self.match_images)
+        self.match_btn.grid(row=13, column=0, pady=(20, 0), ipadx=220, stick=tk.W, padx=(left_pad, 0))
+
+        # Add tooltips to widgets
+        entry_tooltip_match = "Path of single file, dir or URL..."
+        entry_tooltip_output = "Path of single file or dir..."
+        save_tooltip = "Save matched images in chosen directory"
+        show_tooltip = "Show matched images"
+        width_tooltip = "Width of each separate image"
+        by_ratio_tooltip = ('Match images refs: "Original -> App", with diffrent sizes but the same ratio.\n'
+        "Not recommended due to distortions.")
+        btn_folder_tooltip = "Choose folder..."
+        btn_file_tooltip = "Choose file..."
+        match_btn_tooltip = "Run the script!"
+
+        CreateToolTip(self.source_entry, entry_tooltip_match)
+        CreateToolTip(self.target_entry, entry_tooltip_match)
+        CreateToolTip(self.output_entry, entry_tooltip_output)
+        CreateToolTip(self.width_entry, width_tooltip)
+
+        CreateToolTip(self.source_label, entry_tooltip_match)
+        CreateToolTip(self.target_label, entry_tooltip_match)
+        CreateToolTip(self.output_label, entry_tooltip_output)
+        CreateToolTip(self.width_label, width_tooltip)
+
+        CreateToolTip(self.save_radio, save_tooltip)
+        CreateToolTip(self.show_radio, show_tooltip)
+
+        CreateToolTip(self.by_ratio_checkbox, by_ratio_tooltip)
+
+        CreateToolTip(self.source_btn_file, btn_file_tooltip)
+        CreateToolTip(self.source_btn_folder, btn_folder_tooltip)
+
+        CreateToolTip(self.target_btn_file, btn_file_tooltip)
+        CreateToolTip(self.target_btn_folder, btn_folder_tooltip)
+
+        CreateToolTip(self.output_btn_file, btn_file_tooltip)
+        CreateToolTip(self.output_btn_folder, btn_folder_tooltip)
+
+        CreateToolTip(self.match_btn, match_btn_tooltip)
+
+        # Errors
+
+
 
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
@@ -185,14 +228,6 @@ class UI:
 
     def match_images(self):
 
-        args=[
-            self.source_entry.get(),
-            self.target_entry.get(),
-            self.mode.get(),
-            self.output_entry.get(),
-            self.width_entry.get(),
-        ]
-
         _argv=list()
 
         program_name = sys.argv[0]
@@ -237,9 +272,7 @@ class UI:
         if by_ratio != "default":
             _argv.append(by_ratio)
 
-        print(_argv)
-        print(len(_argv))
-        
+
         Reference_Judge(_argv)
 
 
