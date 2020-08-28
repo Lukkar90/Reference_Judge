@@ -4,6 +4,9 @@ from tkinter import filedialog #for Python 3
 from tkinter import messagebox
 import sys
 
+# external libs
+from cv2 import destroyAllWindows
+
 # internal libs
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.config import IMAGES_SIZES, ARGV
@@ -294,7 +297,11 @@ class UI:
         except SystemExit as error:
             messagebox.showwarning(window_name, error)
 
-        messagebox.showinfo("Done!", f"You saved images in: {output}")
+        if mode == ARGV["show"][0]:
+            destroyAllWindows() # to avoid last opened image bug
+
+        if mode == ARGV["save"][0]:
+            messagebox.showinfo("Done!", f"You saved images in: {output}")
 
 
 def main():  # run mainloop
