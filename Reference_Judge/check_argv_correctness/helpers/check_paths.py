@@ -1,3 +1,5 @@
+"""validate all paths"""
+
 # python libs
 import os
 import sys

@@ -1,17 +1,17 @@
 # Python libs
-import tkinter as tk
 from tkinter import filedialog #for Python 3
 from tkinter import messagebox
+import tkinter as tk
 import sys
 
 # external libs
 from cv2 import destroyAllWindows
 
 # internal libs
-from Reference_Judge.Reference_Judge import Reference_Judge
-from Reference_Judge.config import IMAGES_SIZES, ARGV
 from UI.widgets import CreateToolTip
 from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES
+from Reference_Judge.config import IMAGES_SIZES, ARGV
+from Reference_Judge.Reference_Judge import Reference_Judge
 
 some_var = "works"
 
@@ -40,34 +40,39 @@ def btn_find_path(entry, askpath):
 class UI:
     def __init__(self, master):
         master.title(sys.argv[0])
-        master.geometry("618x400")
+        window_height = 618
+        window_width = 400
+        master.geometry(f"{window_height}x{window_width}")
 
         left_pad=20
 
         self.entry_text_placeholder = "Enter your path..."
         self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
 
-        # Source
-        self.source_label = tk.Label(text="Original refs:")
-        self.source_label.grid(row=1, column=0, pady=(15, 5), stick=tk.W, padx=(left_pad, 0))
+        frame_matching = tk.LabelFrame(master, padx=10, pady=15)
+        frame_matching.grid(row=0, column=0, padx=10, pady=15)
 
-        self.source_entry = tk.Entry(master, borderwidth=1)
+        # Source
+        self.source_label = tk.Label(frame_matching, text="Original refs:")
+        self.source_label.grid(row=1, column=0, stick=tk.W)
+
+        self.source_entry = tk.Entry(frame_matching, borderwidth=1)
         self.source_entry.insert(0, self.entry_text_placeholder)
         self.source_entry.bind('<FocusIn>', self.on_entry_click_source)
         self.source_entry.bind('<FocusOut>', self.on_focusout_source)
         self.source_entry.config(fg='grey')
-        self.source_entry.grid(row=2, column=0, ipadx=200, columnspan=2, pady=(0, 5), stick="we", padx=(left_pad, 0))
+        self.source_entry.grid(row=2, column=0, ipadx=200, columnspan=2, pady=(0, 5), stick="we")
 
         # Images to buttons
         self.img_open_folder=tk.PhotoImage(file="UI/images/open_folder.gif")
         self.img_open_file=tk.PhotoImage(file="UI/images/open_file.gif")
 
         # Source buttons for path
-        self.source_btn_folder = tk.Button(master, command=self.source_btn_folder_open)
+        self.source_btn_folder = tk.Button(frame_matching, command=self.source_btn_folder_open)
         self.source_btn_folder.config(image=self.img_open_folder)
         self.source_btn_folder.grid(row=2, column=2, padx=5)
 
-        self.source_btn_file = tk.Button(master, command=self.source_btn_file_open)
+        self.source_btn_file = tk.Button(frame_matching, command=self.source_btn_file_open)
         self.source_btn_file.config(image=self.img_open_file)
         self.source_btn_file.grid(row=2, column=3)
 
