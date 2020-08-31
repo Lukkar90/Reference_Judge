@@ -55,7 +55,7 @@ class UI:
         frame_matching.grid(row=0, column=0, padx=10, pady=(25, 15))
 
         frame_output = tk.LabelFrame(master, padx=10, pady=15)
-        frame_output.grid(row=1, column=0, padx=10, pady=(15, 0), stick="we")
+        frame_output.grid(row=1, column=0, padx=10, pady=(15, 0))
 
         frame_optional = tk.LabelFrame(master, padx=10, pady=15)
         frame_optional.grid(row=2, column=0, padx=10, pady=(15, 0), stick="we")
@@ -109,7 +109,7 @@ class UI:
         self.mode = tk.StringVar()
         self.mode.set(ARGV["save"][0])
 
-        self.save_radio = tk.Radiobutton(frame_output, text="Save", variable=self.mode, value=ARGV["save"][0])
+        self.save_radio = tk.Radiobutton(frame_output, text="Save", variable=self.mode, value=ARGV["save"][0], command=self.disable_output_entry)
         self.save_radio.grid(row=0, column=0, stick="w")
 
         # Output
@@ -133,7 +133,7 @@ class UI:
         self.output_btn_file.grid(row=2, column=3)
 
         # Show
-        self.show_radio = tk.Radiobutton(frame_output, text="Show", variable=self.mode, value=ARGV["show"][0])
+        self.show_radio = tk.Radiobutton(frame_output, text="Show", variable=self.mode, value=ARGV["show"][0], command=self.disable_output_entry)
         self.show_radio.grid(row=3, column=0, pady=(13, 0), stick="w")
 
         # Width
@@ -148,13 +148,18 @@ class UI:
         # By ratio
         self.by_ratio = tk.StringVar()
 
-        self.by_ratio_checkbox = tk.Checkbutton(frame_optional, text="Search by the same ratio", variable=self.by_ratio,
-                onvalue=ARGV["search by ratio"][0], offvalue="default")
+        self.by_ratio_checkbox = tk.Checkbutton(
+            frame_optional,
+            text="Search by the same ratio",
+            variable=self.by_ratio,
+            onvalue=ARGV["search by ratio"][0],
+            offvalue="default"
+        )
         self.by_ratio_checkbox.deselect()
         self.by_ratio_checkbox.grid(row=2, column=0, stick="w")
 
         # Match images
-        self.match_btn = tk.Button(master, text="Match images", command=self.match_images)
+        self.match_btn = tk.Button(master, text="Match images", bg="#f5f5f5", command=self.match_images)
         self.match_btn.config(height=3)
         self.match_btn.grid(row=3, column=0, pady=(20, 0), stick="we", padx=(10, 10))
 
@@ -243,6 +248,24 @@ class UI:
     def output_btn_file_open(self):
 
         btn_find_path(self.output_entry, filedialog.askopenfilename)
+        
+    def disable_output_entry(self):
+
+        if self.mode.get() == ARGV["save"][0]:
+
+            self.output_label.configure(state="normal")
+            self.output_entry.configure(state="normal")
+            self.output_btn_folder.configure(state="normal")
+            self.output_btn_file.configure(state="normal")
+
+        elif self.mode.get() == ARGV["show"][0]:
+
+            self.output_label.configure(state="disabled")
+            self.output_entry.configure(state="disabled")
+            self.output_btn_folder.configure(state="disabled")
+            self.output_btn_file.configure(state="disabled")
+        else:
+            raise ValueError(f"Not existing ARG:\n{self.mode.get()}")
 
     def match_images(self):
 
