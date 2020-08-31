@@ -62,11 +62,12 @@ class MainGUIApp(tk.Frame):
         self.source_label = tk.Label(frame_matching, text="Original refs:")
         self.source_label.grid(row=0, column=0, pady=(0, 5), stick="w")
 
-        self.source_entry = tk.Entry(frame_matching, borderwidth=1)
-        self.source_entry.insert(0, self.entry_text_placeholder)
-        self.source_entry.bind('<FocusIn>', self.on_entry_click_source)
-        self.source_entry.bind('<FocusOut>', self.on_focusout_source)
-        self.source_entry.config(fg='grey')
+        self.source_entry = self.create_path_entry(
+            frame_matching, 
+            self.entry_text_placeholder, 
+            self.on_entry_click_source, 
+            self.on_focusout_source
+        )
         self.source_entry.grid(row=1, column=0, ipadx=200, pady=(0, 5), stick="we")
 
         # Images to buttons
@@ -87,11 +88,12 @@ class MainGUIApp(tk.Frame):
         self.target_label = tk.Label(frame_matching, text="App refs:")
         self.target_label.grid(row=2, column=0, pady=(0, 5), stick="w")
 
-        self.target_entry = tk.Entry(frame_matching, borderwidth=1)
-        self.target_entry.insert(0, self.entry_text_placeholder)
-        self.target_entry.bind('<FocusIn>', self.on_entry_click_target)
-        self.target_entry.bind('<FocusOut>', self.on_focusout_target)
-        self.target_entry.config(fg='grey')
+        self.target_entry = self.create_path_entry(
+            frame_matching, 
+            self.entry_text_placeholder, 
+            self.on_entry_click_target, 
+            self.on_focusout_target
+        )
         self.target_entry.grid(row=3, column=0, ipadx=200, pady=(0, 5), stick="we")
 
         # Target buttons for path
@@ -107,18 +109,24 @@ class MainGUIApp(tk.Frame):
         self.mode = tk.StringVar()
         self.mode.set(ARGV["save"][0])
 
-        self.save_radio = tk.Radiobutton(frame_output, text="Save", variable=self.mode, value=ARGV["save"][0], command=self.disable_output_entry)
+        self.save_radio = tk.Radiobutton(frame_output,
+            text="Save",
+            variable=self.mode,
+            value=ARGV["save"][0],
+            command=self.disable_output_entry
+        )
         self.save_radio.grid(row=0, column=0, stick="w")
 
         # Output
         self.output_label = tk.Label(frame_output, text="Output files:")
         self.output_label.grid(row=1, column=0, pady=(0, 5), stick="w")
 
-        self.output_entry = tk.Entry(frame_output, borderwidth=1)
-        self.output_entry.insert(0, self.entry_text_placeholder)
-        self.output_entry.bind('<FocusIn>', self.on_entry_click_output)
-        self.output_entry.bind('<FocusOut>', self.on_focusout_output)
-        self.output_entry.config(fg='grey')
+        self.output_entry = self.create_path_entry(
+            frame_output, 
+            self.entry_text_placeholder, 
+            self.on_entry_click_output, 
+            self.on_focusout_output
+        )
         self.output_entry.grid(row=2, ipadx=200, stick="we")
 
         # Output buttons for path
@@ -131,7 +139,12 @@ class MainGUIApp(tk.Frame):
         self.output_btn_file.grid(row=2, column=3)
 
         # Show
-        self.show_radio = tk.Radiobutton(frame_output, text="Show", variable=self.mode, value=ARGV["show"][0], command=self.disable_output_entry)
+        self.show_radio = tk.Radiobutton(frame_output,
+            text="Show",
+            variable=self.mode,
+            value=ARGV["show"][0],
+            command=self.disable_output_entry
+        )
         self.show_radio.grid(row=3, column=0, pady=(13, 0), stick="w")
 
         # Width
@@ -200,7 +213,15 @@ class MainGUIApp(tk.Frame):
 
         CreateToolTip(self.match_btn, match_btn_tooltip)
 
+    def create_path_entry(self, frame, placeholder, FocusIn, FocusOut):
 
+        entry = tk.Entry(frame, borderwidth=1)
+        entry.insert(0, placeholder)
+        entry.bind('<FocusIn>', FocusIn)
+        entry.bind('<FocusOut>', FocusOut)
+        entry.config(fg='grey')
+
+        return entry
 
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
