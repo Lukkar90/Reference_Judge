@@ -75,7 +75,7 @@ def save_images_as_one(images, output_path, width):
     numpy_horizontal_concat = np.concatenate(
         [original, modified, diff_BGR, diff, thresh], axis=1)
 
-    # Check if choosed loaction is file like
+    # Check if chosen location is file like
     ext_file = os.path.splitext(output_path)[1]
 
     # Define output path
@@ -86,11 +86,14 @@ def save_images_as_one(images, output_path, width):
     if os.path.exists(output_path):
         output_path = next_path(output_path)
 
-    # User notfication where to search saved image
-    print("Saved reference : {} in {}".format(original_name, output_path))
+    # Save image into chosen location
+    writeStatus = cv2.imwrite(output_path, numpy_horizontal_concat)
 
-    # Save image into choosed loaction
-    cv2.imwrite(output_path, numpy_horizontal_concat)
+    # User notification where to search saved image: https://stackoverflow.com/a/51809038/12490791
+    if writeStatus is True:
+        print(f"Saved reference:\n{original_name}\nin\n{output_path}")
+    else:
+        print(f"Not saved:\n{original_name}")
 
 
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
