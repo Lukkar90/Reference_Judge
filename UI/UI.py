@@ -13,8 +13,6 @@ from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGE
 from Reference_Judge.config import IMAGES_SIZES, ARGV
 from Reference_Judge.Reference_Judge import Reference_Judge
 
-some_var = "works"
-
 def on_entry_click(entry, placeholder):
     """function that gets called whenever entry is clicked"""
     if entry.get() == placeholder:
@@ -37,14 +35,14 @@ def btn_find_path(entry, askpath):
 
 
 # https://stackoverflow.com/a/17466924/12490791
-class UI:
+class MainGUIApp(tk.Frame):
     def __init__(self, master):
+        super().__init__(master)
+
         master.title(sys.argv[0])
         window_width = 618
         window_height = 570
         master.geometry(f"{window_width}x{window_height}")
-
-        left_pad=20
 
         self.entry_text_placeholder = "Enter your path..."
         self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
@@ -276,47 +274,37 @@ class UI:
         
 
         source = self.source_entry.get()
-
-        if source != self.entry_text_placeholder and isinstance(source, str):
+        if self.path_exists(source):
             _argv.append(source)
 
 
         target = self.target_entry.get()
-
-        if target != self.entry_text_placeholder and isinstance(target, str):
+        if self.path_exists(target):
             _argv.append(target)
 
 
         mode = self.mode.get()
-
-        modes = [
-            ARGV["save"][0],
-            ARGV["show"][0]
-        ]
-
-        if mode in modes:
+        if self.mode_exists(mode):
             _argv.append(mode)
 
-        output = self.output_entry.get()
 
-        if output != self.entry_text_placeholder and mode == ARGV["save"][0] and isinstance(output, str):
+        output = self.output_entry.get()
+        if self.path_exists(output) and mode == ARGV["save"][0]:
             _argv.append(output)
 
 
         width = self.width_entry.get()
-
-        if width != str(IMAGES_SIZES["default width"]):
+        if width_exists(width):
             _argv.append(width)
 
-        by_ratio = self.by_ratio.get()
 
+        by_ratio = self.by_ratio.get()
         if by_ratio != "default":
             _argv.append(by_ratio)
 
         # Check input
         window_name = "Wrong input"
 
-        print(source, target, mode, width)
 
         if not source or source == self.entry_text_placeholder:
             return messagebox.showwarning(window_name, "No original references")
@@ -341,10 +329,25 @@ class UI:
         if mode == ARGV["save"][0]:
             messagebox.showinfo("Done!", f"You saved images in: {output}")
 
+    def path_exists(self, path):
+        return path != self.entry_text_placeholder and isinstance(path, str)
+
+    def mode_exists(self, mode):
+
+        modes = [
+            ARGV["save"][0],
+            ARGV["show"][0]
+        ]
+
+        return mode in modes
+
+    def width_exists(width):
+        return width != str(IMAGES_SIZES["default width"]
+
 
 def main():  # run mainloop
     root = tk.Tk()
-    app = UI(root)
+    app = MainGUIApp(root)
     root.mainloop()
 
 
