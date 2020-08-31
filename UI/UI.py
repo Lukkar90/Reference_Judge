@@ -13,26 +13,6 @@ from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGE
 from Reference_Judge.config import IMAGES_SIZES, ARGV
 from Reference_Judge.Reference_Judge import Reference_Judge
 
-def on_entry_click(entry, placeholder):
-    """function that gets called whenever entry is clicked"""
-    if entry.get() == placeholder:
-        entry.delete(0, "end")  # delete all the text in the source_entry
-        entry.insert(0, '')  # Insert blank for user input
-        entry.config(fg='black')
-
-def on_focusout(entry, placeholder):
-    if entry.get() == '':
-        entry.insert(0, placeholder)
-        entry.config(fg='grey')
-
-def btn_find_path(entry, askpath):
-
-    path = askpath()
-    if path:
-        entry.delete(0, tk.END)
-        entry.insert(0, path)
-        entry.config(fg='black')
-
 
 # https://stackoverflow.com/a/17466924/12490791
 class MainGUIApp(tk.Frame):
@@ -237,6 +217,27 @@ class MainGUIApp(tk.Frame):
 
         CreateToolTip(self.match_btn, tooltips["match_btn"])
 
+    def on_entry_click(self, entry, placeholder):
+        """function that gets called whenever entry is clicked"""
+
+        if entry.get() == placeholder:
+            entry.delete(0, "end")  # delete all the text in the source_entry
+            entry.insert(0, '')  # Insert blank for user input
+            entry.config(fg='black')
+
+    def on_focusout(self, entry, placeholder):
+        if entry.get() == '':
+            entry.insert(0, placeholder)
+            entry.config(fg='grey')
+
+    def btn_find_path(self, entry, askpath):
+
+        path = askpath()
+        if path:
+            entry.delete(0, tk.END)
+            entry.insert(0, path)
+            entry.config(fg='black')
+
     def create_path_entry(self, frame, placeholder, FocusIn, FocusOut):
 
         entry = tk.Entry(frame, borderwidth=1)
@@ -256,48 +257,48 @@ class MainGUIApp(tk.Frame):
 
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
-        on_entry_click(self.source_entry, self.entry_text_placeholder)
+        self.on_entry_click(self.source_entry, self.entry_text_placeholder)
 
     def on_focusout_source(self, event):
-        on_focusout(self.source_entry, self.entry_text_placeholder)
+        self.on_focusout(self.source_entry, self.entry_text_placeholder)
 
     def on_entry_click_target(self, event):
         """function that gets called whenever entry is clicked"""
-        on_entry_click(self.target_entry, self.entry_text_placeholder)
+        self.on_entry_click(self.target_entry, self.entry_text_placeholder)
 
     def on_focusout_target(self, event):
-        on_focusout(self.target_entry, self.entry_text_placeholder)
+        self.on_focusout(self.target_entry, self.entry_text_placeholder)
 
     def on_entry_click_output(self, event):
         """function that gets called whenever entry is clicked"""
-        on_entry_click(self.output_entry, self.entry_text_placeholder)
+        self.on_entry_click(self.output_entry, self.entry_text_placeholder)
 
     def on_focusout_output(self, event):
-        on_focusout(self.output_entry, self.entry_text_placeholder)
+        self.on_focusout(self.output_entry, self.entry_text_placeholder)
 
     def source_btn_folder_open(self):
 
-        btn_find_path(self.source_entry, filedialog.askdirectory)
+        self.btn_find_path(self.source_entry, filedialog.askdirectory)
 
     def source_btn_file_open(self):
 
-        btn_find_path(self.source_entry, filedialog.askopenfilename)
+        self.btn_find_path(self.source_entry, filedialog.askopenfilename)
 
     def target_btn_folder_open(self):
 
-        btn_find_path(self.target_entry, filedialog.askdirectory)
+        self.btn_find_path(self.target_entry, filedialog.askdirectory)
 
     def target_btn_file_open(self):
 
-        btn_find_path(self.target_entry, filedialog.askopenfilename)
+        self.btn_find_path(self.target_entry, filedialog.askopenfilename)
 
     def output_btn_folder_open(self):
 
-        btn_find_path(self.output_entry, filedialog.askdirectory)
+        self.btn_find_path(self.output_entry, filedialog.askdirectory)
 
     def output_btn_file_open(self):
 
-        btn_find_path(self.output_entry, filedialog.askopenfilename)
+        self.btn_find_path(self.output_entry, filedialog.askopenfilename)
         
     def disable_output_entry(self):
 
