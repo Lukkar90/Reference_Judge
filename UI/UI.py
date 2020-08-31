@@ -52,7 +52,10 @@ class UI:
 
         # Create frames
         frame_matching = tk.LabelFrame(master, padx=10, pady=15)
-        frame_matching.grid(row=0, column=0, padx=10, pady=15)
+        frame_matching.grid(row=0, column=0, padx=10, pady=(15, 0))
+
+        frame_output = tk.LabelFrame(master, padx=10, pady=15)
+        frame_output.grid(row=1, column=0, padx=10, pady=(15, 0), stick="we")
 
         # Source
         self.source_label = tk.Label(frame_matching, text="Original refs:")
@@ -63,7 +66,7 @@ class UI:
         self.source_entry.bind('<FocusIn>', self.on_entry_click_source)
         self.source_entry.bind('<FocusOut>', self.on_focusout_source)
         self.source_entry.config(fg='grey')
-        self.source_entry.grid(row=1, column=0, ipadx=200, columnspan=2, pady=(0, 5), stick="we")
+        self.source_entry.grid(row=1, column=0, ipadx=200, pady=(0, 5), stick="we")
 
         # Images to buttons
         self.img_open_folder=tk.PhotoImage(file="UI/images/open_folder.gif")
@@ -103,32 +106,32 @@ class UI:
         self.mode = tk.StringVar()
         self.mode.set(ARGV["save"][0])
 
-        self.save_radio = tk.Radiobutton(master, text="Save", variable=self.mode, value=ARGV["save"][0])
-        self.save_radio.grid(row=6, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
+        self.save_radio = tk.Radiobutton(frame_output, text="Save", variable=self.mode, value=ARGV["save"][0])
+        self.save_radio.grid(row=0, column=0, stick="w")
 
         # Output
-        self.output_label = tk.Label(text="Output files:")
-        self.output_label.grid(row=7, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
+        self.output_label = tk.Label(frame_output, text="Output files:")
+        self.output_label.grid(row=1, column=0, stick="w")
 
-        self.output_entry = tk.Entry(master, borderwidth=1)
+        self.output_entry = tk.Entry(frame_output, borderwidth=1)
         self.output_entry.insert(0, self.entry_text_placeholder)
         self.output_entry.bind('<FocusIn>', self.on_entry_click_output)
         self.output_entry.bind('<FocusOut>', self.on_focusout_output)
         self.output_entry.config(fg='grey')
-        self.output_entry.grid(row=8, column=0, columnspan=2, pady=(0, 5), stick="we", padx=(left_pad, 0))
+        self.output_entry.grid(row=2, ipadx=200, stick="we")
 
         # Output buttons for path
-        self.output_btn_folder = tk.Button(master, command=self.output_btn_folder_open)
+        self.output_btn_folder = tk.Button(frame_output, command=self.output_btn_folder_open)
         self.output_btn_folder.config(image=self.img_open_folder)
-        self.output_btn_folder.grid(row=8, column=2)
+        self.output_btn_folder.grid(row=2, padx=5, column=2)
 
-        self.output_btn_file = tk.Button(master, command=self.output_btn_file_open)
+        self.output_btn_file = tk.Button(frame_output, command=self.output_btn_file_open)
         self.output_btn_file.config(image=self.img_open_file)
-        self.output_btn_file.grid(row=8, column=3)
+        self.output_btn_file.grid(row=2, column=3)
 
         # Show
-        self.show_radio = tk.Radiobutton(master, text="Show", variable=self.mode, value=ARGV["show"][0])
-        self.show_radio.grid(row=9, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
+        self.show_radio = tk.Radiobutton(frame_output, text="Show", variable=self.mode, value=ARGV["show"][0])
+        self.show_radio.grid(row=3, column=0, pady=(10, 0), stick="w")
 
         # Width
         self.width_label = tk.Label(text="Width:")
