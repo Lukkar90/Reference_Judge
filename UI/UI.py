@@ -92,7 +92,7 @@ class MainGUIApp(tk.Frame):
         self.target_entry.bind('<FocusIn>', self.on_entry_click_target)
         self.target_entry.bind('<FocusOut>', self.on_focusout_target)
         self.target_entry.config(fg='grey')
-        self.target_entry.grid(row=3, column=0, columnspan=2, pady=(0, 5), stick="we")
+        self.target_entry.grid(row=3, column=0, ipadx=200, pady=(0, 5), stick="we")
 
         # Target buttons for path
         self.target_btn_folder = tk.Button(frame_matching, command=self.target_btn_folder_open)
@@ -294,7 +294,7 @@ class MainGUIApp(tk.Frame):
 
 
         width = self.width_entry.get()
-        if width_exists(width):
+        if self.width_exists(width):
             _argv.append(width)
 
 
@@ -302,21 +302,10 @@ class MainGUIApp(tk.Frame):
         if by_ratio != "default":
             _argv.append(by_ratio)
 
-        # Check input
+
         window_name = "Wrong input"
-
-
-        if not source or source == self.entry_text_placeholder:
-            return messagebox.showwarning(window_name, "No original references")
-
-        if not target or target == self.entry_text_placeholder:
-            return messagebox.showwarning(window_name, "No app references")
-
-        if mode == ARGV["save"][0] and (not output or output == self.entry_text_placeholder):
-            return messagebox.showwarning(window_name, "No output path")
-
-        if not width.isnumeric():
-            return messagebox.showwarning(window_name, "Width should be numeric")
+        if self.pop_up_invalid_entry_path(window_name, source, target, mode, output, width):
+            return
 
         try:
             Reference_Judge(_argv)
@@ -324,7 +313,7 @@ class MainGUIApp(tk.Frame):
             messagebox.showwarning(window_name, error)
 
         if mode == ARGV["show"][0]:
-            destroyAllWindows() # to avoid last opened image bug
+            destroyAllWindows() # to avoid bug with not closing last window
 
         if mode == ARGV["save"][0]:
             messagebox.showinfo("Done!", f"You saved images in: {output}")
@@ -341,8 +330,24 @@ class MainGUIApp(tk.Frame):
 
         return mode in modes
 
-    def width_exists(width):
-        return width != str(IMAGES_SIZES["default width"]
+    def width_exists(self, width):
+        return width != str(IMAGES_SIZES["default width"])
+
+    def pop_up_invalid_entry_path(self, window_name, source, target, output, mode, width):
+
+        if not source or source == self.entry_text_placeholder:
+            return messagebox.showwarning(window_name, "No original references")
+
+        if not target or target == self.entry_text_placeholder:
+            return messagebox.showwarning(window_name, "No app references")
+
+        if mode == ARGV["save"][0] and (not output or output == self.entry_text_placeholder):
+            return messagebox.showwarning(window_name, "No output path")
+
+        if not width.isnumeric():
+            return messagebox.showwarning(window_name, "Width should be numeric")
+
+        return None
 
 
 def main():  # run mainloop
