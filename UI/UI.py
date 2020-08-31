@@ -40,9 +40,9 @@ def btn_find_path(entry, askpath):
 class UI:
     def __init__(self, master):
         master.title(sys.argv[0])
-        window_height = 618
-        window_width = 400
-        master.geometry(f"{window_height}x{window_width}")
+        window_width = 618
+        window_height = 570
+        master.geometry(f"{window_width}x{window_height}")
 
         left_pad=20
 
@@ -52,14 +52,17 @@ class UI:
 
         # Create frames
         frame_matching = tk.LabelFrame(master, padx=10, pady=15)
-        frame_matching.grid(row=0, column=0, padx=10, pady=(15, 0))
+        frame_matching.grid(row=0, column=0, padx=10, pady=(25, 15))
 
         frame_output = tk.LabelFrame(master, padx=10, pady=15)
         frame_output.grid(row=1, column=0, padx=10, pady=(15, 0), stick="we")
 
+        frame_optional = tk.LabelFrame(master, padx=10, pady=15)
+        frame_optional.grid(row=2, column=0, padx=10, pady=(15, 0), stick="we")
+
         # Source
         self.source_label = tk.Label(frame_matching, text="Original refs:")
-        self.source_label.grid(row=0, column=0, stick="w")
+        self.source_label.grid(row=0, column=0, pady=(0, 5), stick="w")
 
         self.source_entry = tk.Entry(frame_matching, borderwidth=1)
         self.source_entry.insert(0, self.entry_text_placeholder)
@@ -111,7 +114,7 @@ class UI:
 
         # Output
         self.output_label = tk.Label(frame_output, text="Output files:")
-        self.output_label.grid(row=1, column=0, stick="w")
+        self.output_label.grid(row=1, column=0, pady=(0, 5), stick="w")
 
         self.output_entry = tk.Entry(frame_output, borderwidth=1)
         self.output_entry.insert(0, self.entry_text_placeholder)
@@ -131,28 +134,30 @@ class UI:
 
         # Show
         self.show_radio = tk.Radiobutton(frame_output, text="Show", variable=self.mode, value=ARGV["show"][0])
-        self.show_radio.grid(row=3, column=0, pady=(10, 0), stick="w")
+        self.show_radio.grid(row=3, column=0, pady=(13, 0), stick="w")
 
         # Width
-        self.width_label = tk.Label(text="Width:")
-        self.width_label.grid(row=10, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
+        self.width_label = tk.Label(frame_optional, text="Width:")
+        self.width_label.grid(row=0, column=0, pady=(0, 5), stick="w")
 
         self.width_text = tk.StringVar() # the text in  your entry
-        self.width_entry = tk.Entry(master, borderwidth=1, textvariable = self.width_text)
+        self.width_entry = tk.Entry(frame_optional, borderwidth=1, textvariable = self.width_text)
         self.width_entry.insert(0, self.entry_text_width_placeholder)
-        self.width_entry.grid(row=11, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
+        self.width_entry.grid(row=1, column=0, pady=(0, 20), stick="w")
 
         # By ratio
         self.by_ratio = tk.StringVar()
 
-        self.by_ratio_checkbox = tk.Checkbutton(master, text="Search by the same ratio", variable=self.by_ratio,
+        self.by_ratio_checkbox = tk.Checkbutton(frame_optional, text="Search by the same ratio", variable=self.by_ratio,
                 onvalue=ARGV["search by ratio"][0], offvalue="default")
         self.by_ratio_checkbox.deselect()
-        self.by_ratio_checkbox.grid(row=12, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
+        self.by_ratio_checkbox.grid(row=2, column=0, stick="w")
 
         # Match images
-        self.match_btn = tk.Button(text="Match images", command=self.match_images)
-        self.match_btn.grid(row=13, column=0, pady=(20, 0), ipadx=220, stick="w", padx=(left_pad, 0))
+        self.match_btn = tk.Button(master, text="Match images", command=self.match_images)
+        self.match_btn.config(height=3)
+        self.match_btn.grid(row=3, column=0, pady=(20, 0), stick="we", padx=(10, 10))
+
 
         # Add tooltips to widgets
         entry_tooltip_match = "Path of single file, dir or URL..."
