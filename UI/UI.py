@@ -49,19 +49,21 @@ class UI:
         self.entry_text_placeholder = "Enter your path..."
         self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
 
+
+        # Create frames
         frame_matching = tk.LabelFrame(master, padx=10, pady=15)
         frame_matching.grid(row=0, column=0, padx=10, pady=15)
 
         # Source
         self.source_label = tk.Label(frame_matching, text="Original refs:")
-        self.source_label.grid(row=1, column=0, stick=tk.W)
+        self.source_label.grid(row=0, column=0, stick="w")
 
         self.source_entry = tk.Entry(frame_matching, borderwidth=1)
         self.source_entry.insert(0, self.entry_text_placeholder)
         self.source_entry.bind('<FocusIn>', self.on_entry_click_source)
         self.source_entry.bind('<FocusOut>', self.on_focusout_source)
         self.source_entry.config(fg='grey')
-        self.source_entry.grid(row=2, column=0, ipadx=200, columnspan=2, pady=(0, 5), stick="we")
+        self.source_entry.grid(row=1, column=0, ipadx=200, columnspan=2, pady=(0, 5), stick="we")
 
         # Images to buttons
         self.img_open_folder=tk.PhotoImage(file="UI/images/open_folder.gif")
@@ -70,32 +72,32 @@ class UI:
         # Source buttons for path
         self.source_btn_folder = tk.Button(frame_matching, command=self.source_btn_folder_open)
         self.source_btn_folder.config(image=self.img_open_folder)
-        self.source_btn_folder.grid(row=2, column=2, padx=5)
+        self.source_btn_folder.grid(row=1, column=2, padx=5)
 
         self.source_btn_file = tk.Button(frame_matching, command=self.source_btn_file_open)
         self.source_btn_file.config(image=self.img_open_file)
-        self.source_btn_file.grid(row=2, column=3)
+        self.source_btn_file.grid(row=1, column=3)
 
 
         # Target
-        self.target_label = tk.Label(text="App refs:")
-        self.target_label.grid(row=3, column=0, pady=(0, 5), stick=tk.W, padx=(left_pad, 0))
+        self.target_label = tk.Label(frame_matching, text="App refs:")
+        self.target_label.grid(row=2, column=0, pady=(0, 5), stick="w")
 
-        self.target_entry = tk.Entry(master, borderwidth=1)
+        self.target_entry = tk.Entry(frame_matching, borderwidth=1)
         self.target_entry.insert(0, self.entry_text_placeholder)
         self.target_entry.bind('<FocusIn>', self.on_entry_click_target)
         self.target_entry.bind('<FocusOut>', self.on_focusout_target)
         self.target_entry.config(fg='grey')
-        self.target_entry.grid(row=4, column=0, columnspan=2, pady=(0, 5), stick="we", padx=(left_pad, 0))
+        self.target_entry.grid(row=3, column=0, columnspan=2, pady=(0, 5), stick="we")
 
         # Target buttons for path
-        self.target_btn_folder = tk.Button(master, command=self.target_btn_folder_open)
+        self.target_btn_folder = tk.Button(frame_matching, command=self.target_btn_folder_open)
         self.target_btn_folder.config(image=self.img_open_folder)
-        self.target_btn_folder.grid(row=4, column=2)
+        self.target_btn_folder.grid(row=3, column=2)
 
-        self.target_btn_file = tk.Button(master, command=self.target_btn_file_open)
+        self.target_btn_file = tk.Button(frame_matching, command=self.target_btn_file_open)
         self.target_btn_file.config(image=self.img_open_file)
-        self.target_btn_file.grid(row=4, column=3)
+        self.target_btn_file.grid(row=3, column=3)
         
         # Save
         self.mode = tk.StringVar()
@@ -106,7 +108,7 @@ class UI:
 
         # Output
         self.output_label = tk.Label(text="Output files:")
-        self.output_label.grid(row=7, column=0, pady=(0, 5), stick=tk.W, padx=(left_pad, 0))
+        self.output_label.grid(row=7, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
 
         self.output_entry = tk.Entry(master, borderwidth=1)
         self.output_entry.insert(0, self.entry_text_placeholder)
@@ -130,7 +132,7 @@ class UI:
 
         # Width
         self.width_label = tk.Label(text="Width:")
-        self.width_label.grid(row=10, column=0, pady=(0, 5), stick=tk.W, padx=(left_pad, 0))
+        self.width_label.grid(row=10, column=0, pady=(0, 5), stick="w", padx=(left_pad, 0))
 
         self.width_text = tk.StringVar() # the text in  your entry
         self.width_entry = tk.Entry(master, borderwidth=1, textvariable = self.width_text)
@@ -147,7 +149,7 @@ class UI:
 
         # Match images
         self.match_btn = tk.Button(text="Match images", command=self.match_images)
-        self.match_btn.grid(row=13, column=0, pady=(20, 0), ipadx=220, stick=tk.W, padx=(left_pad, 0))
+        self.match_btn.grid(row=13, column=0, pady=(20, 0), ipadx=220, stick="w", padx=(left_pad, 0))
 
         # Add tooltips to widgets
         entry_tooltip_match = "Path of single file, dir or URL..."
