@@ -75,12 +75,18 @@ class MainGUIApp(tk.Frame):
         self.img_open_file=tk.PhotoImage(file="UI/images/open_file.gif")
 
         # Source buttons for path
-        self.source_btn_folder = tk.Button(frame_matching, command=self.source_btn_folder_open)
-        self.source_btn_folder.config(image=self.img_open_folder)
+        self.source_btn_folder = self.create_path_btn(
+            frame_matching, 
+            self.source_btn_folder_open, 
+            self.img_open_folder
+        )
         self.source_btn_folder.grid(row=1, column=2, padx=5)
 
-        self.source_btn_file = tk.Button(frame_matching, command=self.source_btn_file_open)
-        self.source_btn_file.config(image=self.img_open_file)
+        self.source_btn_file = self.create_path_btn(
+            frame_matching, 
+            self.source_btn_file_open, 
+            self.img_open_file
+        )
         self.source_btn_file.grid(row=1, column=3)
 
 
@@ -97,12 +103,18 @@ class MainGUIApp(tk.Frame):
         self.target_entry.grid(row=3, column=0, ipadx=200, pady=(0, 5), stick="we")
 
         # Target buttons for path
-        self.target_btn_folder = tk.Button(frame_matching, command=self.target_btn_folder_open)
-        self.target_btn_folder.config(image=self.img_open_folder)
+        self.target_btn_folder = self.create_path_btn(
+            frame_matching, 
+            self.target_btn_folder_open, 
+            self.img_open_folder
+        )
         self.target_btn_folder.grid(row=3, column=2)
 
-        self.target_btn_file = tk.Button(frame_matching, command=self.target_btn_file_open)
-        self.target_btn_file.config(image=self.img_open_file)
+        self.target_btn_file = self.create_path_btn(
+            frame_matching, 
+            self.target_btn_file_open, 
+            self.img_open_file
+        )
         self.target_btn_file.grid(row=3, column=3)
         
         # Save
@@ -130,12 +142,19 @@ class MainGUIApp(tk.Frame):
         self.output_entry.grid(row=2, ipadx=200, stick="we")
 
         # Output buttons for path
-        self.output_btn_folder = tk.Button(frame_output, command=self.output_btn_folder_open)
-        self.output_btn_folder.config(image=self.img_open_folder)
+        self.output_btn_folder = self.create_path_btn(
+            frame_output, 
+            self.output_btn_folder_open, 
+            self.img_open_folder
+        )
         self.output_btn_folder.grid(row=2, padx=5, column=2)
 
-        self.output_btn_file = tk.Button(frame_output, command=self.output_btn_file_open)
-        self.output_btn_file.config(image=self.img_open_file)
+        
+        self.output_btn_file = self.create_path_btn(
+            frame_output, 
+            self.output_btn_file_open, 
+            self.img_open_file
+        )
         self.output_btn_file.grid(row=2, column=3)
 
         # Show
@@ -222,6 +241,13 @@ class MainGUIApp(tk.Frame):
         entry.config(fg='grey')
 
         return entry
+
+    def create_path_btn(self, frame, command, image):
+
+        button = tk.Button(frame, command=command)
+        button.config(image=image)
+
+        return button
 
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
