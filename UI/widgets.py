@@ -17,9 +17,10 @@ class CreateToolTip(object):
     """
     create a tooltip for a given widget
     """
+
     def __init__(self, widget, text='widget info'):
-        self.waittime = 500     #miliseconds
-        self.wraplength = 180   #pixels
+        self.waittime = 500  # miliseconds
+        self.wraplength = 180  # pixels
         self.widget = widget
         self.text = text
         self.widget.bind("<Enter>", self.enter)
@@ -56,12 +57,14 @@ class CreateToolTip(object):
         self.tw.wm_overrideredirect(True)
         self.tw.wm_geometry("+%d+%d" % (x, y))
         label = tk.Label(self.tw, text=self.text, justify='left',
-                       background="#ffffff", relief='solid', borderwidth=1,
-                       wraplength = self.wraplength)
+                         background="#ffffff", relief='solid', borderwidth=1,
+                         wraplength=self.wraplength)
         label.pack(ipadx=1)
 
     def hidetip(self):
         tw = self.tw
-        self.tw= None
+        self.tw = None
         if tw:
             tw.destroy()
+
+# class Menu()

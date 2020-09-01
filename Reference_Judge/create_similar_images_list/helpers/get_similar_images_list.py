@@ -68,7 +68,7 @@ def create_similar_images_list(sources_paths, target_directory_path, by_ratio):
         if no_similar_images(similar_image):
 
             # Notice User
-            print(f"Not found reference : {source_name}")
+            print(f"Not found reference:\n  {source_name}")
 
             # reset temp variable
             reference_pair = None
@@ -81,7 +81,7 @@ def create_similar_images_list(sources_paths, target_directory_path, by_ratio):
 
             # Notice User with searching progress
             print(
-                f"Found reference : {source_name}, similarity: {similar_image['similarity']}")
+                f"Found reference:\n  {source_name},\n  similarity: {similar_image['similarity']}")
 
             reference_pairs.append(reference_pair)
 

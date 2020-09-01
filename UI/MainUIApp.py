@@ -171,7 +171,7 @@ class MainGUIApp(tk.Frame):
 
         # Match images
         self.match_btn = tk.Button(
-            master, text="Match images", bg="#f5f5f5", command=self.match_images)
+            master, text="Match images", bg="#f5f5f5", command=self.match_images_btn)
         self.match_btn.config(height=3)
         self.match_btn.grid(row=3, column=0, pady=(20, 0),
                             stick="we", padx=(10, 10))
@@ -237,6 +237,8 @@ class MainGUIApp(tk.Frame):
 
         return button
 
+    # Events functions   =============================================
+
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
         btn_find_path(self.source_entry, self.entry_text_placeholder)
@@ -257,6 +259,8 @@ class MainGUIApp(tk.Frame):
 
     def on_focusout_output(self, event):
         on_focusout(self.output_entry, self.entry_text_placeholder)
+
+    # End: events functions   ========================================
 
     def source_btn_folder_open(self):
 
@@ -300,7 +304,7 @@ class MainGUIApp(tk.Frame):
         else:
             raise ValueError(f"Not existing ARG:\n{self.mode.get()}")
 
-    def match_images(self):
+    def match_images_btn(self):
 
         _argv = list()
 
@@ -336,7 +340,7 @@ class MainGUIApp(tk.Frame):
             return
 
         try:
-            Reference_Judge(_argv)
+            summary = Reference_Judge(_argv)
         except SystemExit as error:
             messagebox.showwarning(window_name, error)
 
@@ -344,7 +348,8 @@ class MainGUIApp(tk.Frame):
             destroyAllWindows()  # to avoid bug with not closing last window
 
         if mode == ARGV["save"][0]:
-            messagebox.showinfo("Done!", f"You saved images in: {output}")
+            messagebox.showinfo(
+                "Done!", f"You saved images in:\n{output}\n\n{summary}")
 
     def path_exists(self, path):
         return path != self.entry_text_placeholder and isinstance(path, str)

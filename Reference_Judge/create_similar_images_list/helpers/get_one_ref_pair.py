@@ -125,7 +125,7 @@ def find_similar_one_original_image_among_references(
         original_reference_path, app_reference_path, by_ratio)
 
     if no_similar_images(similar_image):
-        print(f"Not found reference : {original_name}")
+        print(f"Not found reference:\n  {original_name}")
         reference_pair = None
     else:
         reference_pair = ReferencePair(

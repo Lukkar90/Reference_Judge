@@ -22,12 +22,9 @@ DESCRIPTION
     This program uses image recognition algorithms from https://opencv.org/
 """
 
-
-# python libs
-import sys
-
 # internal libs
 from Reference_Judge.check_argv_correctness.check_argv_correctness import check_argv_correctness
+from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.config import ARGV, IMAGES_SIZES
 from Reference_Judge.create_similar_images_list.create_similar_images_list import create_similar_images_list
 from Reference_Judge.help import help_detailed_usage, user_commanded_help
@@ -47,17 +44,23 @@ def Reference_Judge(_argv):
     original_ref_path = _argv[1]
     app_ref_path = _argv[2]
     mode = _argv[3]
+    messages_summary = []
 
     by_ratio = check_ratio_argv(_argv)
 
     similar_list = create_similar_images_list(
         original_ref_path, app_ref_path, by_ratio)
 
+    references_counter = count_found_and_not_found_refs(
+        original_ref_path, similar_list)
+    messages_summary.append(references_counter)
+
     width = IMAGES_SIZES["default width"]  # Default value for mobiles apps
 
     if mode in ARGV["save"]:
 
-        save(width, similar_list, by_ratio, _argv)
+        saving_counter = save(width, similar_list, by_ratio, _argv)
+        messages_summary.append(saving_counter)
 
     elif mode in ARGV["show"]:
 
@@ -66,3 +69,48 @@ def Reference_Judge(_argv):
     else:
         raise ValueError("Error: Invalid mode value\n"
                          f" {mode}")
+
+    # Value used in UI message box
+    return stringify_lists(messages_summary)
+
+
+def count_found_and_not_found_refs(original_ref_path, similar_list):
+    """return tuple of two integers"""
+
+    references_counter = {
+        "found matches": 0,
+        "not found matches": 0
+    }
+
+    original_images_number = count_legit_images(original_ref_path)
+    references_counter["found matches"] = len(similar_list)
+    references_counter["not found matches"] = original_images_number - \
+        references_counter["found matches"]
+
+    return references_counter
+
+
+def concat_stringified_values_and_keys(_list):
+    """return list"""
+
+    strings_list = []
+
+    for k, v in _list.items():
+        strings_list.append(f"{k}: {str(v)}")
+
+    return strings_list
+
+
+def stringify_lists(messages_summary):
+    """return concated all dicts elements into one string"""
+
+    messages_list = []
+    for message in messages_summary:
+        stringify = concat_stringified_values_and_keys(message)
+        messages_list += stringify
+
+    messages_string = ""
+    for message in messages_list:
+        messages_string += f"{message}\n"
+
+    return messages_string

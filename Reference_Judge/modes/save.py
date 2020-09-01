@@ -1,4 +1,5 @@
 # Python libs
+from collections import Counter
 import os
 
 # external libs
@@ -35,16 +36,33 @@ def save(width, similar_list, by_ratio, _argv):
     check_type_width(width)  # fail fast
 
     # Process all images, save each sequence in chosen director
+    saving_counter = Counter({
+        "saved matches": 0,
+        "not saved matches": 0
+    })
+
+    # Copy attributes
+    saving_counter_sum = saving_counter
+
     for similar_pair in similar_list:
 
         if not similar_pair is None:
 
             images = compute_image_differences(similar_pair, by_ratio)
 
-            save_images_as_one(images, output_path, width)
+            saving_counter_update = save_images_as_one(
+                images,
+                output_path,
+                width,
+                saving_counter
+            )
+
+            saving_counter_sum += saving_counter_update
+
+    return saving_counter_sum
 
 
-def save_images_as_one(images, output_path, width):
+def save_images_as_one(images, output_path, width, saving_counter):
     """save app and ref images with images showing differences in one image"""
 
     # Resize to default value or custom
@@ -91,9 +109,13 @@ def save_images_as_one(images, output_path, width):
 
     # User notification where to search saved image: https://stackoverflow.com/a/51809038/12490791
     if writeStatus is True:
-        print(f"Saved reference:\n{original_name}\nin\n{output_path}")
+        print(f"Saved reference:\n  {original_name}\n  {output_path}")
+        saving_counter["saved matches"] = 1
     else:
-        print(f"Not saved:\n{original_name}")
+        print(f"Not saved:\n  {original_name}")
+        saving_counter["not saved matches"] = 1
+
+    return saving_counter
 
 
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
