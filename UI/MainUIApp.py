@@ -1,6 +1,7 @@
 """GUI to comunicate with Reference_Judge module"""
 
 # Python libs
+import os
 from tkinter import filedialog  # for Python 3
 from tkinter import messagebox
 import tkinter as tk
@@ -10,7 +11,7 @@ import sys
 from cv2 import destroyAllWindows
 
 # internal libs
-from UI.widgets import CreateToolTip, MainMenu
+from UI.widgets import CreateToolTip
 from Reference_Judge.config import IMAGES_SIZES, ARGV
 from Reference_Judge.Reference_Judge import Reference_Judge
 
@@ -23,8 +24,6 @@ class MainGUIApp():
         window_width = 618
         window_height = 570
         master.geometry(f"{window_width}x{window_height}")
-
-        self.menu = MainMenu(master)
 
         self.entry_text_placeholder = "Enter your path..."
         self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
@@ -177,7 +176,88 @@ class MainGUIApp():
         self.match_btn.grid(row=3, column=0, pady=(20, 0),
                             stick="we", padx=(10, 10))
 
+        self.create_menu(master)
+
+    def create_menu(self, master):
+
         self.add_tooltips_to_widgets()
+
+        my_menu = tk.Menu(master)
+        master.config(menu=my_menu)
+
+        menu_setup = tk.Menu(my_menu, tearoff=False)
+        my_menu.add_cascade(label="Setup", menu=menu_setup)
+        menu_setup.add_command(label="Save", command=self.setup_save)
+        menu_setup.add_command(label="Save as", command=self.setup_save_as)
+        menu_setup.add_command(label="Open", command=self.setup_open)
+        menu_setup.add_command(label="Reset", command=self.setup_reset)
+        menu_setup.add_separator()
+        menu_setup.add_command(label="Exit", command=master.quit)
+
+        menu_help = tk.Menu(my_menu, tearoff=False)
+        my_menu.add_cascade(label="Help", menu=menu_help)
+        menu_help.add_command(label="How to use", command=self.our_command)
+        menu_help.add_separator()
+        menu_help.add_command(label="About", command=self.our_command)
+
+    def setup_open(self):
+
+        open_file = filedialog.askopenfilename(
+            initialdir="data\\appData\\_DEFAULT.ini",
+            title="Save setup file",
+            filetypes=[("Setup files", "*.ini")]
+        )
+
+    def setup_reset(self):
+
+        setup_saving(
+            "data\\appData\\_DEFAULT.ini",
+            "Enter your path...",
+            "Enter your path...",
+            ARGV["save"][0],
+            "Enter your path...",
+            IMAGES_SIZES["default width"],
+            "default",
+            reset=True
+        )
+
+    def setup_save(self):
+
+        # to give user full path info
+        output_path = os.path.join(os.getcwd(), "data\\appData\\_DEFAULT.ini")
+
+        setup_saving(
+            output_path,
+            self.source_entry.get(),
+            self.target_entry.get(),
+            self.mode.get(),
+            self.output_entry.get(),
+            self.width_entry.get(),
+            self.by_ratio.get(),
+        )
+
+    def setup_save_as(self):
+
+        ini_default_location = os.path.join(os.getcwd(), "data/appData")
+        output_path = filedialog.asksaveasfilename(
+            initialdir=ini_default_location,
+            title="Save setup file",
+            filetypes=[("Setup files", "*.ini")]
+        )
+
+        if output_path:
+            setup_saving(
+                output_path,
+                self.source_entry.get(),
+                self.target_entry.get(),
+                self.mode.get(),
+                self.output_entry.get(),
+                self.width_entry.get(),
+                self.by_ratio.get(),
+            )
+
+    def our_command(self):
+        pass
 
     def add_tooltips_to_widgets(self):
 
@@ -406,6 +486,47 @@ def btn_find_path(entry, askpath):
         entry.delete(0, tk.END)
         entry.insert(0, path)
         entry.config(fg='black')
+
+
+def setup_saving(
+    output_path,
+    source_entry,
+    target_entry,
+    mode,
+    output_entry,
+    width_entry,
+    by_ratio,
+    reset=False
+):
+
+    setup_content = ("[MATCHING]\n"
+                     f"source entry = {source_entry}\n"
+                     f"target entry = {target_entry}\n"
+                     "\n"
+                     "[OUTPUT]\n"
+                     f"mode = {mode}\n"
+                     f"output path = {output_entry}\n"
+                     "\n"
+                     "[OPTIONAL]\n"
+                     f"width = {width_entry}\n"
+                     f"by the same ratio = {by_ratio}"
+                     )
+
+    if output_path:
+        with open(output_path, "w") as text_file:
+            print(setup_content, file=text_file)
+
+        if reset:
+            message_text = "You reset default settings"
+        else:
+            message_text = "You saved setup file in:"f"\n{output_path}"
+
+        messagebox.showinfo(
+            "Done!",
+            (message_text)
+        )
+    else:
+        raise OSError("There is no save path")
 
 
 def main():  # run mainloop
