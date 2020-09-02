@@ -67,4 +67,26 @@ class CreateToolTip(object):
         if tw:
             tw.destroy()
 
-# class Menu()
+
+class MainMenu():
+    def __init__(self, parent):
+
+        my_menu = tk.Menu(parent)
+        parent.config(menu=my_menu)
+
+        menu_setup = tk.Menu(my_menu, tearoff=False)
+        my_menu.add_cascade(label="Setup", menu=menu_setup)
+        menu_setup.add_command(label="Save as", command=self.our_command)
+        menu_setup.add_command(label="Open", command=self.our_command)
+        menu_setup.add_command(label="Reset", command=self.our_command)
+        menu_setup.add_separator()
+        menu_setup.add_command(label="Exit", command=parent.quit)
+
+        menu_help = tk.Menu(my_menu, tearoff=False)
+        my_menu.add_cascade(label="Help", menu=menu_help)
+        menu_help.add_command(label="How to use", command=self.our_command)
+        menu_help.add_separator()
+        menu_help.add_command(label="About", command=self.our_command)
+
+    def our_command(self):
+        pass

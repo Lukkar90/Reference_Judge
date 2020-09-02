@@ -10,20 +10,21 @@ import sys
 from cv2 import destroyAllWindows
 
 # internal libs
-from UI.widgets import CreateToolTip
+from UI.widgets import CreateToolTip, MainMenu
 from Reference_Judge.config import IMAGES_SIZES, ARGV
 from Reference_Judge.Reference_Judge import Reference_Judge
 
 
 # https://stackoverflow.com/a/17466924/12490791
-class MainGUIApp(tk.Frame):
+class MainGUIApp():
     def __init__(self, master):
-        super().__init__(master)
 
         master.title(sys.argv[0])
         window_width = 618
         window_height = 570
         master.geometry(f"{window_width}x{window_height}")
+
+        self.menu = MainMenu(master)
 
         self.entry_text_placeholder = "Enter your path..."
         self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
