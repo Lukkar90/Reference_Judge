@@ -1,6 +1,7 @@
 """GUI to comunicate with Reference_Judge module"""
 
 # Python libs
+from configparser import ConfigParser
 import os
 from tkinter import filedialog  # for Python 3
 from tkinter import messagebox
@@ -202,11 +203,49 @@ class MainGUIApp():
 
     def setup_open(self):
 
-        open_file = filedialog.askopenfilename(
+        setup_file = filedialog.askopenfilename(
             initialdir="data\\appData\\_DEFAULT.ini",
             title="Save setup file",
             filetypes=[("Setup files", "*.ini")]
         )
+
+        if not setup_file:
+            return
+
+        config = ConfigParser()
+        config.read(setup_file)
+
+        # entries
+        self.source_entry.delete(0, "end")  # todo
+        self.source_entry.insert(
+            0,
+            config.get("MATCHING", "source entry")
+        )
+
+        self.target_entry.config(fg='grey')  # todo
+        self.target_entry.delete(0, "end")
+        self.target_entry.insert(
+            0,
+            config.get("MATCHING", "target entry")
+        )
+        self.target_entry.config(fg='grey')
+
+        self.mode.set(config.get("OUTPUT", "mode"))  # todo
+
+        self.output_entry.delete(0, "end")  # todo
+        self.output_entry.insert(
+            0,
+            config.get("OUTPUT", "output entry")
+        )
+        self.output_entry.config(fg='grey')
+
+        self.width_entry.delete(0, "end")
+        self.width_entry.insert(
+            0,
+            config.get("OPTIONAL", "width entry")
+        )
+
+        self.by_ratio.set(config.get("OPTIONAL", "by the same ratio"))
 
     def setup_reset(self):
 
@@ -322,21 +361,21 @@ class MainGUIApp():
 
     def on_entry_click_source(self, event):
         """function that gets called whenever entry is clicked"""
-        btn_find_path(self.source_entry, self.entry_text_placeholder)
+        on_entry_click(self.source_entry, self.entry_text_placeholder)
 
     def on_focusout_source(self, event):
         on_focusout(self.source_entry, self.entry_text_placeholder)
 
     def on_entry_click_target(self, event):
         """function that gets called whenever entry is clicked"""
-        btn_find_path(self.target_entry, self.entry_text_placeholder)
+        on_entry_click(self.target_entry, self.entry_text_placeholder)
 
     def on_focusout_target(self, event):
         on_focusout(self.target_entry, self.entry_text_placeholder)
 
     def on_entry_click_output(self, event):
         """function that gets called whenever entry is clicked"""
-        btn_find_path(self.output_entry, self.entry_text_placeholder)
+        on_entry_click(self.output_entry, self.entry_text_placeholder)
 
     def on_focusout_output(self, event):
         on_focusout(self.output_entry, self.entry_text_placeholder)
@@ -505,7 +544,7 @@ def setup_saving(
                      "\n"
                      "[OUTPUT]\n"
                      f"mode = {mode}\n"
-                     f"output path = {output_entry}\n"
+                     f"output entry = {output_entry}\n"
                      "\n"
                      "[OPTIONAL]\n"
                      f"width = {width_entry}\n"
