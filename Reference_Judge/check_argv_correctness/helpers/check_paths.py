@@ -6,7 +6,7 @@ import sys
 from urllib import error, request
 
 # internal libs
-from Reference_Judge.config import LEGIT_EXTENSIONS, ARGV
+from Reference_Judge.config import LEGAL_EXTENSIONS, ARGV
 from Reference_Judge.help import help_tip
 from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
@@ -269,7 +269,7 @@ def is_empty(directory_path):
 
         full_path = os.path.join(directory_path, file_name)
 
-        if os.path.isfile(full_path) and file_name.endswith(tuple(LEGIT_EXTENSIONS)):
+        if os.path.isfile(full_path) and file_name.endswith(tuple(LEGAL_EXTENSIONS)):
             there_are_files = True
             break
 
@@ -279,4 +279,4 @@ def is_empty(directory_path):
 def count_legit_images(directory_path):
     """Count all images with LEGIT_EXTENSIONS"""
 
-    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(LEGIT_EXTENSIONS))])
+    return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(tuple(LEGAL_EXTENSIONS))])

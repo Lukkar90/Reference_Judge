@@ -1,7 +1,7 @@
 """Place to hold program's global const"""
 
 
-LEGIT_EXTENSIONS = tuple(".png")
+LEGAL_EXTENSIONS = tuple(".png")
 
 ARGV = {
     "search by ratio": ["--search_by_ratio", "-br"],

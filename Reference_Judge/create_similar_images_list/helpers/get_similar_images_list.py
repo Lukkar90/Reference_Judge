@@ -5,7 +5,7 @@
 import os
 
 # internal libs
-from Reference_Judge.config import LEGIT_EXTENSIONS
+from Reference_Judge.config import LEGAL_EXTENSIONS
 from Reference_Judge.utils import error_check_path_is_empty_string
 
 # same module
@@ -46,7 +46,7 @@ def files_paths(directory):
         full_path = os.path.join(directory, file_)
 
         # (tuple(LEGIT_EXTENSIONS) to use multiply arguments
-        if os.path.isfile(full_path) and file_.endswith(tuple(LEGIT_EXTENSIONS)):
+        if os.path.isfile(full_path) and file_.endswith(tuple(LEGAL_EXTENSIONS)):
             paths.append(full_path)
 
     return paths

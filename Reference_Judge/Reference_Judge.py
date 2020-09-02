@@ -22,6 +22,10 @@ DESCRIPTION
     This program uses image recognition algorithms from https://opencv.org/
 """
 
+
+# Python libs
+from os import path
+
 # internal libs
 from Reference_Judge.check_argv_correctness.check_argv_correctness import check_argv_correctness
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
@@ -77,15 +81,19 @@ def Reference_Judge(_argv):
 def count_found_and_not_found_refs(original_ref_path, similar_list):
     """return tuple of two integers"""
 
-    references_counter = {
-        "found matches": 0,
-        "not found matches": 0
-    }
+    references_counter = dict()
 
-    original_images_number = count_legit_images(original_ref_path)
-    references_counter["found matches"] = len(similar_list)
-    references_counter["not found matches"] = original_images_number - \
-        references_counter["found matches"]
+    original_images_number = count_original_images(original_ref_path)
+    found_matches = len(similar_list)
+    not_found_matches = original_images_number - found_matches
+
+    _check_matches_legal_values(found_matches, not_found_matches)  # Fail fast
+
+    if found_matches > 0:
+        references_counter["found matches"] = len(similar_list)
+
+    if not_found_matches > 0:
+        references_counter["not found matches"] = not_found_matches
 
     return references_counter
 
@@ -114,3 +122,24 @@ def stringify_lists(messages_summary):
         messages_string += f"{message}\n"
 
     return messages_string
+
+
+def count_original_images(original_ref_path):
+    """path could be single file or URL"""
+
+    if path.isdir(original_ref_path):
+        return count_legit_images(original_ref_path)
+
+    return 1
+
+
+def _check_matches_legal_values(found_matches, not_found_matches):
+    """Raise error when any args are not positive int"""
+
+    error = "It can't be negative value"
+
+    if found_matches < 0 or not isinstance(found_matches, int):
+        raise ValueError(error)
+
+    if not_found_matches < 0 or not isinstance(found_matches, int):
+        raise ValueError(error)

@@ -10,7 +10,7 @@ from io import StringIO
 import cv2
 
 from Reference_Judge.help import help_tip, help_command_line
-from Reference_Judge.config import ARGV, LEGIT_EXTENSIONS, IMAGES_SIZES
+from Reference_Judge.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES, get_error_directory_does_not_exists
@@ -67,7 +67,7 @@ def check_if_width_is_correct(width, output_folder):
 
         file_path = os.path.join(output_folder, filename)
 
-        if os.path.isfile(file_path) and file_path.endswith(LEGIT_EXTENSIONS):
+        if os.path.isfile(file_path) and file_path.endswith(LEGAL_EXTENSIONS):
 
             img = cv2.imread(file_path, 0)
             width_image = img.shape[1]

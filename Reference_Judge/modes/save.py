@@ -1,5 +1,5 @@
 # Python libs
-from collections import Counter
+from collections import defaultdict
 import os
 
 # external libs
@@ -36,13 +36,9 @@ def save(width, similar_list, by_ratio, _argv):
     check_type_width(width)  # fail fast
 
     # Process all images, save each sequence in chosen director
-    saving_counter = Counter({
-        "saved matches": 0,
-        "not saved matches": 0
-    })
 
-    # Copy attributes
-    saving_counter_sum = saving_counter
+    # https://stackoverflow.com/a/1602964/12490791
+    saving_counter = defaultdict(int)
 
     for similar_pair in similar_list:
 
@@ -50,19 +46,21 @@ def save(width, similar_list, by_ratio, _argv):
 
             images = compute_image_differences(similar_pair, by_ratio)
 
-            saving_counter_update = save_images_as_one(
+            saved = save_images_as_one(
                 images,
                 output_path,
                 width,
-                saving_counter
             )
 
-            saving_counter_sum += saving_counter_update
+            if saved:
+                saving_counter["saved matches"] += 1
+            else:
+                saving_counter["not saved matches"] += 1
 
-    return saving_counter_sum
+    return saving_counter
 
 
-def save_images_as_one(images, output_path, width, saving_counter):
+def save_images_as_one(images, output_path, width):
     """save app and ref images with images showing differences in one image"""
 
     # Resize to default value or custom
@@ -110,12 +108,12 @@ def save_images_as_one(images, output_path, width, saving_counter):
     # User notification where to search saved image: https://stackoverflow.com/a/51809038/12490791
     if writeStatus is True:
         print(f"Saved reference:\n  {original_name}\n  {output_path}")
-        saving_counter["saved matches"] = 1
+        saved = True
     else:
         print(f"Not saved:\n  {original_name}")
-        saving_counter["not saved matches"] = 1
+        saved = False
 
-    return saving_counter
+    return saved
 
 
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791
