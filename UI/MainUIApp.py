@@ -26,9 +26,6 @@ class MainGUIApp():
         window_height = 570
         master.geometry(f"{window_width}x{window_height}")
 
-        self.entry_text_placeholder = "Enter your path..."
-        self.entry_text_width_placeholder = IMAGES_SIZES["default width"]
-
         # Create frames
         frame_matching = tk.LabelFrame(master, padx=10, pady=15)
         frame_matching.grid(row=0, column=0, padx=10, pady=(25, 15))
@@ -39,13 +36,15 @@ class MainGUIApp():
         frame_optional = tk.LabelFrame(master, padx=10, pady=15)
         frame_optional.grid(row=2, column=0, padx=10, pady=(15, 0), stick="we")
 
+        # Default path text field placeholder
+        self.entry_text_placeholder = "Enter your path..."
+
         # Source
         self.source_label = tk.Label(frame_matching, text="Original refs:")
         self.source_label.grid(row=0, column=0, pady=(0, 5), stick="w")
 
         self.source_entry = self.create_path_entry(
             frame_matching,
-            self.entry_text_placeholder,
             self.on_entry_click_source,
             self.on_focusout_source
         )
@@ -77,7 +76,6 @@ class MainGUIApp():
 
         self.target_entry = self.create_path_entry(
             frame_matching,
-            self.entry_text_placeholder,
             self.on_entry_click_target,
             self.on_focusout_target
         )
@@ -117,7 +115,6 @@ class MainGUIApp():
 
         self.output_entry = self.create_path_entry(
             frame_output,
-            self.entry_text_placeholder,
             self.on_entry_click_output,
             self.on_focusout_output
         )
@@ -154,7 +151,6 @@ class MainGUIApp():
         self.width_text = tk.StringVar()  # the text in  your entry
         self.width_entry = tk.Entry(
             frame_optional, borderwidth=1, textvariable=self.width_text)
-        self.width_entry.insert(0, self.entry_text_width_placeholder)
         self.width_entry.grid(row=1, column=0, pady=(0, 20), stick="w")
 
         # By ratio
@@ -177,6 +173,13 @@ class MainGUIApp():
         self.match_btn.grid(row=3, column=0, pady=(20, 0),
                             stick="we", padx=(10, 10))
 
+        # populate dialogs with default values
+        try:
+            self.setup_reset_to_defaults(show_message=False)
+        except IOError:
+            # create new file if default does not exists
+            self.setup_default_reset(show_message=False)
+
         self.create_menu(master)
 
     # Menu Code
@@ -190,9 +193,10 @@ class MainGUIApp():
 
         menu_setup = tk.Menu(my_menu, tearoff=False)
         my_menu.add_cascade(label="Setup", menu=menu_setup)
-        menu_setup.add_command(label="Save", command=self.setup_save)
         menu_setup.add_command(label="Save as", command=self.setup_save_as)
         menu_setup.add_command(label="Open", command=self.setup_open)
+        menu_setup.add_command(label="Save to defaults",
+                               command=self.setup_save)
         menu_setup.add_command(label="Reset to defaults",
                                command=self.setup_reset_to_defaults)
         menu_setup.add_command(label="Defaults reset",
@@ -269,7 +273,7 @@ class MainGUIApp():
 
         return entry
 
-    def setup_reset_to_defaults(self):
+    def setup_reset_to_defaults(self, show_message=True):
 
         defaults_file = "data\\appData\\_DEFAULT.ini"
 
@@ -277,12 +281,13 @@ class MainGUIApp():
 
         self.dialogs_set_setup(config)
 
-        messagebox.showinfo(
-            "Done!",
-            "You reset your setup to defaults"
-        )
+        if show_message:
+            messagebox.showinfo(
+                "Done!",
+                "You reset your setup to defaults"
+            )
 
-    def setup_default_reset(self):
+    def setup_default_reset(self, show_message=True):
 
         defaults_file = "data\\appData\\_DEFAULT.ini"
 
@@ -300,10 +305,11 @@ class MainGUIApp():
 
         self.dialogs_set_setup(config)
 
-        messagebox.showinfo(
-            "Done!",
-            "You reset setup configuration to factory settings"
-        )
+        if show_message:
+            messagebox.showinfo(
+                "Done!",
+                "You reset setup configuration to factory settings"
+            )
 
     def setup_save(self):
 
@@ -397,10 +403,9 @@ class MainGUIApp():
 
         CreateToolTip(self.match_btn, tooltips["match_btn"])
 
-    def create_path_entry(self, frame, placeholder, FocusIn, FocusOut):
+    def create_path_entry(self, frame, FocusIn, FocusOut):
 
         entry = tk.Entry(frame, borderwidth=1)
-        entry.insert(0, placeholder)
         entry.bind('<FocusIn>', FocusIn)
         entry.bind('<FocusOut>', FocusOut)
         entry.config(fg='grey')
@@ -563,7 +568,12 @@ class MainGUIApp():
 def read_config_file(file):
 
     config = ConfigParser()
-    config.read(file)
+
+    try:
+        with open(file) as f:
+            config.read_file(f)
+    except IOError as error:
+        raise IOError(error)
 
     return config
 
