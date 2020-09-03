@@ -19,7 +19,9 @@ from Reference_Judge.Reference_Judge import Reference_Judge
 
 # https://stackoverflow.com/a/17466924/12490791
 class MainGUIApp():
-    def __init__(self, master):
+    def __init__(self):
+
+        master = tk.Tk()
 
         master.title(sys.argv[0])
         window_width = 618
@@ -52,8 +54,10 @@ class MainGUIApp():
                                pady=(0, 5), stick="we")
 
         # Images to buttons
-        self.img_open_folder = tk.PhotoImage(file="UI/images/open_folder.gif")
-        self.img_open_file = tk.PhotoImage(file="UI/images/open_file.gif")
+        self.img_open_folder = tk.PhotoImage(
+            file=f"{sys.argv[0]}/UI/images/open_folder.gif")
+        self.img_open_file = tk.PhotoImage(
+            file=f"{sys.argv[0]}/UI/images/open_file.gif")
 
         # Source buttons for path
         self.source_btn_folder = self.create_path_btn(
@@ -182,6 +186,9 @@ class MainGUIApp():
 
         self.create_menu(master)
 
+        # run UI
+        master.mainloop()
+
     # Menu Code
 
     def create_menu(self, master):
@@ -213,7 +220,7 @@ class MainGUIApp():
     def setup_open(self):
 
         setup_file = filedialog.askopenfilename(
-            initialdir="data\\appData\\_DEFAULT.ini",
+            initialdir=f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini",
             title="Save setup file",
             filetypes=[("Setup files", "*.ini")]
         )
@@ -275,7 +282,7 @@ class MainGUIApp():
 
     def setup_reset_to_defaults(self, show_message=True):
 
-        defaults_file = "data\\appData\\_DEFAULT.ini"
+        defaults_file = f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini"
 
         config = read_config_file(defaults_file)
 
@@ -289,7 +296,7 @@ class MainGUIApp():
 
     def setup_default_reset(self, show_message=True):
 
-        defaults_file = "data\\appData\\_DEFAULT.ini"
+        defaults_file = f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini"
 
         setup_saving(
             defaults_file,
@@ -314,7 +321,8 @@ class MainGUIApp():
     def setup_save(self):
 
         # to give user full path info
-        output_path = os.path.join(os.getcwd(), "data\\appData\\_DEFAULT.ini")
+        output_path = os.path.join(
+            os.getcwd(), f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini")
 
         setup_saving(
             output_path,
@@ -634,13 +642,3 @@ def setup_saving(
             config.write(configfile)
     else:
         raise OSError("There is no save path")
-
-
-def main():  # run mainloop
-    root = tk.Tk()
-    app = MainGUIApp(root)
-    root.mainloop()
-
-
-if __name__ == '__main__':
-    main()
