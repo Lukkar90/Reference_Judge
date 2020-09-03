@@ -107,7 +107,7 @@ class MainGUIApp():
                                          text="Save",
                                          variable=self.mode,
                                          value=ARGV["save"][0],
-                                         command=self.disable_output_entry
+                                         command=self.set_state_output_entry
                                          )
         self.save_radio.grid(row=0, column=0, stick="w")
 
@@ -143,7 +143,7 @@ class MainGUIApp():
                                          text="Show",
                                          variable=self.mode,
                                          value=ARGV["show"][0],
-                                         command=self.disable_output_entry
+                                         command=self.set_state_output_entry
                                          )
         self.show_radio.grid(row=3, column=0, pady=(13, 0), stick="w")
 
@@ -191,7 +191,10 @@ class MainGUIApp():
         menu_setup.add_command(label="Save", command=self.setup_save)
         menu_setup.add_command(label="Save as", command=self.setup_save_as)
         menu_setup.add_command(label="Open", command=self.setup_open)
-        menu_setup.add_command(label="Reset", command=self.setup_reset)
+        menu_setup.add_command(label="Reset to defaults",
+                               command=self.setup_reset_to_defaults)
+        menu_setup.add_command(label="Defaults reset",
+                               command=self.setup_reset_to_defaults)
         menu_setup.add_separator()
         menu_setup.add_command(label="Exit", command=master.quit)
 
@@ -212,42 +215,62 @@ class MainGUIApp():
         if not setup_file:
             return
 
-        config = ConfigParser()
-        config.read(setup_file)
+        config = read_config_file(setup_file)
 
-        # entries
-        self.source_entry.delete(0, "end")  # todo
-        self.source_entry.insert(
-            0,
-            config.get("MATCHING", "source entry")
+        self.dialogs_set_setup(config)
+
+        # refocus from any other entry to no get editing placeholder text bug
+        self.width_entry.focus()
+
+    def dialogs_set_setup(self, config):
+
+        self.source_entry = self.entry_set(
+            self.source_entry, config.get("MATCHING", "source entry")
         )
 
-        self.target_entry.config(fg='grey')  # todo
-        self.target_entry.delete(0, "end")
-        self.target_entry.insert(
-            0,
-            config.get("MATCHING", "target entry")
-        )
-        self.target_entry.config(fg='grey')
-
-        self.mode.set(config.get("OUTPUT", "mode"))  # todo
-
-        self.output_entry.delete(0, "end")  # todo
-        self.output_entry.insert(
-            0,
-            config.get("OUTPUT", "output entry")
-        )
-        self.output_entry.config(fg='grey')
-
-        self.width_entry.delete(0, "end")
-        self.width_entry.insert(
-            0,
-            config.get("OPTIONAL", "width entry")
+        self.target_entry = self.entry_set(
+            self.target_entry, config.get("MATCHING", "target entry")
         )
 
-        self.by_ratio.set(config.get("OPTIONAL", "by the same ratio"))
+        mode_content = config.get("OUTPUT", "mode")
+        self.mode.set(mode_content)
+        self.set_state_output_entry()
 
-    def setup_reset(self):
+        self.output_entry = self.entry_set(
+            self.output_entry, config.get("OUTPUT", "output entry")
+        )
+
+        self.width_entry = self.entry_set_text(
+            self.width_entry, config.get("OPTIONAL", "width entry"))
+
+        by_ratio_state = config.get("OPTIONAL", "by the same ratio")
+        self.by_ratio.set(by_ratio_state)
+
+    def entry_set(self, entry, entry_content):
+
+        entry = self.entry_set_text(entry, entry_content)
+
+        if entry_content != self.entry_text_placeholder:
+            entry.config(fg='black')
+        else:
+            entry.config(fg='grey')
+
+        return entry
+
+    def entry_set_text(self, entry, text):
+
+        entry.delete(0, "end")
+        entry.insert(
+            0,
+            text
+        )
+
+        return entry
+
+    def setup_reset_to_defaults(self):
+        pass
+
+    def setup_default_reset(self):
 
         setup_saving(
             "data\\appData\\_DEFAULT.ini",
@@ -406,7 +429,7 @@ class MainGUIApp():
 
         btn_find_path(self.output_entry, filedialog.askopenfilename)
 
-    def disable_output_entry(self):
+    def set_state_output_entry(self):
 
         if self.mode.get() == ARGV["save"][0]:
 
@@ -501,6 +524,14 @@ class MainGUIApp():
             return messagebox.showwarning(window_name, "Width should be numeric")
 
         return None
+
+
+def read_config_file(file):
+
+    config = ConfigParser()
+    config.read(file)
+
+    return config
 
 
 def on_entry_click(entry, placeholder):
