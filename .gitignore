@@ -1,6 +1,5 @@
 # untracked repositories
 __pycache__/
-data/
 .vscode/
 # untracked code
 test.py
