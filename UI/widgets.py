@@ -73,60 +73,95 @@ class CreateToolTip(object):
 class About():
     def __init__(self):
         about = tk.Toplevel()
-        about.title("My second window")
-        # top.iconbitmap("blabla")
+        about.title("About")
+        # top.iconbitmap("blabla") # todo
 
+        # main window
         pad_value = 20
         padding = tk.Frame(about, padx=pad_value, pady=pad_value)
         padding.pack()
 
+        # consts
         justify = "w"
         y_space = (15, 0)
         width = (0, 150)
-        label_font = 'Helvetica 10 bold'
+        label_font = 'Helvetica 9 bold'
 
+        # Version
         numb = "1.0.0"
-        version_label = tk.Label(padding, text="Version", font=label_font)
+        version_label = tk.Label(padding, text="Version:", font=label_font)
         version_label.pack(anchor=justify, padx=width)
         version_numb = tk.Label(padding, text=f"{numb}")
         version_numb.pack(anchor=justify)
 
+        # Licence
         _type = "MIT"
-        license_label = tk.Label(padding, text=f"License", font=label_font)
+        license_label = tk.Label(padding, text=f"License:", font=label_font)
         license_label.pack(pady=y_space, anchor=justify)
         license_type = tk.Label(padding, text=f"{_type}")
         license_type.pack(anchor=justify)
         license_link = tk.Label(padding, text="license link",
                                 fg="blue", cursor="hand2")
-        license_link.bind("<Button-1>", lambda e: callback(
+        license_link.bind("<Button-1>", lambda e: self.callback(
             "https://github.com/Lukkar90/Reference_Judge/blob/master/LICENSE"))
         license_link.pack(anchor=justify)
 
-        project_label = tk.Label(padding, text="Project site", font=label_font)
+        # Project type
+        project_label = tk.Label(padding,
+                                 text="Project site:", font=label_font)
         project_label.pack(pady=y_space, anchor=justify)
         project_link = tk.Label(padding, text="GitHub link",
                                 fg="blue", cursor="hand2")
-        project_link.bind("<Button-1>", lambda e: callback(
+        project_link.bind("<Button-1>", lambda e: self.callback(
             "https://github.com/Lukkar90/Reference_Judge"))
         project_link.pack(anchor=justify)
 
-        contribute_label = tk.Label(
-            padding, text="How to contribute", font=label_font)
+        # How to contribute
+        contribute_label = tk.Label(padding, text="How to contribute:",
+                                    font=label_font)
         contribute_label.pack(pady=y_space, anchor=justify)
         contribute_link = tk.Label(
             padding, text="Contribute link", fg="blue", cursor="hand2")
-        contribute_link.bind("<Button-1>", lambda e: callback(
+        contribute_link.bind("<Button-1>", lambda e: self.callback(
             "https://github.com/Lukkar90/Reference_Judge/blob/master/CONTRIBUTING.md"))
         contribute_link.pack(anchor=justify)
 
+        # Contact
         contact = "lukkarcontact@gmail.com"
-        contact_label = tk.Label(padding, text="Contact", font=label_font)
+        contact_label = tk.Label(padding, text="Contact:", font=label_font)
         contact_label.pack(pady=y_space, anchor=justify)
         contact_link = tk.Label(padding, text=contact,
-                                fg="blue", cursor="hand2")
-        contact_link.bind("<Button-1>", lambda e: self.callback(
-            contact))
+                                fg="blue")
         contact_link.pack(anchor=justify)
 
     def callback(self, url):
         webbrowser.open_new(url)
+
+
+class HowUse():
+    def __init__(self):
+        about = tk.Toplevel()
+        about.title("About")
+        # top.iconbitmap("blabla") # todo
+
+        # main window
+        pad_value = 20
+        padding = tk.Frame(about, padx=pad_value, pady=pad_value)
+        padding.pack()
+
+        # consts
+        justify = "w"
+        y_space = 5
+        width = (0, 150)
+        label_font = 'Helvetica 9 bold'
+
+        # todo
+        text = """
+to do
+
+        """
+        how_to_use_label = tk.Label(
+            padding, text="How to use::", font=label_font)
+        how_to_use_label.pack(anchor=justify, padx=width)
+        how_to_use_content = tk.Label(padding, text=f"{text}", pady=y_space)
+        how_to_use_content.pack(anchor=justify)

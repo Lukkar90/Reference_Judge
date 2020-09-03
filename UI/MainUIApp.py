@@ -12,7 +12,7 @@ import sys
 from cv2 import destroyAllWindows
 
 # internal libs
-from UI.widgets import CreateToolTip, About
+from UI.widgets import CreateToolTip, About, HowUse
 from Reference_Judge.config import IMAGES_SIZES, ARGV
 from Reference_Judge.Reference_Judge import Reference_Judge
 
@@ -206,7 +206,7 @@ class MainGUIApp():
 
         menu_help = tk.Menu(my_menu, tearoff=False)
         my_menu.add_cascade(label="Help", menu=menu_help)
-        menu_help.add_command(label="How to use", command=self.our_command)
+        menu_help.add_command(label="How to use", command=lambda: HowUse())
         menu_help.add_separator()
         menu_help.add_command(label="About", command=lambda: About())
 
@@ -355,25 +355,6 @@ class MainGUIApp():
                 "Done!",
                 "You saved setup file in:"f"\n{output_path}"
             )
-
-    def about(self):
-        """
-Version
-1.0.0
-
-License
-MIT
-https://github.com/Lukkar90/Reference_Judge/blob/master/LICENSE
-
-Project site
-https://github.com/Lukkar90/Reference_Judge
-
-How to contribute
-https://github.com/Lukkar90/Reference_Judge/blob/master/CONTRIBUTING.md
-
-Contact
-lukkarcontact@gmail.com
-        """
 
     def our_command(self):
         pass
