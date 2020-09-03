@@ -194,7 +194,7 @@ class MainGUIApp():
         menu_setup.add_command(label="Reset to defaults",
                                command=self.setup_reset_to_defaults)
         menu_setup.add_command(label="Defaults reset",
-                               command=self.setup_reset_to_defaults)
+                               command=self.setup_default_reset)
         menu_setup.add_separator()
         menu_setup.add_command(label="Exit", command=master.quit)
 
@@ -268,19 +268,39 @@ class MainGUIApp():
         return entry
 
     def setup_reset_to_defaults(self):
-        pass
+
+        defaults_file = "data\\appData\\_DEFAULT.ini"
+
+        config = read_config_file(defaults_file)
+
+        self.dialogs_set_setup(config)
+
+        messagebox.showinfo(
+            "Done!",
+            "You reset your setup to defaults"
+        )
 
     def setup_default_reset(self):
 
+        defaults_file = "data\\appData\\_DEFAULT.ini"
+
         setup_saving(
-            "data\\appData\\_DEFAULT.ini",
+            defaults_file,
             "Enter your path...",
             "Enter your path...",
             ARGV["save"][0],
             "Enter your path...",
             IMAGES_SIZES["default width"],
             "default",
-            reset=True
+        )
+
+        config = read_config_file(defaults_file)
+
+        self.dialogs_set_setup(config)
+
+        messagebox.showinfo(
+            "Done!",
+            "You reset setup configuration to factory settings"
         )
 
     def setup_save(self):
@@ -296,6 +316,11 @@ class MainGUIApp():
             self.output_entry.get(),
             self.width_entry.get(),
             self.by_ratio.get(),
+        )
+
+        messagebox.showinfo(
+            "Done!",
+            "You saved setup configuration to defaults"
         )
 
     def setup_save_as(self):
@@ -316,6 +341,11 @@ class MainGUIApp():
                 self.output_entry.get(),
                 self.width_entry.get(),
                 self.by_ratio.get(),
+            )
+
+            messagebox.showinfo(
+                "Done!",
+                "You saved setup file in:"f"\n{output_path}"
             )
 
     def our_command(self):
@@ -566,7 +596,6 @@ def setup_saving(
     output_entry,
     width_entry,
     by_ratio,
-    reset=False
 ):
 
     setup_content = ("[MATCHING]\n"
@@ -578,23 +607,13 @@ def setup_saving(
                      f"output entry = {output_entry}\n"
                      "\n"
                      "[OPTIONAL]\n"
-                     f"width = {width_entry}\n"
+                     f"width entry = {width_entry}\n"
                      f"by the same ratio = {by_ratio}"
                      )
 
     if output_path:
         with open(output_path, "w") as text_file:
             print(setup_content, file=text_file)
-
-        if reset:
-            message_text = "You reset default settings"
-        else:
-            message_text = "You saved setup file in:"f"\n{output_path}"
-
-        messagebox.showinfo(
-            "Done!",
-            (message_text)
-        )
     else:
         raise OSError("There is no save path")
 
