@@ -179,6 +179,8 @@ class MainGUIApp():
 
         self.create_menu(master)
 
+    # Menu Code
+
     def create_menu(self, master):
 
         self.add_tooltips_to_widgets()
@@ -350,6 +352,8 @@ class MainGUIApp():
 
     def our_command(self):
         pass
+
+    # End Menu Code
 
     def add_tooltips_to_widgets(self):
 
@@ -598,22 +602,26 @@ def setup_saving(
     by_ratio,
 ):
 
-    setup_content = ("[MATCHING]\n"
-                     f"source entry = {source_entry}\n"
-                     f"target entry = {target_entry}\n"
-                     "\n"
-                     "[OUTPUT]\n"
-                     f"mode = {mode}\n"
-                     f"output entry = {output_entry}\n"
-                     "\n"
-                     "[OPTIONAL]\n"
-                     f"width entry = {width_entry}\n"
-                     f"by the same ratio = {by_ratio}"
-                     )
+    config = ConfigParser()
+
+    config["MATCHING"] = {
+        "source entry": source_entry,
+        "target entry": target_entry
+    }
+
+    config["OUTPUT"] = {
+        "mode": mode,
+        "output entry": output_entry
+    }
+
+    config["OPTIONAL"] = {
+        "width entry": width_entry,
+        "by the same ratio": by_ratio
+    }
 
     if output_path:
-        with open(output_path, "w") as text_file:
-            print(setup_content, file=text_file)
+        with open(output_path, "w") as configfile:
+            config.write(configfile)
     else:
         raise OSError("There is no save path")
 
