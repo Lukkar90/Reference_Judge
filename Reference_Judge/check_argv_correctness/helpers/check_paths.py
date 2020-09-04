@@ -44,7 +44,8 @@ def check_paths(_argv):
         original_ref_kind,
         app_ref_kind,
         original_reference_path,
-        app_reference_path
+        app_reference_path,
+        output_path
     )
 
 
@@ -110,7 +111,8 @@ def check_paths_legal_combinations(
     original_ref_kind,
         app_ref_kind,
         original_reference_path,
-        app_reference_path
+        app_reference_path,
+        output_path
 ):
     """if wrong, it exits program"""
 
@@ -134,6 +136,15 @@ def check_paths_legal_combinations(
         original_reference_path,
         app_reference_path
     )
+
+    # check if original ref and app ref are the same as output
+    if output_path:
+
+        check_if_app_or_original_are_same_as_output(
+            output_path,
+            original_reference_path,
+            app_reference_path
+        )
 
 
 def check_original_and_reference_if_dirs(
@@ -185,6 +196,24 @@ def check_if_original_dir_and_reference_file_or_url(
     if original_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
         sys.exit(f"{ERRORS_MESSAGES['Original dir App file']}\n"
                  f" {original_reference_path}\n"
+                 f" {app_reference_path}\n"
+                 f"{help_tip()}")
+
+
+def check_if_app_or_original_are_same_as_output(output_path, original_reference_path, app_reference_path):
+    """if wrong, it exits program"""
+
+    # make sure that output path wil be always dir to compare
+    if os.path.isfile(output_path):
+        output_path = os.path.dirname(output_path)
+
+    if output_path == original_reference_path:
+        sys.exit(f'{ERRORS_MESSAGES["output same as original"]}\n'
+                 f" {original_reference_path}\n"
+                 f"{help_tip()}")
+
+    if output_path == app_reference_path:
+        sys.exit(f'{ERRORS_MESSAGES["output same as app"]}\n'
                  f" {app_reference_path}\n"
                  f"{help_tip()}")
 

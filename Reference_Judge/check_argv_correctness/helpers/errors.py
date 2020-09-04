@@ -21,6 +21,8 @@ ERRORS_MESSAGES = {
     "5th last arg -br": f'Error: 5th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:',
     "one arg too much": "Error: one argument too much:",
     "not mode": f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:',
+    "output same as original": 'Output directory can\'t be the same as "original references":',
+    "output same as app": 'Output directory can\'t be the same as "app references":',
 }
 
 
