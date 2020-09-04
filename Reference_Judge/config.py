@@ -14,6 +14,7 @@ IMAGES_SIZES = {
     "highest scale":  4.0,  # to avoid image distortions
     "lowest scale": 0.5,  # to avoid image distortions
     "biggest dimension": 1080,  # to avoid performance issues
+    "smallest dimension": 1,
     "default width": 360,
 }
 
