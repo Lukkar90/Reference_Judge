@@ -60,7 +60,9 @@ def check_mode_save(argv_):
     elif len(argv_) == 7:
 
         if not is_legit_width(argv_, 5):
-            sys.exit(f'{ERRORS_MESSAGES["5th numeric"]}\n')
+            sys.exit(f'{ERRORS_MESSAGES["5th numeric"]}\n'
+                     f" {argv_[5]}\n"
+                     f"{help_tip()}")
 
         if not is_last_argv_by_ratio(argv_):
             sys.exit(f'{ERRORS_MESSAGES["6th last arg"]}:\n'

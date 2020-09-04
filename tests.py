@@ -473,6 +473,74 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
+    def test_FAIL_output_directory_is_URL(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.http_target]
+
+        error_message = (f"{ERRORS_MESSAGES['cant be url']}\n"
+                         f" {self.http_target}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_Original_app_same_dirs(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.source_dir, self.save, self.output_dir]
+
+        error_message = (f"{ERRORS_MESSAGES['Original App same']}\n"
+                         f" {self.source_dir}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_Original_more_than_app(self):
+
+        _argv = [program_name, self.target_dir,
+                 self.source_dir, self.save, self.output_dir]
+
+        error_message = (f"{ERRORS_MESSAGES['Original > App']}\n"
+                         f" {self.target_dir}\n"
+                         f" {self.source_dir}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_Original_app_same_files(self):
+
+        _argv = [program_name, self.source_single,
+                 self.source_single, self.save, self.output_dir]
+
+        error_message = (f"{ERRORS_MESSAGES['Original App same files']}\n"
+                         f" {self.source_single}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_Original_dir_App_file(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_single, self.save, self.output_dir]
+
+        error_message = (f"{ERRORS_MESSAGES['Original dir App file']}\n"
+                         f" {self.source_dir}\n"
+                         f" {self.target_single}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_5th_numeric(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.output_dir, self.random, self.by_ratio]
+
+        error_message = (f"{ERRORS_MESSAGES['5th numeric']}\n"
+                         f" {self.random}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
     def test_FAIL_http_Error_404(self):
 
         _argv = [program_name, self.http_source_fail,
