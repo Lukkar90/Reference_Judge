@@ -140,7 +140,7 @@ def check_paths_legal_combinations(
     # check if original ref and app ref are the same as output
     if output_path:
 
-        check_if_app_or_original_are_same_as_output(
+        check_if_app_or_original_paths_are_same_as_output(
             output_path,
             original_reference_path,
             app_reference_path
@@ -200,7 +200,7 @@ def check_if_original_dir_and_reference_file_or_url(
                  f"{help_tip()}")
 
 
-def check_if_app_or_original_are_same_as_output(output_path, original_reference_path, app_reference_path):
+def check_if_app_or_original_paths_are_same_as_output(output_path, original_reference_path, app_reference_path):
     """if wrong, it exits program"""
 
     # make sure that output path wil be always dir to compare

@@ -634,6 +634,28 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
+    def test_FAIL_original_same_as_output(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.source_dir]
+
+        error_message = (f'{ERRORS_MESSAGES["output same as original"]}\n'
+                         f" {self.source_dir}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_app_same_as_output(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.target_dir]
+
+        error_message = (f'{ERRORS_MESSAGES["output same as app"]}\n'
+                         f" {self.target_dir}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
 
 if __name__ == '__main__':
     unittest.main()
