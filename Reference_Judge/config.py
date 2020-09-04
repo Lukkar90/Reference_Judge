@@ -13,7 +13,7 @@ ARGV = {
 IMAGES_SIZES = {
     "highest scale":  4.0,  # to avoid image distortions
     "lowest scale": 0.5,  # to avoid image distortions
-    "biggest dimmension": 1080,  # to avoid performance issues
+    "biggest dimension": 1080,  # to avoid performance issues
     "default width": 360,
 }
 

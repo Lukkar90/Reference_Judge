@@ -7,6 +7,8 @@ except ImportError:
     import tkinter as tk
 import webbrowser
 
+# Internal libs
+from Reference_Judge.config import IMAGES_SIZES
 
 # tk_ToolTip_class101.py
 # gives a Tkinter widget a tooltip as the mouse is above the widget
@@ -14,6 +16,7 @@ import webbrowser
 # www.daniweb.com/programming/software-development/code/484591/a-tooltip-class-for-tkinter
 
 # Modified to include a delay time by Victor Zaccardo, 25mar16
+
 
 class CreateToolTip(object):
     """
@@ -141,7 +144,7 @@ class About():
 class HowUse():
     def __init__(self):
         about = tk.Toplevel()
-        about.title("About")
+        about.title("How to use")
         # top.iconbitmap("blabla") # todo
 
         # main window
@@ -151,17 +154,23 @@ class HowUse():
 
         # consts
         justify = "w"
-        y_space = 5
+        y_space = (0, 5)
         width = (0, 150)
         label_font = 'Helvetica 9 bold'
 
         # todo
-        text = """
-to do
-
+        text = f"""
+1. Choose source images ("original refs") and target images ("App refs") paths to compare.
+2. In best case images has to be the same size.
+3. If sizes are different you can check "Search by the same ratio", but then you will get artifacts in renders.
+To avoid too big distortions, accepted ratios between compared images are from {IMAGES_SIZES["lowest scale"]} to {IMAGES_SIZES["highest scale"]}.
+4. Choose output methods ("Save" or "Show"), with provided path or not.
+5. Set any width's display images between 1 and {IMAGES_SIZES["biggest dimension"]} (px value).
+6. Finally push "Match images" button to render results.
         """
         how_to_use_label = tk.Label(
             padding, text="How to use::", font=label_font)
         how_to_use_label.pack(anchor=justify, padx=width)
-        how_to_use_content = tk.Label(padding, text=f"{text}", pady=y_space)
-        how_to_use_content.pack(anchor=justify)
+        how_to_use_content = tk.Label(
+            padding, text=f"{text}", justify="left")
+        how_to_use_content.pack(pady=y_space)

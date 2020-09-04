@@ -535,6 +535,7 @@ class MainGUIApp():
             summary = Reference_Judge(_argv)
         except SystemExit as error:
             messagebox.showwarning(window_name, error)
+            return
 
         if mode == ARGV["show"][0]:
             destroyAllWindows()  # to avoid bug with not closing last window

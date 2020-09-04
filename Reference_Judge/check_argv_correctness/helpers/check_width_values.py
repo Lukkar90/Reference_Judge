@@ -8,7 +8,7 @@ from Reference_Judge.check_argv_correctness.helpers.errors import get_error_widt
 
 def check_width_values(argv_):
     """
-    check if width value is lower or equal IMAGES_SIZES["biggest dimmension"]
+    check if width value is lower or equal IMAGES_SIZES["biggest dimension"]
     in save or show mode
     """
 
@@ -23,7 +23,7 @@ def check_width_values(argv_):
 
 
 def check_legal_value(argv_, cap_len_argv):
-    """check if width value is lower or equal IMAGES_SIZES["biggest dimmension"]"""
+    """check if width value is lower or equal IMAGES_SIZES["biggest dimension"]"""
 
     n = cap_len_argv
 
@@ -33,7 +33,7 @@ def check_legal_value(argv_, cap_len_argv):
         width = int(argv_[n - 2])
 
         # check if value is too high
-        if width > IMAGES_SIZES["biggest dimmension"]:
+        if width > IMAGES_SIZES["biggest dimension"]:
             sys.exit(get_error_width_too_high(width))
 
 

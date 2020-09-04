@@ -32,7 +32,7 @@ def get_error_directory_does_not_exists(dir_kind):
 
 def get_error_width_too_high(width):
 
-    return f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimmension']}"
+    return f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimension']}"
 
 
 def get_error_no_images_in_dir(dir_kind):
