@@ -162,7 +162,7 @@ def check_original_and_reference_if_dirs(
                      f" {original_reference_path}\n"
                      f"{help_tip()}")
 
-        if count_legit_images(original_reference_path) > count_legit_images(app_reference_path):
+        if count_legal_images(original_reference_path) > count_legal_images(app_reference_path):
             sys.exit(f'{ERRORS_MESSAGES["Original > App"]}\n'
                      f" {original_reference_path}\n"
                      f" {app_reference_path}\n"
@@ -288,12 +288,12 @@ def url_exists(url):
 
 
 def is_empty(directory_path):
-    """Check if there are images with LEGIT_EXTENSIONS"""
+    """Check if there are images with LEGAL_EXTENSIONS"""
 
     # Init variables
     there_are_files = False
 
-    # check if there is any legit image in directory
+    # check if there is any legal image in directory
     for file_name in os.listdir(directory_path):
 
         full_path = os.path.join(directory_path, file_name)
@@ -305,7 +305,7 @@ def is_empty(directory_path):
     return not there_are_files
 
 
-def count_legit_images(directory_path):
-    """Count all images with LEGIT_EXTENSIONS"""
+def count_legal_images(directory_path):
+    """Count all images with LEGAL_EXTENSIONS"""
 
     return len([name for name in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, name)) and name.endswith(LEGAL_EXTENSIONS)])

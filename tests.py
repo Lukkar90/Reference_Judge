@@ -11,7 +11,7 @@ import cv2
 
 from Reference_Judge.help import help_tip, help_command_line
 from Reference_Judge.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
-from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
+from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legal_images
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.check_argv_correctness.helpers.errors import (
     ERRORS_MESSAGES,
@@ -90,7 +90,7 @@ def check_if_width_is_correct(width, output_folder):
 
 def test_save_mode(self, _argv, number_of_saved):
 
-    # parse to pass in legit_5_times_widths
+    # parse to pass in legal_5_times_widths
     if self.width in _argv:
         width = self.width
     else:
@@ -104,8 +104,8 @@ def test_save_mode(self, _argv, number_of_saved):
     Reference_Judge(_argv)
 
     # check conditions
-    number_of_created_files = count_legit_images(self.output_dir)
-    legit_5_times_widths = check_if_width_is_correct(
+    number_of_created_files = count_legal_images(self.output_dir)
+    legal_5_times_widths = check_if_width_is_correct(
         width, self.output_dir)
 
     # refresh folder
@@ -117,7 +117,7 @@ def test_save_mode(self, _argv, number_of_saved):
                          number_of_saved, f"Should be {number_of_saved}")
 
     with self.subTest():
-        self.assertTrue(legit_5_times_widths,
+        self.assertTrue(legal_5_times_widths,
                         "Should be 5 more than width input")
 
 

@@ -32,7 +32,7 @@ def get_similar_images_list(source_directory_path, target_directory_path, by_rat
 
 
 def files_paths(directory):
-    """returning legit list paths of files in chosen directory"""
+    """returning legal list paths of files in chosen directory"""
 
     error_check_path_is_empty_string(directory)
 
@@ -45,7 +45,7 @@ def files_paths(directory):
 
         full_path = os.path.join(directory, file_)
 
-        # (tuple(LEGIT_EXTENSIONS) to use multiply arguments
+        # (tuple(LEGAL_EXTENSIONS) to use multiply arguments
         if os.path.isfile(full_path) and file_.endswith(LEGAL_EXTENSIONS):
             paths.append(full_path)
 
