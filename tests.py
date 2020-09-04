@@ -530,6 +530,16 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
+    def test_FAIL_http_Error_404(self):
+
+        _argv = [program_name, self.http_source_fail,
+                 self.target_dir, self.save, self.output_dir]
+
+        error_message = (f"{ERRORS_MESSAGES['404']}\n"
+                         f" {self.http_source_fail}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
     def test_FAIL_5th_numeric(self):
 
         _argv = [program_name, self.source_dir,
@@ -563,13 +573,25 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_http_Error_404(self):
+    def test_FAIL_one_too_much(self):
 
-        _argv = [program_name, self.http_source_fail,
-                 self.target_dir, self.save, self.output_dir]
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.show, self.width, self.by_ratio, self.random]
 
-        error_message = (f"{ERRORS_MESSAGES['404']}\n"
-                         f" {self.http_source_fail}")
+        error_message = (f"{ERRORS_MESSAGES['one arg too much']}\n"
+                         f" {self.random}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_not_mode(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.random]
+
+        error_message = (f"{ERRORS_MESSAGES['not mode']}\n"
+                         f" {self.random}\n"
+                         f"{help_tip()}")
 
         test_FAIL_argv(self, _argv, error_message)
 
