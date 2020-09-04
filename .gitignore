@@ -2,8 +2,6 @@
 __pycache__/
 # exclude everything
 data/images/output/*
-# exception to the rule
-!data/images/output/.gitkeep 
 .vscode/
 # untracked code
 test.py

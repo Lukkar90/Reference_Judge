@@ -161,12 +161,12 @@ class HowUse():
         # todo
         text = f"""
 1. Choose source images ("original refs") and target images ("App refs") paths to compare.
-2. In best case images has to be the same size.
-3. If sizes are different you can check "Search by the same ratio", but then you will get artifacts in renders.
+2. In the best case, images have to be the same size.
+3. If sizes are different, you can check "Search by the same ratio". But then you will get artifacts in renders.
 To avoid too big distortions, accepted ratios between compared images are from {IMAGES_SIZES["lowest scale"]} to {IMAGES_SIZES["highest scale"]}.
-4. Choose output methods ("Save" or "Show"), with provided path or not.
+4. Choose output methods ("Save" or "Show"), with the provided path or not.
 5. Set any width's display images between 1 and {IMAGES_SIZES["biggest dimension"]} (px value).
-6. Finally push "Match images" button to render results.
+6. Finally, push the "Match images" button to render results.
         """
         how_to_use_label = tk.Label(
             padding, text="How to use::", font=label_font)

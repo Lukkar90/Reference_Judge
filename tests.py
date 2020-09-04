@@ -34,7 +34,7 @@ class Style():
 
 
 def print_image_show_up_notification():
-    print(Style.RED + 'NOTE: Press the "0" key, to close opened windows' + Style.RESET)
+    print(Style.BLUE + 'NOTE: Press the "0" key, to close opened windows' + Style.RESET)
 
 
 def _get_app_absolute_dir_path(path):
@@ -50,14 +50,15 @@ def get_program_name():
 
 def make_folder_empty(folder):
     for filename in os.listdir(folder):
-        file_path = os.path.join(folder, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except OSError as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
+        if filename != ".gitkeep":
+            file_path = os.path.join(folder, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except OSError as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 def check_if_width_is_correct(width, output_folder):
@@ -65,16 +66,18 @@ def check_if_width_is_correct(width, output_folder):
 
     for filename in os.listdir(output_folder):
 
-        file_path = os.path.join(output_folder, filename)
+        if filename != ".gitkeep":
 
-        if os.path.isfile(file_path) and file_path.endswith(LEGAL_EXTENSIONS):
+            file_path = os.path.join(output_folder, filename)
 
-            img = cv2.imread(file_path, 0)
-            width_image = img.shape[1]
+            if os.path.isfile(file_path) and file_path.endswith(LEGAL_EXTENSIONS):
 
-            if int(width_image / 5) != int(width):
-                are_correct = False
-                break
+                img = cv2.imread(file_path, 0)
+                width_image = img.shape[1]
+
+                if int(width_image / 5) != int(width):
+                    are_correct = False
+                    break
 
     return are_correct
 

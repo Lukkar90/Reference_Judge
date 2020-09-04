@@ -46,7 +46,7 @@ def files_paths(directory):
         full_path = os.path.join(directory, file_)
 
         # (tuple(LEGIT_EXTENSIONS) to use multiply arguments
-        if os.path.isfile(full_path) and file_.endswith(tuple(LEGAL_EXTENSIONS)):
+        if os.path.isfile(full_path) and file_.endswith(LEGAL_EXTENSIONS):
             paths.append(full_path)
 
     return paths
