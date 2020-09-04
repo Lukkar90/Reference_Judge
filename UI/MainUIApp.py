@@ -178,6 +178,8 @@ class MainGUIApp():
                             stick="we", padx=(10, 10))
 
         # populate dialogs with default values
+        self.defaults_path = f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini"
+
         try:
             self.setup_reset_to_defaults(show_message=False)
         except IOError:
@@ -220,7 +222,7 @@ class MainGUIApp():
     def setup_open(self):
 
         setup_file = filedialog.askopenfilename(
-            initialdir=f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini",
+            initialdir=self.defaults_path,
             title="Save setup file",
             filetypes=[("Setup files", "*.ini")]
         )
@@ -282,7 +284,7 @@ class MainGUIApp():
 
     def setup_reset_to_defaults(self, show_message=True):
 
-        defaults_file = f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini"
+        defaults_file = self.defaults_path
 
         config = read_config_file(defaults_file)
 
@@ -296,7 +298,7 @@ class MainGUIApp():
 
     def setup_default_reset(self, show_message=True):
 
-        defaults_file = f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini"
+        defaults_file = self.defaults_path
 
         setup_saving(
             defaults_file,
@@ -322,7 +324,7 @@ class MainGUIApp():
 
         # to give user full path info
         output_path = os.path.join(
-            os.getcwd(), f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini")
+            os.getcwd(), self.defaults_path)
 
         setup_saving(
             output_path,
