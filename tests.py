@@ -541,6 +541,28 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
+    def test_FAIL_4th_numeric(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.show, self.random, self.by_ratio]
+
+        error_message = (f"{ERRORS_MESSAGES['4th numeric']}\n"
+                         f" {self.random}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_5th_last_arg_br(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.show, self.width, self.random]
+
+        error_message = (f"{ERRORS_MESSAGES['5th last arg -br']}\n"
+                         f" {self.random}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
     def test_FAIL_http_Error_404(self):
 
         _argv = [program_name, self.http_source_fail,

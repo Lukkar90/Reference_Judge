@@ -86,7 +86,9 @@ def check_mode_show(argv_):
 
         if not is_legit_width(argv_, 4):
 
-            sys.exit(f'{ERRORS_MESSAGES["4th numeric"]}\n')
+            sys.exit(f'{ERRORS_MESSAGES["4th numeric"]}\n'
+                     f" {argv_[4]}\n"
+                     f"{help_tip()}")
 
         if not is_5th_by_ratio(argv_):
             sys.exit(f'{ERRORS_MESSAGES["5th last arg -br"]}\n'
