@@ -13,7 +13,13 @@ from Reference_Judge.help import help_tip, help_command_line
 from Reference_Judge.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legit_images
 from Reference_Judge.Reference_Judge import Reference_Judge
-from Reference_Judge.check_argv_correctness.helpers.errors import ERRORS_MESSAGES, get_error_directory_does_not_exists
+from Reference_Judge.check_argv_correctness.helpers.errors import (
+    ERRORS_MESSAGES,
+    get_error_directory_does_not_exists,
+    get_error_no_images_in_dir,
+    get_error_width_too_high,
+    get_error_width_too_low
+)
 
 # https://stackoverflow.com/a/54955094/12490791
 
@@ -201,7 +207,11 @@ class TestReferenceJudge(unittest.TestCase):
         self.show = ARGV["show"][0]
 
         self.width = "200"
-        self.width_DEFAULT = IMAGES_SIZES["default width"]
+        self.width_DEFAULT = IMAGES_SIZES["default width"]  # It's no arg
+        self.width_too_low = str(
+            IMAGES_SIZES["smallest dimension"] - 1)  # It's arg
+        self.width_too_high = str(
+            IMAGES_SIZES["biggest dimension"] + 1)  # It's arg
 
         self.by_ratio = test_paths["by ratio"]
 
@@ -591,6 +601,35 @@ class TestReferenceJudge(unittest.TestCase):
 
         error_message = (f"{ERRORS_MESSAGES['not mode']}\n"
                          f" {self.random}\n"
+                         f"{help_tip()}")
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_width_too_low(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.output_dir, self.width_too_low]
+
+        error_message = (get_error_width_too_low(self.width_too_low))
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_width_too_high(self):
+
+        _argv = [program_name, self.source_dir,
+                 self.target_dir, self.save, self.output_dir, self.width_too_high]
+
+        error_message = (get_error_width_too_high(self.width_too_high))
+
+        test_FAIL_argv(self, _argv, error_message)
+
+    def test_FAIL_original_no_images(self):
+
+        _argv = [program_name, self.output_dir,
+                 self.target_dir, self.show]
+
+        error_message = (f"{get_error_no_images_in_dir('original references')}\n"
+                         f" {self.output_dir}\n"
                          f"{help_tip()}")
 
         test_FAIL_argv(self, _argv, error_message)

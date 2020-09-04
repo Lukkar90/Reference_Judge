@@ -570,7 +570,7 @@ class MainGUIApp():
         if mode == ARGV["save"][0] and (not output or output == self.entry_text_placeholder):
             return messagebox.showwarning(window_name, "No output path")
 
-        if width == "":
+        if width == IMAGES_SIZES["default width"]:
             return messagebox.showwarning(window_name, "No width")
 
         if not width.isnumeric():
