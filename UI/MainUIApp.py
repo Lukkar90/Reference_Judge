@@ -25,7 +25,7 @@ class MainGUIApp():
 
         master.title(sys.argv[0])
         window_width = 618
-        window_height = 570
+        window_height = 555
         master.geometry(f"{window_width}x{window_height}")
 
         # Create frames
