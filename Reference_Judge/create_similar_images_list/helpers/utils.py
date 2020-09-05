@@ -82,7 +82,7 @@ class ReferencePair():
     def __init__(self, source_name, source_path, target_path, similarity):
         self.dictionary = {
             "source_reference_name": source_name,
-            "source_reference_path": source_path,
+            "source reference path": source_path,
             "target_reference_path": target_path,
             "similarity": similarity
         }
