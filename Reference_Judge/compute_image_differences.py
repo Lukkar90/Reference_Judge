@@ -22,7 +22,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
     }
 
     # upload name which would be used to save file in output directory
-    source_name = similar_pair["source_reference_name"]
+    source_name = similar_pair["source reference name"]
 
     image_A = upload_image(paths["first"])
     image_B = upload_image(paths["second"])
