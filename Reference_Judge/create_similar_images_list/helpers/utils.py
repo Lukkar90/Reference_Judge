@@ -67,7 +67,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
                 # filtering most similar image
                 if most_similar_image["similarity"] < similarity > SIMILARITY["not enough"]:
                     most_similar_image["similarity"] = similarity
-                    most_similar_image["file_path"] = target_path
+                    most_similar_image["file path"] = target_path
 
                 # For performance, it's high propability that with this value is the same image
                 if most_similar_image["similarity"] >= SIMILARITY["enough"]:
@@ -82,7 +82,7 @@ class ReferencePair():
     def __init__(self, source_name, source_path, target_path, similarity):
         self.dictionary = {
             "source_reference_name": source_name,
-            "source_reference_path": source_path,
+            "source reference path": source_path,
             "target_reference_path": target_path,
             "similarity": similarity
         }
@@ -90,4 +90,4 @@ class ReferencePair():
 
 def no_similar_images(similar_image):
     """return bool"""
-    return similar_image["file_path"] == ""
+    return similar_image["file path"] == ""

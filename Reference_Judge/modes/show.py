@@ -46,8 +46,8 @@ def show_images(width, images):
     # Images
     source = images["Source"]
     target = images["Modified"]
-    diff_BGR = images["Difference_RGB"]
-    diff = images["Difference_Structure"]
+    diff_BGR = images["Difference RGB"]
+    diff = images["Difference Structure"]
     thresh = images["Thresh"]
 
     # Show images

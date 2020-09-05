@@ -22,6 +22,11 @@ DESCRIPTION
     Of course, it can be used for any other matching images purposes
 
     This program uses image recognition algorithms from https://opencv.org/
+
+AUTHOR
+
+    Karol Łukaszczyk
+    e-mail: lukkarcontact@gmail.com
 """
 
 

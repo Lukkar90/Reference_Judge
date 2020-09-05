@@ -76,7 +76,7 @@ def create_similar_images_list(sources_paths, target_directory_path, by_ratio):
             reference_pair = ReferencePair(
                 source_name,
                 source_path,
-                similar_image["file_path"],
+                similar_image["file path"],
                 similar_image["similarity"]).dictionary
 
             # Notice User with searching progress
