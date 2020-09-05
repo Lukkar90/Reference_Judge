@@ -18,7 +18,7 @@ from Reference_Judge.config import IMAGES_SIZES
 # Modified to include a delay time by Victor Zaccardo, 25mar16
 
 
-class CreateToolTip(object):
+class CreateToolTip():
     """
     create a tooltip for a given widget
     """
@@ -32,7 +32,7 @@ class CreateToolTip(object):
         self.widget.bind("<Leave>", self.leave)
         self.widget.bind("<ButtonPress>", self.leave)
         self.id = None
-        self.tw = None
+        self.top_window = None
 
     def enter(self, event=None):
         self.schedule()
@@ -53,27 +53,29 @@ class CreateToolTip(object):
 
     def showtip(self, event=None):
         x = y = 0
-        x, y, cx, cy = self.widget.bbox("insert")
+        x, y = self.widget.bbox("insert")[:2]
         x += self.widget.winfo_rootx() + 25
         y += self.widget.winfo_rooty() + 20
         # creates a toplevel window
-        self.tw = tk.Toplevel(self.widget)
+        self.top_window = tk.Toplevel(self.widget)
         # Leaves only the label and removes the app window
-        self.tw.wm_overrideredirect(True)
-        self.tw.wm_geometry("+%d+%d" % (x, y))
-        label = tk.Label(self.tw, text=self.text, justify='left',
+        self.top_window.wm_overrideredirect(True)
+        self.top_window.wm_geometry("+%d+%d" % (x, y))
+        label = tk.Label(self.top_window, text=self.text, justify='left',
                          background="#ffffff", relief='solid', borderwidth=1,
                          wraplength=self.wraplength)
         label.pack(ipadx=1)
 
     def hidetip(self):
-        tw = self.tw
-        self.tw = None
-        if tw:
-            tw.destroy()
+        top_window = self.top_window
+        self.top_window = None
+        if top_window:
+            top_window.destroy()
 
 
 class About():
+    """Pop-up window displaying information about creator and project"""
+
     def __init__(self):
         about = tk.Toplevel()
         about.title("About")
@@ -99,7 +101,7 @@ class About():
 
         # Licence
         _type = "MIT"
-        license_label = tk.Label(padding, text=f"License:", font=label_font)
+        license_label = tk.Label(padding, text="License:", font=label_font)
         license_label.pack(pady=y_space, anchor=justify)
         license_type = tk.Label(padding, text=f"{_type}")
         license_type.pack(anchor=justify)
@@ -142,6 +144,8 @@ class About():
 
 
 class HowUse():
+    """Pop-up window displaying information about usage"""
+
     def __init__(self):
         about = tk.Toplevel()
         about.title("How to use")
@@ -158,7 +162,6 @@ class HowUse():
         width = (0, 150)
         label_font = 'Helvetica 9 bold'
 
-        # todo
         text = f"""
 1. Choose source images ("original refs") and target images ("App refs") paths to compare.
 2. In the best case, images have to be the same size.
