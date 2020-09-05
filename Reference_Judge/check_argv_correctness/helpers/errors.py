@@ -12,7 +12,7 @@ ERRORS_MESSAGES = {
     "output does not exists": "Error: Output directory does not exists:",
     "cant be url": "Error: output can\'t be url:",
     "Source App same": 'Error: "original references" and "app references" directories are the same:',
-    "Original > App": 'Error: There are more images in "original references" dir than in "app references" dir:',
+    "Source > App": 'Error: There are more images in "original references" dir than in "app references" dir:',
     "Source App same files": "Error: Both files have the same path:",
     "Original dir App file": "Error: Original reference path can't be directory, if app reference is only one file:",
     "404": "Error: path http: HTTP Error 404: Not Found:",
