@@ -55,11 +55,11 @@ def compute_image_differences(similar_pair, by_ratio=False):
 
     # Images data to latter process
     computed_images = {
-        "Source_name": source_name,
+        "Source name": source_name,
         "Source": image_A,
         "Modified": image_B,
-        "Difference_RGB": diff_BGR,
-        "Difference_Structure": diff,
+        "Difference RGB": diff_BGR,
+        "Difference Structure": diff,
         "Thresh": thresh
     }
 

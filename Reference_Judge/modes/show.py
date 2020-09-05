@@ -53,6 +53,6 @@ def show_images(width, images):
     # Show images
     cv2.imshow("Source", source)
     cv2.imshow("Modified", target)
-    cv2.imshow("Difference_RGB", diff_BGR)
-    cv2.imshow("Difference_Structure", diff)
+    cv2.imshow("Difference RGB", diff_BGR)
+    cv2.imshow("Difference Structure", diff)
     cv2.imshow("Thresh", thresh)

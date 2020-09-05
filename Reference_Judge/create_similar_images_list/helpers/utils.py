@@ -34,7 +34,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
     s_height, s_width = source_image.shape
 
-    most_similar_image = {"file_path": "", "similarity": 0}
+    most_similar_image = {"file path": "", "similarity": 0}
     source_extension = os.path.splitext(file_source_path)
 
     # Check each file in chosen folder to find this most similar
@@ -82,7 +82,7 @@ class ReferencePair():
     def __init__(self, source_name, source_path, target_path, similarity):
         self.dictionary = {
             "source_reference_name": source_name,
-            "source reference path": source_path,
+            "source_reference_path": source_path,
             "target_reference_path": target_path,
             "similarity": similarity
         }

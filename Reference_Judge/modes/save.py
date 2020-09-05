@@ -83,8 +83,8 @@ def save_images_as_one(images, output_path, width):
 
         source = add_text_to_image(source, "Source")
         target = add_text_to_image(target, "Target")
-        diff_BGR = add_text_to_image(diff_BGR, "Difference_RGB")
-        diff = add_text_to_image(diff, "Difference_Structure")
+        diff_BGR = add_text_to_image(diff_BGR, "Difference RGB")
+        diff = add_text_to_image(diff, "Difference Structure")
         thresh = add_text_to_image(thresh, "Thresh")
 
     # Combining all images into one
