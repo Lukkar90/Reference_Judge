@@ -216,9 +216,9 @@ class MainGUIApp():
 
         menu_help = tk.Menu(my_menu, tearoff=False)
         my_menu.add_cascade(label="Help", menu=menu_help)
-        menu_help.add_command(label="How to use", command=lambda: HowUse())
+        menu_help.add_command(label="How to use", command=HowUse)
         menu_help.add_separator()
-        menu_help.add_command(label="About", command=lambda: About())
+        menu_help.add_command(label="About", command=About)
 
     def setup_open(self):
 
@@ -526,7 +526,7 @@ class MainGUIApp():
             _argv.append(by_ratio)
 
         window_name = "Wrong input"
-        if self.pop_up_invalid_entry_path(window_name, source, target, mode, output, width):
+        if self.pop_up_invalid_entry_path(window_name, source, target, output, mode, width):
             return
 
         try:
