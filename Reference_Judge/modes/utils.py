@@ -30,7 +30,7 @@ def resize_all(images, width):
     """Change all image size keeping ratio"""
 
     for image in images:
-        if not image == "Original_name":  # This is the only value in dict which is not a image
+        if not image == "Source_name":  # This is the only value in dict which is not a image
             resize = resize_with_with_aspect_ratio(images[image], width)
             images[image] = resize
 

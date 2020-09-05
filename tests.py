@@ -447,7 +447,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_directory_with_app_references_does_not_exists(self):
+    def test_FAIL_directory_with_target_references_does_not_exists(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_dir_fail, self.show]
@@ -642,7 +642,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_app_same_as_output(self):
+    def test_FAIL_target_same_as_output(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.save, self.target_dir]

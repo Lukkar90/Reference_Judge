@@ -44,14 +44,14 @@ def show_images(width, images):
     images = resize_all(images, width)
 
     # Images
-    source = images["Original"]
+    source = images["Source"]
     target = images["Modified"]
     diff_BGR = images["Difference_RGB"]
     diff = images["Difference_Structure"]
     thresh = images["Thresh"]
 
     # Show images
-    cv2.imshow("Original", source)
+    cv2.imshow("Source", source)
     cv2.imshow("Modified", target)
     cv2.imshow("Difference_RGB", diff_BGR)
     cv2.imshow("Difference_Structure", diff)

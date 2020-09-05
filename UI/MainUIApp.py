@@ -377,7 +377,7 @@ class MainGUIApp():
             "save": "Save matched images in chosen directory",
             "show": "Show matched images",
             "width": "Width of each separate image",
-            "by_ratio": 'Match images refs: "Original -> App", ' +
+            "by_ratio": 'Match images refs: "Source -> Target", ' +
             "with diffrent sizes but the same ratio.\n" +
             "Not recommended due to distortions.",
             "btn_folder": "Choose folder...",

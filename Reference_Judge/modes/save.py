@@ -67,8 +67,8 @@ def save_images_as_one(images, output_path, width):
     images = resize_all(images, width)
 
     # Images to display
-    source_name = images["Original_name"]
-    source = images["Original"]
+    source_name = images["Source_name"]
+    source = images["Source"]
     target = images["Modified"]
     diff_BGR = images["Difference_RGB"]
     diff = images["Difference_Structure"]
