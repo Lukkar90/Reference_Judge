@@ -56,15 +56,14 @@ def get_program_name():
 
 def make_folder_empty(folder):
     for filename in os.listdir(folder):
-        if filename != ".gitkeep":
-            file_path = os.path.join(folder, filename)
-            try:
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.unlink(file_path)
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except OSError as e:
-                print('Failed to delete %s. Reason: %s' % (file_path, e))
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except OSError as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 def check_if_width_is_correct(width, output_folder):
@@ -72,18 +71,16 @@ def check_if_width_is_correct(width, output_folder):
 
     for filename in os.listdir(output_folder):
 
-        if filename != ".gitkeep":
+        file_path = os.path.join(output_folder, filename)
 
-            file_path = os.path.join(output_folder, filename)
+        if os.path.isfile(file_path) and file_path.endswith(LEGAL_EXTENSIONS):
 
-            if os.path.isfile(file_path) and file_path.endswith(LEGAL_EXTENSIONS):
+            img = cv2.imread(file_path, 0)
+            width_image = img.shape[1]
 
-                img = cv2.imread(file_path, 0)
-                width_image = img.shape[1]
-
-                if int(width_image / 5) != int(width):
-                    are_correct = False
-                    break
+            if int(width_image / 5) != int(width):
+                are_correct = False
+                break
 
     return are_correct
 
