@@ -18,7 +18,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
 
     paths = {
         "first": similar_pair["source reference path"],
-        "second": similar_pair["target_reference_path"]
+        "second": similar_pair["target reference path"]
     }
 
     # upload name which would be used to save file in output directory
