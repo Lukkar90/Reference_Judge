@@ -372,44 +372,44 @@ class MainGUIApp():
     def add_tooltips_to_widgets(self):
 
         tooltips = {
-            "entry_match": "Path of single file, dir or URL...",
-            "entry_output": "Path of single file or dir...",
+            "entry match": "Path of single file, dir or URL...",
+            "entry output": "Path of single file or dir...",
             "save": "Save matched images in chosen directory",
             "show": "Show matched images",
             "width": "Width of each separate image",
-            "by_ratio": 'Match images refs: "Source -> Target", ' +
+            "by ratio": 'Match images refs: "Source -> Target", ' +
             "with diffrent sizes but the same ratio.\n" +
             "Not recommended due to distortions.",
-            "btn_folder": "Choose folder...",
-            "btn_file": "Choose file...",
-            "match_btn": "Run the script!"
+            "btn folder": "Choose folder...",
+            "btn file": "Choose file...",
+            "match btn": "Run the script!"
         }
 
-        CreateToolTip(self.source_entry, tooltips["entry_match"])
-        CreateToolTip(self.target_entry, tooltips["entry_match"])
-        CreateToolTip(self.output_entry, tooltips["entry_output"])
+        CreateToolTip(self.source_entry, tooltips["entry match"])
+        CreateToolTip(self.target_entry, tooltips["entry match"])
+        CreateToolTip(self.output_entry, tooltips["entry output"])
         CreateToolTip(self.width_entry, tooltips["width"])
 
-        CreateToolTip(self.source_label, tooltips["entry_match"])
-        CreateToolTip(self.target_label, tooltips["entry_match"])
-        CreateToolTip(self.output_label, tooltips["entry_output"])
+        CreateToolTip(self.source_label, tooltips["entry match"])
+        CreateToolTip(self.target_label, tooltips["entry match"])
+        CreateToolTip(self.output_label, tooltips["entry output"])
         CreateToolTip(self.width_label, tooltips["width"])
 
         CreateToolTip(self.save_radio, tooltips["save"])
         CreateToolTip(self.show_radio, tooltips["show"])
 
-        CreateToolTip(self.by_ratio_checkbox, tooltips["by_ratio"])
+        CreateToolTip(self.by_ratio_checkbox, tooltips["by ratio"])
 
-        CreateToolTip(self.source_btn_file, tooltips["btn_file"])
-        CreateToolTip(self.source_btn_folder, tooltips["btn_folder"])
+        CreateToolTip(self.source_btn_file, tooltips["btn file"])
+        CreateToolTip(self.source_btn_folder, tooltips["btn folder"])
 
-        CreateToolTip(self.target_btn_file, tooltips["btn_file"])
-        CreateToolTip(self.target_btn_folder, tooltips["btn_folder"])
+        CreateToolTip(self.target_btn_file, tooltips["btn file"])
+        CreateToolTip(self.target_btn_folder, tooltips["btn folder"])
 
-        CreateToolTip(self.output_btn_file, tooltips["btn_file"])
-        CreateToolTip(self.output_btn_folder, tooltips["btn_folder"])
+        CreateToolTip(self.output_btn_file, tooltips["btn file"])
+        CreateToolTip(self.output_btn_folder, tooltips["btn folder"])
 
-        CreateToolTip(self.match_btn, tooltips["match_btn"])
+        CreateToolTip(self.match_btn, tooltips["match btn"])
 
     def create_path_entry(self, frame, FocusIn, FocusOut):
 
