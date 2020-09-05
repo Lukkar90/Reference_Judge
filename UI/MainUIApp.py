@@ -14,6 +14,7 @@ from cv2 import destroyAllWindows
 # internal libs
 from UI.widgets import CreateToolTip, About, HowUse
 from Reference_Judge.config import IMAGES_SIZES, ARGV
+from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
 
 
@@ -366,9 +367,6 @@ class MainGUIApp():
                 "You saved setup file in:"f"\n{output_path}"
             )
 
-    def our_command(self):
-        pass
-
     # End Menu Code
 
     def add_tooltips_to_widgets(self):
@@ -534,7 +532,8 @@ class MainGUIApp():
         try:
             summary = Reference_Judge(_argv)
         except SystemExit as error:
-            messagebox.showwarning(window_name, error)
+            error_cleaned = str(error).replace(help_tip(), '')
+            messagebox.showwarning(window_name, error_cleaned)
             return
 
         if mode == ARGV["show"][0]:
