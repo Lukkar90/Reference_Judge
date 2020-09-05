@@ -14,15 +14,15 @@ ERRORS_MESSAGES = {
     "Source App same": 'Error: "original references" and "app references" directories are the same:',
     "Source > App": 'Error: There are more images in "original references" dir than in "app references" dir:',
     "Source App same files": "Error: Both files have the same path:",
-    "Original dir App file": "Error: Original reference path can't be directory, if app reference is only one file:",
+    "Source dir Target file": "Error: Original reference path can't be directory, if app reference is only one file:",
     "404": "Error: path http: HTTP Error 404: Not Found:",
     "5th numeric": "Error: 5th should be positive integer.",
     "4th numeric": "Error: 4th should be positive integer.",
     "5th last arg -br": f'Error: 5th, last argument should be {ARGV["search by ratio"][0]} or {ARGV["search by ratio"][1]}:',
     "one arg too much": "Error: one argument too much:",
     "not mode": f'Error: 3th argument is invalid. It\'s not mode: {ARGV["show"][0]} or {ARGV["save"][0]}:',
-    "output same as original": 'Output directory can\'t be the same as "original references":',
-    "output same as app": 'Output directory can\'t be the same as "app references":',
+    "output same as source": 'Output directory can\'t be the same as "original references":',
+    "output same as target": 'Output directory can\'t be the same as "app references":',
 }
 
 

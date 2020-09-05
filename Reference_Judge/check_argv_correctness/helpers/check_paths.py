@@ -194,7 +194,7 @@ def check_if_source_dir_and_reference_file_or_url(
     """if wrong, it exits program"""
 
     if source_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
-        sys.exit(f"{ERRORS_MESSAGES['Original dir App file']}\n"
+        sys.exit(f"{ERRORS_MESSAGES['Source dir Target file']}\n"
                  f" {source_reference_path}\n"
                  f" {app_reference_path}\n"
                  f"{help_tip()}")
@@ -208,12 +208,12 @@ def check_if_app_or_source_paths_are_same_as_output(output_path, source_referenc
         output_path = os.path.dirname(output_path)
 
     if output_path == source_reference_path:
-        sys.exit(f'{ERRORS_MESSAGES["output same as original"]}\n'
+        sys.exit(f'{ERRORS_MESSAGES["output same as source"]}\n'
                  f" {source_reference_path}\n"
                  f"{help_tip()}")
 
     if output_path == app_reference_path:
-        sys.exit(f'{ERRORS_MESSAGES["output same as app"]}\n'
+        sys.exit(f'{ERRORS_MESSAGES["output same as target"]}\n'
                  f" {app_reference_path}\n"
                  f"{help_tip()}")
 
