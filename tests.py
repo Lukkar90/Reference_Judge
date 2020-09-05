@@ -458,7 +458,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_directory_with_original_references_does_not_exists(self):
+    def test_FAIL_directory_with_source_references_does_not_exists(self):
 
         _argv = [program_name, self.source_dir_fail,
                  self.target_dir, self.show]
@@ -491,7 +491,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_Modified_same_dirs(self):
+    def test_FAIL_Source_Modified_same_dirs(self):
 
         _argv = [program_name, self.source_dir,
                  self.source_dir, self.save, self.output_dir]
@@ -502,7 +502,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_more_than_Modified(self):
+    def test_FAIL_Source_more_than_Modified(self):
 
         _argv = [program_name, self.target_dir,
                  self.source_dir, self.save, self.output_dir]
@@ -514,7 +514,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_Modified_same_files(self):
+    def test_FAIL_Source_Modified_same_files(self):
 
         _argv = [program_name, self.source_single,
                  self.source_single, self.save, self.output_dir]
@@ -525,7 +525,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_dir_Modified_file(self):
+    def test_FAIL_Source_dir_Modified_file(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_single, self.save, self.output_dir]
@@ -620,7 +620,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_original_no_images(self):
+    def test_FAIL_Source_no_images(self):
 
         _argv = [program_name, self.output_dir,
                  self.target_dir, self.show]
@@ -631,7 +631,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_original_same_as_output(self):
+    def test_FAIL_Source_same_as_output(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_dir, self.save, self.source_dir]
