@@ -452,7 +452,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_dir,
                  self.target_dir_fail, self.show]
 
-        error_message = (f"{get_error_directory_does_not_exists('app references')}\n"
+        error_message = (f"{get_error_directory_does_not_exists('target references')}\n"
                          f" {self.target_dir_fail}\n"
                          f"{help_tip()}")
 
@@ -463,7 +463,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_dir_fail,
                  self.target_dir, self.show]
 
-        error_message = (f"{get_error_directory_does_not_exists('original references')}\n"
+        error_message = (f"{get_error_directory_does_not_exists('source references')}\n"
                          f" {self.source_dir_fail}\n"
                          f"{help_tip()}")
 
@@ -491,7 +491,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_app_same_dirs(self):
+    def test_FAIL_Original_Modified_same_dirs(self):
 
         _argv = [program_name, self.source_dir,
                  self.source_dir, self.save, self.output_dir]
@@ -502,7 +502,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_more_than_app(self):
+    def test_FAIL_Original_more_than_Modified(self):
 
         _argv = [program_name, self.target_dir,
                  self.source_dir, self.save, self.output_dir]
@@ -514,7 +514,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_app_same_files(self):
+    def test_FAIL_Original_Modified_same_files(self):
 
         _argv = [program_name, self.source_single,
                  self.source_single, self.save, self.output_dir]
@@ -525,7 +525,7 @@ class TestReferenceJudge(unittest.TestCase):
 
         test_FAIL_argv(self, _argv, error_message)
 
-    def test_FAIL_Original_dir_App_file(self):
+    def test_FAIL_Original_dir_Modified_file(self):
 
         _argv = [program_name, self.source_dir,
                  self.target_single, self.save, self.output_dir]
@@ -625,7 +625,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.output_dir,
                  self.target_dir, self.show]
 
-        error_message = (f"{get_error_no_images_in_dir('original references')}\n"
+        error_message = (f"{get_error_no_images_in_dir('source references')}\n"
                          f" {self.output_dir}\n"
                          f"{help_tip()}")
 

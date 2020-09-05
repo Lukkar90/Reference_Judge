@@ -26,33 +26,33 @@ from Reference_Judge.utils import (
 )
 
 
-def get_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
+def get_one_ref_pair(source_reference_path, target_reference_path, by_ratio):
     """return on pair of paths of matched images"""
 
-    error_check_path_is_empty_string(original_reference_path)
-    error_check_path_is_empty_string(app_reference_path)
+    error_check_path_is_empty_string(source_reference_path)
+    error_check_path_is_empty_string(target_reference_path)
 
     similar_list = list()
 
-    original_name = os.path.basename(original_reference_path)
+    source_name = os.path.basename(source_reference_path)
 
-    # if app image and original image are single files
-    ext_app = os.path.splitext(app_reference_path)[1]
-    if ext_app:
+    # if target image and source image are single files
+    ext_target = os.path.splitext(target_reference_path)[1]
+    if ext_target:
 
         reference_pair = both_single_paths(
-            original_reference_path,
-            app_reference_path,
-            original_name,
+            source_reference_path,
+            target_reference_path,
+            source_name,
             by_ratio
         )
 
-    # if only original image is single file
+    # if only source image is single file
     else:
-        reference_pair = find_similar_one_original_image_among_references(
-            original_reference_path,
-            original_name,
-            app_reference_path,
+        reference_pair = find_similar_one_source_image_among_targets(
+            source_reference_path,
+            source_name,
+            target_reference_path,
             by_ratio
         )
 
@@ -63,15 +63,15 @@ def get_one_ref_pair(original_reference_path, app_reference_path, by_ratio):
     return similar_list
 
 
-def both_single_paths(original_reference, app_reference, original_name, by_ratio=False):
+def both_single_paths(source_reference, target_reference, source_name, by_ratio=False):
     """logic when both source and target paths are files"""
 
-    error_check_path_is_empty_string(original_reference)
-    error_check_path_is_empty_string(app_reference)
-    error_check_path_is_empty_string(original_name)
+    error_check_path_is_empty_string(source_reference)
+    error_check_path_is_empty_string(target_reference)
+    error_check_path_is_empty_string(source_name)
 
-    source = path_to_image(original_reference)
-    target = path_to_image(app_reference)
+    source = path_to_image(source_reference)
+    target = path_to_image(target_reference)
 
     # resize image target image to the same size if ratio is the same
     if by_ratio:
@@ -95,7 +95,7 @@ def both_single_paths(original_reference, app_reference, original_name, by_ratio
         sys.exit(alert)  # returning circa "images not he same size"
 
     reference_pair = ReferencePair(
-        original_name, original_reference, app_reference, similarity).dictionary
+        source_name, source_reference, target_reference, similarity).dictionary
     return reference_pair
 
 
@@ -103,34 +103,34 @@ def path_to_image(path):
     """returning raw image"""
 
     if uri_validator(path):
-        # original as url
+        # source as url
         image = url_to_image(path)
 
     else:
-        # original as file
+        # source as file
         image = imread(path)
 
     return image
 
 
-def find_similar_one_original_image_among_references(
-    original_reference_path,
-    original_name,
-    app_reference_path,
+def find_similar_one_source_image_among_targets(
+    source_reference_path,
+    source_name,
+    target_reference_path,
     by_ratio
 ):
     """return no pair or only one"""
 
     similar_image = find_most_similar_image(
-        original_reference_path, app_reference_path, by_ratio)
+        source_reference_path, target_reference_path, by_ratio)
 
     if no_similar_images(similar_image):
-        print(f"Not found reference:\n  {original_name}")
+        print(f"Not found reference:\n  {source_name}")
         reference_pair = None
     else:
         reference_pair = ReferencePair(
-            original_name,
-            original_reference_path,
+            source_name,
+            source_reference_path,
             similar_image["file_path"],
             similar_image["similarity"]).dictionary
 

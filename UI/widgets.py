@@ -163,7 +163,7 @@ class HowUse():
         label_font = 'Helvetica 9 bold'
 
         text = f"""
-1. Choose source images ("original refs") and target images ("App refs") paths to compare.
+1. Choose source images and target images paths to compare.
 2. In the best case, images have to be the same size.
 3. If sizes are different, you can check "Search by the same ratio". But then you will get artifacts in renders.
 To avoid too big distortions, accepted ratios between compared images are from {IMAGES_SIZES["lowest scale"]} to {IMAGES_SIZES["highest scale"]}.

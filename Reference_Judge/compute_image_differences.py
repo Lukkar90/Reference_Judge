@@ -1,5 +1,5 @@
 """
-This module return images differences between image original reference and app reference
+This module return images differences between image source reference and target reference
 """
 
 
@@ -22,7 +22,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
     }
 
     # upload name which would be used to save file in output directory
-    original_name = similar_pair["original_reference_name"]
+    source_name = similar_pair["original_reference_name"]
 
     image_A = upload_image(paths["first"])
     image_B = upload_image(paths["second"])
@@ -55,7 +55,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
 
     # Images data to latter process
     computed_images = {
-        "Original_name": original_name,
+        "Original_name": source_name,
         "Original": image_A,
         "Modified": image_B,
         "Difference_RGB": diff_BGR,

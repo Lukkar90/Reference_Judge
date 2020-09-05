@@ -9,7 +9,7 @@ DESCRIPTION
     ========================================
 
     Reference-Judge is used for developers to show visual differences
-    between mobile app particular screen and reference created by mobile app designer.
+    between app's particular screen and reference created by app designer.
 
     It's aims to improve workflow for programmer and also designer.
 
@@ -45,7 +45,7 @@ def Reference_Judge(_argv):
         return help_detailed_usage()
 
     # Init variables
-    original_ref_path = _argv[1]
+    source_ref_path = _argv[1]
     app_ref_path = _argv[2]
     mode = _argv[3]
     messages_summary = []
@@ -53,10 +53,10 @@ def Reference_Judge(_argv):
     by_ratio = check_ratio_argv(_argv)
 
     similar_list = create_similar_images_list(
-        original_ref_path, app_ref_path, by_ratio)
+        source_ref_path, app_ref_path, by_ratio)
 
     references_counter = count_found_and_not_found_refs(
-        original_ref_path, similar_list)
+        source_ref_path, similar_list)
     messages_summary.append(references_counter)
 
     width = IMAGES_SIZES["default width"]  # Default value for mobiles apps
@@ -78,14 +78,14 @@ def Reference_Judge(_argv):
     return stringify_lists(messages_summary)
 
 
-def count_found_and_not_found_refs(original_ref_path, similar_list):
+def count_found_and_not_found_refs(source_ref_path, similar_list):
     """return tuple of two integers"""
 
     references_counter = dict()
 
-    original_images_number = count_original_images(original_ref_path)
+    source_images_number = count_source_images(source_ref_path)
     found_matches = len(similar_list)
-    not_found_matches = original_images_number - found_matches
+    not_found_matches = source_images_number - found_matches
 
     _check_matches_legal_values(found_matches, not_found_matches)  # Fail fast
 
@@ -124,11 +124,11 @@ def stringify_lists(messages_summary):
     return messages_string
 
 
-def count_original_images(original_ref_path):
+def count_source_images(source_ref_path):
     """path could be single file or URL"""
 
-    if path.isdir(original_ref_path):
-        return count_legal_images(original_ref_path)
+    if path.isdir(source_ref_path):
+        return count_legal_images(source_ref_path)
 
     return 1
 

@@ -43,7 +43,7 @@ class MainGUIApp():
         self.entry_text_placeholder = "Enter your path..."
 
         # Source
-        self.source_label = tk.Label(frame_matching, text="Original refs:")
+        self.source_label = tk.Label(frame_matching, text="Source refs:")
         self.source_label.grid(row=0, column=0, pady=(0, 5), stick="w")
 
         self.source_entry = self.create_path_entry(
@@ -76,7 +76,7 @@ class MainGUIApp():
         self.source_btn_file.grid(row=1, column=3)
 
         # Target
-        self.target_label = tk.Label(frame_matching, text="App refs:")
+        self.target_label = tk.Label(frame_matching, text="Target refs:")
         self.target_label.grid(row=2, column=0, pady=(0, 5), stick="w")
 
         self.target_entry = self.create_path_entry(
@@ -561,10 +561,10 @@ class MainGUIApp():
     def pop_up_invalid_entry_path(self, window_name, source, target, output, mode, width):
 
         if not source or source == self.entry_text_placeholder:
-            return messagebox.showwarning(window_name, "No original references")
+            return messagebox.showwarning(window_name, "No source references")
 
         if not target or target == self.entry_text_placeholder:
-            return messagebox.showwarning(window_name, "No app references")
+            return messagebox.showwarning(window_name, "No target references")
 
         if mode == ARGV["save"][0] and (not output or output == self.entry_text_placeholder):
             return messagebox.showwarning(window_name, "No output path")

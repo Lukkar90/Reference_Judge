@@ -61,15 +61,15 @@ def save(width, similar_list, by_ratio, _argv):
 
 
 def save_images_as_one(images, output_path, width):
-    """save app and ref images with images showing differences in one image"""
+    """save source and target images with images showing differences in one image"""
 
     # Resize to default value or custom
     images = resize_all(images, width)
 
     # Images to display
-    original_name = images["Original_name"]
-    original = images["Original"]
-    modified = images["Modified"]
+    source_name = images["Original_name"]
+    source = images["Original"]
+    target = images["Modified"]
     diff_BGR = images["Difference_RGB"]
     diff = images["Difference_Structure"]
     thresh = images["Thresh"]
@@ -79,24 +79,24 @@ def save_images_as_one(images, output_path, width):
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
     # check if canvas is to small to add text
-    if is_bigger_than(100, original):
+    if is_bigger_than(100, source):
 
-        original = add_text_to_image(original, "Original")
-        modified = add_text_to_image(modified, "Modified")
+        source = add_text_to_image(source, "Source")
+        target = add_text_to_image(target, "Target")
         diff_BGR = add_text_to_image(diff_BGR, "Difference_RGB")
         diff = add_text_to_image(diff, "Difference_Structure")
         thresh = add_text_to_image(thresh, "Thresh")
 
     # Combining all images into one
     numpy_horizontal_concat = np.concatenate(
-        [original, modified, diff_BGR, diff, thresh], axis=1)
+        [source, target, diff_BGR, diff, thresh], axis=1)
 
     # Check if chosen location is file like
     ext_file = os.path.splitext(output_path)[1]
 
     # Define output path
     if not ext_file:
-        output_path = os.path.join(output_path, original_name)
+        output_path = os.path.join(output_path, source_name)
 
     # Check if file already exists, if so, add new one with name incremented by one
     if os.path.exists(output_path):
@@ -107,10 +107,10 @@ def save_images_as_one(images, output_path, width):
 
     # User notification where to search saved image: https://stackoverflow.com/a/51809038/12490791
     if writeStatus is True:
-        print(f"Saved reference:\n  {original_name}\n  {output_path}")
+        print(f"Saved reference:\n  {source_name}\n  {output_path}")
         saved = True
     else:
-        print(f"Not saved:\n  {original_name}")
+        print(f"Not saved:\n  {source_name}")
         saved = False
 
     return saved

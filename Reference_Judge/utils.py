@@ -163,11 +163,11 @@ class SizesSimilarityImages:
             sys.exit("Images has diffrent ratios")
 
         elif compared_ratio < IMAGES_SIZES["lowest scale"]:
-            sys.exit(f"Reference image is size {compared_ratio} times than app image\n"
+            sys.exit(f"Source image is size {compared_ratio} times than target image\n"
                      f"min resize value: {IMAGES_SIZES['lowest scale']}"
                      )
         elif compared_ratio > IMAGES_SIZES["highest scale"]:
-            sys.exit(f"Reference image is size {compared_ratio} times than app image\n"
+            sys.exit(f"Source image is size {compared_ratio} times than target image\n"
                      f"max value: {IMAGES_SIZES['highest scale']}"
                      )
         else:

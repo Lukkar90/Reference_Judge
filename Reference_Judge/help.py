@@ -17,7 +17,7 @@ def help_command_line():
     program_name = sys.argv[0]
 
     # https://stackoverflow.com/questions/21503865/how-to-denote-that-a-command-line-argument-is-optional-when-printing-usage
-    return (f"Usage: python {program_name} <original_reference_path> <app_reference_path> <--mode> [directory_differences_output]"
+    return (f"Usage: python {program_name} <source_reference_path> <target_reference_path> <--mode> [directory_differences_output]"
             f" [width] [{ARGV['search by ratio'][0]}]")
 
 

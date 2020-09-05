@@ -79,11 +79,11 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 class ReferencePair():
     """Returned pair of matched images and its attributes"""
 
-    def __init__(self, original_name, original_path, app_path, similarity):
+    def __init__(self, source_name, source_path, target_path, similarity):
         self.dictionary = {
-            "original_reference_name": original_name,
-            "original_reference_path": original_path,
-            "app_reference_path": app_path,
+            "original_reference_name": source_name,
+            "original_reference_path": source_path,
+            "app_reference_path": target_path,
             "similarity": similarity
         }
 
