@@ -23,28 +23,28 @@ def check_paths(_argv):
     """Check if files/dir/url paths program arguments are correct"""
 
     source_reference_path = _argv[1]
-    app_reference_path = _argv[2]
+    target_reference_path = _argv[2]
 
     output_path, output_kind_legal = get_output_path_if_exists_and_legal(_argv)
 
     source_ref_kind = get_path_kind(source_reference_path)
-    app_ref_kind = get_path_kind(app_reference_path)
+    target_ref_kind = get_path_kind(target_reference_path)
 
     check_if_many_paths_exists(
         source_reference_path,
-        app_reference_path,
+        target_reference_path,
         output_path,
         source_ref_kind,
-        app_ref_kind,
+        target_ref_kind,
         output_kind_legal,
         _argv
     )
 
     check_paths_legal_combinations(
         source_ref_kind,
-        app_ref_kind,
+        target_ref_kind,
         source_reference_path,
-        app_reference_path,
+        target_reference_path,
         output_path
     )
 
@@ -79,10 +79,10 @@ def check_output_path_exists(output_path, output_kind_legal):
 
 def check_if_many_paths_exists(
     source_reference_path,
-    app_reference_path,
+    target_reference_path,
     output_path,
     source_ref_kind,
-    app_ref_kind,
+    target_ref_kind,
     output_kind_legal,
     _argv
 ):
@@ -95,8 +95,8 @@ def check_if_many_paths_exists(
     )
 
     path_exists(
-        app_ref_kind,
-        app_reference_path,
+        target_ref_kind,
+        target_reference_path,
         "target references"
     )
 
@@ -109,77 +109,77 @@ def check_if_many_paths_exists(
 
 def check_paths_legal_combinations(
     source_ref_kind,
-        app_ref_kind,
+        target_ref_kind,
         source_reference_path,
-        app_reference_path,
+        target_reference_path,
         output_path
 ):
     """if wrong, it exits program"""
 
     check_source_and_reference_if_dirs(
         source_ref_kind,
-        app_ref_kind,
+        target_ref_kind,
         source_reference_path,
-        app_reference_path
+        target_reference_path
     )
 
     check_source_and_reference_if_files(
         source_ref_kind,
-        app_ref_kind,
+        target_ref_kind,
         source_reference_path,
-        app_reference_path
+        target_reference_path
     )
 
     check_if_source_dir_and_reference_file_or_url(
         source_ref_kind,
-        app_ref_kind,
+        target_ref_kind,
         source_reference_path,
-        app_reference_path
+        target_reference_path
     )
 
-    # check if source ref and app ref are the same as output
+    # check if source ref and target ref are the same as output
     if output_path:
 
-        check_if_app_or_source_paths_are_same_as_output(
+        check_if_target_or_source_paths_are_same_as_output(
             output_path,
             source_reference_path,
-            app_reference_path
+            target_reference_path
         )
 
 
 def check_source_and_reference_if_dirs(
     source_ref_kind,
-    app_ref_kind,
+    target_ref_kind,
     source_reference_path,
-    app_reference_path
+    target_reference_path
 ):
     """if wrong, it exits program"""
 
-    if source_ref_kind == "dir" and app_ref_kind == "dir":
+    if source_ref_kind == "dir" and target_ref_kind == "dir":
 
-        if source_reference_path == app_reference_path:
+        if source_reference_path == target_reference_path:
             sys.exit(f'{ERRORS_MESSAGES["Source Target same"]}\n'
                      f" {source_reference_path}\n"
                      f"{help_tip()}")
 
-        if count_legal_images(source_reference_path) > count_legal_images(app_reference_path):
+        if count_legal_images(source_reference_path) > count_legal_images(target_reference_path):
             sys.exit(f'{ERRORS_MESSAGES["Source > Target"]}\n'
                      f" {source_reference_path}\n"
-                     f" {app_reference_path}\n"
+                     f" {target_reference_path}\n"
                      f"{help_tip()}")
 
 
 def check_source_and_reference_if_files(
     source_ref_kind,
-    app_ref_kind,
+    target_ref_kind,
     source_reference_path,
-    app_reference_path
+    target_reference_path
 ):
     """if wrong, it exits program"""
 
-    if (source_ref_kind == "file" and app_ref_kind == "file") or (source_ref_kind == "url" and app_ref_kind == "url"):
+    if (source_ref_kind == "file" and target_ref_kind == "file") or (source_ref_kind == "url" and target_ref_kind == "url"):
 
-        if source_reference_path == app_reference_path:
+        if source_reference_path == target_reference_path:
             sys.exit(f"{ERRORS_MESSAGES['Source Target same files']}\n"
                      f" {source_reference_path}\n"
                      f"{help_tip()}")
@@ -187,20 +187,20 @@ def check_source_and_reference_if_files(
 
 def check_if_source_dir_and_reference_file_or_url(
     source_ref_kind,
-    app_ref_kind,
+    target_ref_kind,
     source_reference_path,
-    app_reference_path
+    target_reference_path
 ):
     """if wrong, it exits program"""
 
-    if source_ref_kind == "dir" and app_ref_kind in ('file', 'url'):
+    if source_ref_kind == "dir" and target_ref_kind in ('file', 'url'):
         sys.exit(f"{ERRORS_MESSAGES['Source dir Target file']}\n"
                  f" {source_reference_path}\n"
-                 f" {app_reference_path}\n"
+                 f" {target_reference_path}\n"
                  f"{help_tip()}")
 
 
-def check_if_app_or_source_paths_are_same_as_output(output_path, source_reference_path, app_reference_path):
+def check_if_target_or_source_paths_are_same_as_output(output_path, source_reference_path, target_reference_path):
     """if wrong, it exits program"""
 
     # make sure that output path wil be always dir to compare
@@ -212,9 +212,9 @@ def check_if_app_or_source_paths_are_same_as_output(output_path, source_referenc
                  f" {source_reference_path}\n"
                  f"{help_tip()}")
 
-    if output_path == app_reference_path:
+    if output_path == target_reference_path:
         sys.exit(f'{ERRORS_MESSAGES["output same as target"]}\n'
-                 f" {app_reference_path}\n"
+                 f" {target_reference_path}\n"
                  f"{help_tip()}")
 
 

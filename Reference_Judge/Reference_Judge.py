@@ -9,15 +9,17 @@ DESCRIPTION
     ========================================
 
     Reference-Judge is used for developers to show visual differences
-    between app's particular screen and reference created by app designer.
+    between the app's particular screen and reference created by the app's designer.
 
-    It's aims to improve workflow for programmer and also designer.
+    It aims to improve workflow for the programmer and also designer.
 
-    For programmer this tool availables instant check of screen,
+    For a programmer this tool available instant check of the screen,
     if it is done according to references.
 
-    For designer this tool relieve him/she from task of constant checking,
-    if particular screen was done according to the reference.
+    For the designer, this tool relieve him/her from the task of constant checking,
+    if a particular screen was done according to the reference.
+
+    Of course, it can be used for any other matching images purposes
 
     This program uses image recognition algorithms from https://opencv.org/
 """
@@ -46,14 +48,14 @@ def Reference_Judge(_argv):
 
     # Init variables
     source_ref_path = _argv[1]
-    app_ref_path = _argv[2]
+    target_ref_path = _argv[2]
     mode = _argv[3]
     messages_summary = []
 
     by_ratio = check_ratio_argv(_argv)
 
     similar_list = create_similar_images_list(
-        source_ref_path, app_ref_path, by_ratio)
+        source_ref_path, target_ref_path, by_ratio)
 
     references_counter = count_found_and_not_found_refs(
         source_ref_path, similar_list)
