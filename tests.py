@@ -496,7 +496,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_dir,
                  self.source_dir, self.save, self.output_dir]
 
-        error_message = (f"{ERRORS_MESSAGES['Source App same']}\n"
+        error_message = (f"{ERRORS_MESSAGES['Source Target same']}\n"
                          f" {self.source_dir}\n"
                          f"{help_tip()}")
 
@@ -519,7 +519,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.source_single,
                  self.source_single, self.save, self.output_dir]
 
-        error_message = (f"{ERRORS_MESSAGES['Source App same files']}\n"
+        error_message = (f"{ERRORS_MESSAGES['Source Target same files']}\n"
                          f" {self.source_single}\n"
                          f"{help_tip()}")
 

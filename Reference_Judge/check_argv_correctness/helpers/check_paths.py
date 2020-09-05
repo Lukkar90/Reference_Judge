@@ -158,7 +158,7 @@ def check_source_and_reference_if_dirs(
     if source_ref_kind == "dir" and app_ref_kind == "dir":
 
         if source_reference_path == app_reference_path:
-            sys.exit(f'{ERRORS_MESSAGES["Source App same"]}\n'
+            sys.exit(f'{ERRORS_MESSAGES["Source Target same"]}\n'
                      f" {source_reference_path}\n"
                      f"{help_tip()}")
 
@@ -180,7 +180,7 @@ def check_source_and_reference_if_files(
     if (source_ref_kind == "file" and app_ref_kind == "file") or (source_ref_kind == "url" and app_ref_kind == "url"):
 
         if source_reference_path == app_reference_path:
-            sys.exit(f"{ERRORS_MESSAGES['Source App same files']}\n"
+            sys.exit(f"{ERRORS_MESSAGES['Source Target same files']}\n"
                      f" {source_reference_path}\n"
                      f"{help_tip()}")
 
