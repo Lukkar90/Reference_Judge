@@ -1,7 +1,7 @@
 # untracked repositories
 __pycache__/
-# exclude everything
 data/images/output/*
+data/appData/*
 .vscode/
 # untracked code
 test.py

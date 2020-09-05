@@ -172,7 +172,7 @@ To avoid too big distortions, accepted ratios between compared images are from {
 6. Finally, push the "Match images" button to render results.
         """
         how_to_use_label = tk.Label(
-            padding, text="How to use::", font=label_font)
+            padding, text="How to use:", font=label_font)
         how_to_use_label.pack(anchor=justify, padx=width)
         how_to_use_content = tk.Label(
             padding, text=f"{text}", justify="left")
