@@ -163,7 +163,7 @@ def check_source_and_reference_if_dirs(
                      f"{help_tip()}")
 
         if count_legal_images(source_reference_path) > count_legal_images(app_reference_path):
-            sys.exit(f'{ERRORS_MESSAGES["Source > App"]}\n'
+            sys.exit(f'{ERRORS_MESSAGES["Source > Target"]}\n'
                      f" {source_reference_path}\n"
                      f" {app_reference_path}\n"
                      f"{help_tip()}")

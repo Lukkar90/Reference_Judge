@@ -507,7 +507,7 @@ class TestReferenceJudge(unittest.TestCase):
         _argv = [program_name, self.target_dir,
                  self.source_dir, self.save, self.output_dir]
 
-        error_message = (f"{ERRORS_MESSAGES['Source > App']}\n"
+        error_message = (f"{ERRORS_MESSAGES['Source > Target']}\n"
                          f" {self.target_dir}\n"
                          f" {self.source_dir}\n"
                          f"{help_tip()}")
