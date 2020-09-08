@@ -1,5 +1,6 @@
 # Python libs
 from collections import defaultdict
+import datetime
 import os
 
 # external libs
@@ -19,7 +20,7 @@ from Reference_Judge.modes.utils import (
 )
 
 
-def save(width, similar_list, by_ratio, _argv):
+def save(width, similar_list, by_ratio, _argv, script_run_date):
     """save matched images in chosen directory"""
 
     if len(_argv) >= 5:
@@ -50,6 +51,7 @@ def save(width, similar_list, by_ratio, _argv):
                 images,
                 output_path,
                 width,
+                script_run_date
             )
 
             if saved:
@@ -60,7 +62,7 @@ def save(width, similar_list, by_ratio, _argv):
     return saving_counter
 
 
-def save_images_as_one(images, output_path, width):
+def save_images_as_one(images, output_path, width, script_run_date):
     """save source and target images with images showing differences in one image"""
 
     # Resize to default value or custom
@@ -111,9 +113,53 @@ def save_images_as_one(images, output_path, width):
         saved = True
     else:
         print(f"Not saved:\n  {source_name}")
+        write_not_saved(output_path, script_run_date)
         saved = False
 
     return saved
+
+
+def write_not_saved(output_file_path, script_run_date):  # todo
+
+    # get dir path
+    output_dir_path = os.path.dirname(output_file_path)
+
+    # get date
+    from datetime import datetime
+
+    file_name = f"ERRORS-{script_run_date}.txt"
+    file_path = os.path.join(output_dir_path, file_name)
+
+    datetime_object = datetime.now()
+    current_date = datetime_object.strftime("%Y_%m_%d-%I_%M_%S")
+
+    # check if file exists
+    file_exists = False
+    for name in os.listdir(output_dir_path):
+        if os.path.isfile(file_path) and name.endswith(".txt"):
+            file_exists = True
+            break
+
+    # write path to file
+    section = "[UNSAVED]"
+    text_to_paste = f"{section}\n{current_date} {output_file_path}"
+
+    if file_exists:
+
+        with open(file_path, 'r') as errors_file:
+            content = errors_file.read()
+            new = content.replace(
+                section,
+                text_to_paste
+            )
+
+        with open(file_path, 'w') as errors_file:
+            errors_file.write(new)
+
+    else:
+
+        with open(file_path, "w") as file:
+            file.write(text_to_paste)
 
 
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791

@@ -31,6 +31,7 @@ AUTHOR
 
 
 # Python libs
+from datetime import datetime
 from os import path
 
 # internal libs
@@ -56,6 +57,7 @@ def Reference_Judge(_argv):
     target_ref_path = _argv[2]
     mode = _argv[3]
     messages_summary = []
+    script_run_date = _get_script_run_date()
 
     by_ratio = check_ratio_argv(_argv)
 
@@ -70,7 +72,8 @@ def Reference_Judge(_argv):
 
     if mode in ARGV["save"]:
 
-        saving_counter = save(width, similar_list, by_ratio, _argv)
+        saving_counter = save(width, similar_list,
+                              by_ratio, _argv, script_run_date)
         messages_summary.append(saving_counter)
 
     elif mode in ARGV["show"]:
@@ -150,3 +153,12 @@ def _check_matches_legal_values(found_matches, not_found_matches):
 
     if not_found_matches < 0 or not isinstance(found_matches, int):
         raise ValueError(error)
+
+
+def _get_script_run_date():
+    """get the date when Refrence-Judge has been run"""
+
+    datetime_object = datetime.now()
+    current_date = datetime_object.strftime("%Y_%m_%d-%I_%M_%S")
+
+    return current_date
