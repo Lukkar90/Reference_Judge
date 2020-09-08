@@ -223,7 +223,7 @@ class MainGUIApp():
         menu_log = tk.Menu(my_menu, tearoff=False)
         my_menu.add_cascade(label="Logs", menu=menu_log)
         menu_log.add_command(
-            label=f"Save logs in output: {Logger().get_saving_value()}", command=Logger().set_saving_bool)
+            label=f"Save logs in output: {Logger().get_saving_value()}", command=self.change_log_status)
 
         # menu_log = tk.Menu(my_menu, tearoff=False)
         # menu_log.add_cascade(label="Logs", menu=menu_log)
@@ -331,6 +331,9 @@ class MainGUIApp():
                 "Done!",
                 "You reset setup configuration to factory settings"
             )
+
+    def change_log_status(self):
+        Logger().set_saving_bool()
 
     def setup_save(self):
 
