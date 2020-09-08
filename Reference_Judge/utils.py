@@ -4,6 +4,7 @@ This module are repeating snipsets of functions which are used in many places in
 
 
 # python libs
+from configparser import ConfigParser
 import os
 import sys
 import urllib.request
@@ -181,3 +182,16 @@ def give_resized_image(source, target):
     target = resize_with_with_aspect_ratio(target, w_source)
 
     return target
+
+
+def read_config_file(file):
+
+    config = ConfigParser()
+
+    try:
+        with open(file) as f:
+            config.read_file(f)
+    except IOError as error:
+        raise IOError(error)
+
+    return config

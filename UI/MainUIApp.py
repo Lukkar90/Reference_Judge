@@ -16,6 +16,7 @@ from UI.widgets import CreateToolTip, About, HowUse
 from Reference_Judge.config.config import IMAGES_SIZES, ARGV
 from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
+from Reference_Judge.utils import read_config_file
 
 
 # https://stackoverflow.com/a/17466924/12490791
@@ -602,19 +603,6 @@ class MainGUIApp():
         return None
 
 
-def read_config_file(file):
-
-    config = ConfigParser()
-
-    try:
-        with open(file) as f:
-            config.read_file(f)
-    except IOError as error:
-        raise IOError(error)
-
-    return config
-
-
 def on_entry_click(entry, placeholder):
     """function that gets called whenever entry is clicked"""
 
@@ -683,6 +671,7 @@ class Logger():
     def set_saving_bool(self):
         """SETTING logger state for saving any errors during running reference_judge module
         in selected output folder"""
+
         value_start = self.logger.get("ERRORS", "save errors")
         value_to_save = "yes" if value_start == "no" else "no"
 
@@ -699,9 +688,11 @@ class Logger():
     def load_saving_bool(self):
         """LOADING logger state for saving any errors during running reference_judge module
         in selected output folder"""
+
         return self.logger.getboolean("ERRORS", "save errors")
 
     def get_saving_value(self):
         """GET logger state for saving any errors during running reference_judge module
         in selected output folder"""
+
         return self.logger.get("ERRORS", "save errors")
