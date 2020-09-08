@@ -7,7 +7,7 @@ This module is responsible for checking if program arguments are correct
 import sys
 
 # internal libs
-from Reference_Judge.config import ARGV
+from Reference_Judge.config.config import ARGV
 from Reference_Judge.help import help_command_line, help_tip
 
 # same lib

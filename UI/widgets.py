@@ -8,7 +8,7 @@ except ImportError:
 import webbrowser
 
 # Internal libs
-from Reference_Judge.config import IMAGES_SIZES
+from Reference_Judge.config.config import IMAGES_SIZES
 
 # tk_ToolTip_class101.py
 # gives a Tkinter widget a tooltip as the mouse is above the widget

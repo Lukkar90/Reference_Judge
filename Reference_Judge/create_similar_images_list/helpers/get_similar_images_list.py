@@ -5,7 +5,7 @@
 import os
 
 # internal libs
-from Reference_Judge.config import LEGAL_EXTENSIONS
+from Reference_Judge.config.config import LEGAL_EXTENSIONS
 from Reference_Judge.utils import error_check_path_is_empty_string
 
 # same module

@@ -22,3 +22,5 @@ SIMILARITY = {
     "enough": 0.95,  # SSMI value in calculating resemblance, 1 is Max
     "not enough": 0.10  # Why so low? Well... sometimes execution is not so similar
 }
+
+LOGGER_SAVE_ERRORS = False

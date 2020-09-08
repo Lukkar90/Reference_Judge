@@ -15,7 +15,7 @@ import cv2
 import numpy as np
 
 # internal libs
-from Reference_Judge.config import ARGV, IMAGES_SIZES
+from Reference_Judge.config.config import ARGV, IMAGES_SIZES
 
 
 def check_ratio_argv(_argv):

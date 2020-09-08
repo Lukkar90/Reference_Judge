@@ -10,7 +10,7 @@ from io import StringIO
 import cv2
 
 from Reference_Judge.help import help_tip, help_command_line
-from Reference_Judge.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
+from Reference_Judge.config.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legal_images
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.check_argv_correctness.helpers.errors import (

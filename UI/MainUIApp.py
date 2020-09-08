@@ -13,7 +13,7 @@ from cv2 import destroyAllWindows
 
 # internal libs
 from UI.widgets import CreateToolTip, About, HowUse
-from Reference_Judge.config import IMAGES_SIZES, ARGV
+from Reference_Judge.config.config import IMAGES_SIZES, ARGV, LOGGER_SAVE_ERRORS
 from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
 
@@ -219,6 +219,11 @@ class MainGUIApp():
         menu_help.add_command(label="How to use", command=HowUse)
         menu_help.add_separator()
         menu_help.add_command(label="About", command=About)
+
+        menu_log = tk.Menu(my_menu, tearoff=False)
+        menu_log.add_cascade(label="Logs", menu=menu_log)
+        menu_help.add_command(
+            label=f"Save logs in output: {LOGGER_SAVE_ERRORS}", command=set_log_)
 
     def setup_open(self):
 

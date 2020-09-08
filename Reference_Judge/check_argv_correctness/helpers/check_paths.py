@@ -6,7 +6,7 @@ import sys
 from urllib import error, request
 
 # internal libs
-from Reference_Judge.config import LEGAL_EXTENSIONS, ARGV
+from Reference_Judge.config.config import LEGAL_EXTENSIONS, ARGV
 from Reference_Judge.help import help_tip
 from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 

@@ -36,7 +36,7 @@ from os import path
 # internal libs
 from Reference_Judge.check_argv_correctness.check_argv_correctness import check_argv_correctness
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legal_images
-from Reference_Judge.config import ARGV, IMAGES_SIZES
+from Reference_Judge.config.config import ARGV, IMAGES_SIZES
 from Reference_Judge.create_similar_images_list.create_similar_images_list import create_similar_images_list
 from Reference_Judge.help import help_detailed_usage, user_commanded_help
 from Reference_Judge.modes.save import save

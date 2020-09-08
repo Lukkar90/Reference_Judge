@@ -5,7 +5,7 @@
 import sys
 
 # internal libs
-from Reference_Judge.config import ARGV
+from Reference_Judge.config.config import ARGV
 from Reference_Judge.help import help_tip
 
 # same lib

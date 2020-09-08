@@ -2,7 +2,7 @@
 
 
 # internal libs
-from Reference_Judge.config import ARGV
+from Reference_Judge.config.config import ARGV
 from Reference_Judge.utils import resize_with_with_aspect_ratio
 
 
