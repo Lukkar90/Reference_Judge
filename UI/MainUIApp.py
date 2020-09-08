@@ -333,7 +333,15 @@ class MainGUIApp():
             )
 
     def change_log_status(self):
-        Logger().set_saving_bool()
+
+        feedback = Logger().set_saving_bool()
+
+        if "Succes!" in feedback:
+            messagebox.showinfo("Succes!", feedback)
+        elif "Error!" in feedback:
+            messagebox.showerror("Error!", feedback)
+        else:
+            raise ValueError(f"Not valid feedback\n{feedback}")
 
     def setup_save(self):
 
@@ -682,7 +690,9 @@ class Logger():
             with open(self.logger_path, "w") as configfile:
                 self.logger.write(configfile)
         except IOError:
-            return messagebox.showerror("Error!", f"Logger saving status is not changed\nvalue now: {value_start}")
+            return "Error!", f"Logger saving status is not changed\nvalue now:\n{value_start}"
+
+        return f"Succes!\nYour saving logs are set to:\n{value_to_save}"
 
     def load_saving_bool(self):
         """LOADING logger state for saving any errors during running reference_judge module
