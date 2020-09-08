@@ -220,16 +220,12 @@ class MainGUIApp():
         menu_help.add_separator()
         menu_help.add_command(label="About", command=About)
 
-        menu_log = tk.Menu(my_menu, tearoff=False)
-        my_menu.add_cascade(label="Logs", menu=menu_log)
-        menu_log.add_command(
+        self.menu_log = tk.Menu(
+            my_menu, postcommand=self.menu_log_update, tearoff=False)
+        my_menu.add_cascade(
+            label="Logs", menu=self.menu_log)
+        self.menu_log.add_command(
             label=f"Save logs in output: {Logger().get_saving_value()}", command=self.change_log_status)
-
-        # menu_log = tk.Menu(my_menu, tearoff=False)
-        # menu_log.add_cascade(label="Logs", menu=menu_log)
-        # menu_log.add_command(label="About", command=About)
-        # menu_help.add_command(
-        #     label=f"Save logs in output: {True}", command=Logger.set_saving_bool)
 
     def setup_open(self):
 
@@ -342,6 +338,12 @@ class MainGUIApp():
             messagebox.showerror("Error!", feedback)
         else:
             raise ValueError(f"Not valid feedback\n{feedback}")
+
+    def menu_log_update(self):
+
+        self.menu_log.delete(0, "end")
+        self.menu_log.add_command(
+            label=f"Save logs in output: {Logger().get_saving_value()}", command=self.change_log_status)
 
     def setup_save(self):
 
