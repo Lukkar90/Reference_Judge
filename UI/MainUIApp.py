@@ -14,7 +14,7 @@ from cv2 import destroyAllWindows
 
 # internal libs
 from UI.widgets import CreateToolTip, About, HowUse
-from Reference_Judge.config.config import IMAGES_SIZES, ARGV
+from Reference_Judge.config.config import IMAGES_SIZES, ARGV, LEGAL_EXTENSIONS
 from Reference_Judge.config.logger import Logger
 from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
@@ -484,27 +484,34 @@ class MainGUIApp():
 
     def source_btn_folder_open(self):
 
-        btn_find_path(self.source_entry, filedialog.askdirectory)
+        btn_find_path(self.source_entry,
+                      lambda: filedialog.askdirectory(title="Source folder")
+                      )
 
     def source_btn_file_open(self):
 
-        btn_find_path(self.source_entry, filedialog.askopenfilename)
+        btn_find_path(self.source_entry,
+                      lambda: filedialog.askopenfilename(title="Source file"))
 
     def target_btn_folder_open(self):
 
-        btn_find_path(self.target_entry, filedialog.askdirectory)
+        btn_find_path(self.target_entry,
+                      lambda: filedialog.askdirectory(title="Target folder"))
 
     def target_btn_file_open(self):
 
-        btn_find_path(self.target_entry, filedialog.askopenfilename)
+        btn_find_path(self.target_entry,
+                      lambda: filedialog.askopenfilename(title="Target file"))
 
     def output_btn_folder_open(self):
 
-        btn_find_path(self.output_entry, filedialog.askdirectory)
+        btn_find_path(self.output_entry,
+                      lambda: filedialog.askdirectory(title="Output folder"))
 
     def output_btn_file_open(self):
 
-        btn_find_path(self.output_entry, filedialog.askopenfilename)
+        btn_find_path(self.output_entry,
+                      lambda: filedialog.askopenfilename(title="Output file"))
 
     def set_state_output_entry(self):
 
