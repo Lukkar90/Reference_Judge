@@ -185,6 +185,9 @@ class TestReferenceJudge(unittest.TestCase):
         self.target_dir = _get_app_absolute_dir_path(test_paths["target dir"])
         self.output_dir = _get_app_absolute_dir_path(test_paths["output dir"])
 
+        # make sure that folder is empty to run test correctly
+        make_folder_empty(self.output_dir)
+
         self.source_single = os.path.join(
             self.source_dir, test_paths["source file"])
         self.target_single = os.path.join(

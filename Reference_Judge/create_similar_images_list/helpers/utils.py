@@ -40,6 +40,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
     most_similar_image = {"target path": "",
                           "similarity": 0,
+                          "source path": file_source_path,
                           "source name": source_name}  # needed for log error
 
     source_extension = os.path.splitext(file_source_path)
@@ -110,6 +111,7 @@ def write_error_log_not_found(output_path, similar_image, script_run_date):
         if save_log:
             write_in_log(
                 "[NOT FOUND]",
+                similar_image["source path"],
+                script_run_date,
                 os.path.join(output_path, similar_image["source name"]),
-                script_run_date
             )

@@ -60,7 +60,7 @@ class Logger():
         return path
 
 
-def write_in_log(section, output_file_path, script_run_date):
+def write_in_log(section, source_file_path, script_run_date, output_file_path):
     """
     append new record every time or when log does not exist it
     creates new one in output file
@@ -75,10 +75,8 @@ def write_in_log(section, output_file_path, script_run_date):
 
     file_exists = check_if_file_exists(output_dir_path, file_path)
 
-    output_file_name = os.path.basename(output_file_path)
-
     # write path to file
-    text_to_paste = f"{section}\n{current_date} {output_file_name}"
+    text_to_paste = f"{section}\n{current_date} {source_file_path}"
 
     if file_exists:
 

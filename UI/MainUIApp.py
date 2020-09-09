@@ -20,6 +20,9 @@ from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
 from Reference_Judge.utils import read_config_file
 
+# same module
+from UI.open_folder import open_folder
+
 
 # https://stackoverflow.com/a/17466924/12490791
 class MainGUIApp():
@@ -569,6 +572,7 @@ class MainGUIApp():
         if mode == ARGV["save"][0]:
             messagebox.showinfo(
                 "Done!", f"You saved images in:\n{output}\n\n{summary}")
+            open_folder(output)
 
     def path_exists(self, path):
         return path != self.entry_text_placeholder and isinstance(path, str)
