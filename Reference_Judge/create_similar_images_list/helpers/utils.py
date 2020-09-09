@@ -34,7 +34,12 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
     s_height, s_width = source_image.shape
 
-    most_similar_image = {"target path": "", "similarity": 0}
+    source_name = os.path.basename(file_source_path)
+
+    most_similar_image = {"target path": "",
+                          "similarity": 0,
+                          "source name": source_name}  # needed for log error
+
     source_extension = os.path.splitext(file_source_path)
 
     # Check each file in chosen folder to find this most similar

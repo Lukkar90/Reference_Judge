@@ -134,7 +134,11 @@ def find_similar_one_source_image_among_targets(
         if output_path:
             save_log = Logger().load_saving_bool()
             if save_log:
-                write_in_log("[NOT FOUND]", output_path, script_run_date)
+                write_in_log(
+                    "[NOT FOUND]",
+                    os.path.join(output_path, similar_image["source name"]),
+                    script_run_date
+                )
                 reference_pair = None
     else:
         reference_pair = ReferencePair(
