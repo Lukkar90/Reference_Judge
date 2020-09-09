@@ -56,13 +56,26 @@ def Reference_Judge(_argv):
     source_ref_path = _argv[1]
     target_ref_path = _argv[2]
     mode = _argv[3]
+
+    if len(_argv) >= 3:
+        output_path = _argv[4]
+    else:
+        output_path = None
+
     messages_summary = []
+
+    # to use in log errors
     script_run_date = _get_script_run_date()
 
     by_ratio = check_ratio_argv(_argv)
 
     similar_list = create_similar_images_list(
-        source_ref_path, target_ref_path, by_ratio)
+        source_ref_path,
+        target_ref_path,
+        script_run_date,
+        output_path,
+        by_ratio,
+    )
 
     references_counter = count_found_and_not_found_refs(
         source_ref_path, similar_list)
@@ -94,7 +107,7 @@ def count_found_and_not_found_refs(source_ref_path, similar_list):
     references_counter = dict()
 
     source_images_number = count_source_images(source_ref_path)
-    found_matches = len(similar_list)
+    found_matches = count_matches(similar_list)
     not_found_matches = source_images_number - found_matches
 
     _check_matches_legal_values(found_matches, not_found_matches)  # Fail fast
@@ -106,6 +119,17 @@ def count_found_and_not_found_refs(source_ref_path, similar_list):
         references_counter["not found matches"] = not_found_matches
 
     return references_counter
+
+
+def count_matches(similar_list):
+    """return int"""
+
+    if not None in similar_list:
+        found_matches = len(similar_list)
+    else:
+        found_matches = 0
+
+    return found_matches
 
 
 def concat_stringified_values_and_keys(_list):

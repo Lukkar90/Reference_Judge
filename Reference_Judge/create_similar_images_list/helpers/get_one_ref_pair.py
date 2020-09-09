@@ -9,6 +9,7 @@ import sys
 
 # external libs
 from cv2 import COLOR_BGR2GRAY, cvtColor, imread
+from Reference_Judge.config.logger import Logger, write_in_log
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
@@ -26,7 +27,7 @@ from Reference_Judge.utils import (
 )
 
 
-def get_one_ref_pair(source_reference_path, target_reference_path, by_ratio):
+def get_one_ref_pair(source_reference_path, target_reference_path, by_ratio, script_run_date, output_path):
     """return on pair of paths of matched images"""
 
     error_check_path_is_empty_string(source_reference_path)
@@ -53,7 +54,9 @@ def get_one_ref_pair(source_reference_path, target_reference_path, by_ratio):
             source_reference_path,
             source_name,
             target_reference_path,
-            by_ratio
+            by_ratio,
+            script_run_date,
+            output_path
         )
 
     # It can't be before "return", because if you have only one element in index
@@ -117,7 +120,9 @@ def find_similar_one_source_image_among_targets(
     source_reference_path,
     source_name,
     target_reference_path,
-    by_ratio
+    by_ratio,
+    script_run_date,
+    output_path
 ):
     """return no pair or only one"""
 
@@ -126,7 +131,11 @@ def find_similar_one_source_image_among_targets(
 
     if no_similar_images(similar_image):
         print(f"Not found reference:\n  {source_name}")
-        reference_pair = None
+        if output_path:
+            save_log = Logger().load_saving_bool()
+            if save_log:
+                write_in_log("[NOT FOUND]", output_path, script_run_date)
+                reference_pair = None
     else:
         reference_pair = ReferencePair(
             source_name,

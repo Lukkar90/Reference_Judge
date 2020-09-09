@@ -10,6 +10,7 @@ import numpy as np
 # internal libs
 from Reference_Judge.add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
 from Reference_Judge.compute_image_differences import compute_image_differences
+from Reference_Judge.config.logger import Logger, write_in_log
 
 # same module
 from Reference_Judge.modes.utils import (
@@ -109,57 +110,20 @@ def save_images_as_one(images, output_path, width, script_run_date):
 
     # User notification where to search saved image: https://stackoverflow.com/a/51809038/12490791
     if writeStatus is True:
+
         print(f"Saved reference:\n  {source_name}\n  {output_path}")
         saved = True
+
     else:
+
         print(f"Not saved:\n  {source_name}")
-        write_not_saved(output_path, script_run_date)
         saved = False
 
+        save_log = Logger().load_saving_bool()
+        if save_log:
+            write_in_error_log("[UNSAVED]", output_path, script_run_date)
+
     return saved
-
-
-def write_not_saved(output_file_path, script_run_date):  # todo
-
-    # get dir path
-    output_dir_path = os.path.dirname(output_file_path)
-
-    # get date
-    from datetime import datetime
-
-    file_name = f"ERRORS-{script_run_date}.txt"
-    file_path = os.path.join(output_dir_path, file_name)
-
-    datetime_object = datetime.now()
-    current_date = datetime_object.strftime("%Y_%m_%d-%I_%M_%S")
-
-    # check if file exists
-    file_exists = False
-    for name in os.listdir(output_dir_path):
-        if os.path.isfile(file_path) and name.endswith(".txt"):
-            file_exists = True
-            break
-
-    # write path to file
-    section = "[UNSAVED]"
-    text_to_paste = f"{section}\n{current_date} {output_file_path}"
-
-    if file_exists:
-
-        with open(file_path, 'r') as errors_file:
-            content = errors_file.read()
-            new = content.replace(
-                section,
-                text_to_paste
-            )
-
-        with open(file_path, 'w') as errors_file:
-            errors_file.write(new)
-
-    else:
-
-        with open(file_path, "w") as file:
-            file.write(text_to_paste)
 
 
 def next_path(path_pattern):  # https://stackoverflow.com/a/47087513/12490791

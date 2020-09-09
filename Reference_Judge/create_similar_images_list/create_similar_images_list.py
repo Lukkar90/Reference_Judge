@@ -15,7 +15,7 @@ from Reference_Judge.create_similar_images_list.helpers.get_similar_images_list 
 from Reference_Judge.create_similar_images_list.helpers.get_one_ref_pair import get_one_ref_pair
 
 
-def create_similar_images_list(source_reference_path, target_reference_path, by_ratio=False):
+def create_similar_images_list(source_reference_path, target_reference_path, script_run_date, output_path, by_ratio=False):
     """
     It returns path or paths of similar images compared to image reference with additional attributes
     """
@@ -27,7 +27,7 @@ def create_similar_images_list(source_reference_path, target_reference_path, by_
     # if source image is file
     if ext_source:
 
-        return get_one_ref_pair(source_reference_path, target_reference_path, by_ratio)
+        return get_one_ref_pair(source_reference_path, target_reference_path, by_ratio, script_run_date, output_path)
 
     # if source images are dir
     else:
