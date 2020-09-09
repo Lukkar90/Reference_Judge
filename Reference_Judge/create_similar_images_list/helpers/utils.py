@@ -10,6 +10,7 @@ from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from Reference_Judge.config.config import SIMILARITY
+from Reference_Judge.config.logger import Logger, write_in_log
 from Reference_Judge.utils import (
     give_resized_image,
     error_check_path_is_empty_string,
@@ -96,3 +97,16 @@ class ReferencePair():
 def no_similar_images(similar_image):
     """return bool"""
     return similar_image["target path"] == ""
+
+
+def write_error_log_not_found(output_path, similar_image, script_run_date):
+    """write error log in new line in output folder"""
+
+    if output_path:
+        save_log = Logger().load_saving_bool()
+        if save_log:
+            write_in_log(
+                "[NOT FOUND]",
+                os.path.join(output_path, similar_image["source name"]),
+                script_run_date
+            )

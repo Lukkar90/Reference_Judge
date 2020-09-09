@@ -32,4 +32,4 @@ def create_similar_images_list(source_reference_path, target_reference_path, scr
     # if source images are dir
     else:
 
-        return get_similar_images_list(source_reference_path, target_reference_path, by_ratio)
+        return get_similar_images_list(source_reference_path, target_reference_path, by_ratio, script_run_date, output_path)

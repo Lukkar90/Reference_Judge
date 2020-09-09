@@ -9,14 +9,14 @@ import sys
 
 # external libs
 from cv2 import COLOR_BGR2GRAY, cvtColor, imread
-from Reference_Judge.config.logger import Logger, write_in_log
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
 from Reference_Judge.create_similar_images_list.helpers.utils import (
     find_most_similar_image,
     no_similar_images,
-    ReferencePair
+    ReferencePair,
+    write_error_log_not_found
 )
 from Reference_Judge.utils import (
     give_resized_image,
@@ -130,17 +130,14 @@ def find_similar_one_source_image_among_targets(
         source_reference_path, target_reference_path, by_ratio)
 
     if no_similar_images(similar_image):
+
         print(f"Not found reference:\n  {source_name}")
-        if output_path:
-            save_log = Logger().load_saving_bool()
-            if save_log:
-                write_in_log(
-                    "[NOT FOUND]",
-                    os.path.join(output_path, similar_image["source name"]),
-                    script_run_date
-                )
-                reference_pair = None
+        reference_pair = None
+
+        write_error_log_not_found(output_path, similar_image, script_run_date)
+
     else:
+
         reference_pair = ReferencePair(
             source_name,
             source_reference_path,

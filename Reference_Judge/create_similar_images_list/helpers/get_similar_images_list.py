@@ -12,11 +12,12 @@ from Reference_Judge.utils import error_check_path_is_empty_string
 from Reference_Judge.create_similar_images_list.helpers.utils import (
     find_most_similar_image,
     no_similar_images,
-    ReferencePair
+    ReferencePair,
+    write_error_log_not_found
 )
 
 
-def get_similar_images_list(source_directory_path, target_directory_path, by_ratio):
+def get_similar_images_list(source_directory_path, target_directory_path, by_ratio, script_run_date, output_path):
     """return list of paths of matched images"""
 
     error_check_path_is_empty_string(source_directory_path)
@@ -26,7 +27,9 @@ def get_similar_images_list(source_directory_path, target_directory_path, by_rat
     sources_paths = files_paths(source_directory_path)
 
     reference_pairs = create_similar_images_list(
-        sources_paths, target_directory_path, by_ratio)
+        sources_paths, target_directory_path, by_ratio,
+        script_run_date, output_path
+    )
 
     return reference_pairs
 
@@ -52,7 +55,7 @@ def files_paths(directory):
     return paths
 
 
-def create_similar_images_list(sources_paths, target_directory_path, by_ratio):
+def create_similar_images_list(sources_paths, target_directory_path, by_ratio, script_run_date, output_path):
     """return list of similar images with all attributes"""
 
     reference_pairs = list()
@@ -72,6 +75,9 @@ def create_similar_images_list(sources_paths, target_directory_path, by_ratio):
 
             # reset temp variable
             reference_pair = None
+
+            write_error_log_not_found(
+                output_path, similar_image, script_run_date)
         else:
             reference_pair = ReferencePair(
                 source_name,
