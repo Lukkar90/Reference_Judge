@@ -63,7 +63,7 @@ def make_folder_empty(folder):
             elif os.path.isdir(file_path):
                 shutil.rmtree(file_path)
         except OSError as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
+            print('Failed to delete\n  %s\nReason:\n  %s' % (file_path, e))
 
 
 def check_if_width_is_correct(width, output_folder):

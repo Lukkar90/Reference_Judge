@@ -1,5 +1,6 @@
 """GUI to comunicate with Reference_Judge module"""
 
+
 # Python libs
 from configparser import ConfigParser
 import os

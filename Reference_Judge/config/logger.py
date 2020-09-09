@@ -1,3 +1,6 @@
+"""Tools to read, process and save logger.ini"""
+
+
 # python libs
 from datetime import datetime
 import sys
@@ -63,10 +66,9 @@ def write_in_log(section, output_file_path, script_run_date):
     creates new one in output file
     """
 
-    print(output_file_path)
     # initial variables
     output_dir_path = get_output_dir(output_file_path)
-    print(output_dir_path)
+
     file_path = _get_log_path(output_dir_path, script_run_date)
 
     current_date = get_current_date()

@@ -158,6 +158,8 @@ class SizesSimilarityImages:
         return w_source, h_source, w_target, h_target
 
     def notify_user_about_wrong_scale(self):
+        """exit program if true"""
+
         compared_ratio = self.w_source/self.w_target
 
         if not self.same_ratio:
@@ -185,6 +187,7 @@ def give_resized_image(source, target):
 
 
 def read_config_file(file):
+    """return string"""
 
     config = ConfigParser()
 
@@ -198,6 +201,7 @@ def read_config_file(file):
 
 
 def get_output_dir(output_file_path):
+    """return string"""
 
     if os.path.isdir(output_file_path):
         output_dir_path = output_file_path
