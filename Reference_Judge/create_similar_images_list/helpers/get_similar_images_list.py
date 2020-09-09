@@ -76,8 +76,9 @@ def create_similar_images_list(sources_paths, target_directory_path, by_ratio, s
             # reset temp variable
             reference_pair = None
 
-            write_error_log_not_found(
-                output_path, similar_image, script_run_date)
+            if output_path:
+                write_error_log_not_found(
+                    output_path, similar_image, script_run_date)
         else:
             reference_pair = ReferencePair(
                 source_name,

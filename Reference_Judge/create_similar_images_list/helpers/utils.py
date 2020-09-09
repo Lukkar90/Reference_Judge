@@ -15,7 +15,8 @@ from Reference_Judge.utils import (
     give_resized_image,
     error_check_path_is_empty_string,
     SizesSimilarityImages,
-    uri_validator, url_to_image
+    uri_validator, url_to_image,
+    get_output_dir
 )
 
 
@@ -101,6 +102,8 @@ def no_similar_images(similar_image):
 
 def write_error_log_not_found(output_path, similar_image, script_run_date):
     """write error log in new line in output folder"""
+
+    output_path = get_output_dir(output_path)
 
     if output_path:
         save_log = Logger().load_saving_bool()

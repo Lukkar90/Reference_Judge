@@ -195,3 +195,12 @@ def read_config_file(file):
         raise IOError(error)
 
     return config
+
+
+def get_output_dir(output_file_path):
+
+    if os.path.isdir(output_file_path):
+        output_dir_path = output_file_path
+    else:
+        output_dir_path = os.path.dirname(output_file_path)
+    return output_dir_path

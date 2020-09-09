@@ -134,7 +134,9 @@ def find_similar_one_source_image_among_targets(
         print(f"Not found reference:\n  {source_name}")
         reference_pair = None
 
-        write_error_log_not_found(output_path, similar_image, script_run_date)
+        if output_path:
+            write_error_log_not_found(
+                output_path, similar_image, script_run_date)
 
     else:
 

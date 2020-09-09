@@ -4,14 +4,14 @@ import sys
 import os
 
 # internal libs
-from Reference_Judge.utils import read_config_file
+from Reference_Judge.utils import read_config_file, get_output_dir
 
 
 class Logger():
     """defining all attributes of logger functionality"""
 
     def __init__(self):
-        self.logger_path = f"{sys.argv[0]}\\Reference_Judge\\config\\logger.ini"
+        self.logger_path = self.define_log_path()
         self.logger = read_config_file(self.logger_path)
 
     def set_saving_bool(self):
@@ -43,15 +43,30 @@ class Logger():
 
         return self.logger.get("ERRORS", "save errors")
 
+    def define_log_path(self):
+        """define log path depending if is run test or just app"""
+
+        program_name = sys.argv[0]
+
+        path = "Reference_Judge\\config\\logger.ini"
+
+        if program_name == "Reference_Judge":
+            append_path = "Reference_Judge\\"
+            path = append_path + path
+
+        return path
+
 
 def write_in_log(section, output_file_path, script_run_date):
     """
     append new record every time or when log does not exist it
     creates new one in output file
     """
+
+    print(output_file_path)
     # initial variables
     output_dir_path = get_output_dir(output_file_path)
-
+    print(output_dir_path)
     file_path = _get_log_path(output_dir_path, script_run_date)
 
     current_date = get_current_date()
@@ -72,14 +87,6 @@ def write_in_log(section, output_file_path, script_run_date):
     else:
 
         write_line_into_log(file_path, text_to_paste)
-
-
-def get_output_dir(output_file_path):
-    if os.path.isdir(output_file_path):
-        output_dir_path = output_file_path
-    else:
-        output_dir_path = os.path.dirname(output_file_path)
-    return output_dir_path
 
 
 def create_new_line_to_log(file_path, section, text_to_paste):
@@ -103,6 +110,8 @@ def write_line_into_log(file_path, text_to_paste):
 
 def check_if_file_exists(output_dir_path, file_path):
     """returns bool"""
+
+    output_dir_path = get_output_dir(output_dir_path)
 
     file_exists = False
     for name in os.listdir(output_dir_path):
