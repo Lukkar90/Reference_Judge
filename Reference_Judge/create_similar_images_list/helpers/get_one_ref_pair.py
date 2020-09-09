@@ -140,7 +140,7 @@ def find_similar_one_source_image_among_targets(
         reference_pair = ReferencePair(
             source_name,
             source_reference_path,
-            similar_image["file path"],
+            similar_image["target path"],
             similar_image["similarity"]).dictionary
 
     return reference_pair

@@ -121,7 +121,7 @@ def save_images_as_one(images, output_path, width, script_run_date):
 
         save_log = Logger().load_saving_bool()
         if save_log:
-            write_in_error_log("[UNSAVED]", output_path, script_run_date)
+            write_in_log("[UNSAVED]", output_path, script_run_date)
 
     return saved
 

@@ -49,7 +49,6 @@ def write_in_log(section, output_file_path, script_run_date):
     append new record every time or when log does not exist it
     creates new one in output file
     """
-    print(output_file_path)
     # initial variables
     output_dir_path = get_output_dir(output_file_path)
 
@@ -115,17 +114,14 @@ def get_current_date():
     """retruns fromated string"""
 
     datetime_object = datetime.now()
-    current_date = datetime_object.strftime("%Y_%m_%d-%I_%M_%S")
+    current_date = datetime_object.strftime("%Y_%m_%d-%H_%M")
     return current_date
 
 
 def _get_log_path(output_dir_path, script_run_date):
     """returns string path"""
 
-    print(output_dir_path)
-
     file_name = f"ERRORS-{script_run_date}.txt"
     file_path = os.path.join(output_dir_path, file_name)
 
-    print(file_path)
     return file_path

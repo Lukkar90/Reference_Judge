@@ -57,7 +57,7 @@ def Reference_Judge(_argv):
     target_ref_path = _argv[2]
     mode = _argv[3]
 
-    if len(_argv) >= 3:
+    if len(_argv) > 4:
         output_path = _argv[4]
     else:
         output_path = None
@@ -183,6 +183,6 @@ def _get_script_run_date():
     """get the date when Refrence-Judge has been run"""
 
     datetime_object = datetime.now()
-    current_date = datetime_object.strftime("%Y_%m_%d-%I_%M_%S")
+    current_date = datetime_object.strftime("%Y_%m_%d-%H_%M")
 
     return current_date

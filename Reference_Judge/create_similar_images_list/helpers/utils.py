@@ -34,7 +34,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
 
     s_height, s_width = source_image.shape
 
-    most_similar_image = {"file path": "", "similarity": 0}
+    most_similar_image = {"target path": "", "similarity": 0}
     source_extension = os.path.splitext(file_source_path)
 
     # Check each file in chosen folder to find this most similar
@@ -67,7 +67,7 @@ def find_most_similar_image(file_source_path, target_directory_path, by_ratio=Fa
                 # filtering most similar image
                 if most_similar_image["similarity"] < similarity > SIMILARITY["not enough"]:
                     most_similar_image["similarity"] = similarity
-                    most_similar_image["file path"] = target_path
+                    most_similar_image["target path"] = target_path
 
                 # For performance, it's high propability that with this value is the same image
                 if most_similar_image["similarity"] >= SIMILARITY["enough"]:
@@ -90,4 +90,4 @@ class ReferencePair():
 
 def no_similar_images(similar_image):
     """return bool"""
-    return similar_image["file path"] == ""
+    return similar_image["target path"] == ""
