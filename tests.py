@@ -164,11 +164,8 @@ test_paths = {
     "output dir": images_path + "\\output",
     "source file": "screen002.png",
     "target file": "screen002.png",
-    "target file size": "Android-Login 01.png",
-    "target file size err": "Android-Login 01.png",
-    "target file ratio err": "Android-Login 01.png",
-    "http source": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png",
-    "http target": "https://3.bp.blogspot.com/-idDNlSH6Sas/U8_gCraGJZI/AAAAAAAAAt4/6xAk4-AuE68/s1600/opencv_logo_with_text.png",
+    "http source": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png",  # todo
+    "http target": "https://3.bp.blogspot.com/-idDNlSH6Sas/U8_gCraGJZI/AAAAAAAAAt4/6xAk4-AuE68/s1600/opencv_logo_with_text.png",  # tod0
     "source file http": "screen003.png",
     "target file http": "screen003.png",
     "by ratio": ARGV["search by ratio"][0],
