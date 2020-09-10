@@ -6,6 +6,7 @@ except ImportError:
     # for Python3
     import tkinter as tk
 import webbrowser
+import sys
 
 # Internal libs
 from Reference_Judge.config.config import IMAGES_SIZES
@@ -79,7 +80,8 @@ class About():
     def __init__(self):
         about = tk.Toplevel()
         about.title("About")
-        # top.iconbitmap("blabla") # todo
+        about.iconbitmap(
+            f"{sys.argv[0]}/UI/images/info.ico")
 
         # main window
         pad_value = 20
@@ -147,13 +149,14 @@ class HowUse():
     """Pop-up window displaying information about usage"""
 
     def __init__(self):
-        about = tk.Toplevel()
-        about.title("How to use")
-        # top.iconbitmap("blabla") # todo
+        how_use = tk.Toplevel()
+        how_use.title("How to use")
+        how_use.iconbitmap(
+            f"{sys.argv[0]}/UI/images/info.ico")
 
         # main window
         pad_value = 20
-        padding = tk.Frame(about, padx=pad_value, pady=pad_value)
+        padding = tk.Frame(how_use, padx=pad_value, pady=pad_value)
         padding.pack()
 
         # consts

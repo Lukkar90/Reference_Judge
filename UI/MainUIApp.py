@@ -32,8 +32,10 @@ class MainGUIApp():
 
         master.title(sys.argv[0])
         window_width = 618
-        window_height = 555
+        window_height = 576
         master.geometry(f"{window_width}x{window_height}")
+        master.iconbitmap(
+            f"{sys.argv[0]}/UI/images/app.ico")
 
         # Create frames
         frame_matching = tk.LabelFrame(master, padx=10, pady=15)
