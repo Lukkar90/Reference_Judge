@@ -35,7 +35,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
             image_B = give_resized_image(image_A, image_B)
 
     # compute difference between imageA and imageB in BGR
-    diff_BGR = cv2.subtract(image_A, image_B)
+    diff_BGR = cv2.subtract(image_B, image_A)
 
     gray_A = convert_image_to_gray(image_A)
     gray_B = convert_image_to_gray(image_B)
