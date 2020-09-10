@@ -222,18 +222,18 @@ class MainGUIApp():
         menu_setup.add_separator()
         menu_setup.add_command(label="Exit", command=master.quit)
 
-        menu_help = tk.Menu(my_menu, tearoff=False)
-        my_menu.add_cascade(label="Help", menu=menu_help)
-        menu_help.add_command(label="How to use", command=HowUse)
-        menu_help.add_separator()
-        menu_help.add_command(label="About", command=About)
-
         self.menu_log = tk.Menu(
             my_menu, postcommand=self.menu_log_update, tearoff=False)
         my_menu.add_cascade(
             label="Logs", menu=self.menu_log)
         self.menu_log.add_command(
             label=f"Save logs in output: {Logger().get_saving_value()}", command=self.change_log_status)
+
+        menu_help = tk.Menu(my_menu, tearoff=False)
+        my_menu.add_cascade(label="Help", menu=menu_help)
+        menu_help.add_command(label="How to use", command=HowUse)
+        menu_help.add_separator()
+        menu_help.add_command(label="About", command=About)
 
     def setup_open(self):
 
