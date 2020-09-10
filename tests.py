@@ -169,8 +169,8 @@ test_paths = {
     "target file ratio err": "Android-Login 01.png",
     "http source": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png",
     "http target": "https://3.bp.blogspot.com/-idDNlSH6Sas/U8_gCraGJZI/AAAAAAAAAt4/6xAk4-AuE68/s1600/opencv_logo_with_text.png",
-    "source file http": "opencv_logo.png",
-    "target file http": "opencv_logo.png",
+    "source file http": "screen003.png",
+    "target file http": "screen003.png",
     "by ratio": ARGV["search by ratio"][0],
     "random": "pizza time!"
 }
