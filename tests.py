@@ -51,19 +51,23 @@ def _get_app_absolute_dir_path(path):
 
 
 def get_program_name():
+    """return string"""
     return sys.argv[0]
 
 
 def make_folder_empty(folder):
+    """delete everything except .gitignore"""
+
     for filename in os.listdir(folder):
-        file_path = os.path.join(folder, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except OSError as e:
-            print('Failed to delete\n  %s\nReason:\n  %s' % (file_path, e))
+        if filename != ".gitignore":
+            file_path = os.path.join(folder, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except OSError as e:
+                print('Failed to delete\n  %s\nReason:\n  %s' % (file_path, e))
 
 
 def check_if_width_is_correct(width, output_folder):
@@ -167,7 +171,7 @@ test_paths = {
     # todo http on github
     "http source": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png",
     "http target": "https://3.bp.blogspot.com/-idDNlSH6Sas/U8_gCraGJZI/AAAAAAAAAt4/6xAk4-AuE68/s1600/opencv_logo_with_text.png",
-
+    "source file http": "screen003.png",
     "target file http": "screen003.png",
     "by ratio": ARGV["search by ratio"][0],
     "random": "pizza time!"
