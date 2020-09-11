@@ -20,7 +20,7 @@ If you want to use the console, click here -> [**How to use console**](https://g
 
 ## Using UI version 👀
 
-![main window](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/MainWindow.png)
+![main window](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/main_window.png)
 
 Firstly, you choose the **source** folder/file/url to **process**  
 Next, you choose the **target** folder/file/url to **compare** to
