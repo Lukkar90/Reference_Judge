@@ -1,6 +1,6 @@
 # Usage
 
-python reference-judge.py &lt;source_reference_path&gt; &lt;target_reference_path&gt; <--mode> [directory_diffrences_output] [width]
+python reference-judge.py &lt;source_reference_path&gt; &lt;target_reference_path&gt; <--mode> [directory matched images output] [width] [--search_by_ratio]
 
 ## Images on hard drive:
 
