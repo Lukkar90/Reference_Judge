@@ -88,6 +88,8 @@ In this place, you can choose if logs are saved or not
 
 ## Help ℹ️
 
+![help menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/help.png)
+
 It consists of:
 - How to use
 - About (program)
