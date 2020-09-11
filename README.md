@@ -101,7 +101,7 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Built With 🧰
 
-- [**Required packages and python ver*](https://github.com/Lukkar90/Pipfile.lock/)
+- [**Required packages and python ver**](https://github.com/Lukkar90/Pipfile.lock/)
 
 ## Needed documentation 📦
 
