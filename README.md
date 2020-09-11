@@ -13,11 +13,12 @@
 Find **Reference-Judge.exe** in the folder or run through **python Reference_Judge** command line  in the directory where the folder exists
 
 To run UI version you don't have to provide any arguments, just press "enter"
+
 ![terminal program no args](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/terminal_program_no_args.png)
 
 If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/How_to_use_console)
 
-#### When UI version started
+### Using UI version
 
 ![main window](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/MainWindow.png)
 
