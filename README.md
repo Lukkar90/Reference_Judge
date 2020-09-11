@@ -5,13 +5,9 @@
 </div>
 
 ## Getting Started 💡
-
-
-
+    
 ![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/how_program_works.png)
-
-
-
+    
 Find **Reference-Judge.exe** in the folder or run through **python Reference_Judge** command line  in the directory where the folder exists
 
 To run UI version you don't have to provide any arguments, just press "enter"
