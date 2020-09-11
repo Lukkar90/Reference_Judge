@@ -53,15 +53,15 @@ The **naming** of files does **not matter** in that case
 
 ![errors](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/errors.png)
 
-If you use **save mode**:  
+1. If you use **save mode**:  
 When **errors occur**, then it will be **created .txt** file where **errors** are **stored**  
 **.txt** file is **stored** in the selected folder **in output** folder  
 Each **.txt** file looks like: **ERROR-(date when the script ran)**:  
 
-If you use **show mode**:  
+2. If you use **show mode**:  
 You will only get pop-up notification about the quantity of **errors**  
 
-Type of **errors**:  
+### Type of **errors**:  
 - When there is no match for **source** image among **target** images  
 - When image **matched** is not saved  
 
