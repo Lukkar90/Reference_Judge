@@ -27,10 +27,9 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 - **Show**
 
 4. In **save mode** you choose the folder in which your matches will be saved  
-To do that you have to provide a **path** in the **output dialog** box
-
-  When a name should be the **same as in source**, provide the output path as a **folder**  
-  When a name should be **specified**, provide the output path as a **file**
+To do that you have to provide a **path** in the **output dialog** box    
+When a name should be the **same as in source**, provide the output path as a **folder**   
+When a name should be **specified**, provide the output path as a **file**
 
 5. In **show mode** there will be automatically displayed matched images  
 To go to the next set of images press **"0"** key
