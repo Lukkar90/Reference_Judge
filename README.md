@@ -9,7 +9,7 @@ Similar images are matched automatically, to get the best result try to use imag
 
 ## Getting Started 💡
     
-Find **Reference-Judge.exe** in the folder or run through **python Reference_Judge** command line  in the directory where the folder exists
+Find **Reference-Judge.exe** in the folder or run through `**python Reference_Judge**` command line  in the directory where the folder exists
 
 To run UI version you don't have to provide any arguments, just press "enter"
 
