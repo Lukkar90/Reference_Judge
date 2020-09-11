@@ -1,13 +1,13 @@
 <h1 align="center"> Reference-Judge </h1>
 
 <div align="center">
-</br>This program shows visual differences between chosen images
+</br>This program shows visual differences between chosen images.
 Similar images are matched automatically, to get the best result try to use images with the same sizes</br>
 </div>
 
-## Getting Started 💡
-    
 ![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/how_program_works.png)
+
+## Getting Started 💡
     
 Find **Reference-Judge.exe** in the folder or run through **python Reference_Judge** command line  in the directory where the folder exists
 
