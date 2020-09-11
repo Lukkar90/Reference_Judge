@@ -18,7 +18,7 @@ To run UI version you don't have to provide any arguments, just press "enter"
 
 If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/How_to_use_console)
 
-## Using UI version
+## Using UI version 👀
 
 ![main window](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/MainWindow.png)
 
@@ -53,7 +53,7 @@ The **naming** of files does **not matter** in that case
 
 Enjoy the results!
 
-## Errors
+## Errors ⚠️
 
 If you use **save mode**:
 When **errors occur**, then it will be **created .txt** file where **errors** are **stored**
@@ -67,7 +67,7 @@ Type of **errors**:
 - When there is no match for **source** image among **target** images
 - When image **matched** is not saved
 
-## Setup
+## Setup 💾
 
 ![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/setup.png)
 
@@ -80,13 +80,13 @@ Default place where setups are stored are **"program/data/appData/"**
 - **Reset to defaults** load **defaults**
 - **Defaults reset** overwrite **defaults** to **standard** values and **load** them
 
-## Logs
+## Logs 📜
 
 ![logs menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/logs.png)
 
 In this place, you can choose if logs are saved or not
 
-## Help
+## Help ℹ️
 
 It consists of:
 - How to use
