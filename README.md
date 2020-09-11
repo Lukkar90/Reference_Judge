@@ -1,8 +1,8 @@
 <h1 align="center"> Reference-Judge </h1>
 
 <div align="center">
-</br>This program shows visual differences between chosen images</br>
-</br>Similar images are matched automatically, to get the best result try to use images with the same sizes</br>
+</br>This program shows visual differences between chosen images
+Similar images are matched automatically, to get the best result try to use images with the same sizes</br>
 </div>
 
 ## Getting Started 💡
