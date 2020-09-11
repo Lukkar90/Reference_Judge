@@ -1,3 +1,5 @@
+"""check if width values are not too big, not too small, numeric"""
+
 # python libs
 import sys
 

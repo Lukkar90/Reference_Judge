@@ -29,8 +29,10 @@ AUTHOR
     e-mail: lukkarcontact@gmail.com
 """
 
-
+# Python libs
 import sys
+
+# Internal libs
 from manage import execute_from_command_line
 
 if __name__ == "__main__":

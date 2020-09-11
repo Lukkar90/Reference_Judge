@@ -33,11 +33,13 @@ def get_error_directory_does_not_exists(dir_kind):
 
 
 def get_error_width_too_high(width):
+    """return string"""
 
     return f"Width value is too high: {width}. It should not be higher than: {IMAGES_SIZES['biggest dimension']}"
 
 
 def get_error_width_too_low(width):
+    """return string"""
 
     return f"Width value is too low: {width}. It should not be smaller than: {IMAGES_SIZES['smallest dimension']}"
 

@@ -33,7 +33,7 @@ def save(width, similar_list, by_ratio, _argv, script_run_date):
     if len(_argv) >= 6:
         check_correctness_optional_argvs(_argv, 7)
         if check_width_argv_exists(_argv, 7):
-            width = retrieve_argv_width(_argv, 7, width)
+            width = retrieve_argv_width(_argv, 7)
 
     check_type_width(width)  # fail fast
 

@@ -20,7 +20,7 @@ def show(width, similar_list, by_ratio, _argv):
     if len(_argv) >= 5:
         check_correctness_optional_argvs(_argv, 6)
         if check_width_argv_exists(_argv, 6):
-            width = retrieve_argv_width(_argv, 6, width)
+            width = retrieve_argv_width(_argv, 6)
 
     check_type_width(width)  # fail fast
 

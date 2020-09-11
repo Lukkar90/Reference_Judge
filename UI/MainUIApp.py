@@ -14,7 +14,7 @@ from cv2 import destroyAllWindows
 
 # internal libs
 from UI.widgets import CreateToolTip, About, HowUse
-from Reference_Judge.config.config import IMAGES_SIZES, ARGV, LEGAL_EXTENSIONS
+from Reference_Judge.config.config import IMAGES_SIZES, ARGV
 from Reference_Judge.config.logger import Logger
 from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
