@@ -8,19 +8,19 @@
 
 ## Getting Started 💡
 
-![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/how_program_works.png)
+![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/how_program_works.png)
 
 Find **Reference-Judge.exe** in the folder or run through **python Reference_Judge** command line  in the directory where the folder exists
 
 To run UI version you don't have to provide any arguments, just press "enter"
 
-![terminal program no args](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/terminal_program_no_args.png)
+![terminal program no args](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/terminal_program_no_args.png)
 
-If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/How_to_use_console)
+If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/How_to_use_console)
 
 ## Using UI version 👀
 
-![main window](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/MainWindow.png)
+![main window](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/MainWindow.png)
 
 Firstly, you choose the **source** folder/file/url to **process**  
 Next, you choose the **target** folder/file/url to **compare** to
@@ -55,7 +55,7 @@ The **naming** of files does **not matter** in that case
 
 ## Errors ⚠️
 
-![errors](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/errors.png)
+![errors](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/errors.png)
 
 If you use **save mode**:
 When **errors occur**, then it will be **created .txt** file where **errors** are **stored**
@@ -71,7 +71,7 @@ Type of **errors**:
 
 ## Setup 💾
 
-![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/setup.png)
+![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/setup.png)
 
 The areas marked **in red** are **options** which can be **saved**, **load**
 Default place where setups are stored are **"program/data/appData/"**
@@ -84,13 +84,13 @@ Default place where setups are stored are **"program/data/appData/"**
 
 ## Logs 📜
 
-![logs menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/logs.png)
+![logs menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/logs.png)
 
 In this place, you can choose if logs are saved or not
 
 ## Help ℹ️
 
-![help menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/help.png)
+![help menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/help.png)
 
 It consists of:
 - How to use
