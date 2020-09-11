@@ -51,7 +51,7 @@ Depending on a number of images to process results should appear fairly fast
 Images are automatically **matched** on the degree of **similarity**
 The **naming** of files does **not matter** in that case
 
-Enjoy the results!
+**Enjoy** the results!
 
 ## Errors ⚠️
 
