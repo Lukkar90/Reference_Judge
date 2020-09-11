@@ -55,6 +55,8 @@ The **naming** of files does **not matter** in that case
 
 ## Errors ⚠️
 
+![errors](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/errors.png)
+
 If you use **save mode**:
 When **errors occur**, then it will be **created .txt** file where **errors** are **stored**
 **.txt** file is **stored** in the selected folder **in output** folder
