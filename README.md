@@ -53,12 +53,12 @@ The **naming** of files does **not matter** in that case
 
 ![errors](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/errors.png)
 
-1. If you use **save mode**:  
+1. If you use **"Save mode"**:  
 When **errors occur**, then it will be **created .txt** file where **errors** are **stored**  
 **.txt** file is **stored** in the selected folder **in output** folder  
 Each **.txt** file looks like: **ERROR-(date when the script ran)**:  
 
-2. If you use **show mode**:  
+2. If you use **"Show mode"**:  
 You will only get pop-up notification about the quantity of **errors**  
 
 ### Type of **errors**:  
