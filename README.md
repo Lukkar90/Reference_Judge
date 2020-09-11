@@ -9,13 +9,11 @@ Similar images are matched automatically, to get the best result try to use imag
 
 ## Getting Started 💡
     
-Find **Reference-Judge.exe** in the folder or run through `**python Reference_Judge**` command line  in the directory where the folder exists
+Find **Reference-Judge.exe** in the folder, or run through `python Reference_Judge` command line in the directory where the folder exists
 
-To run UI version you don't have to provide any arguments, just press "enter"
+To run only UI version you don't have to provide any arguments, just press "enter"
 
-![terminal program no args](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/terminal_program_no_args.png)
-
-If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/How_to_use_console)
+If you want to use the console: [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/How_to_use_console)
 
 ## Using UI version 👀
 
