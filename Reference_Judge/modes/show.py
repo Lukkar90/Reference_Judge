@@ -1,3 +1,6 @@
+"""show matched images to user, each one in separate window"""
+
+
 # external libs
 import cv2
 

@@ -1,6 +1,8 @@
+"""save matched images in chosen directory"""
+
+
 # Python libs
 from collections import defaultdict
-import datetime
 import os
 
 # external libs
