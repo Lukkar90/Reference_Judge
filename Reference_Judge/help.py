@@ -35,7 +35,7 @@ def help_detailed_usage():
     sys.exit(DetailedUsage().string)
 
 
-def user_commanded_help(argv_):
+def user_commanded_line_help(argv_):
     """return bool"""
     return len(argv_) == 2 and argv_[1] in ARGV["help"]
 

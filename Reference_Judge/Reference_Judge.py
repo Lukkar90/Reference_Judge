@@ -39,17 +39,17 @@ from Reference_Judge.check_argv_correctness.check_argv_correctness import check_
 from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legal_images
 from Reference_Judge.config.config import ARGV, IMAGES_SIZES
 from Reference_Judge.create_similar_images_list.create_similar_images_list import create_similar_images_list
-from Reference_Judge.help import help_detailed_usage, user_commanded_help
+from Reference_Judge.help import help_detailed_usage, user_commanded_line_help
 from Reference_Judge.modes.save import save
 from Reference_Judge.modes.show import show
 from Reference_Judge.utils import check_ratio_argv
 
 
 def Reference_Judge(_argv):
-    """Parsing sys.argv to invoke in chosen paths modes: save or show, or to get help"""
+    """Parsing sys.argv to invoke in chosen modes: save or show, or to get help"""
 
     check_argv_correctness(_argv)
-    if user_commanded_help(_argv):
+    if user_commanded_line_help(_argv):
         return help_detailed_usage()
 
     # Init variables

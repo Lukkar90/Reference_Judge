@@ -8,18 +8,18 @@
 
 ## Getting Started 💡
 
-![how_program_works](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/docs/images/how_program_works.png)
+![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/how_program_works.png)
 
 Find **Reference-Judge.exe** in the folder or run through **python Reference_Judge** command line  in the directory where the folder exists
 
 To run UI version you don't have to provide any arguments, just press "enter"
-![terminal program no args](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/docs/images/terminal_program_no_args.png)
+![terminal program no args](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/terminal_program_no_args.png)
 
-If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/docs/images/How_to_use_console)
+If you want to use the console, click here -> [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/How_to_use_console)
 
 #### When UI version started
 
-![main window](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/docs/images/MainWindow.png)
+![main window](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/MainWindow.png)
 
 Firstly, you choose the **source** folder/file/url to **process**  
 Next, you choose the **target** folder/file/url to **compare** to
@@ -68,7 +68,7 @@ Type of **errors**:
 
 ### Setup
 
-![setup menu](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/docs/images/setup.png)
+![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/setup.png)
 
 The areas marked **in red** are **options** which can be **saved**, **load**
 Default place where setups are stored are **"program/data/appData/"**
@@ -81,7 +81,7 @@ Default place where setups are stored are **"program/data/appData/"**
 
 ### Logs
 
-![logs menu](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/docs/images/logs.png)
+![logs menu](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/logs.png)
 
 In this place, you can choose if logs are saved or not
 
@@ -98,7 +98,7 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Built With 🧰
 
-- [**OpenCV**](https://github.com/Lukkar90/Pipfile.lock/)
+- [**Required packages and python ver*](https://github.com/Lukkar90/Pipfile.lock/)
 
 ## Needed documentation 📦
 
@@ -108,15 +108,15 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Structure of the code 🧭
 
-![Flow diagram](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/Flow%20Diagram.png)
+[Flow diagram](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/simpified_model_of_program.png)
 
 ## Contributing 📬
 
-Please read [**CONTRIBUTING.md**](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us
+Please read [**CONTRIBUTING.md**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us
 
 ## Versioning 🗓️
 
-We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/CHANGELOG.md)
+We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/CHANGELOG.md)
 
 ## Authors 🎈
 
@@ -124,11 +124,10 @@ We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](htt
 
 ## License 📜
 
-This project is licensed under the MIT License - see the [**LICENSE.md**](https://github.com/Lukkar90/UI-Photoshop-toolSet/blob/master/License.md) file for details
+This project is licensed under the MIT License - see the [**LICENSE.md**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/License.md) file for details
 
 ## Acknowledgments 👍
 
 - _README-template.md, CONTRIBUTING-template.md_ by [**PurpleBooth**](https://gist.github.com/PurpleBooth)
-- [**_dateAdd()_**](https://stackoverflow.com/questions/1197928/how-to-add-30-minutes-to-a-javascript-date-object/1214753#1214753) by [**Kip**](https://stackoverflow.com/users/18511/kip)
-- [**_restrictInputKeys()_**](https://stackoverflow.com/questions/59697920/is-possible-to-lock-certain-keys-in-keyboard-during-input-in-edittext-box-ph) by [**RobC**](https://stackoverflow.com/users/1611459/robc)
-- persistent reviewer [**Ikulis**](https://github.com/ikulis)
+- [**class CreateToolTip**](www.daniweb.com/programming/software-development/code/484591/a-tooltip-class-for-tkinter) by [**vegaseat**](https://www.daniweb.com/members/19440/vegaseat)
+- [**main idea inspired by**](https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/) by [**Adrian Rosebrock**](https://www.pyimagesearch.com/contact/)
