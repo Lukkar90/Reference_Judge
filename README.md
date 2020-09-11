@@ -69,14 +69,15 @@ You will only get pop-up notification about the quantity of **errors**
 
 ![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/setup.png)
 
-The areas marked **in red** are **options** which can be **saved**, **load**
-Default place where setups are stored are **"program/data/appData/"**
+The areas marked **in red** are **options** which can be **saved**, **load** defaults settings  
+Default are stored in **"program/data/appData/"**
 
-- **Save as** save current setup into **.ini** file
-- **Open** open setup **.ini** file
-- **Save to defaults** save current setup as **defaults** (**load that** setup each time when **program starts**)
-- **Reset to defaults** load **defaults**
-- **Defaults reset** overwrite **defaults** to **standard** values and **load** them
+To process defaults in menu "Setup" are following options:
+1. **Save as** save current setup into **.ini** file
+2. **Open** open setup **.ini** file
+3. **Save to defaults** save current setup as **defaults** (**load that** setup each time when **program starts**)
+4. **Reset to defaults** load **defaults**
+5. **Defaults reset** overwrite **defaults** to **standard** values and **load** them
 
 ## Logs 📜
 
