@@ -1,7 +1,3 @@
-# Reference-Judge
-
-It checks if images input are similar to references and gives visual output to the User
-
 # Usage
 
 python reference-judge.py &lt;source_reference_path&gt; &lt;target_reference_path&gt; <--mode> [directory_diffrences_output] [width]
