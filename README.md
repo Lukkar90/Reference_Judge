@@ -19,31 +19,31 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 
 ![main window](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/main_window.png)
 
-Firstly, you choose the **source** folder/file/url to **process**  
-Next, you choose the **target** folder/file/url to **compare** to  
-Later, you check **mode** in which you want to display images:
+1. Firstly, you choose the **source** folder/file/url to **process**  
+2. Next, you choose the **target** folder/file/url to **compare** to  
+3. Later, you check **mode** in which you want to display images:
 
 - **Save**
 - **Show**
 
-In **save mode** you choose the folder in which your matches will be saved  
+4. In **save mode** you choose the folder in which your matches will be saved  
 To do that you have to provide a **path** in the **output dialog** box
 
 When a name should be the **same as in source**, provide the output path as a **folder**  
 When a name should be **specified**, provide the output path as a **file**
 
-In **show mode** there will be automatically displayed matched images  
+5. In **show mode** there will be automatically displayed matched images  
 To go to the next set of images press **"0"** key
 
-The **width** dialog is responsible for the size in which images will be rendered  
+6. The **width** dialog is responsible for the size in which images will be rendered  
 minimal value is **0**, maximal value is **1080** mainly for performance reasons
 
-The checkbox **Search by the ratio** enables searching similar images with different sizes but with the same ratio  
+7. The checkbox **Search by the ratio** enables searching similar images with different sizes but with the same ratio  
 sizes of **original** image compared to **target** image are from **0.5** to **4.0** times  
 any ratios of **target** images below or above this values are disregarded  
 Generally, it's not recommended to use this option due to image distortions
 
-The final step is to push the button **"Match images"**  
+8. The final step is to push the button **"Match images"**  
 Depending on a number of images to process results should appear fairly fast  
 Images are automatically **matched** on the degree of **similarity**  
 The **naming** of files does **not matter** in that case
