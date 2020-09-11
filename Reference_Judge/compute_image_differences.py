@@ -57,7 +57,7 @@ def compute_image_differences(similar_pair, by_ratio=False):
     computed_images = {
         "Source name": source_name,
         "Source": image_A,
-        "Modified": image_B,
+        "Target": image_B,
         "Difference RGB": diff_BGR,
         "Difference Structure": diff,
         "Thresh": thresh

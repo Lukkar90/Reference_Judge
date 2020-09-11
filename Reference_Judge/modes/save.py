@@ -72,7 +72,7 @@ def save_images_as_one(images, output_path, width, script_run_date):
     # Images to display
     source_name = images["Source name"]
     source = images["Source"]
-    target = images["Modified"]
+    target = images["Target"]
     diff_BGR = images["Difference RGB"]
     diff = images["Difference Structure"]
     thresh = images["Thresh"]
