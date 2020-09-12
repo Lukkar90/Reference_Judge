@@ -131,7 +131,7 @@ We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](doc
 
 ## License 📜
 
-This project is licensed under the MIT License - see the [**LICENSE.md**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/License.md) file for details
+This project is licensed under the MIT License - see the [**LICENSE.md**](docs/License.md) file for details
 
 ## Acknowledgments 👍
 
