@@ -94,7 +94,7 @@ def url_to_image(url):  # https://www.pyimagesearch.com/2015/03/02/convert-url-t
 
 
 def uri_validator(path):  # https://stackoverflow.com/a/38020041/12490791
-    """Check if web address is syntacly valid"""
+    """Check if web address is syntaxly valid"""
 
     try:
         result = urlparse(path)
