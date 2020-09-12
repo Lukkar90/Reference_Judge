@@ -44,6 +44,9 @@ from Reference_Judge.modes.save import save
 from Reference_Judge.modes.show import show
 from Reference_Judge.utils import check_ratio_argv
 
+from Reference_Judge.create_similar_images_list.helpers.get_similar_images_list import files_paths
+from UI.widgets import ScrolledTextBox
+
 
 def Reference_Judge(_argv):
     """Parsing sys.argv to invoke in chosen modes: save or show, or to get help"""
@@ -92,6 +95,18 @@ def Reference_Judge(_argv):
     elif mode in ARGV["show"]:
 
         show(width, similar_list, by_ratio, _argv)
+
+        # write down not founded refs
+        source_paths = files_paths(source_ref_path)
+
+        source_paths_matches = []
+        for item in similar_list:
+            source_paths_matches.append(item["source reference path"])
+
+        source_paths_no_matches = set(
+            source_paths).symmetric_difference(set(source_paths_matches))
+
+        ScrolledTextBox("List of not found matches", source_paths_no_matches)
 
     else:
         raise ValueError("Error: Invalid mode value\n"

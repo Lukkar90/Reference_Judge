@@ -7,6 +7,7 @@ except ImportError:
     import tkinter as tk
 import webbrowser
 import sys
+import tkinter.scrolledtext as tkSrcl
 
 # Internal libs
 from Reference_Judge.config.config import IMAGES_SIZES
@@ -180,3 +181,25 @@ To avoid too big distortions, accepted ratios between compared images are from {
         how_to_use_content = tk.Label(
             padding, text=f"{text}", justify="left")
         how_to_use_content.pack(pady=y_space)
+
+
+class ScrolledTextBox():
+    """This is box which show scrollable list of strings"""
+
+    def __init__(self, title, _list):
+        box = tk.Tk()
+
+        box.wm_title(title)
+
+        TextBox = tkSrcl.ScrolledText(
+            box, height='10', width='100', wrap=tk.WORD)
+
+        for count, item in enumerate(_list):
+
+            TextBox.insert(tk.END, f"{str(count).zfill(5)} {item}\n")
+
+            # Pushes the scrollbar and focus of text to the end of the text input.
+
+        TextBox.pack()
+
+        tk.mainloop()

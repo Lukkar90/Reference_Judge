@@ -571,6 +571,7 @@ class MainGUIApp():
         if mode == ARGV["show"][0]:
             messagebox.showinfo("NOTE!",
                                 'Press the "0" key, to close opened windows')
+
         try:
             summary = Reference_Judge(_argv)
         except SystemExit as error:

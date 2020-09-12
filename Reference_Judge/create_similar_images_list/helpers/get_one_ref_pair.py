@@ -80,6 +80,7 @@ def both_single_paths(source_reference, target_reference, source_name, by_ratio=
     if by_ratio:
 
         if SizesSimilarityImages(source, target).resizable_images:
+
             target = give_resized_image(source, target)
 
         else:
