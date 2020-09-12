@@ -123,7 +123,7 @@ Please read [**CONTRIBUTING.md**](https://github.com/Lukkar90/Reference_Judge/bl
 
 ## Versioning 🗓️
 
-We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/CHANGELOG.md)
+We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/CHANGELOG.md)
 
 ## Authors 🎈
 
