@@ -105,7 +105,7 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Built With 🧰
 
-- [**Required packages and python ver**](https://github.com/Lukkar90/Reference_Judge/blob/docs/Pipfile)
+- [**Required packages and Python ver**](https://github.com/Lukkar90/Reference_Judge/blob/docs/Pipfile)
 
 ## Needed documentation 📦
 
@@ -136,5 +136,5 @@ This project is licensed under the MIT License - see the [**LICENSE.md**](https:
 ## Acknowledgments 👍
 
 - _README-template.md, CONTRIBUTING-template.md_ by [**PurpleBooth**](https://gist.github.com/PurpleBooth)
-- [**CreateToolTip**](www.daniweb.com/programming/software-development/code/484591/a-tooltip-class-for-tkinter) by [**vegaseat**](https://www.daniweb.com/members/19440/vegaseat)
+- [**CreateToolTip**](https://www.daniweb.com/programming/software-development/code/484591/a-tooltip-class-for-tkinter) by [**vegaseat**](https://www.daniweb.com/members/19440/vegaseat)
 - [**main idea inspired by**](https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/) by [**Adrian Rosebrock**](https://www.pyimagesearch.com/contact/)

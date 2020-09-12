@@ -1,4 +1,4 @@
-# Usage
+# Usage 🖥
 
 python reference-judge.py &lt;source_reference_path&gt; &lt;target_reference_path&gt; <--mode> [directory matched images output] [width] [--search_by_ratio]
 
@@ -29,7 +29,7 @@ python reference-judge.py https/address.com/image.img https/address.com/image.im
 python reference-judge.py https/address.com/image.img path_dir --save path_dir [px] [-br]<br/>
 python reference-judge.py https/address.com/image.img path_dir --save path_file [px] [-br]<br/>
 python reference-judge.py path_file https/address.com/image.img --save path_dir [px] [-br]<br/>
-python reference-judge.py path_file https/address.com/image.img --save path_file [px] [-br] 
+python reference-judge.py path_file https/address.com/image.img --save path_file [px] [-br]
 
 ### show:
 
