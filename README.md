@@ -36,11 +36,11 @@ If you want to use the console: [**How to use console**](docs/How_to_use_console
    To go to the next set of images press **"0"** key
 
 6. The **width** dialog is responsible for the size in which images will be rendered  
-   minimal value is **0**, maximal value is **1080** mainly for performance reasons
+   minimal value is **0**, maximal value is **1080**, it's set mainly for performance reasons
 
-7. The checkbox **Search by the ratio** enables searching similar images with different sizes but with the same ratio  
+7. The checkbox **Search by the ratio** enables searching similar images with different sizes but only with the same ratio  
    sizes of **original** image compared to **target** image are from **0.5** to **4.0** times  
-   any ratios of **target** images below or above this values are disregarded  
+   any ratios of **target** images below or above these values are disregarded  
    Generally, it's not recommended to use this option due to image distortions
 
 8. The final step is to push the button **"Match images"**  
