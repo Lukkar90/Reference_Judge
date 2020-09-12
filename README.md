@@ -8,7 +8,7 @@ Similar images are matched automatically, to get the best result try to use imag
 ![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/how_program_works.png)
 
 ## Getting Started 💡
-    
+
 Find **Reference-Judge.exe** in the folder, or run through `python Reference_Judge` command line in the directory where the folder exists
 
 To run only UI version you don't have to provide any arguments, just press "enter"
@@ -19,33 +19,34 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 
 ![main window](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/main_window.png)
 
-1. Firstly, you choose the **source** folder/file/url to **process**  
-2. Next, you choose the **target** folder/file/url to **compare** to  
+1. Firstly, you choose the **source** folder/file/url to **process**
+2. Next, you choose the **target** folder/file/url to **compare** to
 3. Later, you check **mode** in which you want to display images:
 
 - **Save**
 - **Show**
 
 4. In **save mode** you choose the folder in which your matches will be saved  
-To do that you have to provide a **path** in the **output dialog** box  
-- When a name should be the **same as in source**, provide the output path as a **folder**   
+   To do that you have to provide a **path** in the **output dialog** box
+
+- When a name should be the **same as in source**, provide the output path as a **folder**
 - When a name should be **specified**, provide the output path as a **file**
 
 5. In **show mode** there will be automatically displayed matched images  
-To go to the next set of images press **"0"** key
+   To go to the next set of images press **"0"** key
 
 6. The **width** dialog is responsible for the size in which images will be rendered  
-minimal value is **0**, maximal value is **1080** mainly for performance reasons
+   minimal value is **0**, maximal value is **1080** mainly for performance reasons
 
 7. The checkbox **Search by the ratio** enables searching similar images with different sizes but with the same ratio  
-sizes of **original** image compared to **target** image are from **0.5** to **4.0** times  
-any ratios of **target** images below or above this values are disregarded  
-Generally, it's not recommended to use this option due to image distortions
+   sizes of **original** image compared to **target** image are from **0.5** to **4.0** times  
+   any ratios of **target** images below or above this values are disregarded  
+   Generally, it's not recommended to use this option due to image distortions
 
 8. The final step is to push the button **"Match images"**  
-Depending on a number of images to process results should appear fairly fast  
-Images are automatically **matched** on the degree of **similarity**  
-The **naming** of files does **not matter** in that case
+   Depending on a number of images to process results should appear fairly fast  
+   Images are automatically **matched** on the degree of **similarity**  
+   The **naming** of files does **not matter** in that case
 
 9. **Enjoy** the results!
 
@@ -54,16 +55,17 @@ The **naming** of files does **not matter** in that case
 ![errors](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/errors.png)
 
 1. If you use **"Save mode"**:  
-When **errors occur**, then it will be **created .txt** file where **errors** are **stored**  
-**.txt** file is **stored** in the selected folder **in output** folder  
-Each **.txt** file looks like: **ERROR-(date when the script ran)**:  
+   When **errors occur**, then it will be **created .txt** file where **errors** are **stored**  
+   **.txt** file is **stored** in the selected folder **in output** folder  
+   Each **.txt** file looks like: **ERROR-(date when the script ran)**:
 
 2. If you use **"Show mode"**:  
-You will only get pop-up notification about the quantity of **errors**  
+   You will only get pop-up notification about the quantity of **errors**
 
-### Type of **errors**:  
-- When there is no match for **source** image among **target** images  
-- When image **matched** is not saved  
+### Type of **errors**:
+
+- When there is no match for **source** image among **target** images
+- When image **matched** is not saved
 
 ## Setup 💾
 
@@ -73,6 +75,7 @@ The areas marked **in red** are **options** which can be **saved**, **load** def
 Default are stored in **"program/data/appData/"**
 
 To process defaults in menu "Setup" are following options:
+
 1. **Save as** save current setup into **.ini** file
 2. **Open** open setup **.ini** file
 3. **Save to defaults** save current setup as **defaults** (**load that** setup each time when **program starts**)
@@ -83,13 +86,15 @@ To process defaults in menu "Setup" are following options:
 
 ![logs menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/logs.png)
 
-In this place, you can choose if logs are saved or not
+In this place, you can choose if errors logs are saved or not
+Errors logs are saved in the matched files output directory
 
 ## Help ℹ️
 
 ![help menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/help.png)
 
 It consists of:
+
 - How to use
 - About (program)
 
