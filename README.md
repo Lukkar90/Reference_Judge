@@ -36,7 +36,7 @@ If you want to use the console: [**How to use console**](docs/How_to_use_console
    To go to the next set of images press **"0"** key
 
 6. The **width** dialog is responsible for the size in which images will be rendered  
-   minimal value is **0**, maximal value is **1080**, it's set mainly for performance reasons
+   minimal value is **1**, maximal value is **1080**, it's set mainly for performance reasons
 
 7. The checkbox **Search by the ratio** enables searching similar images with different sizes but only with the same ratio  
    sizes of **original** image compared to **target** image are from **0.5** to **4.0** times  
@@ -74,7 +74,7 @@ If you want to use the console: [**How to use console**](docs/How_to_use_console
 The areas marked **in red** are **options** which can be **saved**, **loaded** as setup files  
 Setups are stored in **"program/data/appData/"**
 
-To process setups in menu **"Setup"** are located following options:
+To process setups, in menu **"Setup"** are located following options:
 
 1. **Save as**, save current setup into **.ini** file
 2. **Open**, open setup **.ini** file
@@ -86,7 +86,7 @@ To process setups in menu **"Setup"** are located following options:
 
 ![logs menu](docs/images/logs.png)
 
-In this place, you can choose if errors logs are saved or not
+In this place, you can choose if errors logs are saved or not  
 Errors logs are saved in the matched files output directory
 
 ## Help ℹ️
