@@ -2,7 +2,7 @@
 
 <div align="center">
 </br>This program shows visual differences between chosen images.  
-Similar images are matched automatically, to get the best result try to use images with the same sizes</br>
+Similar images are matched automatically, to get the best result try to match images with the same sizes</br>
 </div>
 
 ![how_program_works](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/how_program_works.png)
@@ -57,7 +57,7 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 1. If you use **"Save mode"**:  
    When **errors occur**, then it will be **created .txt** file where **errors** are **stored**  
    **.txt** file is **stored** in the selected folder **in output** folder  
-   Each **.txt** file looks like: **ERROR-(date when the script ran)**:
+   Each **.txt** file looks like: **ERROR-(date when the script ran).txt**:
 
 2. If you use **"Show mode"**:  
    You will only get pop-up notification about the quantity of **errors**
@@ -65,16 +65,16 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 ### Type of **errors**:
 
 - When there is no match for **source** image among **target** images
-- When image **matched** is not saved
+- When **matched** images are not saved
 
 ## Setup 💾
 
 ![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/setup.png)
 
-The areas marked **in red** are **options** which can be **saved**, **load** defaults settings  
+The areas marked **in red** are **options** which can be **saved**, **loaded** in settings file  
 Default are stored in **"program/data/appData/"**
 
-To process defaults in menu "Setup" are following options:
+To process defaults in menu **"Setup"** are following options:
 
 1. **Save as** save current setup into **.ini** file
 2. **Open** open setup **.ini** file
