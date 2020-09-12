@@ -6,7 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-matplotlib = "==3.2.1"
 numpy = "==1.18.5"
 imutils = "==0.5.3"
 opencv-python = "==4.2.0.34"
