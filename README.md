@@ -60,7 +60,9 @@ If you want to use the console: [**How to use console**](docs/How_to_use_console
    Each **.txt** file looks like: **ERROR-(date when the script ran).txt**:
 
 2. If you use **"Show mode"**:  
-   You will only get pop-up notification about the quantity of **errors**
+   When **errors occur**, then pop-up window with listed **"not found"** matches will appear
+
+For both modes you will get pop-up notification about the quantity of **errors**
 
 ### Type of **errors**:
 
