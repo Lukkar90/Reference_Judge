@@ -90,7 +90,7 @@ To process setups, in menu **"Setup"** are located following options:
 
 In this menu, you can choose if **errors logs** appear or not  
 In **Save mode** errors logs are saved in output directory  
-In **Show mode** errors logs are in pop-up box
+In **Show mode** errors logs are shown in pop-up box
 
 ## Help ℹ️
 
