@@ -5,7 +5,7 @@
 Similar images are matched automatically, to get the best result try to match images with the same sizes</br>
 </div>
 
-![how_program_works](docs/images/how_program_works.png)
+![how_program_works](docs/docs/images/how_program_works.png)
 
 ## Getting Started 💡
 
