@@ -1,5 +1,5 @@
-opencv_python==4.2.0.34
-scikit_image==0.17.2
 numpy==1.18.5
 imutils==0.5.3
+opencv_python==4.2.0.34
 skimage==0.0
+scikit_image==0.17.2
