@@ -13,11 +13,11 @@ Find **Reference-Judge.exe** in the folder, or run through `python Reference_Jud
 
 To run only UI version you don't have to provide any arguments, just press "enter"
 
-If you want to use the console: [**How to use console**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/How_to_use_console.md)
+If you want to use the console: [**How to use console**](docs/How_to_use_console.md)
 
 ## Using UI version 👀
 
-![main window](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/main_window.png)
+![main window](docs/images/main_window.png)
 
 1. Firstly, you choose the **source** folder/file/url to **process**
 2. Next, you choose the **target** folder/file/url to **compare** to
@@ -52,7 +52,7 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 
 ## Errors ⚠️
 
-![errors](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/errors.png)
+![errors](docs/images/errors.png)
 
 1. If you use **"Save mode"**:  
    When **errors occur**, then it will be **created .txt** file where **errors** are **stored**  
@@ -69,7 +69,7 @@ If you want to use the console: [**How to use console**](https://github.com/Lukk
 
 ## Setup 💾
 
-![setup menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/setup.png)
+![setup menu](docs/images/setup.png)
 
 The areas marked **in red** are **options** which can be **saved**, **loaded** as setup files  
 Setups are stored in **"program/data/appData/"**
@@ -84,14 +84,14 @@ To process setups in menu **"Setup"** are located following options:
 
 ## Logs 📜
 
-![logs menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/logs.png)
+![logs menu](docs/images/logs.png)
 
 In this place, you can choose if errors logs are saved or not
 Errors logs are saved in the matched files output directory
 
 ## Help ℹ️
 
-![help menu](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/help.png)
+![help menu](docs/images/help.png)
 
 It consists of:
 
@@ -105,7 +105,7 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Built With 🧰
 
-- [**Required packages and Python ver**](https://github.com/Lukkar90/Reference_Judge/blob/docs/Pipfile)
+- [**Required packages and Python ver**](Pipfile)
 
 ## Needed documentation 📦
 
@@ -115,15 +115,15 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Structure of the code 🧭
 
-[**Flow diagram**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/simpified_model_of_program.png)
+[**Flow diagram**](docs/images/simpified_model_of_program.png)
 
 ## Contributing 📬
 
-Please read [**CONTRIBUTING.md**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us
+Please read [**CONTRIBUTING.md**](docs/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us
 
 ## Versioning 🗓️
 
-We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/CHANGELOG.md)
+We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](docs/CHANGELOG.md)
 
 ## Authors 🎈
 
