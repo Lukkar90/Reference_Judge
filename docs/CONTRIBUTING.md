@@ -92,4 +92,4 @@ available at [http://contributor-covenant.org/version/1/4][version]
 [homepage]: http://contributor-covenant.org
 [version]: http://contributor-covenant.org/version/1/4/
 [read]: https://github.com/Lukkar90/Reference_Judge/blob/docs/README.md
-[diagram]: https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/simpified_model_of_program.png
+[diagram]: https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/simpified_model_of_program.png

@@ -115,7 +115,7 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Structure of the code 🧭
 
-[**Flow diagram**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/images/simpified_model_of_program.png)
+[**Flow diagram**](https://github.com/Lukkar90/Reference_Judge/blob/docs/docs/images/simpified_model_of_program.png)
 
 ## Contributing 📬
 
