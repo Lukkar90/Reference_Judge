@@ -88,7 +88,7 @@ To process setups, in menu **"Setup"** are located following options:
 
 ![logs menu](docs/images/logs.png)
 
-In this menu, you can choose if errors logs appear or not  
+In this menu, you can choose if **errors logs** appear or not  
 In **Save mode** errors logs are saved in the matched files output directory  
 In **Show mode** errors logs are in pop-up box
 
