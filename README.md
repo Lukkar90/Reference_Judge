@@ -95,8 +95,8 @@ Errors logs are saved in the matched files output directory
 
 It consists of:
 
-- How to use
-- About (program)
+- How to use program
+- About (program and it's creator)
 
 ## Running the tests 🧪
 
@@ -105,17 +105,17 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Built With 🧰
 
-- [**Required packages and python ver**](https://github.com/Lukkar90/Pipfile.lock/)
+- [**Required packages and python ver**](https://github.com/Lukkar90/Reference_Judge/blob/docs/Pipfile)
 
 ## Needed documentation 📦
 
 - [**OpenCV**](https://opencv.org)
 - [**Scikit-image**](https://scikit-image.org/)
-- [**Matplotlib**](https://matplotlib.org/)
+- [**NumPy**](https://numpy.org/)
 
 ## Structure of the code 🧭
 
-[Flow diagram](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/simpified_model_of_program.png)
+[**Flow diagram**](https://github.com/Lukkar90/Reference_Judge/blob/master/docs/simpified_model_of_program.png)
 
 ## Contributing 📬
 
