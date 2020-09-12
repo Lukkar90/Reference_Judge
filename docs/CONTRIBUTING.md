@@ -91,5 +91,5 @@ available at [http://contributor-covenant.org/version/1/4][version]
 
 [homepage]: http://contributor-covenant.org
 [version]: http://contributor-covenant.org/version/1/4/
-[read]: docs/README.md
+[read]: README.md
 [diagram]: docs/images/simpified_model_of_program.png
