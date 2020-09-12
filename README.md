@@ -60,7 +60,7 @@ If you want to use the console: [**How to use console**](docs/How_to_use_console
    Each **.txt** file looks like: **ERROR-(date when the script ran).txt**:
 
 2. If you use **"Show mode"**:  
-   When **errors occur**, then pop-up window with listed **"not found"** matches will appear
+   When **errors occur**, then pop-up window with listed **"not found"** files matches will appear
 
 For both modes you will get pop-up notification about the quantity of **errors**
 
@@ -88,8 +88,9 @@ To process setups, in menu **"Setup"** are located following options:
 
 ![logs menu](docs/images/logs.png)
 
-In this place, you can choose if errors logs are saved or not  
-Errors logs are saved in the matched files output directory
+In this place, you can choose if errors logs are appear or not  
+In **Save mode** errors logs are saved in the matched files output directory  
+In **Show mode** errors logs are in pop-up box
 
 ## Help ℹ️
 
