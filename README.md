@@ -110,10 +110,10 @@ Inside you can change:
 
 - read image **types** (e.g .png)
 - **ARGVs** names
-- sizes of **images properties**
+- **images properties**
 - or in what **conditions** matches images are **found**
 
-Python is the only language used in the project so for convenience to keep types config is .py
+Python is the only language used in the project, so for convenience to keep types right, config is just .py
 
 ## Running the tests 🧪
 
