@@ -101,6 +101,20 @@ It consists of:
 - How to use program
 - About (program and it's creator)
 
+## Program config 🕹️
+
+In `./Reference_Judge/config/config.py` you will find constants  
+used through the whole program
+
+Inside you can change:
+
+- read image **types** (e.g .png)
+- **ARGVs** names
+- sizes of **images properties**
+- or in what **conditions** matches are **found**
+
+Python is an only language used in the project so for convenience to keep types right it's .py
+
 ## Running the tests 🧪
 
 To run tests, write down in the terminal, in the program folder:
