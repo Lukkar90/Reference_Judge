@@ -1,7 +1,7 @@
 """Place to hold program's global const"""
 
-
-LEGAL_EXTENSIONS = tuple(".png")
+# https://stackoverflow.com/questions/22812785/use-endswith-with-multiple-extensions
+LEGAL_EXTENSIONS = tuple(".png")  # must be tuple to provide multiply extensions
 
 ARGV = {
     "search by ratio": ["--search_by_ratio", "-br"],
