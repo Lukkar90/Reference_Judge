@@ -111,7 +111,7 @@ class About():
         license_link = tk.Label(padding, text="license link",
                                 fg="blue", cursor="hand2")
         license_link.bind("<Button-1>", lambda e: self.callback(
-            "https://github.com/Lukkar90/Reference_Judge/docs/LICENSE"))
+            "https://github.com/Lukkar90/Reference_Judge/blob/master/docs/LICENSE"))
         license_link.pack(anchor=justify)
 
         # Project type
@@ -131,7 +131,7 @@ class About():
         contribute_link = tk.Label(
             padding, text="Contribute link", fg="blue", cursor="hand2")
         contribute_link.bind("<Button-1>", lambda e: self.callback(
-            "https://github.com/Lukkar90/Reference_Judge/docs/CONTRIBUTING.md"))
+            "https://github.com/Lukkar90/Reference_Judge/blob/master/docs/CONTRIBUTING.md"))
         contribute_link.pack(anchor=justify)
 
         # Contact
