@@ -8,6 +8,7 @@ dist
 # untracked code
 __main__.spec
 __main__.exe
+Reference_Judge.exe
 test.py
 test_module.py
 # testing commands
