@@ -14,7 +14,7 @@ from cv2 import destroyAllWindows
 
 # internal libs
 from UI.widgets import CreateToolTip, About, HowUse
-from Reference_Judge.config.config import IMAGES_SIZES, ARGV
+from Reference_Judge.config.config import IMAGES_SIZES, ARGV, set_app_path
 from Reference_Judge.config.logger import Logger
 from Reference_Judge.help import help_tip
 from Reference_Judge.Reference_Judge import Reference_Judge
@@ -30,12 +30,14 @@ class MainGUIApp():
 
         master = tk.Tk()
 
-        master.title(sys.argv[0])
+        self.program_name = "Reference-Judge"
+
+        master.title(self.program_name)
         window_width = 618
         window_height = 576
         master.geometry(f"{window_width}x{window_height}")
         master.iconbitmap(
-            f"{sys.argv[0]}/UI/images/app.ico")
+            f"{set_app_path()}UI/images/app.ico")
 
         # Create frames
         frame_matching = tk.LabelFrame(master, padx=10, pady=15)
@@ -64,9 +66,9 @@ class MainGUIApp():
 
         # Images to buttons
         self.img_open_folder = tk.PhotoImage(
-            file=f"{sys.argv[0]}/UI/images/open_folder.gif")
+            file=f"{set_app_path()}UI/images/open_folder.gif")
         self.img_open_file = tk.PhotoImage(
-            file=f"{sys.argv[0]}/UI/images/open_file.gif")
+            file=f"{set_app_path()}UI/images/open_file.gif")
 
         # Source buttons for path
         self.source_btn_folder = self.create_path_btn(
@@ -187,7 +189,7 @@ class MainGUIApp():
                             stick="we", padx=(10, 10))
 
         # populate dialogs with default values
-        self.defaults_path = f"{sys.argv[0]}\\data\\appData\\_DEFAULT.ini"
+        self.defaults_path = f"{set_app_path()}data\\appData\\_DEFAULT.ini"
 
         try:
             self.setup_reset_to_defaults(show_message=False)
@@ -239,7 +241,7 @@ class MainGUIApp():
 
         setup_file = filedialog.askopenfilename(
             initialdir=self.defaults_path,
-            title="Save setup file",
+            title="Open setup file",
             filetypes=[("Setup files", "*.ini")]
         )
 
@@ -537,7 +539,7 @@ class MainGUIApp():
 
         _argv = list()
 
-        program_name = sys.argv[0]
+        program_name = self.program_name
         _argv.append(program_name)
 
         source = self.source_entry.get()
