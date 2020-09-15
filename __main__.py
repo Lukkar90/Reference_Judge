@@ -36,4 +36,9 @@ import sys
 from manage import execute_from_command_line
 
 if __name__ == "__main__":
-    execute_from_command_line(sys.argv)
+    try:
+        execute_from_command_line(sys.argv)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        input("Program crashed; press Enter to exit")
