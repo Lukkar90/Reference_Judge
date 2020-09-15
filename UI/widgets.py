@@ -10,7 +10,7 @@ import sys
 import tkinter.scrolledtext as tkSrcl
 
 # Internal libs
-from Reference_Judge.config.config import IMAGES_SIZES
+from Reference_Judge.config.config import IMAGES_SIZES, set_app_path
 
 # tk_ToolTip_class101.py
 # gives a Tkinter widget a tooltip as the mouse is above the widget
@@ -82,7 +82,7 @@ class About():
         about = tk.Toplevel()
         about.title("About")
         about.iconbitmap(
-            f"{sys.argv[0]}/UI/images/info.ico")
+            f"{set_app_path()}UI/images/info.ico")
 
         # main window
         pad_value = 20
@@ -153,7 +153,7 @@ class HowUse():
         how_use = tk.Toplevel()
         how_use.title("How to use")
         how_use.iconbitmap(
-            f"{sys.argv[0]}/UI/images/info.ico")
+            f"{set_app_path()}UI/images/info.ico")
 
         # main window
         pad_value = 20
