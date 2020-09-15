@@ -169,8 +169,8 @@ test_paths = {
     "source file": "screen002.png",
     "target file": "screen002.png",
     # todo http on github
-    "http source": "https://pyimagesearch.com/wp-content/uploads/2015/01/opencv_logo.png",
-    "http target": "https://3.bp.blogspot.com/-idDNlSH6Sas/U8_gCraGJZI/AAAAAAAAAt4/6xAk4-AuE68/s1600/opencv_logo_with_text.png",
+    "http source": "https://raw.githubusercontent.com/Lukkar90/Reference_Judge/master/data/images/http/screen003.png",
+    "http target": "https://raw.githubusercontent.com/Lukkar90/Reference_Judge/master/data/images/http/screen003_other.png",
     "source file http": "screen003.png",
     "target file http": "screen003.png",
     "by ratio": ARGV["search by ratio"][0],
