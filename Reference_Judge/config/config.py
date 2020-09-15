@@ -1,7 +1,14 @@
 """Place to hold program's global const"""
 
+
+# Python
+import os
+import sys
+
+
 # https://stackoverflow.com/questions/22812785/use-endswith-with-multiple-extensions
-LEGAL_EXTENSIONS = tuple(".png")  # must be tuple to provide multiply extensions
+# must be tuple to provide multiply extensions
+LEGAL_EXTENSIONS = tuple(".png")
 
 ARGV = {
     "search by ratio": ["--search_by_ratio", "-br"],
@@ -20,5 +27,17 @@ IMAGES_SIZES = {
 
 SIMILARITY = {
     "enough": 0.95,  # SSMI value in calculating resemblance, 1 is Max
-    "not enough": 0.10  # Why so low? Well... this is the lowest value in which matching makes any sense
+    # Why so low? Well... this is the lowest value in which matching makes any sense
+    "not enough": 0.10
 }
+
+
+def set_app_path():
+    if getattr(sys, 'frozen', False):
+        application_path = ""  # relative ./
+    elif __file__:
+        application_path = f"{sys.argv[0]}/"
+    else:
+        raise IOError("no path")
+
+    return application_path
