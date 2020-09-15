@@ -9,11 +9,15 @@ Similar images are matched automatically, to get the best result try to match im
 
 ## Getting Started 💡
 
-Find **Reference-Judge.exe** in the folder, or run through `python Reference_Judge` command line in the directory where the folder exists
+Run `python Reference_Judge` command line in the directory where the folder exists
 
 To run only UI version you don't have to provide any arguments, just press "enter"
 
 If you want to use the console: [**How to use console**](docs/How_to_use_console.md)
+
+exe version of a program is here: [link]
+
+You can also create your own executable: [link](https://www.youtube.com/watch?v=UZX5kH72Yx4)
 
 ## Using UI version 👀
 
