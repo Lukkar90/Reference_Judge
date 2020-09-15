@@ -3,7 +3,11 @@ __pycache__/
 data/images/output/*
 data/appData/*
 .vscode/
+build
+dist
 # untracked code
+__main__.spec
+__main__.exe
 test.py
 test_module.py
 # testing commands
