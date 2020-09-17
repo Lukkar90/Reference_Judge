@@ -15,7 +15,7 @@ To run only UI version you don't have to provide any arguments, just press "ente
 
 If you want to use the console: [**How to use console**](docs/How_to_use_console.md)
 
-exe version of a program is here: [link](https://gofile.io/d/DlYQ0I)
+standalone exe version of a program is here: [link](https://gofile.io/d/DlYQ0I)
 
 You can also create your own executable: [link](https://www.youtube.com/watch?v=UZX5kH72Yx4)
 
@@ -127,6 +127,11 @@ To run tests, write down in the terminal, in the program folder:
 ## Built With 🧰
 
 - [**Required packages and Python ver**](Pipfile)
+   [How to use pipenv(virtual machine)](https://pipenv-fork.readthedocs.io/en/latest/basics.html)
+
+- [**Install packages on your computer**](requirements.txt)
+   [How to use pip](https://pip.pypa.io/en/latest/user_guide/#requirements-files)
+
 
 ## Needed documentation 📦
 
