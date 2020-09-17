@@ -126,11 +126,9 @@ To run tests, write down in the terminal, in the program folder:
 
 ## Built With 🧰
 
-- [**Required packages and Python ver**](Pipfile)
-   [How to use pipenv(virtual machine)](https://pipenv-fork.readthedocs.io/en/latest/basics.html)
+- [**Required packages and Python ver**](Pipfile) - [How to use pipenv (virtual machine)](https://pipenv-fork.readthedocs.io/en/latest/basics.html)
 
-- [**Install packages on your computer**](requirements.txt)
-   [How to use pip](https://pip.pypa.io/en/latest/user_guide/#requirements-files)
+- [**Install packages on your computer**](requirements.txt) - [How to use pip](https://pip.pypa.io/en/latest/user_guide/#requirements-files)
 
 
 ## Needed documentation 📦
