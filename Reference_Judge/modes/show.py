@@ -53,7 +53,7 @@ def show_images(width, images):
     diff = images["Difference Structure"]
     thresh = images["Thresh"]
 
-    # Show images
+    # Show images, please remember that dictionary is not ordered
     cv2.imshow("Source", source)
     cv2.imshow("Target", target)
     cv2.imshow("Difference RGB", diff_BGR)

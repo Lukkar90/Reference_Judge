@@ -83,7 +83,7 @@ def save_images_as_one(images, output_path, width, script_run_date):
     diff = cv2.cvtColor(diff, cv2.COLOR_GRAY2RGB)
     thresh = cv2.cvtColor(thresh, cv2.COLOR_GRAY2RGB)
 
-    # check if canvas is to small to add text
+    # check if canvas is too small to add text
     if is_bigger_than(100, source):
 
         source = add_text_to_image(source, "Source")
@@ -92,7 +92,7 @@ def save_images_as_one(images, output_path, width, script_run_date):
         diff = add_text_to_image(diff, "Difference Structure")
         thresh = add_text_to_image(thresh, "Thresh")
 
-    # Combining all images into one
+    # Combining all images into one NOTE: please remember that that dictionary is not ordered
     numpy_horizontal_concat = np.concatenate(
         [source, target, diff_BGR, diff, thresh], axis=1)
 
