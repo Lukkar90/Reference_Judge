@@ -1,5 +1,5 @@
 """
-This module return images differences between image source reference and target reference
+This module return images which show differences between image source and image target
 """
 
 
