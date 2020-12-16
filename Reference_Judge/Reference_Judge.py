@@ -1,14 +1,14 @@
 """
 NAME
 
-    Reference-Judge
+    Show_Images_Differences
 
 DESCRIPTION
 
     Showing visual differences between images
     ========================================
 
-    Reference-Judge is used for developers to show visual differences
+    Show_Images_Differences is used for developers to show visual differences
     between the app's particular screen and reference created by the app's designer.
 
     It aims to improve workflow for the programmer and also designer.

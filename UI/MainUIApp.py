@@ -30,7 +30,7 @@ class MainGUIApp():
 
         master = tk.Tk()
 
-        self.program_name = "Reference-Judge"
+        self.program_name = "Show_Images_Differences"
 
         master.title(self.program_name)
         window_width = 618

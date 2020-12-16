@@ -1,4 +1,4 @@
-<h1 align="center"> Reference-Judge </h1>
+<h1 align="center"> Show_Images_Differences </h1>
 
 <div align="center">
 </br>This program shows visual differences between chosen images.  
@@ -129,7 +129,6 @@ To run tests, write down in the terminal, in the program folder:
 - [**Required packages and Python ver**](Pipfile) - [How to use pipenv (virtual machine)](https://pipenv-fork.readthedocs.io/en/latest/basics.html)
 
 - [**Install packages on your computer**](requirements.txt) - [How to use pip](https://pip.pypa.io/en/latest/user_guide/#requirements-files)
-
 
 ## Needed documentation 📦
 

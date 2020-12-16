@@ -9,7 +9,7 @@ dist
 __main__.spec
 __main__.exe
 Reference_Judge.exe
-Reference-Judge.exe
+Show_Images_Differences.exe
 test.py
 test_module.py
 # testing commands
