@@ -53,8 +53,8 @@ class Logger():
 
         path = "Show_Images_Differences\\config\\logger.ini"
 
-        if program_name == "Show_Images_Differences":
-            append_path = "Show_Images_Differences\\"
+        if program_name != "__main__.py" and program_name != "tests.py":
+            append_path = f"{program_name}\\"
             path = append_path + path
 
         return path
