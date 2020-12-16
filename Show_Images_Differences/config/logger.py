@@ -7,7 +7,7 @@ import sys
 import os
 
 # internal libs
-from Reference_Judge.utils import read_config_file, get_output_dir
+from Show_Images_Differences.utils import read_config_file, get_output_dir
 
 
 class Logger():
@@ -18,7 +18,7 @@ class Logger():
         self.logger = read_config_file(self.logger_path)
 
     def set_saving_bool(self):
-        """SETTING logger state for saving any errors during running reference_judge module
+        """SETTING logger state for saving any errors during running Show_Images_Differences module
         in selected output folder"""
 
         value_start = self.logger.get("ERRORS", "save errors")
@@ -35,13 +35,13 @@ class Logger():
         return f"Succes!\nYour saving logs are set to:\n{value_to_save}"
 
     def load_saving_bool(self):
-        """LOADING logger state for saving any errors during running reference_judge module
+        """LOADING logger state for saving any errors during running Show_Images_Differences module
         in selected output folder"""
 
         return self.logger.getboolean("ERRORS", "save errors")
 
     def get_saving_value(self):
-        """GET logger state for saving any errors during running reference_judge module
+        """GET logger state for saving any errors during running Show_Images_Differences module
         in selected output folder"""
 
         return self.logger.get("ERRORS", "save errors")
@@ -51,10 +51,10 @@ class Logger():
 
         program_name = sys.argv[0]
 
-        path = "Reference_Judge\\config\\logger.ini"
+        path = "Show_Images_Differences\\config\\logger.ini"
 
-        if program_name == "Reference_Judge":
-            append_path = "Reference_Judge\\"
+        if program_name == "Show_Images_Differences":
+            append_path = "Show_Images_Differences\\"
             path = append_path + path
 
         return path

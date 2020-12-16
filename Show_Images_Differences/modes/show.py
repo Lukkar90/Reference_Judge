@@ -5,10 +5,10 @@
 import cv2
 
 # internal libs
-from Reference_Judge.compute_image_differences import compute_image_differences
+from Show_Images_Differences.compute_image_differences import compute_image_differences
 
 # same module
-from Reference_Judge.modes.utils import (
+from Show_Images_Differences.modes.utils import (
     check_correctness_optional_argvs,
     check_width_argv_exists,
     check_type_width,

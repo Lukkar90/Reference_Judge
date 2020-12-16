@@ -5,8 +5,8 @@
 from os import path
 
 # Internal libs
-from Reference_Judge.utils import uri_validator
-from Reference_Judge.create_similar_images_list.helpers.get_similar_images_list import files_paths
+from Show_Images_Differences.utils import uri_validator
+from Show_Images_Differences.create_similar_images_list.helpers.get_similar_images_list import files_paths
 from UI.widgets import ScrolledTextBox
 
 

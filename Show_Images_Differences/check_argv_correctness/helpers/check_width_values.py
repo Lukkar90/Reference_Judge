@@ -4,8 +4,8 @@
 import sys
 
 # internal libs
-from Reference_Judge.config.config import ARGV, IMAGES_SIZES
-from Reference_Judge.check_argv_correctness.helpers.errors import get_error_width_too_high, get_error_width_too_low
+from Show_Images_Differences.config.config import ARGV, IMAGES_SIZES
+from Show_Images_Differences.check_argv_correctness.helpers.errors import get_error_width_too_high, get_error_width_too_low
 
 
 def check_width_values(argv_):

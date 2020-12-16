@@ -7,7 +7,7 @@ Place to store all generic data for user about program help
 import sys
 
 # internal libs
-from Reference_Judge.config.config import ARGV
+from Show_Images_Differences.config.config import ARGV
 
 
 def help_command_line():

@@ -7,13 +7,13 @@ This module is responsible for checking if program arguments are correct
 import sys
 
 # internal libs
-from Reference_Judge.config.config import ARGV
-from Reference_Judge.help import help_command_line, help_tip
+from Show_Images_Differences.config.config import ARGV
+from Show_Images_Differences.help import help_command_line, help_tip
 
 # same lib
-from Reference_Judge.check_argv_correctness.helpers.check_mode import check_mode
-from Reference_Judge.check_argv_correctness.helpers.check_paths import check_paths
-from Reference_Judge.check_argv_correctness.helpers.check_width_values import check_width_values
+from Show_Images_Differences.check_argv_correctness.helpers.check_mode import check_mode
+from Show_Images_Differences.check_argv_correctness.helpers.check_paths import check_paths
+from Show_Images_Differences.check_argv_correctness.helpers.check_width_values import check_width_values
 
 
 def check_argv_correctness(argv_):

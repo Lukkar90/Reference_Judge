@@ -1,7 +1,7 @@
-"""list of errors in module Reference_Judge"""
+"""list of errors in module Show_Images_Differences app"""
 
 # internal libs
-from Reference_Judge.config.config import ARGV, IMAGES_SIZES
+from Show_Images_Differences.config.config import ARGV, IMAGES_SIZES
 
 ERRORS_MESSAGES = {
     "no file": "Error: File does not exists:",

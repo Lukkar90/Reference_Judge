@@ -2,7 +2,7 @@
 
 
 # Internal libs
-from Reference_Judge.Reference_Judge import Reference_Judge
+from Show_Images_Differences.Show_Images_Differences import Show_Images_Differences
 from UI.MainUIApp import MainGUIApp
 
 
@@ -12,4 +12,4 @@ def execute_from_command_line(_argv):
     if len(_argv) == 1:
         MainGUIApp()
     else:
-        Reference_Judge(_argv)
+        Show_Images_Differences(_argv)

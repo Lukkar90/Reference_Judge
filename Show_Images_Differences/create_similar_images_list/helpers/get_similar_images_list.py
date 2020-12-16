@@ -5,11 +5,11 @@
 import os
 
 # internal libs
-from Reference_Judge.config.config import LEGAL_EXTENSIONS
-from Reference_Judge.utils import error_check_path_is_empty_string
+from Show_Images_Differences.config.config import LEGAL_EXTENSIONS
+from Show_Images_Differences.utils import error_check_path_is_empty_string
 
 # same module
-from Reference_Judge.create_similar_images_list.helpers.utils import (
+from Show_Images_Differences.create_similar_images_list.helpers.utils import (
     find_most_similar_image,
     no_similar_images,
     ReferencePair,

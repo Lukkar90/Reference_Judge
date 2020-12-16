@@ -6,12 +6,12 @@ import sys
 from urllib import error, request
 
 # internal libs
-from Reference_Judge.config.config import LEGAL_EXTENSIONS, ARGV
-from Reference_Judge.help import help_tip
-from Reference_Judge.utils import dir_exists, error_check_path_is_empty_string, uri_validator
+from Show_Images_Differences.config.config import LEGAL_EXTENSIONS, ARGV
+from Show_Images_Differences.help import help_tip
+from Show_Images_Differences.utils import dir_exists, error_check_path_is_empty_string, uri_validator
 
 # same lib
-from Reference_Judge.check_argv_correctness.helpers.errors import (
+from Show_Images_Differences.check_argv_correctness.helpers.errors import (
     ERRORS_MESSAGES,
     get_error_directory_does_not_exists,
     get_error_no_images_in_dir,

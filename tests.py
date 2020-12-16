@@ -9,11 +9,11 @@ from io import StringIO
 
 import cv2
 
-from Reference_Judge.help import help_tip, help_command_line
-from Reference_Judge.config.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
-from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legal_images
-from Reference_Judge.Reference_Judge import Reference_Judge
-from Reference_Judge.check_argv_correctness.helpers.errors import (
+from Show_Images_Differences.help import help_tip, help_command_line
+from Show_Images_Differences.config.config import ARGV, LEGAL_EXTENSIONS, IMAGES_SIZES
+from Show_Images_Differences.check_argv_correctness.helpers.check_paths import count_legal_images
+from Show_Images_Differences.Show_Images_Differences import Show_Images_Differences
+from Show_Images_Differences.check_argv_correctness.helpers.errors import (
     ERRORS_MESSAGES,
     get_error_directory_does_not_exists,
     get_error_no_images_in_dir,
@@ -102,7 +102,7 @@ def test_save_mode(self, _argv, number_of_saved):
         make_folder_empty(self.output_dir)
 
     # run module
-    Reference_Judge(_argv)
+    Show_Images_Differences(_argv)
 
     # check conditions
     number_of_created_files = count_legal_images(self.output_dir)
@@ -128,7 +128,7 @@ def test_show_mode(self, _argv, number_of_showed):
 
     with Capturing() as output:
 
-        Reference_Judge(_argv)
+        Show_Images_Differences(_argv)
 
     output_occurrence = output.count(
         'NOTE: Press the "0" key, to close opened windows')
@@ -141,7 +141,7 @@ def test_FAIL_argv(self, _argv, error_message):
 
     with self.assertRaises(SystemExit) as cm:
         # run module
-        Reference_Judge(_argv)
+        Show_Images_Differences(_argv)
 
     self.assertEqual(cm.exception.code, error_message)
 
@@ -169,8 +169,8 @@ test_paths = {
     "source file": "screen002.png",
     "target file": "screen002.png",
     # todo http on github
-    "http source": "https://raw.githubusercontent.com/Lukkar90/Reference_Judge/master/data/images/http/screen003.png",
-    "http target": "https://raw.githubusercontent.com/Lukkar90/Reference_Judge/master/data/images/http/screen003_other.png",
+    "http source": "https://raw.githubusercontent.com/Luk-kar/Show_Images_Differences/master/data/images/http/screen003.png",
+    "http target": "https://raw.githubusercontent.com/Luk-kar/Show_Images_Differences/master/data/images/http/screen003_other.png",
     "source file http": "screen003.png",
     "target file http": "screen003.png",
     "by ratio": ARGV["search by ratio"][0],

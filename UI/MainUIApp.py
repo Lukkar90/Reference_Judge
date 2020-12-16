@@ -1,4 +1,4 @@
-"""GUI to comunicate with Reference_Judge module"""
+"""GUI to comunicate with Show_Images_Differences module"""
 
 
 # Python libs
@@ -14,11 +14,11 @@ from cv2 import destroyAllWindows
 
 # internal libs
 from UI.widgets import CreateToolTip, About, HowUse
-from Reference_Judge.config.config import IMAGES_SIZES, ARGV, set_app_path
-from Reference_Judge.config.logger import Logger
-from Reference_Judge.help import help_tip
-from Reference_Judge.Reference_Judge import Reference_Judge
-from Reference_Judge.utils import read_config_file
+from Show_Images_Differences.config.config import IMAGES_SIZES, ARGV, set_app_path
+from Show_Images_Differences.config.logger import Logger
+from Show_Images_Differences.help import help_tip
+from Show_Images_Differences.Show_Images_Differences import Show_Images_Differences
+from Show_Images_Differences.utils import read_config_file
 
 # same module
 from UI.open_folder import open_folder
@@ -575,7 +575,7 @@ class MainGUIApp():
                                 'Press the "0" key, to close opened windows')
 
         try:
-            summary = Reference_Judge(_argv)
+            summary = Show_Images_Differences(_argv)
         except SystemExit as error:
             error_cleaned = str(error).replace(help_tip(), '')
             messagebox.showwarning(window_name, error_cleaned)

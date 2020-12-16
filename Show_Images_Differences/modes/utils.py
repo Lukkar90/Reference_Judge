@@ -2,8 +2,8 @@
 
 
 # internal libs
-from Reference_Judge.config.config import ARGV
-from Reference_Judge.utils import resize_with_with_aspect_ratio
+from Show_Images_Differences.config.config import ARGV
+from Show_Images_Differences.utils import resize_with_with_aspect_ratio
 
 
 def check_correctness_optional_argvs(argv_, cap_len_argv):

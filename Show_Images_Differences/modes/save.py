@@ -10,12 +10,12 @@ import cv2
 import numpy as np
 
 # internal libs
-from Reference_Judge.add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
-from Reference_Judge.compute_image_differences import compute_image_differences
-from Reference_Judge.config.logger import Logger, write_in_log
+from Show_Images_Differences.add_text_to_image.add_text_to_image import add_text_to_image, is_bigger_than
+from Show_Images_Differences.compute_image_differences import compute_image_differences
+from Show_Images_Differences.config.logger import Logger, write_in_log
 
 # same module
-from Reference_Judge.modes.utils import (
+from Show_Images_Differences.modes.utils import (
     check_correctness_optional_argvs,
     check_type_width,
     check_width_argv_exists,

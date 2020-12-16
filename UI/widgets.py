@@ -10,7 +10,7 @@ import sys
 import tkinter.scrolledtext as tkSrcl
 
 # Internal libs
-from Reference_Judge.config.config import IMAGES_SIZES, set_app_path
+from Show_Images_Differences.config.config import IMAGES_SIZES, set_app_path
 
 # tk_ToolTip_class101.py
 # gives a Tkinter widget a tooltip as the mouse is above the widget
@@ -111,7 +111,7 @@ class About():
         license_link = tk.Label(padding, text="license link",
                                 fg="blue", cursor="hand2")
         license_link.bind("<Button-1>", lambda e: self.callback(
-            "https://github.com/Lukkar90/Reference_Judge/blob/master/docs/LICENSE"))
+            "https://github.com/Luk-kar/Show_Images_Differences/blob/master/docs/LICENSE"))
         license_link.pack(anchor=justify)
 
         # Project type
@@ -121,7 +121,7 @@ class About():
         project_link = tk.Label(padding, text="GitHub link",
                                 fg="blue", cursor="hand2")
         project_link.bind("<Button-1>", lambda e: self.callback(
-            "https://github.com/Lukkar90/Reference_Judge"))
+            "https://github.com/Luk-kar/Show_Images_Differences"))
         project_link.pack(anchor=justify)
 
         # How to contribute
@@ -131,7 +131,7 @@ class About():
         contribute_link = tk.Label(
             padding, text="Contribute link", fg="blue", cursor="hand2")
         contribute_link.bind("<Button-1>", lambda e: self.callback(
-            "https://github.com/Lukkar90/Reference_Judge/blob/master/docs/CONTRIBUTING.md"))
+            "https://github.com/Luk-kar/Show_Images_Differences/blob/master/docs/CONTRIBUTING.md"))
         contribute_link.pack(anchor=justify)
 
         # Contact

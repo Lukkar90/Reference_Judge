@@ -9,9 +9,9 @@ from cv2 import COLOR_BGR2GRAY, cvtColor, imread
 from skimage.metrics import structural_similarity as compare_images
 
 # internal libs
-from Reference_Judge.config.config import SIMILARITY
-from Reference_Judge.config.logger import Logger, write_in_log
-from Reference_Judge.utils import (
+from Show_Images_Differences.config.config import SIMILARITY
+from Show_Images_Differences.config.logger import Logger, write_in_log
+from Show_Images_Differences.utils import (
     give_resized_image,
     error_check_path_is_empty_string,
     SizesSimilarityImages,

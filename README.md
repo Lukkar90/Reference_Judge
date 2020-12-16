@@ -9,7 +9,7 @@ Similar images are matched automatically, to get the best result try to match im
 
 ## Getting Started 💡
 
-Run `python Reference_Judge` command line in the directory where the folder exists
+Run `python Show_Images_Differences` command line in the directory where the folder exists
 
 To run only UI version you don't have to provide any arguments, just press "enter"
 
@@ -107,7 +107,7 @@ It consists of:
 
 ## Program config 🕹️
 
-In `./Reference_Judge/config/config.py` you will find constants  
+In `./Show_Images_Differences/config/config.py` you will find constants  
 used through the whole program
 
 Inside you can change:
@@ -150,7 +150,7 @@ We use [**SemVer**](http://semver.org/) for versioning in [**CHANGELOG.md**](doc
 
 ## Authors 🎈
 
-- **Karol Łukaszczyk** - _Initial work_ - [**Lukkar**](https://github.com/Lukkar90)
+- **Karol Łukaszczyk** - _Initial work_ - [**Luk-kar**](https://github.com/Luk-kar)
 
 ## License 📜
 

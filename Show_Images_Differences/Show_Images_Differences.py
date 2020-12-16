@@ -36,19 +36,19 @@ from datetime import datetime
 from os import path
 
 # internal libs
-from Reference_Judge.check_argv_correctness.check_argv_correctness import check_argv_correctness
-from Reference_Judge.check_argv_correctness.helpers.check_paths import count_legal_images
-from Reference_Judge.config.config import ARGV, IMAGES_SIZES
-from Reference_Judge.config.logger import Logger
-from Reference_Judge.create_similar_images_list.create_similar_images_list import create_similar_images_list
-from Reference_Judge.help import help_detailed_usage, user_commanded_line_help
-from Reference_Judge.modes.save import save
-from Reference_Judge.modes.show import show
-from Reference_Judge.utils import check_ratio_argv
+from Show_Images_Differences.check_argv_correctness.check_argv_correctness import check_argv_correctness
+from Show_Images_Differences.check_argv_correctness.helpers.check_paths import count_legal_images
+from Show_Images_Differences.config.config import ARGV, IMAGES_SIZES
+from Show_Images_Differences.config.logger import Logger
+from Show_Images_Differences.create_similar_images_list.create_similar_images_list import create_similar_images_list
+from Show_Images_Differences.help import help_detailed_usage, user_commanded_line_help
+from Show_Images_Differences.modes.save import save
+from Show_Images_Differences.modes.show import show
+from Show_Images_Differences.utils import check_ratio_argv
 from UI.window_displaying_not_found_images import window_displaying_not_found_images
 
 
-def Reference_Judge(_argv):
+def Show_Images_Differences(_argv):
     """Parsing sys.argv to invoke in chosen modes: save or show, or to get help"""
 
     check_argv_correctness(_argv)
