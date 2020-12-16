@@ -32,7 +32,7 @@ class MainGUIApp():
 
         self.program_name = "Show_Images_Differences"
 
-        master.title(self.program_name)
+        master.title("Show Images Differences")
         window_width = 618
         window_height = 576
         master.geometry(f"{window_width}x{window_height}")

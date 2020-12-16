@@ -33,6 +33,7 @@ SIMILARITY = {
 
 
 def set_app_path():
+
     if getattr(sys, 'frozen', False):
         application_path = ""  # relative ./
     elif __file__:
