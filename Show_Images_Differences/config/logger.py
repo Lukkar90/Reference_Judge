@@ -53,11 +53,7 @@ class Logger():
 
         path = "Show_Images_Differences\\config\\logger.ini"
 
-        print(not program_name.endswith("__main__.exe"), program_name)
-        print(program_name != "tests.py")
-        print(program_name != "__main__.exe" and program_name != "tests.py")
-
-        if not program_name.endswith("__main__.exe") and program_name != "tests.py":
+        if not program_name.endswith(".exe") and program_name != "tests.py" and program_name != "__main__.py":
             append_path = f"{program_name}\\"
             path = append_path + path
 
