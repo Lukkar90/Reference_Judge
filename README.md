@@ -1,4 +1,4 @@
-<h1 align="center"> Show_Images_Differences </h1>
+<h1 align="center"> Show Images Differences </h1>
 
 <div align="center">
 </br>This program shows visual differences between chosen images.  
